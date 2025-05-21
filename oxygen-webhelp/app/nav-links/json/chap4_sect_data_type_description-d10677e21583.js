@@ -1,0 +1,1 @@
+oxy_webhelp_navlinks = {"chap4_sect_data_type_description-d10677e21583":{"topics":[{"title":"<span class=\"keyword\">数据类型转换<\/span>","href":"progr\/data_types_forms\/data_type_conv.html","attributes":{"data-id":"数据类型转换"},"menu":{"hasChildren":false},"tocID":"数据类型转换-d10677e21638","topics":[]}]}};

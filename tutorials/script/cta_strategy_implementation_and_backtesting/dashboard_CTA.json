@@ -1,0 +1,991 @@
+{
+    "id": 2639706427248074,
+    "name": "股票CTA策略【DolphinDB CEP 教程】",
+    "owner": "admin",
+    "data": {
+        "datasources": [
+            {
+                "id": "6074229977949044",
+                "name": "Signal",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "time": 12,
+                    "dea": 16,
+                    "diff": 16,
+                    "cci": 16,
+                    "buySignal": 16,
+                    "sellSignal": 16,
+                    "vol": 4
+                },
+                "deps": [
+                    "726222662687300"
+                ],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "res = table(1:0, `time`dea`diff`cci`buySignal`sellSignal, `TIMESTAMP`DOUBLE`DOUBLE`DOUBLE`DOUBLE`INT)\r\ninstanceId = {{策略实例}}\r\ncode = {{标的编号}}\r\ncode = format(code, \"000000\")\r\n// writeLog(\"test instanceId: \"+instanceId)\r\n// writeLog(\"test code: \"+code)\r\n// writeLog(\"test code type: \"+typestr(code))\r\ntry {\r\n    t1 = select time, dea, diff, cci from objByName(\"MacdAndCci\"+instanceId) where securityid = code\r\n    t2 = select Time, BS_Signal, direction from objByName(\"signalTb\"+instanceId) where securityid = code\r\n    t = select time, dea, diff, cci, iif(direction==1, diff, NULL) as buySignal, iif(direction==2, diff, NULL) as sellSignal from lj(t1, t2, `time)\r\n    t3 = select vol, time from objByName(\"Vol\"+instanceId) where securityid = code\r\n    res = select time, dea, diff, cci, buySignal, sellSignal, vol from aj(t, t3, `time)\r\n} catch(ex) {}\r\nres",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "413148785290966",
+                "name": "MACD_DEA",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "time": 12,
+                    "dea": 16
+                },
+                "deps": [],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "select time,dea from objByName(\"MacdAndCci1\") where securityid = `000063",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "8139881975626456",
+                "name": "CCI",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "time": 12,
+                    "cci": 16
+                },
+                "deps": [],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "select time,cci from objByName(\"MacdAndCci1\") where securityid = `000063",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "8485262062607758",
+                "name": "Sell信号",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "Sell": 16,
+                    "Time": 12
+                },
+                "deps": [],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "select BS_Signal as Sell,Time from objByName(\"signalTb1\") where securityid = `000063 and direction = 2",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "5828172436739606",
+                "name": "Buy信号",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "Buy": 16,
+                    "Time": 12
+                },
+                "deps": [],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "select BS_Signal as Buy, Time from objByName(\"signalTb1\") where securityid = `000063 and direction = 1",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "8548501939187778",
+                "name": "MACD_Diff",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "time": 12,
+                    "diff": 16
+                },
+                "deps": [],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "select time,diff from objByName(\"MacdAndCci1\") where securityid = `000063",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "635829093853800",
+                "name": "PnlTable",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "策略ID": 18,
+                    "当日回报(%)": 16,
+                    "CCI阈值": 18,
+                    "CCI时间窗口(s)": 4,
+                    "成交量阈值": 4,
+                    "成交量时间窗口(s)": 16
+                },
+                "deps": [
+                    "7521540687387538"
+                ],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "res = table(1:0, `Id`RetTodayOnPct`CCIThreshold`CCITimePeriod`VolumeThreshold`VolumeTimePeriod, `STRING`DOUBLE`STRING`INT`INT`INT)\r\ntry {\r\n    res = select Id , RetTodayOnPct, CCIThreshold, CCITimePeriod, VolumeThreshold, VolumeTimePeriod from objByName(\"PnLTable\") order by RetTodayOnPct desc\r\n} catch(ex) {}\r\nselect Id as \"策略ID\", RetTodayOnPct as \"当日回报(%)\", CCIThreshold as \"CCI阈值\", CCITimePeriod * 3 as \"CCI时间窗口(s)\", VolumeThreshold as \"成交量阈值\", VolumeTimePeriod * 0.001 as \"成交量时间窗口(s)\" from res",
+                "interval": 3,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "6046426292351342",
+                "name": "某参数下日末持仓情况",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "securityId": 18,
+                    "EndHoldingValue": 16
+                },
+                "deps": [
+                    "5892771021267930"
+                ],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "res = table(1:0, `securityId`EndHoldingValue, `STRING`DOUBLE)\r\ninstanceId={{策略实例}}\r\ntry {\r\n    res = select securityId,EndHoldingValue from objByName(\"endHoldingTable\"+instanceId)\r\n} catch(ex) {}\r\nres",
+                "interval": 3,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "6273778616243218",
+                "name": "成交量",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "vol": 4,
+                    "time": 12
+                },
+                "deps": [],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "select vol,time from objByName(\"Vol1\") where securityid = `000063",
+                "interval": 1,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            },
+            {
+                "id": "8679294136462358",
+                "name": "PnL",
+                "type": 6,
+                "mode": "sql",
+                "max_line": null,
+                "data": [],
+                "cols": [],
+                "type_map": {
+                    "Id": 18,
+                    "AccountChangeAmount": 16,
+                    "RetTodayOnPct": 16,
+                    "CCIThreshold": 18,
+                    "CCITimePeriod": 4,
+                    "VolumeThreshold": 4,
+                    "VolumeTimePeriod": 4
+                },
+                "deps": [
+                    "3708889609795468"
+                ],
+                "variables": [],
+                "error_message": "",
+                "ddb": null,
+                "auto_refresh": true,
+                "code": "res = table(1:0,`Id`AccountChangeAmount`RetTodayOnPct`CCIThreshold`CCITimePeriod`VolumeThreshold`VolumeTimePeriod,[STRING,DOUBLE,DOUBLE,STRING,INT,INT,INT])\r\ntry {\r\n    res = select * from objByName(\"PnLTable\") order by RetTodayOnPct desc\r\n} catch(ex) {}\r\nres",
+                "interval": 3,
+                "timer": null,
+                "filter": false,
+                "stream_table": "",
+                "filter_column": "",
+                "filter_expression": "",
+                "ip": ""
+            }
+        ],
+        "variables": [
+            {
+                "id": "1125320930609054",
+                "name": "标的编号",
+                "display_name": "标的编号",
+                "mode": "select",
+                "code": "stockPools = ['111111','222222','333333','444444','555555']\r\ntable(stockPools as tags, stockPools)\r\n",
+                "deps": [],
+                "value": "111111",
+                "options": [
+                    {
+                        "key": "7401126233825958",
+                        "label": "111111",
+                        "value": "111111"
+                    },
+                    {
+                        "key": "5532531676463544",
+                        "label": "222222",
+                        "value": "222222"
+                    },
+                    {
+                        "key": "3465331201172312",
+                        "label": "333333",
+                        "value": "333333"
+                    },
+                    {
+                        "key": "8209950338004128",
+                        "label": "444444",
+                        "value": "444444"
+                    },
+                    {
+                        "key": "6370346219941992",
+                        "label": "555555",
+                        "value": "555555"
+                    }
+                ],
+                "select_key": "7401126233825958"
+            },
+            {
+                "id": "2841211767692066",
+                "name": "策略实例",
+                "display_name": "参数编号",
+                "mode": "select",
+                "code": "tags = 1..32\r\nv = 1..32\r\ntable(tags, v)",
+                "deps": [],
+                "value": "5",
+                "options": [
+                    {
+                        "key": "5224638846814320",
+                        "label": "1",
+                        "value": "1"
+                    },
+                    {
+                        "key": "8659165266202878",
+                        "label": "2",
+                        "value": "2"
+                    },
+                    {
+                        "key": "6138965116044322",
+                        "label": "3",
+                        "value": "3"
+                    },
+                    {
+                        "key": "3943938714872062",
+                        "label": "4",
+                        "value": "4"
+                    },
+                    {
+                        "key": "6666054873263496",
+                        "label": "5",
+                        "value": "5"
+                    },
+                    {
+                        "key": "7819149104802442",
+                        "label": "6",
+                        "value": "6"
+                    },
+                    {
+                        "key": "1008893722930786",
+                        "label": "7",
+                        "value": "7"
+                    },
+                    {
+                        "key": "7203504175896802",
+                        "label": "8",
+                        "value": "8"
+                    },
+                    {
+                        "key": "8004173209249838",
+                        "label": "9",
+                        "value": "9"
+                    },
+                    {
+                        "key": "3874592279448264",
+                        "label": "10",
+                        "value": "10"
+                    },
+                    {
+                        "key": "2282954220956916",
+                        "label": "11",
+                        "value": "11"
+                    },
+                    {
+                        "key": "4234831674762294",
+                        "label": "12",
+                        "value": "12"
+                    },
+                    {
+                        "key": "5941789359324180",
+                        "label": "13",
+                        "value": "13"
+                    },
+                    {
+                        "key": "79809967171094",
+                        "label": "14",
+                        "value": "14"
+                    },
+                    {
+                        "key": "5922533353992948",
+                        "label": "15",
+                        "value": "15"
+                    },
+                    {
+                        "key": "6863743652801556",
+                        "label": "16",
+                        "value": "16"
+                    },
+                    {
+                        "key": "257974442744038",
+                        "label": "17",
+                        "value": "17"
+                    },
+                    {
+                        "key": "4219800753245778",
+                        "label": "18",
+                        "value": "18"
+                    },
+                    {
+                        "key": "3517188528091638",
+                        "label": "19",
+                        "value": "19"
+                    },
+                    {
+                        "key": "8389790166322600",
+                        "label": "20",
+                        "value": "20"
+                    },
+                    {
+                        "key": "7582497776935142",
+                        "label": "21",
+                        "value": "21"
+                    },
+                    {
+                        "key": "528672049933048",
+                        "label": "22",
+                        "value": "22"
+                    },
+                    {
+                        "key": "854462003644230",
+                        "label": "23",
+                        "value": "23"
+                    },
+                    {
+                        "key": "4534257739637080",
+                        "label": "24",
+                        "value": "24"
+                    },
+                    {
+                        "key": "3416604580991692",
+                        "label": "25",
+                        "value": "25"
+                    },
+                    {
+                        "key": "541864812394878",
+                        "label": "26",
+                        "value": "26"
+                    },
+                    {
+                        "key": "6446236795325992",
+                        "label": "27",
+                        "value": "27"
+                    },
+                    {
+                        "key": "7772424496866728",
+                        "label": "28",
+                        "value": "28"
+                    },
+                    {
+                        "key": "8815690493984608",
+                        "label": "29",
+                        "value": "29"
+                    },
+                    {
+                        "key": "4961315011084396",
+                        "label": "30",
+                        "value": "30"
+                    },
+                    {
+                        "key": "4596367295543198",
+                        "label": "31",
+                        "value": "31"
+                    },
+                    {
+                        "key": "5354302543360380",
+                        "label": "32",
+                        "value": "32"
+                    }
+                ],
+                "select_key": "6666054873263496"
+            }
+        ],
+        "canvas": {
+            "widgets": [
+                {
+                    "id": "3708889609795468",
+                    "w": 4,
+                    "h": 6,
+                    "x": 0,
+                    "y": 0,
+                    "type": "MIX",
+                    "source_id": [
+                        "8679294136462358"
+                    ],
+                    "config": {
+                        "title": "不同策略参数下日收益率表现",
+                        "title_size": 18,
+                        "padding": {
+                            "top": 12,
+                            "bottom": 12,
+                            "left": 12,
+                            "right": 12
+                        },
+                        "animation": true,
+                        "variable_cols": 3,
+                        "with_search_btn": false,
+                        "search_btn_label": "查询",
+                        "legend": {
+                            "show": true,
+                            "orient": "horizontal",
+                            "type": "plain",
+                            "top": "25",
+                            "bottom": null,
+                            "left": "center",
+                            "right": null,
+                            "textStyle": {
+                                "color": "#fff"
+                            },
+                            "itemHeight": 14
+                        },
+                        "tooltip": {
+                            "show": true
+                        },
+                        "splitLine": {
+                            "show": false,
+                            "lineStyle": {
+                                "color": "#6E6F7A",
+                                "width": 1,
+                                "type": "dashed"
+                            }
+                        },
+                        "x_datazoom": false,
+                        "y_datazoom": false,
+                        "xAxis": {
+                            "type": "category",
+                            "name": "策略id",
+                            "fontsize": 15,
+                            "col_name": "Id"
+                        },
+                        "yAxis": [
+                            {
+                                "type": "value",
+                                "name": "日收益率%",
+                                "fontsize": 15,
+                                "col_name": "Id",
+                                "with_zero": false,
+                                "position": "right",
+                                "offset": 30
+                            }
+                        ],
+                        "series": [
+                            {
+                                "col_name": "RetTodayOnPct",
+                                "name": "RetTodayOnPct",
+                                "type": "BAR",
+                                "color": "#b72a2a",
+                                "yAxisIndex": 0,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "mark_point": [
+                                    "max",
+                                    "min"
+                                ],
+                                "mark_line": [
+                                    "average"
+                                ],
+                                "symbol_size": 10,
+                                "symbol": "circle"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "5892771021267930",
+                    "w": 4,
+                    "h": 4,
+                    "x": 8,
+                    "y": 2,
+                    "type": "PIE",
+                    "source_id": [
+                        "6046426292351342"
+                    ],
+                    "config": {
+                        "title": "某策略参数下日末持仓情况",
+                        "title_size": 18,
+                        "padding": {
+                            "top": 0,
+                            "bottom": 0,
+                            "left": 12,
+                            "right": 12
+                        },
+                        "animation": true,
+                        "variable_cols": 3,
+                        "with_search_btn": false,
+                        "search_btn_label": "查询",
+                        "legend": {
+                            "show": false,
+                            "orient": "horizontal",
+                            "type": "plain",
+                            "top": "",
+                            "bottom": null,
+                            "left": "center",
+                            "right": null,
+                            "textStyle": {
+                                "color": "#fff"
+                            },
+                            "itemHeight": 14
+                        },
+                        "tooltip": {
+                            "show": true
+                        },
+                        "series": [
+                            {
+                                "col_name": "EndHoldingValue",
+                                "name": "securityId"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "7521540687387538",
+                    "w": 4,
+                    "h": 6,
+                    "x": 4,
+                    "y": 0,
+                    "type": "TABLE",
+                    "source_id": [
+                        "635829093853800"
+                    ],
+                    "config": {
+                        "title": "策略参数表",
+                        "title_size": 18,
+                        "padding": {
+                            "top": 12,
+                            "bottom": 30,
+                            "left": 12,
+                            "right": 12
+                        },
+                        "bordered": false,
+                        "need_select_cols": true,
+                        "is_reverse": false,
+                        "variable_cols": 3,
+                        "with_search_btn": false,
+                        "search_btn_label": "查询",
+                        "col_properties": [
+                            {
+                                "col": "策略ID",
+                                "show": true,
+                                "with_value_format": false,
+                                "font_size": 14,
+                                "is_thousandth_place": false,
+                                "align": "center",
+                                "sorter": false,
+                                "width": 70,
+                                "display_name": "参数编号"
+                            },
+                            {
+                                "col": "当日回报(%)",
+                                "show": true,
+                                "with_value_format": false,
+                                "font_size": 14,
+                                "is_thousandth_place": false,
+                                "align": "center",
+                                "sorter": true,
+                                "threshold": 0,
+                                "width": 100,
+                                "decimal_places": 4
+                            },
+                            {
+                                "col": "CCI阈值",
+                                "show": true,
+                                "with_value_format": false,
+                                "font_size": 14,
+                                "is_thousandth_place": false,
+                                "align": "center",
+                                "sorter": false,
+                                "width": 70
+                            },
+                            {
+                                "col": "CCI时间窗口(s)",
+                                "show": true,
+                                "with_value_format": false,
+                                "font_size": 14,
+                                "is_thousandth_place": false,
+                                "align": "center",
+                                "sorter": false,
+                                "width": 100
+                            },
+                            {
+                                "col": "成交量阈值",
+                                "show": true,
+                                "with_value_format": false,
+                                "font_size": 14,
+                                "is_thousandth_place": false,
+                                "align": "center",
+                                "sorter": false,
+                                "width": 90
+                            },
+                            {
+                                "col": "成交量时间窗口(s)",
+                                "show": true,
+                                "with_value_format": false,
+                                "font_size": 14,
+                                "is_thousandth_place": false,
+                                "align": "center",
+                                "sorter": false,
+                                "width": 130
+                            }
+                        ],
+                        "pagination": {
+                            "show": false
+                        }
+                    }
+                },
+                {
+                    "id": "726222662687300",
+                    "w": 12,
+                    "h": 6,
+                    "x": 0,
+                    "y": 6,
+                    "type": "COMPOSITE_GRAPH",
+                    "source_id": [
+                        "6074229977949044"
+                    ],
+                    "config": {
+                        "title": "某策略参数下某支股票的日内信号图",
+                        "title_size": 18,
+                        "padding": {
+                            "top": 12,
+                            "bottom": 12,
+                            "left": 12,
+                            "right": 12
+                        },
+                        "animation": false,
+                        "automatic_mode": false,
+                        "variable_cols": 3,
+                        "with_search_btn": false,
+                        "search_btn_label": "查询",
+                        "legend": {
+                            "show": true,
+                            "top": null,
+                            "bottom": null,
+                            "left": "center",
+                            "right": null,
+                            "textStyle": {
+                                "color": "#fff"
+                            },
+                            "itemHeight": 14
+                        },
+                        "tooltip": {
+                            "show": true
+                        },
+                        "splitLine": {
+                            "show": false,
+                            "lineStyle": {
+                                "color": "#6E6F7A",
+                                "width": 1,
+                                "type": "dashed"
+                            }
+                        },
+                        "x_datazoom": false,
+                        "y_datazoom": false,
+                        "xAxis": {
+                            "type": "category",
+                            "name": "时间",
+                            "fontsize": 12,
+                            "time_format": "YYYY-MM-DD HH:mm:ss.SSS"
+                        },
+                        "yAxis": [
+                            {
+                                "type": "value",
+                                "name": "成交量",
+                                "position": "right",
+                                "offset": 0,
+                                "fontsize": 12,
+                                "with_zero": false,
+                                "min": 0,
+                                "max": 500000
+                            },
+                            {
+                                "type": "value",
+                                "name": "MACD",
+                                "fontsize": 12,
+                                "with_zero": false,
+                                "position": "right",
+                                "offset": 60,
+                                "min": -0.06,
+                                "max": 0.09
+                            },
+                            {
+                                "type": "value",
+                                "name": "CCI",
+                                "fontsize": 12,
+                                "with_zero": false,
+                                "position": "left",
+                                "offset": 0,
+                                "max": 800,
+                                "min": -800
+                            }
+                        ],
+                        "series": [
+                            {
+                                "type": "BAR",
+                                "color": "#047886cc",
+                                "yAxisIndex": 0,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "time",
+                                "col_name": "vol",
+                                "name": "vol"
+                            },
+                            {
+                                "type": "SCATTER",
+                                "color": "#f30707f8",
+                                "yAxisIndex": 1,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "Time",
+                                "col_name": "Buy",
+                                "name": "Buy",
+                                "symbol_size": 20,
+                                "symbol": "pin"
+                            },
+                            {
+                                "type": "SCATTER",
+                                "color": "#09f12ff3",
+                                "yAxisIndex": 1,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "Time",
+                                "col_name": "Sell",
+                                "name": "Sell",
+                                "symbol_size": 20,
+                                "symbol": "pin"
+                            },
+                            {
+                                "type": "LINE",
+                                "color": "#f8075e",
+                                "yAxisIndex": 1,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "time",
+                                "col_name": "dea",
+                                "name": "dea",
+                                "line_width": 1.5
+                            },
+                            {
+                                "type": "LINE",
+                                "color": "#eae80c",
+                                "yAxisIndex": 1,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "time",
+                                "col_name": "diff",
+                                "name": "diff",
+                                "line_width": 1.5
+                            },
+                            {
+                                "type": "LINE",
+                                "color": "#703a8aa9",
+                                "yAxisIndex": 2,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "time",
+                                "col_name": "cci",
+                                "name": "cci",
+                                "line_width": 0.25
+                            },
+                            {
+                                "type": "SCATTER",
+                                "color": "#ff0202",
+                                "yAxisIndex": 1,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "time",
+                                "col_name": "buySignal",
+                                "name": "buySignal",
+                                "symbol_size": 30,
+                                "symbol": "pin"
+                            },
+                            {
+                                "type": "SCATTER",
+                                "color": "#05fc00",
+                                "yAxisIndex": 1,
+                                "line_type": "solid",
+                                "is_filled": false,
+                                "end_label": false,
+                                "data_source_id": "6074229977949044",
+                                "x_col_name": "time",
+                                "col_name": "sellSignal",
+                                "name": "sellSignal",
+                                "symbol_size": 30,
+                                "symbol": "pin"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "axis_type": 1,
+                                "type": 0,
+                                "show_type": 2,
+                                "values": [
+                                    {
+                                        "value": 50000
+                                    }
+                                ],
+                                "axis": 0,
+                                "line_type": "dashed",
+                                "line_width": 1
+                            },
+                            {
+                                "axis_type": 1,
+                                "type": 0,
+                                "show_type": 2,
+                                "values": [
+                                    {
+                                        "value": 100
+                                    },
+                                    {
+                                        "value": -100
+                                    }
+                                ],
+                                "axis": 2,
+                                "line_type": "dashed",
+                                "line_width": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "6230562998667538",
+                    "w": 3,
+                    "h": 2,
+                    "x": 8,
+                    "y": 0,
+                    "type": "VARIABLE",
+                    "config": {
+                        "title": "筛选器",
+                        "title_size": 16,
+                        "padding": {
+                            "top": 12,
+                            "bottom": 12,
+                            "left": 12,
+                            "right": 12
+                        },
+                        "variable_ids": [
+                            "2841211767692066",
+                            "1125320930609054"
+                        ],
+                        "variable_cols": 2,
+                        "with_search_btn": false,
+                        "search_btn_label": "查询"
+                    }
+                }
+            ]
+        }
+    },
+    "permission": 0
+}

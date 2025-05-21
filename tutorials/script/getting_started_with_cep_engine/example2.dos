@@ -1,0 +1,152 @@
+//  定义股票逐笔成交事件
+class StockTick {
+	securityid :: STRING 
+	time :: TIMESTAMP
+	price ::  DOUBLE
+	volume :: INT
+	def StockTick(securityid_, time_, price_, volume_) {
+		securityid = securityid_
+		time = time_
+		price = price_
+		volume = volume_
+	}
+}
+// 定义成交回报事件
+class ExecutionReport { 
+	orderid :: STRING 
+	securityid :: STRING 
+	price :: DOUBLE 
+	volume :: INT
+	def ExecutionReport(orderid_, securityid_, price_, volume_) {
+		orderid = orderid_
+		securityid = securityid_
+		price = price_
+		volume = volume_
+	}
+}
+// 定义下单事件
+class NewOrder { 
+	orderid :: STRING 
+	securityid :: STRING 
+	price :: DOUBLE 
+	volume :: INT
+	side :: INT
+	type :: INT
+	def NewOrder(orderid_, securityid_, price_, volume_, side_, type_) { 
+		orderid = orderid_
+		securityid = securityid_
+		price = price_
+		volume = volume_
+		side = side_
+		type = type_
+	}
+}
+// 定义撤单事件
+class CancelOrder { 
+	orderid :: STRING 
+	def CancelOrder(orderid_) {
+		orderid = orderid_
+	}
+}
+
+class StrategyMonitor { 
+	strategyid :: INT // 策略编号
+	strategyParams :: ANY // 策略参数：策略标的、标的参数配置	
+	dataview :: ANY // Data View 监控	
+	
+	def StrategyMonitor(strategyid_, strategyParams_) {
+		strategyid = strategyid_
+		strategyParams = strategyParams_
+	}
+
+	def execReportExceedTimeHandler(orderid, exceedTimeSecurityid){
+		emitEvent(CancelOrder(orderid)) // 发送撤单事件到外部
+		timeoutOrderNum = (exec timeoutOrderNum from self.dataview where securityid=exceedTimeSecurityid)[0] + 1
+		updateDataViewItems(engine=self.dataview, keys=exceedTimeSecurityid, valueNames=`timeoutOrderNum, newValues=timeoutOrderNum) // 更新data view
+	}
+
+	def execReportHandler(execReportEvent) {
+		executionAmount = (exec executionAmount from self.dataview where securityid=execReportEvent.securityid)[0] + execReportEvent.price*execReportEvent.volume
+		executionOrderNum = (exec executionOrderNum from self.dataview where securityid=execReportEvent.securityid)[0] + 1
+		updateDataViewItems(engine=self.dataview, keys=execReportEvent.securityid, valueNames=["executionAmount","executionOrderNum"], newValues=(executionAmount,executionOrderNum)) // 更新data view		
+	}
+	
+	def handleFactorCalOutput(factorResult){
+		factorSecurityid = factorResult.securityid[0]
+		ROC = factorResult.ROC[0]
+		volume = factorResult.volume[0]
+		lastPrice = factorResult.lastPrice[0] 
+		updateDataViewItems(engine=self.dataview, keys=factorSecurityid, valueNames=["ROC","volume"], newValues=(ROC,volume))
+		if (ROC>strategyParams[factorSecurityid][`ROCThreshold] && volume>strategyParams[factorSecurityid][`volumeThreshold]) {
+			orderid = self.strategyid+"_"+factorSecurityid+"_"+long(now())
+			newOrder = NewOrder(orderid , factorSecurityid, lastPrice*0.98, 100, 'B', 0) // 构造下单事件，按低于最新成交价的2%买入一手
+			emitEvent(newOrder) // 发送下单事件到外部
+			newOrderNum = (exec newOrderNum from self.dataview where securityid=factorSecurityid)[0] + 1
+			newOrderAmount = (exec newOrderAmount from self.dataview where securityid=factorSecurityid)[0] + lastPrice*0.98*10
+			updateDataViewItems(engine=self.dataview, keys=factorSecurityid, valueNames= ["newOrderNum", "newOrderAmount"], newValues=(newOrderNum, newOrderAmount)) // 更新data view			
+			addEventListener(handler=self.execReportExceedTimeHandler{orderid, factorSecurityid}, eventType="ExecutionReport", condition=<ExecutionReport.orderid=orderid>, times=1, exceedTime=60s) // 启动成交回报计时器
+			addEventListener(handler=execReportHandler, eventType="ExecutionReport", condition=<ExecutionReport.orderid=orderid>, times="all") // 启动成交回报监听
+		}
+	}
+
+	def tickHandler(tickEvent){
+		factorCalEngine = getStreamEngine(`factorCal)
+		insert into factorCalEngine values([tickEvent.securityid, tickEvent.time, tickEvent.price, tickEvent.volume])
+	}
+
+	def initDataView(){
+		// 创建 data view，监控策略执行状态
+		share(streamTable(1:0, `securityid`strategyid`ROCThreshold`volumeThreshold`ROC`volume`newOrderNum`newOrderAmount`executionOrderNum`executionAmount`timeoutOrderNum`updateTime, `STRING`INT`INT`INT`INT`INT`INT`DOUBLE`INT`DOUBLE`INT`TIMESTAMP), "strategyDV")
+		dataview = createDataViewEngine(name="Strategy_"+strategyid, outputTable=objByName(`strategyDV), keyColumns=`securityId, timeColumn=`updateTime) 
+		num = strategyParams.size()
+		securityids = strategyParams.keys()
+		ROCThresholds = each(find{,"ROCThreshold"}, strategyParams.values())
+		volumeThresholds = each(find{,"volumeThreshold"}, strategyParams.values()) 
+		dataview.tableInsert(table(securityids, take(self.strategyid, num) as strategyid, ROCThresholds, volumeThresholds, take(int(NULL), num) as ROC, take(int(NULL), num) as volume, take(0, num) as newOrderNum, take(0, num) as newOrderAmount, take(0, num) as executionOrderNum, take(0, num) as executionAmount, take(0, num) as timeoutOrderNum))
+	}
+
+	def createFactorCalEngine(){
+		dummyTable = table(1:0, `securityid`time`price`volume, `STRING`TIMESTAMP`DOUBLE`INT)
+		metrics = [<(price\tmmin(time, price, 15s)-1)*100>, <tmsum(time, volume, 60s)>, <price> ] // 最新成交价相对于15秒内最低成交价涨幅 ,1分钟累计成交量, 最新成交价
+		factorResult = table(1:0, `securityid`ROC`volume`lastPrice, `STRING`INT`LONG`DOUBLE) 
+		createReactiveStateEngine(name="factorCal", metrics=metrics , dummyTable=dummyTable, outputTable=factorResult, keyColumn=`securityid, outputHandler=handleFactorCalOutput, msgAsTable=true)		
+	}
+	
+	def onload() {
+		// 初始化 data view
+		initDataView()
+		// 创建因子计算引擎
+		createFactorCalEngine()
+		// 启动监听逐笔成交事件
+		securityids = strategyParams.keys()
+		addEventListener(handler=tickHandler, eventType="StockTick", condition=<StockTick.securityid in securityids>, times="all")
+	}
+}
+
+dummy = table(array(STRING, 0) as eventType, array(BLOB, 0) as eventBody)
+share(streamTable(array(STRING, 0) as eventType, array(BLOB, 0) as eventBody, array(STRING, 0) as orderid), "output")
+outputSerializer = streamEventSerializer(name=`serOutput, eventSchema=[NewOrder,CancelOrder], outputTable=objByName("output"), commonField="orderid")
+strategyid = 1
+strategyParams = dict(`300001`300002`300003, [dict(`ROCThreshold`volumeThreshold, [1,1000]), dict(`ROCThreshold`volumeThreshold, [1,2000]), dict(`ROCThreshold`volumeThreshold, [2, 5000])])
+engine = createCEPEngine(name='strategyDemo', monitors=<StrategyMonitor(strategyid, strategyParams)>, dummyTable=dummy, eventSchema=[StockTick,ExecutionReport], outputTable=outputSerializer)
+
+ids = `300001`300002`300003`600100`600800
+for (i in 1..120) {
+	sleep(500)
+	tick = StockTick(rand(ids, 1)[0], now()+1000*i, 10.0+rand(1.0,1)[0], 100*rand(1..10, 1)[0])
+	getStreamEngine(`strategyDemo).appendEvent(tick)	
+}
+sleep(1000*20)
+print("begin to append ExecutionReport")
+for (orderid in (exec orderid from output where eventType="NewOrder")){
+	sleep(250)
+	if(not orderid in (exec orderid from output where eventType="CancelOrder")) {
+		execRep = ExecutionReport(orderid, split(orderid,"_")[1], 10, 100)
+		getStreamEngine(`strategyDemo).appendEvent(execRep)	
+	}	
+}
+
+go
+
+
+

@@ -1,0 +1,60 @@
+// 导入一天快照数据（每个股票一个文件） 
+// 模拟历史数据
+
+use mockData
+t = stockSnapshot(tradeDate=2023.01.04, securityNumber=500)
+sids = exec distinct Securityid from t
+
+def mockDataByStock(path, sid, t){
+    data = select * from t where Securityid = sid
+    submitJob("mockCsv", "mock data by stock", saveText, data, path + sid + ".csv")
+}
+
+path = "/home/ffliu/data/tu/snapDataPerStock/"
+each(mockDataByStock{path,,t},  sids)
+select count(*) from getRecentJobs(500) where endTime is null
+
+// 导入历史数据
+
+undef all
+go
+dataPath = "/home/ffliu/data/tu/snapDataPerStock/"
+file_list = files(dataPath).filename
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+// 定义
+def loadDataByStock(dbName, tbName, schema, fileNames){
+    bigTable = loop(loadText{schema=schema}, fileNames).unionAll()
+    rows = loadTable(dbName, tbName).tableInsert(bigTable)
+    return rows
+}
+
+def createDataLoadJob(dbName, tbName, schema, HashNo, fileNames){
+    submitJob("loadDataByFile", "load data to db "+ string(HashNo), loadDataByStock, dbName, tbName, schema, fileNames)
+}
+
+schema = select name, typeString as type from loadTable("dfs://stock_lv2_snapshot", "snapshot").schema().colDefs
+schema(loadTable("dfs://stock_lv2_snapshot", "snapshot"))
+
+// 将 500 个股票代码文件按照 Hash 分区分桶
+tmp = table(file_list as path, file_list.split(".")[0] as sid)
+update tmp set hashNo = sid.hashBucket(50)
+tmp1 = select toArray(path) as fileBucket from tmp group by hashNo
+fileBucket = tmp1.fileBucket
+HashNo = tmp1.hashNo
+
+// 属于同一个桶的文件作为一批数据在同一个线程提交写入
+each(createDataLoadJob{dbName, tbName, schema}, HashNo, dataPath + fileBucket)
+getRecentJobs(50)
+
+// 写入完成后检查写入记录数是否满足需求
+select count(*) from loadTable(dbName, tbName) where TradeDate=2023.01.04
+select distinct SecurityId from loadTable(dbName, tbName) where TradeDate=2023.01.04
+
+
+// 写错重写
+dropPartition(database(dbName),"/20230104/Key0", tableName="snapshot")
+submitJob("loadDataByFile", "load data to db "+ string(HashNo[0]), loadDataByStock, dbName, tbName, schema, dataPath + fileBucket.row(0))
+
+

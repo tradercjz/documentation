@@ -1,0 +1,1 @@
+oxy_webhelp_navlinks = {"amdquote-d10677e101150":{"topics":[{"title":"amdQuote 插件最佳实践指南","href":"tutorials\/amd_best_prac.html","attributes":{"data-id":"amdquote-插件最佳实践指南"},"menu":{"hasChildren":false},"tocID":"amdquote-插件最佳实践指南-d10677e101196","topics":[]}]}};

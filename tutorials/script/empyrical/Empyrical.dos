@@ -1,0 +1,1502 @@
+/* *
+*  @ brief  
+*  This module implements empyrical in DolphinDB from Python empyrical.
+*  The development of this module is based on day level data.
+*  @ Author: DolphinDB
+*  @ Last modification time: 2024.08.27
+*  @ FileName: empyrical.dos
+*/
+module Empyrical
+
+/* 
+*  @FunctionName: simpleReturns
+*  @Brief: Compute simple returns from a timeseries of prices.
+*  @Param: prices: Vector , Prices of assets
+*  @Return: Vector, Simple returns of assets
+*/
+def simpleReturns(prices){
+    return (prices - prev(prices)) \ prev(prices)
+}
+
+/* 
+*  @FunctionName: aggregateReturns
+*  @Brief: Aggregates returns by week, month, or year.
+*  @Param: symbols: Vector, ticker series
+*  @Param: returns: Vector, returns of the strategy, noncumulative
+*  @Param: dates: Vector, date series
+*  @Param: convertTo:  Can be 'weekly', 'monthly', 'quarterly', or 'yearly'. Default is 'yearly'
+*  @Return: aggregated returns
+*/
+def aggregateReturns(symbols, returns, dates, convertTo='yearly') {
+    /* 根据 convertTo 参数选择时间聚合的粒度
+      returns为日度简单收益，日期列名为date，收益率列名为ret
+    */
+    if (not (convertTo  in ["weekly", "monthly", "quarterly", "yearly"]) ) throw "convertTo must be 'weekly', 'monthly', 'quarterly', or 'yearly'";
+    t = table(symbols as sym, returns as ret, dates as date);
+    
+    if (convertTo == "weekly") {
+        dateGrp = sqlColAlias(<weekOfYear(date)>, `date);
+    } else if (convertTo == "monthly") {
+        dateGrp = sqlColAlias(<month(date)>, `date);
+    } else if (convertTo == "quarterly") {
+        dateGrp = sqlColAlias(<quarterOfYear(date)>, `date);
+    } else if (convertTo == "yearly") {
+        dateGrp = sqlColAlias(<year(date)>, `date);
+    }
+    
+    agg = sql(select=sqlColAlias(<prod(ret+1)-1>, `aggregateReturns), from=t, groupBy=[sqlCol(`sym), sqlColAlias(<year(date)>, `year),dateGrp], orderBy = [sqlCol(`sym), sqlCol(`year), sqlCol(`date)]).eval()
+    return agg
+}
+
+/* 
+*  @FunctionName: annualReturn
+*  @Brief: Determines the mean annual growth rate of returns. This is equivilent to the compound annual growth rate.
+*  @Param: returns: Periodic returns of the strategy, noncumulative.
+*  @Param: period: Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Return: Annual Return as CAGR (Compounded Annual Growth Rate).
+*/
+def annualReturn(returns, period="daily", annualization=NULL) {
+
+    /*  根据输入的周期定义年化因子，也可以使用其他的annualization
+    period  =  {
+        "monthly" -> 12,
+        "weekly" -> 52,
+        "daily" -> 252,
+           };*/
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    // 检查输入数据
+    if (size(returns) < 1 ) {
+        return NULL;
+    }
+    // 计算投资期限
+    num_years = (size(returns)-1) \ annFactor
+    // 计算累计最终回报
+    adjReturns = returns+1
+    ending_value = prod(adjReturns)
+    ending_value *= 1
+    // 计算复合年增长率 (CAGR)
+    CAGR = pow(ending_value, (1 \ num_years))-1
+    return CAGR
+}
+
+/* 
+*  @FunctionName: annualizedReturns
+*  @Brief: Compute cumulative returns from simple returns.
+*  @Param: returns: Vector, Returns of the strategy as a percentage, noncumulative.
+*  @Param: startingValue: The starting returns
+*  @Return: cumulative returns
+*/
+def cumReturns(returns, startingValue=0) {
+    // 将简单回报率转换为累计回报率所需的形式（1 + returns）
+    adjReturns = returns +1
+
+    // 计算累计乘积，得到累计回报率
+    cumReturns = cumprod(adjReturns);
+
+    // 如果起始值不是0，调整最终的累计回报率
+    if (startingValue != 0) {
+        cumReturns *= startingValue;
+    } else {
+        cumReturns -= 1;
+    }
+
+    return cumReturns;
+}
+
+/* 
+*  @FunctionName: cumReturnsFinal
+*  @Brief: Compute total returns from simple returns.
+*  @Param: returns: Noncumulative simple returns of one or more timeseries.
+*  @Param: startingValue: The starting returns
+*  @Return: total returns
+*/
+def cumReturnsFinal(returns, startingValue=0) {
+    /* 将简单回报率转换为总回报率所需的形式（1 + returns）*/
+    adjReturns = returns + 1
+    // 计算所有值的乘积，得到总回报率
+    totalReturns = prod(adjReturns)
+
+    // 根据起始值调整总回报率
+    if (startingValue != 0) {
+        totalReturns *= startingValue;
+    } else {
+        totalReturns -= 1;
+    }
+
+    return totalReturns;
+}
+
+/* 
+*  @FunctionName: cumMaxDrawdown
+*  @Brief: Determines the maximum drawdown of a strategy.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Return: The maximum drawdown.
+*/
+def cumMaxDrawdown(returns) {
+    Returns = returns +1
+    adjReturns = join(1, Returns) 
+    cumulative = cumprod(adjReturns)*100;
+    drawdown=cummdd(cumulative,true)
+    maxDrawdown=-max(drawdown);
+    return maxDrawdown;
+}
+
+/* 
+*  @FunctionName: rollCumMaxDrawdown
+*  @Brief: Determines the maximum drawdown of a strategy over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: windows: The number of periods to use in the rolling calculation.
+*  @Return: The rolling maximum drawdown.
+*/
+def rollCumMaxDrawdown(returns, windows = 10) {
+    Returns = returns +1
+    mreturns = movingWindowData(Returns, windows, fixed=true)
+    m = matrix(mreturns)
+    m0 = m[,0]
+    m0[0] = 1
+    merge = concatMatrix([m0,m])
+    nullFill!(merge,0)
+    // 计算累积回报率
+    cumulative = rowCumprod(merge);
+    // 计算累计最大值
+    
+    maxCumulative = rowCummax(cumulative);
+    // 计算回撤：(当前值 - 累计最大值) \ 累计最大值
+    drawdowns = (cumulative - maxCumulative) \ maxCumulative;
+    // 查找最大回撤
+    maxDrawdown = rowMin(drawdowns);
+    return maxDrawdown;
+}
+
+
+def cagr(returns, period="daily", annualization=NULL) {
+    /*  根据输入的周期定义年化因子，也可以使用其他的annualization
+    period  =  {
+        "monthly" -> 12,
+        "weekly" -> 52,
+        "daily" -> 252,
+           };*/
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    // 检查输入数据
+    if (size(returns) < 1 ) {
+        return NULL;
+    }
+    // 计算投资期限
+    num_years = (size(returns)-1) \ annFactor
+    // 计算累计最终回报
+    adjReturns = returns+1
+    ending_value = prod(adjReturns)
+    ending_value *= 1
+    // 计算复合年增长率 (CAGR)
+    CAGR = pow(ending_value, (1 \ num_years))-1
+    return CAGR
+}
+
+/* 
+*  @FunctionName: annualVolatility
+*  @Brief: Determines the annual volatility of a strategy.
+*  @Param: returns: Vector, Returns of the strategy as a percentage, noncumulative.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Param: alpha: Scaling relation (Levy stability exponent).
+*  @Return: annual volatility
+*/
+def annualVolatility(returns, period="daily", annualization=NULL, alpha=2.0){
+    /*  根据输入的周期定义年化因子，也可以使用其他的annualization
+    period  =  {
+        "monthly" -> 12,
+        "weekly" -> 52,
+        "daily" -> 252,
+           };
+           
+    alpha : float, optional
+    Scaling relation (Levy stability exponent).*/
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    return std(returns)*pow(annFactor, 1.0 \ alpha)
+}
+
+/* 
+*  @FunctionName: rollAnnualVolatility
+*  @Brief: Computes the annual volatility measure over a rolling window.
+*  @Param: returns: Vector, Returns of the strategy as a percentage, noncumulative.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Param: alpha: Scaling relation (Levy stability exponent).
+*  @Param: windows: The number of periods to use in the rolling calculation.
+*  @Return: The rolling annual volatility.
+*/
+@state
+def rollAnnualVolatility(returns, period="daily", annualization=NULL, windows=10, alpha=2.0){
+    /*  根据输入的周期定义年化因子，也可以使用其他的annualization
+    period  =  {
+        "monthly" -> 12,
+        "weekly" -> 52,
+        "daily" -> 252,
+           };
+           
+    alpha : float, optional
+    Scaling relation (Levy stability exponent).*/
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    return mstd(returns, windows)*pow(annFactor, 1.0 \ alpha)
+}
+
+/* 
+*  @FunctionName: calmarRatio
+*  @Brief: Determines the Calmar ratio, or drawdown ratio, of a strategy.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Return: The Calmar ratio 
+*/
+def calmarRatio(returns, period="daily", annualization=NULL) {
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    adjReturns = returns+1 
+    adjReturns[0] = 1
+    // 计算累积回报率
+    cumulative = cumprod(adjReturns) * 100
+    // 计算累计最大值
+    maxCumulative = cummax(cumulative)
+    // 计算回撤：(当前值 - 累计最大值) / 累计最大值
+    drawdowns = (cumulative - maxCumulative) \ maxCumulative
+    maxDrawdown = min(drawdowns)
+    if (maxDrawdown < 0) {
+        num_years = (size(returns)-1) \ annFactor
+        ending_value = prod(adjReturns)
+        // 计算复合年增长率 (CAGR)
+        annualReturn = pow(ending_value, (1 \ num_years)) - 1
+        calmarRatio = annualReturn \ abs(maxDrawdown) 
+    }
+    else{
+        return NULL
+      }
+    return calmarRatio
+}
+
+/* 
+*  @FunctionName: omegaRatio
+*  @Brief: Determines the Omega ratio of a strategy.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: riskFree: Constant risk-free return throughout the period
+*  @Param: requiredReturn: Minimum acceptance return of the investor.
+*  @Param: annualization: Factor used to convert the required_return into a daily value.
+*  @Return: The Omega ratio 
+*/
+def omegaRatio(returns, period="daily", riskFree=0.0, requiredReturn=0.0, annualization=NULL) {
+    /* 
+        period : int, optional
+        Factor used to convert the required_return into a daily
+        value. Enter 1 if no time period conversion is necessary.*/ 
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    if (size(returns) < 2) {
+        return NULL;
+    }
+    if (period == 1) {
+        returnThreshold = requiredReturn;
+    } else if (requiredReturn <= -1) {
+        return NULL;
+    } else {
+        returnThreshold = pow(1 + requiredReturn, 1.0 \ annFactor) - 1;
+    }
+    // 调整回报率以考虑无风险回报和所需回报门槛
+    returnsLessThreshold = returns - riskFree - returnThreshold;
+    // 计算正回报总和
+    positive = returnsLessThreshold[returnsLessThreshold > 0]
+    numer = sum(positive);
+    // 计算负回报总和
+    negative = returnsLessThreshold[returnsLessThreshold < 0]
+    denom = abs(sum(negative))
+    return numer \ denom;
+}
+
+/* 
+*  @FunctionName: sharpeRatio
+*  @Brief: Determines the Sharpe ratio of a strategy.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: riskFree: Constant risk-free return throughout the period
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Return: The Sharpe ratio 
+*/
+def sharpeRatio(returns, riskFree=0.0, period="daily", annualization=NULL) {
+    // 检查返回数组的长度
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 调整返回值以考虑无风险收益
+    returnsRiskAdj = returns - riskFree;
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+
+    // 计算平均值和标准差
+    meanReturn = avg(returnsRiskAdj);
+    stdDevReturn = std(returnsRiskAdj);
+    stdDevReturn = stdDevReturn[0];
+    // 计算Sharpe比率
+    if (stdDevReturn == 0) {
+        return NULL;
+    } else {
+        return meanReturn \ stdDevReturn * sqrt(annFactor);
+    }
+}
+
+/* 
+*  @FunctionName: rollSharpeRatio
+*  @Brief: Computes the Sharpe ratio over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: riskFree: Constant risk-free return throughout the period
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Param: windows: The number of periods to use in the rolling calculation.
+*  @Return: The rolling Sharpe ratio.
+*/
+@state
+def rollSharpeRatio(returns, riskFree=0.0, period="daily", annualization=NULL, windows=10) {
+    
+    // 调整返回值以考虑无风险收益
+    returnsRiskAdj = returns - riskFree;
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+
+    // 计算平均值和标准差
+    meanReturn = mavg(returnsRiskAdj, windows);
+    stdDevReturn = mstd(returnsRiskAdj, windows);
+    
+    // 计算Sharpe比率
+    return meanReturn \ stdDevReturn * sqrt(annFactor);
+}
+
+/* 
+*  @FunctionName: excessSharpe
+*  @Brief: Determines the excess Sharpe ratio of a strategy.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: factorReturns: Benchmark return to compare returns against.
+*  @Return: The excess Sharpe ratio 
+*/
+def excessSharpe(returns, factorReturns) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+    activeReturn = returns - factorReturns;
+    trackingError = std(activeReturn);  
+    meanActiveReturn = avg(activeReturn);
+    trackingError = trackingError[0];
+    if (trackingError == 0) {
+        return NULL;
+    } else {
+        return meanActiveReturn \ trackingError;
+    }    
+}
+
+/* 
+*  @FunctionName: sortinoRatio
+*  @Brief: Determines the Sortino ratio of a strategy.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: requiredReturn: Minimum acceptable return.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Return: The Sortino ratio 
+*/
+def sortinoRatio(returns, requiredReturn=0.0, period="daily", annualization=NULL) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 年化因子的计算
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+
+    // 调整回报以反映所需回报
+    adjReturns = returns - requiredReturn;
+
+    // 计算平均年化回报
+    averageAnnualReturn = avg(adjReturns) * annFactor;
+
+    // 计算年化下行风险
+    downsideDiff = min(adjReturns, 0.0)
+    // 计算下行风险
+    squaredNegativeReturns = pow(downsideDiff, 2);
+    squaredNegativeReturns = mean(squaredNegativeReturns)
+    downsideDeviation = sqrt(sum(squaredNegativeReturns) \ size(squaredNegativeReturns)) * sqrt(annFactor);
+    if (downsideDeviation > 0) {
+        return averageAnnualReturn \ downsideDeviation;
+    } else {
+        return NULL;
+    }       
+}
+
+/* 
+*  @FunctionName: rollSortinoRatio
+*  @Brief: Computes the Sortino ratio over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: requiredReturn: Minimum acceptable return.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Param: windows: The number of periods to use in the rolling calculation.
+*  @Return: The rolling Sortino ratio.
+*/
+@state
+def rollSortinoRatio(returns, requiredReturn=0.0, period="daily", annualization=NULL, windows=10) {
+    
+    // 年化因子的计算
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+
+    // 调整回报以反映所需回报
+    adjReturns = returns - requiredReturn;
+
+    // 计算平均年化回报
+    averageAnnualReturn = mavg(adjReturns, windows) * annFactor;
+    // 计算年化下行风险
+    downsideDiff = min(adjReturns, 0.0)
+    // 计算下行风险
+    squaredNegativeReturns = pow(downsideDiff, 2);
+    downsideDeviation = sqrt(msum(squaredNegativeReturns, windows) \ windows) * sqrt(annFactor);
+    return averageAnnualReturn \ downsideDeviation
+}
+
+/* 
+*  @FunctionName: downsideRisk
+*  @Brief: Determines the downside deviation below a threshold
+*  @Param: returns: Daily returns of the strategy, noncumulative.
+*  @Param: requiredReturn: The minimum acceptable return.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing. Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'    
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns. Value should be the annual frequency of returns.
+*  @Return: The downside deviation below a threshold
+*/
+def downsideRisk(returns, requiredReturn=0.0, period="daily", annualization=NULL) {
+    if (size(returns) < 1) {
+        return NULL;
+    }
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+
+    // 调整回报以反映所需回报
+    adjReturns = returns - requiredReturn;
+    downsideDiff = min(adjReturns, 0.0)
+    // 计算下行风险
+    squaredNegativeReturns = pow(downsideDiff, 2);
+    squaredNegativeReturns = mean(squaredNegativeReturns)
+    downsideDeviation = sqrt(sum(squaredNegativeReturns) \ size(squaredNegativeReturns)) * sqrt(annFactor);
+
+    return downsideDeviation;
+}
+
+/* 
+*  @FunctionName: covarBeta
+*  @Brief: Calculates beta.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Return: Beta
+*/
+def covarBeta(returns, factorReturns, riskFree=0.0) {
+    // 如果输入的数据量不足，返回NULL
+    if (size(returns) < 2 || size(factorReturns) < 2) {
+        return NULL;
+    }
+
+    // 调整回报以反映无风险收益
+    adjReturns = returns - riskFree;
+    adjFactorReturns = factorReturns - riskFree;
+
+    // 计算协方差和因子回报的方差
+    covariance = covar(adjReturns, adjFactorReturns);
+    variance = var(adjFactorReturns);
+    variance = variance[0]
+    // 计算Beta值
+    if (variance == 0) {
+        return NULL; // 防止除以零
+    } else {
+        return covariance \ variance;
+    }    
+}
+
+/* 
+*  @FunctionName: rollCovarBeta
+*  @Brief: Computes the beta measure over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: windows: Size of the rolling window in terms of the periodicity of the data.
+*  @Return: The rolling beta.
+*/
+@state
+def rollCovarBeta(returns, factorReturns, riskFree=0.0, windows = 10) {
+    // 调整回报以反映无风险收益
+    adjReturns = returns - riskFree;
+    adjFactorReturns = factorReturns - riskFree;
+
+    // 计算协方差和因子回报的方差
+    covariance = mcovar(adjReturns, adjFactorReturns, windows);
+    variance = mvar(adjFactorReturns, windows);
+    // 计算Beta值
+    return covariance \ variance;
+}
+
+/* 
+*  @FunctionName: alpha
+*  @Brief: Calculates annualized alpha.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Param: beta: The beta for the given inputs, if already known. Will be calculated internally if not provided.
+*  @Return: Alpha
+*/
+def alpha(returns, factorReturns, riskFree=0.0, period="daily", annualization=NULL, beta=NULL) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    
+    annualizedAlpha = ()
+    // 如果beta没有提供，则需要计算
+    if (isNull(beta)) {
+        adjReturns = returns - riskFree;
+        adjFactorReturns = factorReturns - riskFree;
+    
+        // 计算协方差和因子回报的方差
+        covariance = covar(adjReturns, adjFactorReturns);
+        variance = var(adjFactorReturns);
+        computedBeta = covariance \ variance;
+        computedBeta = computedBeta[0]
+    } else {
+        computedBeta = beta;
+    }
+
+    // 调整回报以反映无风险收益
+    adjReturns = returns - riskFree;
+    adjFactorReturns = factorReturns - riskFree;
+    
+    mkt = adjFactorReturns*computedBeta;
+    // 计算alpha系列
+    alphaSeries = adjReturns - mkt;
+    // 计算年化alpha
+    meanAlpha = avg(alphaSeries) +1;
+
+    annualizedAlpha = (pow(meanAlpha, annFactor) - 1);
+    return annualizedAlpha;
+}
+
+/* 
+*  @FunctionName: rollAlpha
+*  @Brief: Computes the alpha measure over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Param: windows: Size of the rolling window in terms of the periodicity of the data.
+*  @Return: The rolling alpha.
+*/
+@state
+def rollAlpha(returns, factorReturns, riskFree=0.0, period="daily", annualization=NULL, windows = 10) {
+    
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    
+    annualizedAlpha = ()
+    // 如果beta没有提供，则需要计算
+ 
+    adjReturns = returns - riskFree;
+    adjFactorReturns = factorReturns - riskFree;
+
+    // 计算协方差和因子回报的方差
+    covariance = mcovar(adjReturns, adjFactorReturns,windows);
+    variance = mvar(adjFactorReturns,windows);
+    computedBeta = covariance \ variance;
+    // 计算年化alpha
+    meanAlpha = mavg(adjReturns,windows) -mavg(adjFactorReturns,windows)*computedBeta + 1;
+    // meanAlpha = meanAlpha + 1
+    annualizedAlpha = (pow(meanAlpha, annFactor) - 1);
+    return annualizedAlpha;
+}
+
+/* 
+*  @FunctionName: alphaBeta
+*  @Brief: Calculates annualized alpha and beta.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: Alpha and Beta
+*/
+def alphaBeta(returns, factorReturns, riskFree=0.0, period="daily", annualization=NULL) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+
+    adjReturns = returns - riskFree;
+    adjFactorReturns = factorReturns - riskFree;
+
+    // 计算协方差和因子回报的方差
+    covariance = covar(adjReturns, adjFactorReturns);
+    variance = var(adjFactorReturns);
+    computedBeta = covariance \ variance;
+    computedBeta = computedBeta[0]
+    
+    mkt = adjFactorReturns*computedBeta;
+    // 计算alpha系列
+    alphaSeries = adjReturns - mkt;
+    // 计算年化alpha
+    meanAlpha = avg(alphaSeries) +1;
+    annualizedAlpha = (pow(meanAlpha, annFactor) - 1);
+    return annualizedAlpha, computedBeta;
+}
+
+/* 
+*  @FunctionName: rollAlphaBeta
+*  @Brief: Computes the alpha and beta measures over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.  
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Param: windows: Size of the rolling window in terms of the periodicity of the data.
+*  @Return: The rolling alpha and beta.
+*/
+@state
+def rollAlphaBeta(returns, factorReturns, riskFree=0.0, period="daily", annualization=NULL, windows = 10) {
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    
+    annualizedAlpha = ()
+    // 如果beta没有提供，则需要计算
+ 
+    adjReturns = returns - riskFree;
+    adjFactorReturns = factorReturns - riskFree;
+
+    // 计算协方差和因子回报的方差
+    covariance = mcovar(adjReturns, adjFactorReturns,windows);
+    variance = mvar(adjFactorReturns,windows);
+    computedBeta = covariance \ variance;
+    // 计算年化alpha
+    meanAlpha = mavg(adjReturns,windows) -mavg(adjFactorReturns,windows)*computedBeta + 1;
+    // meanAlpha +=1
+    annualizedAlpha = (pow(meanAlpha, annFactor) - 1);
+    return annualizedAlpha,computedBeta;
+}
+
+/* 
+*  @FunctionName: upAlphaBeta
+*  @Brief: Computes alpha and beta for periods when the benchmark return is positive.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: Alpha and Beta when the benchmark return is positive.
+*/
+def upAlphaBeta(returns, factorReturns, riskFree=0.0, period="daily", annualization=NULL) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    ret = flatten matrix(returns)
+    factor = flatten matrix(factorReturns)
+    ret = ret[factor > 0]
+    factor= factor[factor > 0]
+    adjReturns = ret - riskFree;
+    adjFactorReturns = factor - riskFree;
+    
+    // 计算协方差和因子回报的方差
+    covariance = covar(adjReturns, adjFactorReturns);
+    variance = var(adjFactorReturns);
+    computedBeta = covariance \ variance;
+    computedBeta = computedBeta[0]
+    
+    mkt = adjFactorReturns*computedBeta;
+    // 计算alpha系列
+    alphaSeries = adjReturns - mkt;
+    // 计算年化alpha
+    meanAlpha = avg(alphaSeries) +1;
+
+    annualizedAlpha = (pow(meanAlpha, annFactor) - 1);
+    return annualizedAlpha, computedBeta
+}
+
+/* 
+*  @FunctionName: downAlphaBeta
+*  @Brief: Computes alpha and beta for periods when the benchmark return is negative.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: riskFree: Constant risk-free return throughout the period. For example, the interest rate on a three month us treasury bill.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: Alpha and Beta when the benchmark return is negative.
+*/
+def downAlphaBeta(returns, factorReturns, riskFree=0.0, period="daily", annualization=NULL) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    ret = flatten matrix(returns)
+    factor = flatten matrix(factorReturns)
+    ret = ret[factor < 0]
+    factor= factor[factor < 0]
+    adjReturns = ret - riskFree;
+    adjFactorReturns = factor - riskFree;
+    
+    // 计算协方差和因子回报的方差
+    covariance = covar(adjReturns, adjFactorReturns);
+    variance = var(adjFactorReturns);
+    computedBeta = covariance \ variance;
+    computedBeta = computedBeta[0]
+    
+    mkt = adjFactorReturns*computedBeta;
+    // 计算alpha系列
+    alphaSeries = adjReturns - mkt;
+    // 计算年化alpha
+    meanAlpha = avg(alphaSeries) +1;
+
+    annualizedAlpha = (pow(meanAlpha, annFactor) - 1);
+    return annualizedAlpha, computedBeta
+}
+
+/* 
+*  @FunctionName: stabilityOfTimeseries
+*  @Brief: Determines R-squared of a linear fit to the cumulative log returns. Computes an ordinary least squares linear fit, and returns R-squared.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Return: R-squared .
+*/
+def stabilityOfTimeseries(returns) {
+    if (size(returns) < 2) {
+        return NULL;
+    }
+
+    // 过滤掉任何NaN值
+    ret = returns.dropna();
+    cumLogReturns = cumsum(log(1 + ret));
+    // 生成一个索引数组，用于线性回归的自变量
+    indices = 1..size(cumLogReturns);
+    // 计算线性回归，得到R值
+    regResult = ols(cumLogReturns, indices,,mode = 2);
+    r2 = exec statistics from regResult["RegressionStat"] where item == 'R2';  
+
+    // 返回R平方
+    return r2;
+}
+
+/* 
+*  @FunctionName: tailRatio
+*  @Brief: Determines the ratio between the right (95%) and left tail (5%).For example, a ratio of 0.25 means that losses are four times as bad as profits.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Return: tail ratio
+*/
+def tailRatio(returns) {
+    if (size(returns) < 1) {
+        return NULL;
+    }
+
+    // 过滤掉任何NaN值
+    ret = dropna(returns);
+
+    // 计算 95%和5%分位数 ， 并返回尾部比率
+    return abs(quantile(ret, 0.95)) \ abs(quantile(ret, 0.05));
+}
+
+/* 
+*  @FunctionName: capture
+*  @Brief: Compute capture ratio.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: The capture ratio between the strategy and the benchmark.
+*/
+def capture(returns, factorReturns, period="daily", annualization=NULL){
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    // 计算投资期限
+    ret = matrix(returns)
+    factor = matrix(factorReturns)
+    num_years = size(ret) \ annFactor
+    adjReturns = ret + 1 
+    ending_value = prod(adjReturns)
+    retcagr=pow(ending_value, (1 \ num_years)) - 1
+    factor_years = size(factor) \ annFactor
+    adjFctor = factor + 1
+    factor_value = prod(adjFctor)
+    factorcagr=pow(factor_value, (1 \ factor_years)) - 1
+    return retcagr \ factorcagr
+}
+
+/* 
+*  @FunctionName: betaFragilityHeuristic
+*  @Brief: Estimate fragility to drops in beta.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Return: The beta fragility of the strategy.
+*/
+def betaFragilityHeuristic(returns, factorReturns) {
+    if (size(returns) < 3 || size(factorReturns) < 3) {
+        return NULL;
+    }
+    // 创建一个表来存储回报和因子回报
+    t = table(returns as returns, factorReturns as factorReturns);
+    t.rename!(`returns`factorReturns)
+    // 按因子回报排序
+    t = sortBy!(t, `factorReturns);
+    m = matrix(t)
+    m = m.dropna()
+    // 计算中位数索引
+    midIndex = int(round(size(m) \ 4, 0));
+    endIndex = size(m) \ 2
+    endIndex =endIndex - 1
+    // 获取开始、中间、结束的回报和因子回报
+    startReturns = m[0,0];
+    startFactorReturns = m[0,1];
+    midReturns = m[midIndex,0];
+    midFactorReturns = m[midIndex,1];
+    endReturns =  m[endIndex,0];
+    endFactorReturns =  m[endIndex,1];
+
+    // 计算因子回报的范围
+    factorReturnsRange = endFactorReturns - startFactorReturns;
+    startReturnsWeight = 0.5;
+    endReturnsWeight = 0.5;
+
+    // 计算开始和结束回报的权重
+    if (factorReturnsRange != 0) {
+        startReturnsWeight = (midFactorReturns - startFactorReturns) \ factorReturnsRange;
+        endReturnsWeight = (endFactorReturns - midFactorReturns) \ factorReturnsRange;
+    }
+
+    // 计算脆弱性启发式
+    heuristic = (startReturnsWeight * startReturns) + (endReturnsWeight * endReturns) - midReturns;
+
+    return heuristic;
+}
+
+/* 
+*  @FunctionName: upCapture
+*  @Brief: Compute capture ratio for periods when the benchmark return is positive.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: The capture ratio when the benchmark return is positive.
+*/
+defg upCapture(returns, factorReturns, period="daily", annualization=NULL){
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    // 计算投资期限
+    ret = flatten matrix(returns)
+    factor = flatten matrix(factorReturns)
+    ret = ret[factor > 0]
+    factor= factor[factor > 0]
+    num_years = size(ret) \ annFactor
+    adjReturns = ret + 1 
+    ending_value = prod(adjReturns)
+    retcagr=pow(ending_value, (1 \ num_years)) - 1
+    factor_years = size(factor) \ annFactor
+    adjFctor = factor + 1
+    factor_value = prod(adjFctor)
+    factorcagr=pow(factor_value, (1 \ factor_years)) - 1
+    return retcagr \ factorcagr
+}
+
+/* 
+*  @FunctionName: downCapture
+*  @Brief: Compute capture ratio for periods when the benchmark return is negative.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: The capture ratio when the benchmark return is negative.
+*/
+defg downCapture(returns, factorReturns, period="daily", annualization=NULL){
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    // 计算投资期限
+    ret = flatten matrix(returns)
+    factor = flatten matrix(factorReturns)
+    ret = ret[factor < 0]
+    factor= factor[factor < 0]
+    num_years = size(ret) \ annFactor
+    adjReturns = ret + 1 
+    ending_value = prod(adjReturns)
+    retcagr=pow(ending_value, (1 \ num_years)) - 1
+    factor_years = size(factor) \ annFactor
+    adjFctor = factor + 1
+    factor_value = prod(adjFctor)
+    factorcagr=pow(factor_value, (1 \ factor_years)) - 1
+    return retcagr \ factorcagr
+}
+
+/* 
+*  @FunctionName: upDownCapture
+*  @Brief: Computes the ratio of up_capture to down_capture.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Daily noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market.
+*  @Param: period: Defines the periodicity of the ‘returns’ data for purposes of annualizing.Can be 'weekly', 'monthly', or 'daily'. Default is 'daily'
+*  @Param: annualization: Used to suppress default values available in period to convert returns into annual returns.
+*  @Return: the ratio of up_capture to down_capture.
+*/
+defg upDownCapture(returns, factorReturns, period="daily", annualization=NULL){
+    // 计算年化因子
+    if (!isNull(annualization)) {
+        annFactor = annualization;
+    } else {
+        if (period == "monthly") {
+            annFactor = 12;
+        } else if (period == "weekly") {
+            annFactor = 52;
+        } else { // 默认为"daily"
+            annFactor = 252;
+        }
+    }
+    // 计算投资期限
+    ret = flatten matrix(returns)
+    factor = flatten matrix(factorReturns)
+    upret = ret[factor > 0]
+    upfactor= factor[factor > 0]
+    num_years = size(upret) \ annFactor
+    adjReturns = upret + 1 
+    ending_value = prod(adjReturns)
+    retcagr=pow(ending_value, (1 \ num_years)) - 1
+    factor_years = size(upfactor) \ annFactor
+    adjFctor = upfactor + 1
+    factor_value = prod(adjFctor)
+    factorcagr=pow(factor_value, (1 \ factor_years)) - 1
+    up = retcagr \ factorcagr
+
+    downret = ret[factor < 0]
+    downfactor= factor[factor < 0]
+    num_years = size(downret) \ annFactor
+    adjReturns = downret + 1 
+    ending_value = prod(adjReturns)
+    retcagr=pow(ending_value, (1 \ num_years)) - 1
+    factor_years = size(downfactor) \ annFactor
+    adjFctor = downfactor + 1
+    factor_value = prod(adjFctor)
+    factorcagr=pow(factor_value, (1 \ factor_years)) - 1
+    down = retcagr \ factorcagr
+    return up \ down
+}
+
+/* 
+*  @FunctionName: rollUpCapture
+*  @Brief: Computes the up capture measure over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market. 
+*  @Param: windows: Size of the rolling window in terms of the periodicity of the data.
+*  @Return: up capture measure over a rolling window.
+*/
+@state
+def rollUpCapture(returns, factorReturns, windows=10) {
+    return moving(upCapture, [returns, factorReturns],windows);
+}
+
+/* 
+*  @FunctionName: rollDownCapture
+*  @Brief: Computes the down capture measure over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market. 
+*  @Param: windows: Size of the rolling window in terms of the periodicity of the data.
+*  @Return: down capture measure over a rolling window.
+*/
+@state
+def rollDownCapture(returns, factorReturns, windows=10) {
+    return moving(downCapture, [returns, factorReturns],windows);
+}
+
+/* 
+*  @FunctionName: rollUpDownCapture
+*  @Brief: Computes the ratio of up_capture to down_capture over a rolling window.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: factorReturns: Noncumulative returns of the factor to which beta is computed. Usually a benchmark such as the market. 
+*  @Param: windows: Size of the rolling window in terms of the periodicity of the data.
+*  @Return: ratio of up_capture to down_capture over a rolling window.
+*/
+@state
+def rollUpDownCapture(returns, factorReturns, windows=10) {
+    return moving(upDownCapture, [returns, factorReturns],windows);
+}
+
+/* 
+*  @FunctionName: hisValueAtRisk
+*  @Brief: Value at risk (VaR) of a returns stream.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: cutoff: Decimal representing the percentage cutoff for the bottom percentile of returns. Defaults to 0.05.
+*  @Return: The Value-at-Risk (VaR) value.
+*/
+def hisValueAtRisk(returns, cutoff=0.05) {
+    if (size(returns) < 1) {
+        return NULL;
+    }
+    var = quantile(returns, cutoff)
+    // 计算指定百分位的数值作为VaR
+    return var;
+}
+
+/* 
+*  @FunctionName: conditionalValueAtRisk
+*  @Brief: Conditional Value at risk (CVaR) of a returns stream.
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: cutoff: Decimal representing the percentage cutoff for the bottom percentile of returns. Defaults to 0.05.
+*  @Return: The Conditional Value-at-Risk (CVaR) value.
+*/
+def conditionalValueAtRisk(returns, cutoff=0.05) {
+    if (size(returns) < 1) {
+        return NULL;
+    }
+    // 计算VaR作为分界点
+    var = quantile(returns, cutoff);
+    // 计算在VaR之下的平均值，即CVaR
+    returnsBelowVar = returns[returns <= var];
+
+    if (size(returnsBelowVar) < 1) {
+        return NULL;
+    }
+
+    return avg(returnsBelowVar);
+}
+
+/* 
+*  @FunctionName: computeExposures
+*  @Brief: Computes the daily risk factor exposures.
+*  @Param: factorLoadings: Factor loadings for all days in the date range, with date and ticker as index, and factors as columns, and A series of holdings as percentages indexed by date and ticker.
+*  @Param: factorColumns: Names of the risk factors.Can be a single name or a list of names.
+*  @Param: positionName: Names of the positions.Must be the same length with factorColumns.
+*  @Param: dtName: Name of the date column.
+*  @Return: The daily risk factor exposures.
+*/
+def computeExposures(mutable factorLoadings, factorColumns=`factor1`factor2`factor3, positionName=`position`position`position, dtName=`DateTime) {
+    /* 计算每日风险因子暴露
+    确保 'factorLoadings' 是具有适当结构的表
+     factorLoadings: 表包含字段(date, SecurityID,factors..,holding)
+          - Example:
+                                momentum  reversal  holding
+             dt         ticker
+             2017-01-01 AAPL   -1.592914  0.852830  0.417582
+                        TLT     0.184864  0.895534  0.010989 
+                        XOM     0.993160  1.149353  0.571429
+             2017-01-02 AAPL   -0.140009 -0.524952  0.202381
+                        TLT    -1.066978  0.185435  0.535714
+                        XOM    -1.798401  0.761549  0.261905
+      results：每日因子暴露
+            - Example:
+                        momentum  reversal
+            dt
+            2017-01-01 -0.238655  0.077123
+            2017-01-02  0.821872  1.520515
+    */ 
+    sumResults = <select sum:V(_$$factorColumns*_$$positionName) as _$$factorColumns from factorLoadings  group by _$dtName as dt>.eval()
+    return sumResults
+}
+
+/* 
+*  @FunctionName: perfAttrib
+*  @Brief: Attributes the performance of a returns stream to a set of risk factors.
+*  @Param: returns: Returns for each day in the date range.
+*  @Param: factorReturns: Returns by factor, with date as index and factors as columns
+*  @Param: factorLoadings: Factor loadings for all days in the date range, with date and ticker as index, and factors as columns, and A series of holdings as percentages indexed by date and ticker.
+*  @Param: factorColumns: Names of the risk factors.Can be a single name or a list of names.
+*  @Param: positionName: Names of the positions.Must be the same length with factorColumns.
+*  @Param: dtName: Name of the date column.
+*  @Return: The performance attribution of the returns to the risk factors.
+*/
+def perfAttrib(returns, factorReturns, mutable factorLoadings, factorColumns=`factor1`factor2`factor3, positionName=`position`position`position, dtName=`DateTime) {
+    /* 
+     将投资回报归因于一组风险因素。
+     业绩归因用于确定每个风险因素，例如动量、风格等，对总回报的贡献，以及每日对这些风险因素的暴露程度。可以归因于给定风险因素之一的回报称为common_returns（共同回报），而不能归因于风险因素的回报称为specific_returns（特定回报）。common_returns和specific_returns加在一起将始终等于总回报。
+     
+     确保输入表格是具有适当结构的表
+     returns : 
+         Returns for each day in the date range.
+         - Example:
+             2017-01-01   -0.017098
+             2017-01-02    0.002683
+             2017-01-03   -0.008669
+
+     factor_returns :
+         Returns by factor, with date as index and factors as columns
+         - Example:
+                         momentum  reversal
+             2017-01-01  0.002779 -0.005453
+             2017-01-02  0.001096  0.010290
+ 
+     factor_loadings : 
+         Factor loadings for all days in the date range, with date and ticker as
+         index, and factors as columns.
+         - Example:
+                                momentum  reversal  holding
+             dt         ticker
+             2017-01-01 AAPL   -1.592914  0.852830  0.417582
+                        TLT     0.184864  0.895534  0.010989 
+                        XOM     0.993160  1.149353  0.571429
+             2017-01-02 AAPL   -0.140009 -0.524952  0.202381
+                        TLT    -1.066978  0.185435  0.535714
+                        XOM    -1.798401  0.761549  0.261905
+ 
+     Returns
+     -------
+     perf_attribution : 
+         df with factors, common returns, and specific returns as columns,
+         and datetimes as index
+         - Example:
+                         momentum  reversal  common_returns  specific_returns
+             dt
+             2017-01-01  0.249087  0.935925        1.185012          1.185012
+             2017-01-02 -0.003194 -0.400786       -0.403980         -0.403980
+    */
+    ret = returns
+    rename!(ret,`dt`returns)
+    riskExposuresPortfolio = computeExposures(factorLoadings,factorColumns, positionName, dtName);
+    // 为风险敞口与因子返回计算乘积，以得到每个因子的性能归因
+    perfAttribByFactor = riskExposuresPortfolio * factorReturns;
+    dt = flatten matrix(perfAttribByFactor[,0])
+    // 计算共同返回
+    commonReturns = table(dt as dt, rowSum(perfAttribByFactor[,1:]) as commonReturns);
+    tiltExposure = cj(perfAttribByFactor[,0],mean(riskExposuresPortfolio[,1:]))
+    mul = factorReturns * tiltExposure
+    tiltReturns = table(dt as dt, rowSum(mul[,1:]) as tiltReturns)
+    results = select ret.dt, returns, commonReturns,returns - commonReturns as specificReturns, tiltReturns, commonReturns - tiltReturns as timingReturns 
+        from ret join commonReturns on ret.dt = commonReturns.dt join tiltReturns where ret.dt = tiltReturns.dt
+    results = select * from perfAttribByFactor join results on perfAttribByFactor.dt = results.dt
+
+    return results
+}
+
+
+def gpdLoglikelihoodScaleAndShape(scale, shape, priceData) {
+    n = size(priceData);
+    result = -1e308;
+    if (scale != 0) {
+        paramFactor = shape \ scale;
+        if (shape != 0 && paramFactor >= 0 && scale >= 0) {
+            result = (-n * log(scale)) - ((1 \ shape + 1) * sum(log((shape \ scale * priceData) + 1)));
+        }
+    }
+    return result;
+}
+
+def gpdLoglikelihoodScaleOnly(scale, priceData) {
+    n = size(priceData);
+    dataSum = sum(priceData);
+    result = -1e308;
+    if (scale >= 0) {
+        result = (-n * log(scale)) - (dataSum \ scale);
+    }
+    return result;
+}
+       
+
+def gpdLoglikelihood(params, priceData) {
+    if (params[1] != 0) {
+        return -gpdLoglikelihoodScaleAndShape(params[0], params[1], priceData);
+    } else {
+        return -gpdLoglikelihoodScaleOnly(params[0], priceData);
+    }
+}
+
+
+def gpdLoglikelihoodFactory(priceData) {
+    return def(params): gpdLoglikelihood(params, priceData);
+}
+
+def gpdEsCalculator(varEstimate, threshold, scaleParam, shapeParam) {
+    es = 0
+    if ((1 - shapeParam) != 0) {
+    es = varEstimate \ (1 - shapeParam) + (scaleParam - (shapeParam * threshold)) \ (1 - shapeParam);}
+    return es
+}
+
+
+def gpdVarCalculator(threshold, scaleParam, shapeParam, probability, totalN, exceedanceN) {
+    result = 0
+    if (exceedanceN > 0 && shapeParam > 0) {
+        paramRatio = scaleParam \ shapeParam;
+        probRatio = (totalN \ exceedanceN) * probability;
+        result = threshold + paramRatio * (pow(probRatio, -shapeParam) - 1);
+    }
+    return result
+}
+
+
+def gpdLoglikelihoodMinimizer(priceData) {
+    DEFAULT_SCALE_PARAM = 1;
+    DEFAULT_SHAPE_PARAM = 1;
+    params = [1, 1]
+    if (size(priceData) > 0) {
+        loglikelihood = gpdLoglikelihoodFactory(priceData);
+        
+        initialParams = [DEFAULT_SCALE_PARAM, DEFAULT_SHAPE_PARAM];
+        result = fmin(loglikelihood, initialParams);
+        if (result[`warnFlag] == 0) {
+            result = result[`xopt]
+            if (size(result) == 2) {
+            // 返回最优参数
+            return [result[0], result[1]];}
+        } else {
+            // 优化失败，返回默认值
+            return [false, false];
+        } 
+    }
+}
+
+/* 
+*  @FunctionName: gpdRiskEstimates
+*  @Brief: Estimate VaR and ES using the Generalized Pareto Distribution (GPD)
+*  @Param: returns: Daily returns of the strategy, noncumulative. 
+*  @Param: varP: The percentile to use for estimating the VaR and ES
+*  @Return: A matrix with columns representing the threshold, scale parameter, shape parameter, VaR estimate, and ES estimate.
+*/
+def gpdRiskEstimates(returns, varP=0.01) {
+    m = matrix(DOUBLE, 1, 5, ,0);
+    if (size(returns) >= 3) {
+        threshold = 0.2;
+        minThreshold = 0.000000001;
+        scaleParam = 0;
+        shapeParam = 0;
+        finished = false;
+        flippedReturns = -1 * returns;
+        losses = flippedReturns[flippedReturns > 0];
+        do {
+            lossesBeyondThreshold = losses[losses >= threshold];
+            paramResult = gpdLoglikelihoodMinimizer(lossesBeyondThreshold);  
+            if (paramResult[0] != false && paramResult[1] != false) {
+                scaleParam = paramResult[0]
+                shapeParam = paramResult[1]
+                varEstimate = gpdVarCalculator(threshold, scaleParam, shapeParam, varP, size(losses), size(lossesBeyondThreshold));
+                if (shapeParam > 0 && varEstimate > 0) {
+                    finished = true;
+                }
+            }
+            if (!finished) {
+                threshold = threshold \ 2;
+            }
+        } while (!finished && threshold > minThreshold);
+
+        if (finished) {
+            esEstimate = gpdEsCalculator(varEstimate, threshold, scaleParam, shapeParam);
+            m = [threshold, scaleParam, shapeParam, varEstimate, esEstimate];
+        }
+    }
+    return m;
+}
+

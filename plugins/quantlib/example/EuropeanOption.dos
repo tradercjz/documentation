@@ -1,0 +1,26 @@
+loadPlugin("path/PluginQuantLib.txt")
+go
+use QuantLib
+
+today = 2014.03.07;
+getSettingsInstance().setEvaluationDate(today);
+getSettingsInstance().getStringOfEvaluationDate();
+option = EuropeanOption(PlainVanillaPayoff("Call",100.0),EuropeanExercise(2014.06.07));
+
+u = SimpleQuote(100.0);
+r = SimpleQuote(0.01);
+sigma = SimpleQuote(0.20);
+
+riskFreeCurve = FlatForward(0, TARGET(), QuoteHandle(r), Actual360());
+volatility = BlackConstantVol(0, TARGET(), QuoteHandle(sigma), Actual360());
+
+process = BlackScholesProcess(QuoteHandle(u),
+                              YieldTermStructureHandle(riskFreeCurve),
+                              BlackVolTermStructureHandle(volatility));
+engine = AnalyticEuropeanEngine(process);
+
+option.setPricingEngine(engine);
+option.NPV();
+option.delta();
+option.gamma();
+option.vega();

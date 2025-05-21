@@ -1,0 +1,40 @@
+/**
+ * @ Function name: tickSOIR1min
+ * @ Berif: 高频订单簿失衡因子
+ * @ Param oneDayData: 一天所有股票的snapshot数据, table(TradeTime, SecurityID, BidOrderQty, OfferOrderQty)
+ * @ Return: 该日所有标的对应失衡因子数据，table(SecurityID, tradeDate, SOIR_t)
+ * @ Sample usage: mr(ds, tickSOIR1min, unionAll{, , false}
+ */
+ def tickSOIR(mutable oneDayData) {
+    tick_temp = select date(TradeTime) as TradeDate, time(TradeTime) as TradeTime, SecurityID, BidOrderQty[0] as BidVolume1, OfferOrderQty[0] as AskVolume1, BidOrderQty[1] as BidVolume2, OfferOrderQty[1] as AskVolume2, BidOrderQty[2] as BidVolume3, OfferOrderQty[2] as AskVolume3, BidOrderQty[3] as BidVolume4, OfferOrderQty[3] as AskVolume4, BidOrderQty[4] as BidVolume5, OfferOrderQty[4] as AskVolume5 
+                from oneDayData
+    // 计算SOIR
+    SOIR_i = select (BidVolume1 - AskVolume1) \ (BidVolume1 + AskVolume1) as SOIR1,
+                    (BidVolume2 - AskVolume2) \ (BidVolume2 + AskVolume2) as SOIR2,
+                    (BidVolume3 - AskVolume3) \ (BidVolume3 + AskVolume3) as SOIR3,
+                    (BidVolume4 - AskVolume4) \ (BidVolume4 + AskVolume4) as SOIR4,
+                    (BidVolume5 - AskVolume5) \ (BidVolume5 + AskVolume5) as SOIR5,
+                    SecurityID,
+                    TradeTime
+             from tick_temp
+             context by SecurityID
+    // 交易日期，数据按天传入，因此取第一条作为交易日期
+    //TradeDate = first(oneDayData.TradeTime.date())
+    res = select SecurityID, mean(1\3 * SOIR1 + 4\15 * SOIR2 + 1\5 * SOIR3 + 2\15 * SOIR4 + 1\15 * SOIR5) as SOIR_t from SOIR_i group by SecurityID
+    return res
+} 
+// 加载分区句柄
+pt = loadTable("dfs://l2TLDB", "snapshot")
+SecurityIDs = exec distinct SecurityID from pt limit 100
+
+ds1 = sqlDS(<select * from pt  where date(TradeTime) = 2023.02.01 and SecurityID in SecurityIDs and time(TradeTime) between 09:30:00.000 and 14:57:00.000>)
+
+timer{
+    result1 = mr(ds1, tickSOIR, unionAll{, , false})
+}
+
+ds2 = sqlDS(<select * from pt where date(TradeTime) = 2023.02.01 and time(TradeTime) between 09:30:00.000 and 14:57:00.000>)
+
+timer{
+    result2 = mr(ds2, tickSOIR, unionAll{, , false})
+}

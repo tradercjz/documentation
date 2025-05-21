@@ -1,0 +1,186 @@
+// #include "setup/settings.txt"
+
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+// #include "setup/settings.txt"
+go
+login("admin","123456")
+
+/*
+基于 ATR （平均真实范围）和 RSI（相对强弱指数）结合的技术分析指标实现期货 CTA 策略。基于分钟频率数据，实现以下的 CTA 策略逻辑：
+	计算1分钟内标的的最高价、最低价与前收盘价的差值的绝对值 TR 指标，然后求得 TR 指标平均值，即 ATR。
+	用过去10分钟的收盘价数据计算 RSI 指标。
+
+开仓：
+	当 RSI 值大于70且ATR大于其10分钟均值时，买入开仓。
+	当 RSI 值小于30且ATR大于其10分钟均值时，卖出开仓。
+止损：
+	持有多仓时，K线达到最高点后，回落0.004时，卖平
+	持有空仓时，K线达到最地点后，反弹0.004时，买平
+ */
+
+
+def myatr(high, low, close, m=14,n=10) {
+	//print(close)
+	prevClosePrice = prev(close)
+	tr = rowMax([high-low,abs(high-prevClosePrice),abs(low-prevClosePrice)])
+	atr = ema(tr, m)
+	mAtr = mavg(atr,n)
+	n_ = size(close)
+	return (atr[n_-1],mAtr[n_-1])
+}
+
+def RSI(close, timePeriod=14) {
+	 deltaClose = deltas(close)
+	 up = iif(nullCompare(>, deltaClose, 0), deltaClose, 0)
+	 down = iif(nullCompare(>, deltaClose, 0), 0, -deltaClose)
+	 upAvg = ema(up, timePeriod)
+	 downAvg = ema(down, timePeriod)
+	 n=size(close)
+	 rsi_=100.0 * upAvg / (upAvg + downAvg)
+	 return rsi_[n-1]
+}
+
+def initialize(mutable context){
+	
+	//RSI买入信号指标
+	context["buySignalRSI"] = 70.
+	//RSI卖出信号指标
+	context["sellSignalRSI"] = 30.
+	///平仓线
+	context["closeLine"] = 0.004
+	//
+	context["lowPrice"] = dict(STRING,ANY)
+	context["highPrice"] = dict(STRING,ANY)
+	context["closeList"] = dict(STRING,DOUBLE[])
+	context["lowPriceList"] = dict(STRING,DOUBLE[])
+	context["highPriceList"] = dict(STRING,DOUBLE[])
+//	d=dict(STRING,ANY)
+//	d["ATR"]=<myAtr(signal[0], signal[1], signal[2], 14,10)[0]>
+//	d["mATR"]=<myAtr(signal[0], signal[1], signal[2], 14,10)[1]>
+//	d["RSI"]=<rsi(signal[2], 14)>
+//	Backtest::subscribeIndicator(context["engine"], "kline", d)
+	//
+}
+def beforeTrading(mutable context){
+	
+}
+
+def onBar(mutable context, msg, indicator){
+	closeList = context["closeList"]//实时记录历史的收盘价
+	lowPriceList = context["lowPriceList"]//实时记录历史的最低价
+	highPriceList = context["highPriceList"]//实时记录历史的最高价
+	keys =msg.keys()
+	for(i in keys){
+		istock = msg[i].symbol
+		price = msg[i].close
+		if( type( closeList[istock]) == VOID ){
+			closeList[istock]= array(DOUBLE,0,14)
+			lowPriceList[istock] = array(DOUBLE,0,14)
+			highPriceList[istock] = array(DOUBLE,0,14)
+		}
+		closeList[istock] = closeList[istock].append!(price)
+		lowPriceList[istock] = lowPriceList[istock].append!(msg[i].low)
+		highPriceList[istock] = highPriceList[istock].append!(msg[i].high)
+		
+		if(closeList[istock].size() >= 14){
+			n = size(closeList[istock])
+			closeList[istock] = closeList[istock][n-14:]
+			lowPriceList[istock] = lowPriceList[istock][n-14:]
+			highPriceList[istock] = highPriceList[istock][n-14:]
+		}
+		atr_=myatr(highPriceList[istock], lowPriceList[istock], closeList[istock],14,10)
+		atr = atr_[0]
+		matr = atr_[1]
+		rsi = RSI(closeList[istock], 14) 
+	}
+	context["closeList"] = closeList
+	context["lowPriceList"]= lowPriceList
+	context["highPriceList"] = highPriceList
+
+}
+def onOrder( mutable context,orders){
+	//print orders
+}
+def onTrade(mutable context,trades){
+}
+def afterTrading(mutable context){	
+}
+def finalize (mutable context){
+}
+go
+userConfig=dict(STRING,ANY) 
+userConfig["startDate"]= 2017.02.01        
+userConfig["endDate"]= 2025.02.28       
+userConfig["strategyGroup"]= "futures"
+userConfig["cash"]= 10000000
+userConfig["commission"]= 1.5
+userConfig["tax"]= 0.0 // useless in future goods backtest engine
+userConfig["dataType"]=3
+userConfig["msgAsTable"]= false
+userConfig["frequency"]= 0
+userConfig["outputOrderInfo"]= true
+userConfig["depth"]= 5
+userConfig["matchingMode"]=3
+//userConfig["enableIndicatorOptimize"]=true
+Context=dict(STRING,ANY)
+Context["buySignalRSI"]=70.
+Context["sellSignalRSI"]=30.
+Context["closeLine"]=0.004
+Context["lowPrice"]=dict(STRING,ANY)
+Context["highPrice"]=dict(STRING,ANY)
+Context["closeList"] = dict(STRING,DOUBLE[])
+Context["lowPriceList"] = dict(STRING,DOUBLE[])
+Context["highPriceList"] = dict(STRING,DOUBLE[])
+userConfig["context"]= Context
+// -------------------------
+t=loadText("/home/mhxiang/FuGuo//futureTestData.csv")
+codes=distinct(t.ContractID)
+//codes=[`AG2306]
+tb=select ContractID as symbol,Market as symbolSource,concatDateTime(Date,BarTime) as tradeTime,TradeDate as tradingDay,OpenPrice as open,
+LowPrice as low,HighPrice as high, ClosePrice as close,long(volume) as volume,Value*1.0 as amount,ULimitPrice as upLimitPrice,
+LLimitPrice as downLimitPrice,fixedLengthArrayVector([backwardFactorHighPrice,backwardFactorLowPrice,backwardFactorClosePrice]) as signal,
+PreClosePrice as prevClosePrice,SetPrice as settlementPrice, PreSetPrice as prevSettlementPrice from t where ContractID in codes order by tradeTime
+
+symbol=distinct(tb.symbol)
+securityReference  = table(symbol as symbol, take(100.,size(symbol)) as multiplier, take(0.2,size(symbol)) as marginRatio,
+				take(0.01,size(symbol)) as tradeUnit, take(0.02,size(symbol)) as priceUnit, 
+				take(0.03,size(symbol)) as priceTick, take(1.5,size(symbol)) as commission, take(1,size(symbol)) as deliveryCommissionMode)
+//执行回测				
+strategyName="Backtest_test1"
+// ===================================================================================
+callbacks=dict(STRING,ANY)
+callbacks["initialize"]=initialize
+callbacks["beforeTrading"]=beforeTrading
+//callbacks["onSnapshot"]=onSnapshot 
+//callbacks["onTick"]=onTick 
+callbacks["onBar"]=onBar
+callbacks["onOrder"]=onOrder
+callbacks["onTrade"]=onTrade
+callbacks["afterTrading"]=afterTrading
+callbacks["finalize"]=finalize
+
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks,,securityReference )
+timer Backtest::appendQuotationMsg(engine, tb)
+strategyName=strategyName+"02"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine2 = Backtest::createBacktester(strategyName, userConfig, callbacks,true,securityReference )
+timer Backtest::appendQuotationMsg(engine2, tb)
+
+///回测结束标志
+a = select * from tb where tradeTime=max(tradeTime) limit 1
+update a set symbol = "END"
+Backtest::appendQuotationMsg(engine, a)
+go
+
+// ===================================================================================
+resnew=select * from Backtest::getTradeDetails(engine) where orderStatus in [0,1]
+
+cash=Backtest::getAvailableCash(engine)
+
+pos=Backtest::getDailyPosition(engine)
+
+dailyTotalPortfolios=Backtest::getDailyTotalPortfolios(engine)
+
+

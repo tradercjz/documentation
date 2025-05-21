@@ -1,0 +1,127 @@
+def autoGetModuleName(path){
+    tfiles=files(path)
+    fileList=path+"/"+exec filename from tfiles where isDir =false
+    dirList=path+"/"+exec filename from tfiles where isDir =true
+    dirsize=dirList.count()
+    dirindex=0
+    do{
+        if(dirsize<= dirindex){
+            break
+        }
+        tmp=files(dirList[dirindex])
+        fileList.append!(dirList[dirindex]+"/"+exec filename from tmp where isDir =false)
+        dirList.append!(dirList[dirindex]+"/"+exec filename from tmp where isDir =true)
+        dirsize=dirList.count()
+        dirindex+=1
+    }while(true)
+
+    mddict=dict(STRING,ANY)
+    fileList=fileList[fileList like "%.dos"]
+    for(fpath in fileList){
+        fin=file(fpath)
+        tmp1=fin.readLines(102400)
+        module1=tmp1[tmp1 like "module %"][0].split(" ")
+        module_name=module1[module1 like "%::%"][0]
+        use_moudle=tmp1[tmp1 like "use %"].split(" ").flatten()
+        if(use_moudle.count()>0){
+            use_moudles=use_moudle[use_moudle like "%::%"]
+        }else{
+            use_moudles=[]
+        }
+        mddict[module_name]=use_moudles
+    }
+
+    order=array(STRING)
+    for( i in mddict.keys()){
+        if(mddict[i].count()==0){
+            erase!(mddict,i)
+            order.append!(i)
+        }
+    }
+    loopNum=mddict.keys().count()
+    for (lop in 0:loopNum){
+        if(mddict.keys().count()==0){
+            break
+        }
+        for(i in mddict.keys()){
+            tmpuse=mddict[i]
+            if(tmpuse[not(tmpuse in order)].count()==0){
+                erase!(mddict,i)
+                order.append!(i)
+            }
+        }
+    }
+    return order.reverse().dropna()
+}
+
+
+
+def deployModuleFromGitLab(gitLabSite, repoId, repoBranch, privateToken, timeout) {
+    try {
+        // 通过gitlab的Restful API来下载到内存。
+        // 参考 https://docs.gitlab.com/ee/api/repositories.html#get-file-archive
+        ticket=rpc(getControllerAlias(),getAuthenticatedUserTicket)
+        currentUser=getCurrentSessionAndUser()[1]
+        login("admin","123456")
+        url = gitLabSite+"/api/v4/projects/"+repoId$STRING+"/repository/archive.zip"
+        param=dict(string,string);
+        param['private_token']=privateToken;
+        param['sha']=repoBranch;
+        
+        res=httpClient::httpGet(url,param,timeout);
+        
+        if(res.responseCode != 200) {
+            throw res.text
+        }
+        tdir=getHomeDir()+"/gitModule/"
+        // 将内存里的压缩文件，写入到文件
+        tmpDir=tdir+temporalFormat(now(),'yyyyMMddHHmmss')+repoId$STRING
+        shell("mkdir -p "+tmpDir)
+        tmpFile=tmpDir+".zip"
+        f=file(tmpFile,"w+")
+        f.write(res["text"])
+        f.fflush()
+        f.close()
+        
+        // 获取模块路径
+        getModulePath = def() {
+            cfgPath = getConfig("moduleDir")
+            return iif(cfgPath == "modules", getHomeDir()+"/modules", cfgPath)
+        }
+        
+        mdPath = getModulePath()+"/"+currentUser;
+        
+        // 解压开对应的压缩包, 这里先解压到tmpDir，后面再拷贝到mdPath，
+        filenames=zip::unzip(tmpFile, tmpDir)
+        unzipDir=(exec filename from files(tmpDir) where isDir=true)[0]
+        // 这里获取解压开项目里的每一个目录
+        toAddFVDir = exec tmpDir+"/"+unzipDir+"/"+filename from files(tmpDir+"/"+unzipDir)
+        shell("rm -rf "+mdPath)
+        shell("mkdir -p "+mdPath)
+        // 这里通过shell命令将每一个文件目录拷贝到系统的模块路径
+        // TODO： 这里就是业务逻辑相关的了，要定义好一些规则之类的。需要根据用户环境来调整。包括后续的一些dropFV&addFV的逻辑
+        each(def(x, mdPath){cmd="cp -r "+x+" "+mdPath; shell(cmd); }{,mdPath}, toAddFVDir)
+        // 添加到functionview
+        // NOTE: 这里只是一个例子，先去drop，再去添加，实际都得定义好规则，或者看下用户环境如何处理
+        matchFunction=currentUser+'::%'
+        each(dropFunctionView, exec name from getFunctionViews() where name like matchFunction)
+        order=autoGetModuleName(mdPath)
+        authenticateByTicket(ticket)
+        each(addFunctionView,order)
+        //each(grant{currentUser,VIEW_EXEC},exec name from getFunctionViews() where name like matchFunction)
+        login("admin","123456")
+        shell("rm -rf "+mdPath)
+        shell("rm -rf "+tmpDir)
+        shell("rm -rf "+tmpFile)
+        logout()
+        authenticateByTicket(ticket)  
+        return true;
+    } catch (ex) {
+        //TODO:异常处理的话，看用户情况，也可以封装下成json，或者能接受抛出也行。
+        logout()
+        authenticateByTicket(ticket)
+        throw ex
+    }
+}
+
+addFunctionView(deployModuleFromGitLab)

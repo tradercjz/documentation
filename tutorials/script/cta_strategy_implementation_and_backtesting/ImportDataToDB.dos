@@ -1,0 +1,41 @@
+/**
+File name: ImportDataToDB.dos
+Application: script to import sample data into the database.
+Author: Daliang Zheng
+Company: DolphinDB Inc.
+DolphinDB server version: 3.00.1.3
+Storage engine: TSDB
+Last modification time: 2024.09.27
+*/
+
+// create database
+dbName = "dfs://testDB"
+if(existsDatabase(dbName)){
+	dropDatabase(dbName)
+}
+dbDate = database(, VALUE, 2024.01.01..2024.01.30)
+dbSym = database(, HASH, [SYMBOL, 50])
+db = database(dbName, COMPO, [dbDate, dbSym], engine='TSDB')
+db = database("dfs://testDB")
+
+//create trade table
+colName = `ChannelNo`ApplSeqNum`MDStreamID`BidApplSeqNum`OfferApplSeqNum`SecurityID`SecurityIDSource`TradePrice`TradeQty`ExecType`TradeTime`LocalTime`SeqNo`DataStatus`TradeMoney`TradeBSFlag`BizIndex`OrderKind`Market
+colType = ["INT","LONG","SYMBOL","LONG","LONG","SYMBOL","SYMBOL","DOUBLE","INT","SYMBOL","TIMESTAMP","TIME","LONG","INT","DOUBLE","SYMBOL","LONG","SYMBOL","SYMBOL"]
+tradeSchema = table(colName as `name, colType as `typeString)
+tbSchema = table(1:0, colName, colType)
+db.createPartitionedTable(table=tbSchema,tableName=`trade,partitionColumns=`TradeTime`SecurityID,sortColumns=`Market`SecurityID`TradeTime,keepDuplicates=LAST)
+
+// create snapshot table
+colName = `Market`TradeTime`MDStreamID`SecurityID`SecurityIDSource`TradingPhaseCode`ImageStatus`PreCloPrice`NumTrades`TotalVolumeTrade`TotalValueTrade`LastPrice`OpenPrice`HighPrice`LowPrice`ClosePrice`DifPrice1`DifPrice2`PE1`PE2`PreCloseIOPV`IOPV`TotalBidQty`WeightedAvgBidPx`AltWAvgBidPri`TotalOfferQty`WeightedAvgOfferPx`AltWAvgAskPri`UpLimitPx`DownLimitPx`OpenInt`OptPremiumRatio`OfferPrice`BidPrice`OfferOrderQty`BidOrderQty`BidNumOrders`OfferNumOrders`ETFBuyNumber`ETFBuyAmount`ETFBuyMoney`ETFSellNumber`ETFSellAmount`ETFSellMoney`YieldToMatu`TotWarExNum`WithdrawBuyNumber`WithdrawBuyAmount`WithdrawBuyMoney`WithdrawSellNumber`WithdrawSellAmount`WithdrawSellMoney`TotalBidNumber`TotalOfferNumber`MaxBidDur`MaxSellDur`BidNum`SellNum`LocalTime`SeqNo`OfferOrders`BidOrders
+colType = ["SYMBOL","TIMESTAMP","SYMBOL","SYMBOL","SYMBOL","SYMBOL","INT","DOUBLE","INT","INT","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","DOUBLE","INT","DOUBLE","DOUBLE","INT","DOUBLE","DOUBLE","DOUBLE","DOUBLE","INT","DOUBLE","DOUBLE[]","DOUBLE[]","INT[]","INT[]","INT[]","INT[]","INT","INT","DOUBLE","INT","INT","DOUBLE","DOUBLE","DOUBLE","INT","INT","DOUBLE","INT","INT","DOUBLE","INT","INT","INT","INT","INT","INT","TIME","INT","INT[]","INT[]"]
+snapSchema=table(colName as `name, colType as `typeString)
+tbSchema = table(1:0, colName, colType)
+db.createPartitionedTable(table=tbSchema,tableName=`snapshot,partitionColumns=`TradeTime`SecurityID,sortColumns=`Market`SecurityID`TradeTime,keepDuplicates=LAST)
+
+// insert
+result = select * from loadText("../data/CEPExampleData_Transaction.csv",,tradeSchema) 
+pt = loadTable('dfs://testDB','trade')
+pt.append!(result)
+result = select * from loadText("../data/CEPExampleData_Snapshot.csv",,snapSchema)
+pt = loadTable('dfs://testDB','snapshot')
+pt.append!(result)

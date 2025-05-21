@@ -1,0 +1,139 @@
+/* *
+*  @ brief  
+*  This script is to the test case for Barra project.
+*  @ Author: DolphinDB
+*  @ Last modification time: 2024.02.27
+*  @ DolphinDB server version: 2.00.10.4
+*  @ FileName: createTable.dos
+*/
+
+pnodeRun(clearCachedModules)
+use RiskFactors::helper::RiskFactorsCal
+use RiskFactors::RiskFactorsModel
+use RiskFactors::RiskFactorsPrepare
+
+// 1. Preparation the mock datafor factors data
+startTime,endTime = 2018.01.01, 2023.01.01
+prepareMockData(startTime,endTime)
+
+// 2. Get factors
+// Get raw style fatcors,some sample codes: 
+getAcf(method='TTM',startTime = 2022.01.03,endTime = 2023.01.02)        //'TTM'(Default)
+getRstr(startTime = 2022.01.03,windowsReturn = 252,windowsAvg = 11,lagged = 11,halfLife = 126,endTime = 2023.01.02)
+getEgro(method='LYR',startTime = 2022.01.03,windows = 1825,endTime = 2023.01.02)  //'LYR'(Default)
+
+// Get raw industry factors,some sample codes:
+getIndustry(startTime = 2022.01.01,endTime = 2023.01.02,method = 'SW_2021') 
+getIndustry(startTime = 2022.01.01,endTime = 2023.01.02,method = 'CITIC')
+
+// Get Industry Factor Weights,some sample codes:
+getIndustryWeighted(startTime = 2022.01.03,endTime = 2023.01.02,method = 'SW_2021')
+getIndustryWeighted(startTime = 2022.01.03,endTime = 2023.01.02,method = 'CITIC')
+
+// Get weighted industry factors 
+getIndustryFactor(startTime = 2022.01.03,endTime = 2023.01.02,method = 'SW_2021')
+getIndustryFactor(startTime = 2022.01.03,endTime = 2023.01.02,method = 'CITIC')
+
+// Time Range: 2022.01.03 to 2023.01.02
+st = 2022.01.03 
+et = 2023.01.02
+normlizing = true
+scaling = true
+decap = true
+// also you can choose industry_method = 'SW_2021'
+industry_method = 'CITIC'
+industry_weighted = true
+// Get ALL THIRD level of factors and factor Validatiion table
+factorsValid,facTable3=prepareModelData(startTime,endTime,normlizing,scaling,decap,industry_method,industry_weighted,merge_method=NULL,merge_level=NULL)
+
+// Get ALL SECOND level of factors and factor Validatiion table
+factorsValid,facTable2=prepareModelData(startTime,endTime,normlizing,scaling,decap,industry_method,industry_weighted,merge_method="equal",merge_level="S")
+
+// Get ALL FIRST level of factors and factor Validatiion table
+factorsValid,facTable1=prepareModelData(st,et,normlizing,scaling,decap,industry_method,industry_weighted,merge_method="equal",merge_level="F")
+
+select * from facTable1 limit 100
+
+// 3. Factors Validation Plot
+x,y=plotFactorsValidation(factorsValid,"fsc")
+plot(x,y,extras={multiYAxes: false},title = "因子fsc 月频时序图")
+
+x,y=plotFactorsValidation(factorsValid,"ic")
+plot(x,y,extras={multiYAxes: false},title = "因子ic月频时序图")
+
+x,y=plotFactorsValidation(factorsValid,"t")
+plot(x,y,extras={multiYAxes: false},title = "因子t_stat月频时序图")
+
+
+// 4. Build BARRA Model
+// First-order factor return regression (R2, t-stat, monthly factor returns, idiosyncratic returns, risk factor covariance matrix, idiosyncratic risk table, bias statistic for multifactor models are available, because of the large number of results, it is recommended to view the results after persistence if you need to see them, or you can take out some of the lesser results)
+retOut1 = getRetTable(facTable1,adjust = true,shrink = true,eigenfactor = true)   
+
+// the output of getRetTable function 
+retOut1.stock_risk[string(2022.12.30)] // the trait return covariance matrix for 12.30
+retOut1.fac_risk[string(2022.12.30)] // risk factor covariance matrix for 12.30
+retOut1.R2 // R2
+retOut1.res // trait return
+retOut1.tstat // t-stat
+retOut1.fac_ret // factor returns
+retOut1.bias // bias statistic
+
+// R2 Monthly Frequency Timing Chart
+plot(retOut1.R2.stR2,retOut1.R2.record_date,"𝑆𝑡𝑢𝑑𝑒𝑛𝑡𝑖𝑧𝑒𝑑 R2 月频时序图")
+
+// Two-factor return regression, corresponding to the results of the corresponding model test can be obtained
+retOut2 = getRetTable(facTable2)   
+ // Three-level factor return regression, corresponding to the corresponding model test results can be obtained  
+retOut3 = getRetTable(facTable3)         
+
+// 5. BARRA Model Apply
+/* 5.1.Forecasting individual stock returns
+ */ 
+predictOut = getPredicOut(facTable1)           // There are a lot of results, so if you want to see them, it is recommended to see the results after persistence, or you can take out some of the smaller results, excluding predicted returns, and include all the results for R2, t-stat, monthly factor returns, trait returns, risk factor covariance matrices, trait risk tables, and the bias statistic.
+pr = select * from predictOut.predict_ret    // Use current period factor exposures to forecast final period returns
+predictOut.R2                               // Predictive model R2
+predictOut.res                              // Predicting model trait gains
+predictOut.tstat                            // Predictive model t-stat
+predictOut.fac_ret                          // Predicting model factor returns
+predictOut.bias                              // Predictive model bias statistics
+
+/* 5.2.Portfolio weight optimization
+*/  
+optionCode = exec stock_code from getPredicOut(facTable1).predict_ret order by return_day desc limit 20             // Initial screening stock1
+
+// Controlled return, minimized risk model
+portWeight1 = getOptimizeWeights(facTable = facTable1,retOut = retOut1,st = st,et = et, method ="minRiskControlRet",r = 0.05,optionCode = optionCode)      // Obtaining weight combinations
+
+index_code = '000300'
+CodePre = set(exec stock_code from getPredicOut(facTable1).predict_ret order by return_day desc limit 200)           // Initial screening stock2
+CodeWeight = set(exec stock_code from getBenchMark(st=st,et=et,code = index_code) where i_weight != 0)
+CodeFac =set(exec stock_code from facTable1 )
+optionCode = (CodePre&CodeWeight&CodeFac).keys()
+portWeight2 = getOptimizeWeights(facTable = facTable1,retOut = retOut1,st = st,et = et, method ="minRiskControlRet",r = 0.005,deIndustry = true,optionCode = optionCode)   // Obtaining a portfolio of weights and realize zero exposure to the industry
+
+
+/* 5.3.Asset allocation assessment
+*/  
+/* 5.3.1.Asset allocation based on factor exposures
+ */
+x,y=FactorCombinationAssessment(retOut = retOut1,plot_index="bias_stat")
+plot(x,y,title = "因子模型因子Bias统计量时序图")
+
+x,y = FactorCombinationAssessment(retOut = retOut1,plot_index="avg_bias_stat")
+plot(x,y,extras={multiYAxes: false},title = "因子均值Bias统计量时序图")   
+
+x,y = FactorCombinationAssessment(retOut = retOut1,plot_index="stock_bias_stat")
+plot(x,y,extras={multiYAxes: false},title = "因子模型特异风险Bias统计量时序图") 
+
+/* 5.3.2.Asset allocation based on portfolio returns
+ */
+x,y =AssetPortfolioAssessment(retOut = retOut1,index_code="000300",index_weight="equal") 
+plot(x,y,extras={multiYAxes: false})
+
+x,y = AssetPortfolioAssessment(retOut = retOut1,index_code="000300",index_weight="float_market") 
+plot(x,y,extras={multiYAxes: false})
+
+/* 5.3.3 Ex-ante asset allocation assessment
+ */
+x,y=exAssetAllocationAssessment(2022.01.03,2023.01.02,"000300","equal",facTable1,retOut1)
+plot(x,y,extras={multiYAxes: false})

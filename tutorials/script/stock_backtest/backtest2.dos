@@ -1,0 +1,201 @@
+/*
+    1. 个股因子逻辑：
+        均线设置：
+            短期均线（如5日均线）。
+            长期均线（如20日均线）。
+        开仓信号：
+            当短期均线上穿长期均线时, 且RSI指标小于70时，波动率小于0.02，生成多头信号（记为1）。
+            当短期均线下穿长期均线时，或RSI指标大于80时，波动率大于0.05，生成空头信号（记为-1）。
+            其他情况记为0。
+        平仓条件：
+            多头平仓：
+                当价格跌破短期均线时，平仓并不再开仓，记为0。
+            空头平仓：
+                当价格突破短期均线时，平仓并不再开仓，记为0。
+            其他情况不平仓。
+    2. 合成逻辑
+        以300股指IF为例，将成分股每个个股的信号相加/300，记为股指的信号权重，如果这个数值>0.75，则开多，若开多，当数值低于0.25，则平仓。如果这个数值<-0.75，则开空，若开空，当数值高于-0.25，则平仓。
+*/
+try {loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try {loadPlugin("Backtest")}catch(ex){print ex}
+go
+
+use mytt
+
+@state
+def getVolatility(close, period=10){
+    returns = DIFF(close) / REF(close, 1)
+    return STD(returns, period)
+}
+
+def initialize(mutable contextDict){
+    d = dict(STRING, ANY)
+    d["shortMA"] = <MA(close, 5)>
+    d["longMA"] = <MA(close, 20)>
+    d["rsi"] = <RSI(close, 24)>
+    d["volatility"] = <getVolatility(close, 10)>
+
+    // 此处不额外订阅指标
+    Backtest::subscribeIndicator(contextDict["engine"], "kline", d)
+}
+
+
+def beforeTrading(mutable contextDict){
+    print("beforeTrading"+string(date(contextDict["tradeTime"])))
+}
+
+
+def onBar(mutable contextDict, msg, indicator){
+    stockSignalDict = contextDict["stockSignal"]
+    indexSignalDict = contextDict["indexSignal"]
+    shortLongMADict = contextDict["shortLongMA"]
+    keysAll = msg.keys()
+    
+    // 先针对股票生成信号,假设只传入沪深300成分股+股指IF
+    keys1 = keysAll[!(like(keysAll,"IF%"))]
+    for (i in keys1){
+        &istock = msg[i].symbol
+        &close = msg[i].close
+        &shortMA = indicator[i].shortMA
+        &longMA = indicator[i].longMA
+        &rsi = indicator[i].rsi
+        &volatility = indicator[i].volatility
+
+        // 开仓信号
+        if (minute(contextDict["tradeTime"])==09:31m){
+            stockSignalDict[istock] = iif(
+                shortLongMADict[istock]==1 && shortMA>longMA && rsi<70 && volatility<0.02, 
+                1, 
+                iif(
+                    (shortLongMADict[istock]==-1 && longMA>shortMA) || rsi>80 || volatility>0.05,
+                    -1, 
+                    0
+                )
+            )
+        }
+      
+        // 平仓信号
+        if (stockSignalDict[istock]==1){
+            stockSignalDict[istock] = iif(close<shortMA, 0, stockSignalDict[istock])
+        }
+        else if (stockSignalDict[istock]==-1){
+            stockSignalDict[istock] = iif(close>shortMA, 0, stockSignalDict[istock])
+        }
+
+        // 记录收盘时刻下的短期均线和长期均线关系
+        if (minute(contextDict["tradeTime"])==15:00m){
+            shortLongMADict[istock] = iif(
+                shortMA>longMA, 
+                -1,
+                iif(shortMA<longMA, 1, 0)
+            )
+        }
+    }
+
+
+    // 股指合成逻辑
+    keys2 = keysAll[like(keysAll, "IF%")]
+    for (i in keys2){
+        &index = msg[i].symbol
+        &symbolSource = msg[i].symbolSource
+        // 等权合成指数信号
+        &indexSignal = stockSignalDict.values().sum()/300
+        &price = msg[i].close
+        if (indexSignal>0.75){
+            // 标记开多信号
+            indexSignalDict[index] = 1
+            Backtest::submitOrder(contextDict["engine"], (index, symbolSource,contextDict["tradeTime"], 5, price+0.02, 0., 2, 1, 0), "buyOpen")
+        }   
+        if (indexSignal<-0.75){
+            // 标记开空信号
+            indexSignalDict[index] = -1
+            Backtest::submitOrder(contextDict["engine"], (index, symbolSource,contextDict["tradeTime"], 5, price+0.02, 0., 2, 2, 0), "sellOpen")
+    
+        }
+        if (indexSignalDict[index]==1 and indexSignal<0.25){
+            if (Backtest::getPosition(contextDict["engine"], index).longPosition <2) continue
+            // 平仓信号
+            indexSignalDict[index] = 0
+            Backtest::submitOrder(contextDict["engine"], (index, symbolSource,contextDict["tradeTime"], 5, price-0.02, 0., 2, 3, 0), "sellClose")
+        }
+        if (indexSignalDict[index]==-1 and indexSignal<-0.25){
+            if (Backtest::getPosition(contextDict["engine"], index).shortPosition <2) continue
+            // 平仓信号
+            indexSignalDict[index] = 0
+            Backtest::submitOrder(contextDict["engine"], (index, symbolSource,contextDict["tradeTime"], 5, price-0.02, 0., 2, 4, 0), "buyClose")
+        }    
+    }
+    contextDict["shortLongMA"] = shortLongMADict
+    contextDict["stockSignal"] = stockSignalDict
+    contextDict["indexSignal"] = indexSignalDict
+}
+
+
+def onOrder(mutable contextDict, orders){
+    // print orders
+}
+def onTrade(mutable contextDict, trades){
+}
+def afterTrading(mutable contextDict){
+}
+
+
+def finalized(mutable contextDict){
+}
+
+userConfig = dict(STRING, ANY)
+userConfig["startDate"] = 2024.01.01
+userConfig["endDate"] = 2024.01.11
+userConfig["strategyGroup"] = "futures"
+userConfig["cash"] = 10000000
+userConfig["commission"] = 1.5
+userConfig["tax"] = 0.0 // useless in future goods backtest engine
+userConfig["dataType"] = 3
+userConfig["msgAsTable"] = false
+userConfig["frequency"] = 0
+userConfig["outputOrderInfo"] = true
+userConfig["depth"] = 5
+userConfig["matchingMode"] = 3
+Context = dict(STRING, ANY)
+// 买入信号指标
+Context["buySignal"] = 0.995
+// 卖出信号指标
+Context["sellSignal"] = 0.995
+// 信号字典
+Context["stockSignal"] = dict(STRING, ANY)
+Context["indexSignal"] = dict(STRING, ANY)
+// 短期均线长期均线的信号字典,当短期均线大于长期均线更新为-1,当长期均线大于短期均线更新为1,其他标记为0
+Context["shortLongMA"] = dict(STRING, ANY)
+userConfig["context"] = Context
+
+
+//执行回测
+strategyName = "Backtest_test1"
+// == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
+callbacks = dict(STRING, ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+callbacks["onBar"] = onBar
+callbacks["onOrder"] = onOrder
+callbacks["onTrade"] = onTrade
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalized
+
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks, true, basicInfo)
+timer Backtest::appendQuotationMsg(engine, messageTable)
+
+// 回测结束标志
+tmp = select * from messageTable where tradeTime = max(tradeTime) limit 1
+update tmp set symbol = "END"
+Backtest::appendQuotationMsg(engine, tmp)
+go
+
+// == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
+// 输出回测结果
+resnew = select * from Backtest::getTradeDetails(engine) where orderStatus in [0, 1]
+canceled = select * from Backtest::getTradeDetails(engine) where orderStatus in [-1] and !(orderInfo like "Invalid upLimitPrice or downLimitPrice.%")
+
+cash = Backtest::getAvailableCash(engine)
+pos = Backtest::getDailyPosition(engine)
+dailyTotalPortfolios = Backtest::getDailyTotalPortfolios(engine)

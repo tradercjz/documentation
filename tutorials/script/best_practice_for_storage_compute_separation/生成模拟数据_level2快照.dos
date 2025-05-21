@@ -1,0 +1,87 @@
+//数据模拟函数：按指定日期day和股票数量stockCnt生成模拟数据，写入到库表中
+def genSimulateData(days, stockCnt, dbName, tbName){
+    for(day in days){
+        pt = loadTable(dbName, tbName)
+        //模拟A股全市场stockCnt支股票，为了简化模拟脚本, 股票代码按照 "00XXXX"格式构建。
+        Securityids = lpad(string(1..stockCnt), 6, "0")
+        for(i in 0..49){
+            SecurityID = Securityids[hashBucket(Securityids, 50)==i]
+            t1 = table(SecurityID)
+            //模拟上午和下午的开收盘时间，用于生成秒级时间戳
+            t2 = table(concatDateTime(day, 09:30:00..11:30:00 join 13:30:00..15:30:00) as TradeTime)
+            //按时间戳每秒每股一笔的频率配给数据
+            t3 = cj(t1,t2)
+            t3 = select rand(["1","2"], t3.size()) as Market, TradeTime, rand(["1","2"], t3.size()) as MDStreamID, SecurityID from t3
+            t3["SecurityIDSource"] = rand(["1","2"], t3.size())
+            t3.sortBy!("TradeTime")
+            t3["TradingPhaseCode"] = rand(["1","2"], t3.size())
+            t3["ImageStatus"] = rand(1..10000, t3.size())
+            t3["PreCloPrice"] = rand(1.0, t3.size())
+            t3["NumTrades"] = rand(1..10000, t3.size())
+            t3["TotalVolumeTrade"] = rand(1..10000, t3.size())
+            t3["TotalValueTrade"] = rand(1.0, t3.size())
+            t3["LastPrice"] = rand(1.0, t3.size())
+            t3["OpenPrice"] = rand(1.0, t3.size())
+            t3["HighPrice"] = rand(1.0, t3.size())
+            t3["LowPrice"] = rand(1.0, t3.size())
+            t3["ClosePrice"] = rand(1.0, t3.size())
+            t3["DifPrice1"] = rand(1.0, t3.size())
+            t3["DifPrice2"] = rand(1.0, t3.size())
+            t3["PE1"] = rand(1.0, t3.size())
+            t3["PE2"] = rand(1.0, t3.size())
+            t3["PreCloseIOPV"] = rand(1.0, t3.size())
+            t3["IOPV"] = rand(1.0, t3.size())
+            t3["TotalBidQty"] = rand(1..10000, t3.size())
+            t3["WeightedAvgBidPx"] = rand(1.0, t3.size())
+            t3["AltWAvgBidPri"] = rand(1.0, t3.size())
+            t3["TotalOfferQty"] = rand(1..10000, t3.size())
+            t3["WeightedAvgOfferPx"] = rand(1.0, t3.size())
+            t3["AltWAvgAskPri"] = rand(1.0, t3.size())
+            t3["UpLimitPx"] = rand(1.0, t3.size())
+            t3["DownLimitPx"] = rand(1.0, t3.size())
+            t3["Openrand(1..10000, t3.size())"] = rand(1..10000, t3.size())
+            t3["OptPremiumRatio"] = rand(1.0, t3.size())
+            t3["OfferPrice"] = take(array(DOUBLE[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["BidPrice"] = take(array(DOUBLE[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["OfferOrderQty"] = take(array(INT[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["BidOrderQty"] = take(array(INT[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["BidNumOrders"] = take(array(INT[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["OfferNumOrders"] = take(array(INT[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["ETFBuyNumber"] = rand(1..10000, t3.size())
+            t3["ETFBuyAmount"] = rand(1..10000, t3.size())
+            t3["ETFBuyMoney"] = rand(1.0, t3.size())
+            t3["ETFSellNumber"] = rand(1..10000, t3.size())
+            t3["ETFSellAmount"] = rand(1..10000, t3.size())
+            t3["ETFSellMoney"] = rand(1.0, t3.size())
+            t3["YieldToMatu"] = rand(1.0, t3.size())
+            t3["TotWarExNum"] = rand(1.0, t3.size())
+            t3["WithdrawBuyNumber"] = rand(1..10000, t3.size())
+            t3["WithdrawBuyAmount"] = rand(1..10000, t3.size())
+            t3["WithdrawBuyMoney"] = rand(1.0, t3.size())
+            t3["WithdrawSellNumber"] = rand(1..10000, t3.size())
+            t3["WithdrawSellAmount"] = rand(1..10000, t3.size())
+            t3["WithdrawSellMoney"] = rand(1.0, t3.size())
+            t3["TotalBidNumber"] = rand(1..10000, t3.size())
+            t3["TotalOfferNumber"] = rand(1..10000, t3.size())
+            t3["MaxBidDur"] = rand(1..10000, t3.size())
+            t3["MaxSellDur"] = rand(1..10000, t3.size())
+            t3["BidNum"] = rand(1..10000, t3.size())
+            t3["SellNum"] = rand(1..10000, t3.size())
+            t3["LocalTime"] = time(t3["TradeTime"])
+            t3["SeqNo"] = rand(1..10000, t3.size())
+            t3["OfferOrders"] = take(array(INT[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            t3["BidOrders"] = take(array(INT[], 0, t3.size(), 0).append!([[1,2,3,4,5,6,7,8,9,10]]), t3.size())
+            // 将这一批数据t3插入到分区表中
+            tableInsert(pt, t3) 
+        }
+        print("the data of " + day.string() + " appended.")
+    }
+}
+
+
+days = getMarketCalendar("XSHG", 2023.02.01, 2023.02.28)
+stockCnt = 1650
+dbName = "dfs://l2TLDB"
+tbName = "snapshot"
+
+genSimulateData(days, stockCnt, dbName, tbName)

@@ -1,0 +1,1 @@
+oxy_webhelp_navlinks = {"insight-d10677e102578":{"topics":[{"title":"DolphinDB INSIGHT 行情插件最佳实践指南","href":"tutorials\/insight_plugin.html","attributes":{"data-id":"dolphindb-insight-行情插件最佳实践指南"},"menu":{"hasChildren":false},"tocID":"dolphindb-insight-行情插件最佳实践指南-d10677e102624","topics":[]}]}};

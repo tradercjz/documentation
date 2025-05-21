@@ -1,0 +1,480 @@
+use mytt
+
+try{loadPlugin("Backtest")}catch(ex){print(ex)}
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print(ex)}
+go;
+
+// 计算指标函数indicators
+// 检查股票交易状态，包括是否停牌和是否触及涨跌停
+
+def checkTradingStatus(open, high, low, volume, turnover, close, upLimitPrice, downLimitPrice){
+    /* checkTradingStatus
+        @Parameters
+        ---------------------
+        open:`INT VECTOR`
+            开盘价序列,若为0则表示该股票该时刻停牌
+        high:`DOUBLE VECTOR`
+            最高价序列,若为0则表示该股票该时刻停牌
+        low:`DOUBLE VECTOR`
+            最低价序列,若为0则表示该股票该时刻停牌
+        volume:`DOUBLE VECTOR`
+            成交量序列,若为0则表示该股票该时刻停牌
+        turnover:`DOUBLE VECTOR`
+            换手率序列,若为0则表示该股票该时刻停牌
+        close:`DOUBLE VECTOR`
+            收盘价序列
+        upLimitPrice:`DOUBLE VECTOR`
+            涨停价序列
+        downLimitPrice:`DOUBLE VECTOR`
+            跌停价序列
+        
+        @Return 
+        ----------------------
+        返回0表示该股票停牌或触及涨跌停,1表示交易正常
+    */
+    // 检查是否停牌
+    &isHalted = (open==0 || high==0 || low==0 || volume==0 || turnover==0)
+    
+    // 检查是否涨跌停
+    &isPriceLimited = (close>=upLimitPrice || close<=downLimitPrice)
+    
+    // 返回交易状态
+    return iif(isHalted || isPriceLimited, 0, 1)
+}
+
+
+def getCross(firstMA, secondMA, prevFirstMA, prevSecondMA) {
+    // 判断当前是否上穿：上一周期 firstMA 小于等于 secondMA，且当前 firstMA 大于 secondMA
+    isCrossUp = (prevFirstMA <= prevSecondMA) && (firstMA > secondMA)
+    
+    // 判断当前是否下穿：上一周期 firstMA 大于等于 secondMA，且当前 firstMA 小于 secondMA
+    isCrossDown = (prevFirstMA >= prevSecondMA) && (firstMA < secondMA)
+    
+    return (isCrossUp, isCrossDown)
+}
+
+def sortDict(x, ascending=true){
+    // 对字典排序
+    x_idx = isort(x.values(), ascending)
+    res = dict(x.keys()[x_idx], x.values()[x_idx],true)
+    return res
+}
+
+// 辅助函数
+
+def getSellVolume(price, value, position){
+    // 若卖出=持仓,清仓;小于持仓,按照100的倍数卖出
+    // 此处/代表整除
+    vol = int(value/price)/100*100
+    // 确保卖出的股数为100倍
+    return int(iif(vol < position, vol , position))
+}
+
+
+def getBuyVolume(symbol, price, value){
+    // 若symbol以688开头,则需要是200的倍数;否则是100的倍数
+    vol = int(value/price)
+    return int(iif(symbol like "688%",vol/200*200, vol/100*100))
+}
+
+
+def updateDailyPosition(context, mutable msg){
+    /* 
+    更新普通股票投资组合的每日持仓信息
+
+    参数:
+    context: 回测上下文对象
+    msg: 股票信息表，包含需要更新的股票持仓信息
+
+    返回:
+    无
+    */
+
+    // 获取去重的股票代码列表
+    &symbollist = msg["symbol"].distinct()
+
+    // 使用 Backtest::getPosition 获取每日持仓信息
+    dailyPosition = select * from Backtest::getPosition(context["engine"]) where symbol in symbollist, isDuplicated([symbol],keep=LAST)=false
+
+
+    if (count(dailyPosition) == 0){
+        // 如果没有持仓信息，将所有股票的持仓值设为 0.0
+        update msg set positionValue = 0.0
+    } else {
+        // 将获取的每日持仓信息与 msg 表进行左连接，更新 positionValue
+        msg = lj(msg, dailyPosition, `symbol)
+
+        update msg set positionValue = longPosition * close
+
+        // 若未持仓，填补 NULL 为 0.0
+        update msg set positionValue = 0.0 where positionValue == NULL
+    }
+}
+
+
+
+def executeSellOrders(mutable context, msg, sellDeltaValueDict, sellSymbol, label="SellClose"){
+    /* 卖出函数
+    @Parameters
+    ---------------------
+    context: `DICT`
+        回测上下文
+    msg: `DICT`
+        行情数据
+    sellDeltaValueDict: `DICT`
+        待卖出股票的持仓变化值
+    sellSymbol: `STRING`
+        待卖出股票代码
+    label: `STRING`
+        卖出订单标识，用于区分不同卖出场景
+    */
+
+    // 判断是否停牌或涨跌停，若满足条件则跳过
+    &tradeFlag = checkTradingStatus(
+        msg[sellSymbol]["open"],
+        msg[sellSymbol]["high"],
+        msg[sellSymbol]["low"],
+        msg[sellSymbol]["volume"],
+        msg[sellSymbol]["signal"][0],
+        msg[sellSymbol]["close"],
+        msg[sellSymbol]["upLimitPrice"],
+        msg[sellSymbol]["downLimitPrice"]
+    )
+    if (tradeFlag == 1){
+        // 获取持仓信息
+        &pos = Backtest::getPosition(context["engine"], sellSymbol)["longPosition"]
+        if (pos == NULL){
+            pos = 0.0
+        }
+        &price = msg[sellSymbol]["close"]
+        &value = abs(sellDeltaValueDict[sellSymbol])
+        
+        // 计算需要卖出的股数
+        &sellVolume = getSellVolume(price, value, pos)
+        if (pos > 0 and sellVolume > 0) {
+            Backtest::submitOrder(context["engine"], (sellSymbol, context["tradeTime"], 5, price, sellVolume, 3), label)
+        }
+
+    }
+     
+}
+
+
+def executeBuyOrders(mutable context, msg, buyDeltaValueDict, buySymbol, label="BuyOpen"){
+    /* 买入函数
+        @Parameters
+        ---------------------
+        context: `DICT`
+            回测上下文
+        msg: `DICT`
+            行情数据
+        buyDeltaValueDict: `DICT`
+            待买入股票的持仓变化值
+        buySymbol: `STRING`
+            待买入股票代码
+        label: `STRING`
+            买入订单标识，用于区分不同买入场景
+    */
+    // 判断是否停牌或涨跌停，若满足条件则跳过
+    &tradeFlag = checkTradingStatus(
+        msg[buySymbol]["open"],
+        msg[buySymbol]["high"],
+        msg[buySymbol]["low"],
+        msg[buySymbol]["volume"],
+        msg[buySymbol]["signal"][0],
+        msg[buySymbol]["close"],
+        msg[buySymbol]["upLimitPrice"],
+        msg[buySymbol]["downLimitPrice"]
+    )
+    if (tradeFlag == 1){
+        // 获取可用资金
+        &cash = Backtest::getTotalPortfolios(context["engine"])["cash"][0]
+        &price = msg[buySymbol]["close"]
+        &value = buyDeltaValueDict[buySymbol]
+        
+        // 计算转换前的数量
+        &buyVolume = getBuyVolume(buySymbol, price, min(cash, value))
+        
+        // 检查可用资金是否足够，若不足则退出函数
+        if (cash < buyVolume * price * (1 + context["commission"])) return
+
+        if (buyVolume > 0) {
+            Backtest::submitOrder(context["engine"], (buySymbol, context["tradeTime"], 5, price, buyVolume, 1), label)
+        }
+
+    }
+
+}
+
+
+// 回测函数
+
+def initialize(mutable context){
+    //初始化回调函数
+    print("initialize")
+}
+
+// 盘前回调函数，每日盘前触发一次。可以在该函数中执行当日启动前的准备工作，如订阅行情等。
+
+def beforeTrading(mutable context){
+    //通过context["tradeDate"]可以获取当日；
+	print ("beforeTrading: "+context["tradeDate"])
+}
+
+// 逐笔行情回调函数，逐笔委托和逐笔成交行情更新时触发。
+
+def onTick(mutable context, msg,indicator){}
+
+// 快照行情回调函数。
+
+def onSnapshot(mutable context, msg,indicator){}
+
+// 委托回报回调函数，每个订单状态发生变化时触发。
+
+def onOrder(mutable context,orders){}
+
+// 成交回报回调函数，发生成交时触发。
+
+def onTrade(mutable context,trades){}
+
+// 盘中交易回调函数
+
+def onBar(mutable context, msg, indicator){
+    if (context["activeTime"] != minute(context["tradeTime"])) {// 非交易分钟
+        return
+    }
+
+    // 初始化
+    &buyList = array(SYMBOL)
+    &deleteList = array(SYMBOL)
+
+    for (istock in msg.keys()){
+        &istock = istock
+        &pos = Backtest::getPosition(context["engine"], istock)["longPosition"]
+        &price = msg[istock]["close"]
+        &tradeFlag = checkTradingStatus(msg[istock]["open"], msg[istock]["high"], msg[istock]["low"], msg[istock]["volume"],msg[istock]["signal"][0], msg[istock]["close"], msg[istock]["upLimitPrice"], msg[istock]["downLimitPrice"])
+        
+        // 买入逻辑：短期均线上穿长期均线，或 RSI < 70
+        if (getCross(msg[istock]["signal"][3], msg[istock]["signal"][2], msg[istock]["signal"][6], msg[istock]["signal"][5])[0] or msg[istock]["signal"][1] < 70 and tradeFlag) {
+            buyList.append!(istock)
+        }
+
+        // 剔除逻辑：短期均线下穿长期均线，或 RSI > 80
+        if (getCross(msg[istock]["signal"][3], msg[istock]["signal"][2], msg[istock]["signal"][6], msg[istock]["signal"][5])[1] or msg[istock]["signal"][1] > 80 and tradeFlag) {
+            deleteList.append!(istock)
+        }
+    }
+    
+
+    
+    // 筛选满足买入条件后没有满足剔除条件的股票，对该股票池进行操作
+    &posList = (set(buyList) - set(deleteList)).keys()
+    
+
+    if (count(posList) != 0) {
+        // 新建权重字典
+        weightDict = dict(SYMBOL,DOUBLE)
+        for (istock in posList) {
+            // 先初始化权重, 1\股票数量
+            weightDict[istock] = 1 \ posList.size()
+
+            // 个股风控
+            &volatility = msg[istock]["signal"][4]
+            &rsi = msg[istock]["signal"][1]
+            // 风控重置逻辑
+            if (context["riskDict"][istock] == 1 && rsi < 70) {
+                context["riskDict"][istock] = 0  // 风控状态置为 0
+            }
+            // 个股风控逻辑：限制波动率超标的权重
+            if (0.005 < volatility < 0.01) {
+                weightDict[istock] *=  0.5  // 降低波动率高的股票的权重
+                context["riskDict"][istock] = 1  // 风控状态置为 1
+            }
+            else if (volatility > 0.01) {
+                weightDict[istock] *=  0.1  // 降低波动率高的股票的权重
+                context["riskDict"][istock] = 1  // 风控状态置为 1
+            }
+
+            // 限制单只股票的最大和最小持仓比例
+            weightDict[istock] = min(weightDict[istock], context["maxPosition"])
+            weightDict[istock] = max(weightDict[istock], context["minPosition"])
+
+        }
+
+        // 个股权重归一化
+        weightSum = sum(weightDict.values())
+        if (weightSum != 0) {
+            for (istock in posList) {
+                weightDict[istock] /= weightSum
+            }
+        }  
+
+        // 获取净资产
+        &equity = Backtest::getTotalPortfolios(context["engine"])["totalEquity"][0]
+
+        // 计算预期市值和持仓市值
+        // 新建预期市值、持仓市值、deltaValue字典
+        expectValueDict = dict(SYMBOL,DOUBLE)
+        positionValueDict = dict(SYMBOL,DOUBLE)
+        sellDeltaValueDict = dict(SYMBOL,DOUBLE)
+        buyDeltaValueDict = dict(SYMBOL,DOUBLE)
+        for (istock in posList) {
+            ExpectValue = equity * weightDict[istock]
+            expectValueDict[istock] = ExpectValue
+            // 使用 Backtest::getPosition 获取每日持仓信息
+            longPosition = Backtest::getPosition(context["engine"], istock)["longPosition"]
+
+            if (longPosition == NULL) {
+                positionValue = 0.0
+            } else {
+                positionValue = longPosition * msg[istock]["close"]
+            }
+            positionValueDict[istock] = positionValue
+            deltaValue = ExpectValue - positionValue
+            if (deltaValue > 0) {
+                buyDeltaValueDict[istock] = deltaValue
+            } else if (deltaValue < 0) {
+                sellDeltaValueDict[istock] = deltaValue
+            }
+        }
+        
+        // 卖出逻辑
+        sellSymbol = sellDeltaValueDict.keys()
+
+        if (count(sellSymbol) != 0) {
+            sortedSellDeltaValueDict = sortDict(sellDeltaValueDict, true)
+            sortedSellSymbol = sortedSellDeltaValueDict.keys()
+            // 遍历卖出列表，卖出股票
+            for (istock in sortedSellSymbol) {
+                executeSellOrders(context, msg, sortedSellDeltaValueDict, istock)
+                // 更新持仓信息
+                longPosition = Backtest::getPosition(context["engine"], istock)["longPosition"]
+                if (longPosition == NULL) {
+                    positionValue = 0.0
+                } else {
+                    positionValue = longPosition * msg[istock]["close"]
+                }
+                positionValueDict[istock] = positionValue
+            }
+
+        }
+        
+        // 买入逻辑
+        buySymbol = buyDeltaValueDict.keys()
+
+        if (count(buySymbol) != 0) {
+            sortedBuyDeltaValueDict = sortDict(buyDeltaValueDict, false)
+            sortedBuySymbol = sortedBuyDeltaValueDict.keys()
+
+            // 遍历买入列表，买入股票
+            for (istock in sortedBuySymbol) {
+                executeBuyOrders(context, msg, sortedBuyDeltaValueDict, istock)
+                // 更新持仓信息
+                longPosition = Backtest::getPosition(context["engine"], istock)["longPosition"]
+                if (longPosition == NULL) {
+                    positionValue = 0.0
+                } else {
+                    positionValue = longPosition * msg[istock]["close"]
+                }
+                positionValueDict[istock] = positionValue
+            }
+            
+
+        }
+
+
+    } 
+    
+}
+
+
+// 策略每日盘后的回调函数，每日盘后触发一次。可以在该函数统计当日的成交、持仓等信息。
+
+def afterTrading(mutable context){
+    // print("afterTrading: "+context["tradeDate"])
+}
+
+// 策略结束之前回调一次该函数。
+
+def finalize(mutable context){
+    print("finalize!")
+}
+
+
+
+// 开始回测
+config=dict(STRING,ANY)        
+config["startDate"]= 2024.01.01
+config["endDate"]= 2024.12.31
+
+config["strategyGroup"] = "stock" // 选择股票模式
+config["frequency"] = 0
+config["cash"] = 10000000.        //初始资金,1000万
+config["commission"] = 0.0005
+config["tax"] = 0.0      // 忽略税
+config["dataType"] = 3 // 分钟频
+// 1:  行情时间大于订单时间时撮合订单（模式一）
+// 2：行情时间等于订单时间时以当前行情的收盘价撮合订单，后续未完成的订单按照模式一撮合订单
+// 3：以委托价格成交
+config["matchingMode"] = 3 
+config["msgAsTable"] = false 
+// 设置逻辑全局上下文
+config["context"] = dict(STRING,ANY)
+context = dict(STRING,ANY)
+// 初始化
+context["activeTime"] = 14:30m //每天交易时间
+context["riskDict"]=dict(STRING,ANY)//风控字典,0:正常交易,1:风控交易
+context["commission"] = 0.0005 // 交易佣金
+context["maxPosition"] = 0.1 // 单只股票最大持仓比例
+context["minPosition"] = 0.001 // 单只股票最小持仓比例
+config["context"] = context
+
+
+
+
+
+/* STEP3. 创建回测引擎
+*/
+strategyName="StockBackTest"
+callbacks = dict(STRING, ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+callbacks["onBar"] = onBar
+callbacks["onTick"] = onTick
+callbacks["onOrder"] = onOrder
+callbacks["onTrade"] = onTrade
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalize
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, config, callbacks,true, )
+// timer Backtest::appendQuotationMsg(engine, tb)
+
+//开启JIT优化
+// strategyName = "Backtest_test2"
+// try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+// engine2 = Backtest::createBacktester(strategyName, userConfig, callbacks, true, )
+// timer Backtest::appendQuotationMsg(engine2, tb)
+go;
+
+/* STEP4. 运行回测 
+*/ 
+timer Backtest::appendQuotationMsg(engine,messageTable)
+ 
+a = select * from messageTable where tradeTime=max(tradeTime) limit 1
+update a set symbol = "END"
+Backtest::appendQuotationMsg(engine, a) // 字典结构
+
+
+// STEP5.获取交易详情
+successOrders_JIT = select * from Backtest::getTradeDetails(engine) where orderStatus==1 
+
+// 检查退单情况
+failedOrders_JIT = select * from Backtest::getTradeDetails(engine) where orderStatus==-1 
+
+// cash=Backtest::getAvailableCash(engine)
+
+// pos=Backtest::getPosition(engine)
+
+dailyTotalPortfolios_JIT=Backtest::getDailyTotalPortfolios(engine)
+
+returnSummary_JIT=Backtest::getReturnSummary(long(engine))

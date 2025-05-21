@@ -1,0 +1,20 @@
+// 登录数据库
+login(`admin, `123456)
+go
+// 加载插件
+try{ loadPlugin("nsq") } catch(ex) { print(ex) }
+go
+// 调用模块
+use DolphinDBModules::easyNSQ
+go
+
+configFilePath = "<your_path_to>/nsq_sdk_config.ini";
+// configFilePath = "/home/appadmin/mqzhu/ddb_20011/server/uploads/sdk_config.ini";
+
+// 初始化环境(不删除分区表)
+iniNsqEnv()
+
+// 拉起订阅
+subscribeNsq(configFilePath, "orders", ["sh","sz"], saveToDfs=true)
+subscribeNsq(configFilePath, "trade", ["sh","sz"], saveToDfs=true)
+subscribeNsq(configFilePath, "snapshot", ["sh","sz"], saveToDfs=true)

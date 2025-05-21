@@ -1,0 +1,45 @@
+//数据模拟函数：按指定日期day和股票数量stockCnt生成模拟数据，写入到库表中
+def genSimulateData(days, stockCnt, dbName, tbName){
+    for(day in days){
+        pt = loadTable(dbName, tbName)
+        //模拟A股全市场stockCnt支股票，为了简化模拟脚本, 股票代码按照 "00XXXX"格式构建。
+        Securityids = lpad(string(1..stockCnt), 6, "0")
+        for(i in 0..49){
+            SecurityID = Securityids[hashBucket(Securityids, 50)==i]
+            t1 = table(SecurityID)
+            //模拟上午和下午的开收盘时间，用于生成秒级时间戳
+            t2 = table(concatDateTime(day, 09:30:00..11:30:00 join 13:30:00..15:30:00) as TradeTime)
+            //按时间戳每秒每股一笔的频率配给数据
+            t3 = cj(t1,t2)
+            t3.sortBy!("TradeTime")
+            t3["ChannelNo"] = rand(1..10000, t3.size())
+            t3["ApplSeqNum"] = rand(1..10000, t3.size())
+            t3["MDStreamID"] = rand(["1","2"], t3.size())
+            t3["BidApplSeqNum"] = rand(1..10000, t3.size())
+            t3["OfferApplSeqNum"] = rand(1..10000, t3.size())
+            t3["SecurityIDSource"] = rand(["1","2"], t3.size())
+            t3["TradePrice"] = rand(1.0, t3.size())
+            t3["TradeQty"] = rand(1..10000, t3.size())
+            t3["ExecType"] = rand(["1","2"], t3.size())
+            t3["LocalTime"] = time(t3["TradeTime"])
+            t3["SeqNo"] = rand(1..10000, t3.size())
+            t3["DataStatus"] = rand(1..10000, t3.size())
+            t3["TradeMoney"] = rand(1.0, t3.size())
+            t3["TradeBSFlag"] = rand(["1","2"], t3.size())
+            t3["BizIndex"] = rand(1..10000, t3.size())
+            t3["OrderKind"] = rand(["1","2"], t3.size())
+            t3["Market"] = rand(["1","2"], t3.size())
+            // 将这一批数据t3插入到分区表中
+            tableInsert(pt, t3) 
+        }
+        print("the data of " + day.string() + " appended.")
+    }
+}
+
+
+days = getMarketCalendar("XSHG", 2023.02.01, 2023.02.28)
+stockCnt = 6500
+dbName = "dfs://l2TLDB"
+tbName = "trade"
+
+genSimulateData(days, stockCnt, dbName, tbName)

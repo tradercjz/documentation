@@ -1,0 +1,27 @@
+/**
+创建存储level-2通联数据的数据库
+*/
+dbName = "dfs://l2TLDB"
+if(existsDatabase(dbName)){
+	dropDatabase(dbName)
+}
+// VALUE分区会自动扩展
+dbDate = database(, VALUE, 2024.01.01..2024.01.30)
+dbSym = database(, HASH, [SYMBOL, 50])
+db = database(dbName, COMPO, [dbDate, dbSym], engine='TSDB')
+//检查数据库信息
+database(dbName).schema()
+
+db = database("dfs://l2TLDB")
+//snapshot
+colName = `Market`TradeTime`MDStreamID`SecurityID`SecurityIDSource`TradingPhaseCode`ImageStatus`PreCloPrice`NumTrades`TotalVolumeTrade`TotalValueTrade`LastPrice`OpenPrice`HighPrice`LowPrice`ClosePrice`DifPrice1`DifPrice2`PE1`PE2`PreCloseIOPV`IOPV`TotalBidQty`WeightedAvgBidPx`AltWAvgBidPri`TotalOfferQty`WeightedAvgOfferPx`AltWAvgAskPri`UpLimitPx`DownLimitPx`OpenInt`OptPremiumRatio`OfferPrice`BidPrice`OfferOrderQty`BidOrderQty`BidNumOrders`OfferNumOrders`ETFBuyNumber`ETFBuyAmount`ETFBuyMoney`ETFSellNumber`ETFSellAmount`ETFSellMoney`YieldToMatu`TotWarExNum`WithdrawBuyNumber`WithdrawBuyAmount`WithdrawBuyMoney`WithdrawSellNumber`WithdrawSellAmount`WithdrawSellMoney`TotalBidNumber`TotalOfferNumber`MaxBidDur`MaxSellDur`BidNum`SellNum`LocalTime`SeqNo`OfferOrders`BidOrders
+colType = [SYMBOL,TIMESTAMP,SYMBOL,SYMBOL,SYMBOL,SYMBOL,INT,DOUBLE,INT,INT,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,INT,DOUBLE,DOUBLE,INT,DOUBLE,DOUBLE,DOUBLE,DOUBLE,INT,DOUBLE,DOUBLE[],DOUBLE[],INT[],INT[],INT[],INT[],INT,INT,DOUBLE,INT,INT,DOUBLE,DOUBLE,DOUBLE,INT,INT,DOUBLE,INT,INT,DOUBLE,INT,INT,INT,INT,INT,INT,TIME,INT,INT[],INT[]]
+tbSchema = table(1:0, colName, colType)
+db.createPartitionedTable(table=tbSchema,tableName=`snapshot,partitionColumns=`TradeTime`SecurityID,sortColumns=`Market`SecurityID`TradeTime,keepDuplicates=LAST)
+
+//snapshot
+colName = `TradeTime`SecurityID`ChannelNo`ApplSeqNum`MDStreamID`BidApplSeqNum`OfferApplSeqNum`SecurityIDSource`TradePrice`TradeQty`ExecType`LocalTime`SeqNo`DataStatus`TradeMoney`TradeBSFlag`BizIndex`OrderKind`Market
+
+colType = [TIMESTAMP,SYMBOL,INT,LONG,SYMBOL,LONG,LONG,SYMBOL,DOUBLE,LONG,SYMBOL,TIME,LONG,INT,DOUBLE,SYMBOL,LONG,SYMBOL,SYMBOL]
+tbSchema = table(1:0, colName, colType)
+db.createPartitionedTable(table=tbSchema,tableName=`trade,partitionColumns=`TradeTime`SecurityID,sortColumns=`Market`SecurityID`TradeTime,keepDuplicates=LAST)

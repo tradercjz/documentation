@@ -1,0 +1,67 @@
+// 导入一天 TICK 数据
+// 模拟历史数据
+
+undef all
+go
+
+
+use mockData
+dates = getMarketCalendar('XSHE', 2022.01.01, 2022.01.06)
+
+path = "/home/ffliu/data/tu/tradeData/"
+for(i in 0:dates.size()){
+    saveText(stockTrade(tradeDate=dates[i], securityNumber=500), path + string(dates[i]) + ".csv")
+}
+
+// 建库建表
+drop database if exists "dfs://stock_trade"
+create database "dfs://stock_trade"
+partitioned by VALUE(2020.01.01..2021.01.01), HASH([SYMBOL, 50])
+engine='TSDB'
+
+create table "dfs://stock_trade"."trade"(
+    ChannelNo INT
+    ApplSeqNum LONG
+    MDStreamID SYMBOL
+    BidApplSeqNum LONG
+    OfferApplSeqNum LONG
+    SecurityID SYMBOL
+    SecurityIDSource SYMBOL
+    TradePrice DOUBLE
+    TradeQty LONG
+    ExecType SYMBOL
+    TradeDate DATE[comment="交易日期", compress="delta"]   
+    TradeTime TIME[comment="交易时间", compress="delta"]
+    LocalTime TIME
+    SeqNo LONG
+    DataStatus INT
+    TradeMoney DOUBLE
+    TradeBSFlag SYMBOL
+    BizIndex LONG
+    OrderKind SYMBOL
+)
+partitioned by TradeDate, SecurityID,
+sortColumns=[`SecurityID,`TradeTime],
+keepDuplicates=ALL
+
+go
+
+dbName = "dfs://stock_trade"
+tbName = "trade"
+dataPath = "/home/ffliu/data/tu/tradeData/"
+file_list = files(dataPath).filename
+
+schema = select name, typeString as type from loadTable(dbName, tbName).schema().colDefs
+
+
+
+timer loadTextEx(dbHandle=database(dbName), tableName=tbName, partitionColumns=["TradeDate", "SecurityID"], filename=dataPath+file_list[0], schema=schema, sortColumns=[`SecurityID,`TradeTime]) // Time elapsed: 17722.718 ms
+
+timer{
+    ds = textChunkDS(fileName=dataPath+file_list[0], chunkSize=512, schema=schema)
+    mr(ds, tableInsert{loadTable(dbName, tbName)}, parallel=false)
+}
+// Time elapsed: 22301.459 ms
+
+getSessionMemoryStat()
+select count(*) from loadTable(dbName, tbName)

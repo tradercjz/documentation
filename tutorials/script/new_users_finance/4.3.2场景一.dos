@@ -1,0 +1,40 @@
+undef all
+go
+
+
+use mockData
+t = stockSnapshot(tradeDate=2023.01.04, securityNumber=10)
+sids = exec distinct Securityid from t
+
+def mockDataByStock(path, sid, t){
+    cols = t.columnNames()[x->x!="Securityid"]
+    data = sql(select=sqlCol(cols), from=t, where=expr(sqlCol("Securityid"), ==, sid)).eval()
+    submitJob("mockCsv", "mock data by stock", saveText, data, path + sid + ".csv")
+}
+
+path = "/home/ffliu/data/tu/snapPerStockWithoutSid/"
+each(mockDataByStock{path,,t},  sids)
+select count(*) from getRecentJobs(10) where endTime is null
+
+
+
+dataPath = "/home/ffliu/data/tu/snapPerStockWithoutSid/"
+file_list = files(dataPath).filename
+sids = file_list.split(".")[0]
+
+schema = select name, typeString as type from loadTable("dfs://stock_lv2_snapshot", "snapshot").schema().colDefs where name != "SecurityID"
+
+def transFunc(mutable msg, sid, orderCols){
+    data = select sid as SecurityID, * from msg
+    data.reorderColumns!(orderCols)
+    return data
+}
+
+orderCols = loadTable("dfs://stock_lv2_snapshot", "snapshot").schema().colDefs.name
+for(i in 0:sids.size()){
+    loadTextEx(dbHandle=database("dfs://stock_lv2_snapshot"), tableName="snapshot", partitionColumns=["TradeDate", "SecurityID"], filename=dataPath + file_list[i], schema=schema, sortColumns=["SecurityID", "TradeDate"], transform=transFunc{, sids[i], orderCols})
+}
+
+select count(*) from loadTable("dfs://stock_lv2_snapshot", "snapshot")
+
+

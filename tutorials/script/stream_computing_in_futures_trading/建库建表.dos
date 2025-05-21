@@ -1,0 +1,80 @@
+/*
+* OnRspQryInvestorPosition 接口流表创建【原持仓明细表】：
+*/ 
+colNames = [
+    "BrokerID","InvestorID","PosiDirection","HedgeFlag","PositionDate",
+    "YdPosition","Position","LongFrozen","ShortFrozen","LongFrozenAmount","ShortFrozenAmount",
+    "OpenVolume","CloseVolume","OpenAmount","CloseAmount","PositionCost","PreMargin","UseMargin",
+    "FrozenMargin","FrozenCash","FrozenCommission","CashIn","Commission","CloseProfit","PositionProfit",
+    "PreSettlementPrice","SettlementPrice","TradingDay","SettlementID","OpenCost","ExchangeMargin",
+    "CombPosition","CombLongFrozen","CombShortFrozen","CloseProfitByDate","CloseProfitByTrade",
+    "TodayPosition","MarginRateByMoney","MarginRateByVolume","StrikeFrozen","StrikeFrozenAmount",
+    "AbandonFrozen","ExchangeID","YdStrikeFrozen","InvestUnitID","PositionCostOffset",
+    "TasPosition","TasPositionCost","InstrumentID","ReceivedTime"
+]
+colTypes = [
+    STRING,STRING,CHAR,CHAR,CHAR,INT,INT,INT,INT,DOUBLE,DOUBLE,INT,INT,DOUBLE,
+    DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,
+    DOUBLE,DOUBLE,DATE,INT,DOUBLE,DOUBLE,INT,INT,INT,DOUBLE,DOUBLE,INT,DOUBLE,DOUBLE,
+    INT,DOUBLE,INT,STRING,INT,STRING,DOUBLE,INT,DOUBLE,STRING,NANOTIMESTAMP
+]
+enableTableShareAndPersistence(table=streamTable(10000:0, colNames, colTypes), tableName=`InvestorPositionTable, cacheSize=1200000)
+
+
+/*
+* OnRtnTrade 接口流表创建：
+*/ 
+
+colNames = [
+    "BrokerID", "InvestorID", "OrderRef", "UserID", "ExchangeID",
+    "TradeID", "Direction", "OrderSysID", "ParticipantID", "ClientID",
+    "TradingRole", "OffsetFlag", "HedgeFlag", "Price", "Volume",
+    "TradeDate", "TradeTime", "TradeType", "PriceSource", "TraderID",
+    "OrderLocalID", "ClearingPartID", "BusinessUnit", "SequenceNo", "TradingDay",
+    "SettlementID", "BrokerOrderSeq", "TradeSource", "InvestUnitID", "InstrumentID",
+    "ExchangeInstID"
+]
+colTypes = [
+STRING, STRING, STRING, STRING, STRING,
+STRING, CHAR, STRING, STRING, STRING,
+CHAR, CHAR, CHAR, DOUBLE, INT,
+DATE, TIME, CHAR, CHAR, STRING,
+STRING, STRING, STRING, INT, DATE,
+INT, INT, CHAR, STRING, STRING,
+STRING
+]
+enableTableShareAndPersistence( streamTable(10000:0, colNames, colTypes), `OnTradeStreamTable, 1200000)
+
+
+/*
+* 开平仓信息表创建：
+*/ 
+if(existsDatabase("dfs://onStreamTable")){
+    dropDatabase("dfs://onStreamTable")
+}
+colNames = [
+        "ExchangeID","Direction","OffsetFlag","Price","Volume","TradingDay","TradeDate","TradeTime","InstrumentID",
+        "ReTradeID","TradeID","Position","ClosedPosition","OpenPrice","OpenDate","PreClosePrice"
+ ]
+colTypes = [
+        STRING,CHAR,CHAR,DOUBLE,INT,DATE,DATE,TIME,STRING,STRING,STRING,INT,INT[],DOUBLE[],DATE[],DOUBLE
+]
+dt = createDimensionTable(dbHandle=db, table=table(1:0,colNames, colTypes), 
+    tableName=`OpenPositionMessage ,sortColumns=`TradeDate`TradeTime)
+
+/*
+* 开平仓信息表创建：
+*/ 
+colNames = [
+    "ReceivedTime","PosiDirection","InstrumentID","Commission","CloseProfit","PositionProfit",
+    "PositionCost","OpenCost","CloseProfitByDate","CloseProfitByTrade","VolumeMultiple",
+    "PreSettlementPrice","SpotPrice","Position","FloatingProfitByTrade","FloatingProfitByDate",
+    "CloseingProfitByDateSum","CloseingProfitByTradeSum","Direction","IV","Delta_手","Delta",
+    "Gamma_手","Gamma","Vega","Theta"
+]
+colTypes = [
+    NANOTIMESTAMP,CHAR,STRING,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,
+    DOUBLE,DOUBLE,DOUBLE,DOUBLE,INT,DOUBLE,DOUBLE,DOUBLE,DOUBLE,STRING,
+    DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE
+]
+share keyedTable(`PosiDirection`InstrumentID,10:0,colNames,colTypes) as `GreekTable

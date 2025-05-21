@@ -1,0 +1,24 @@
+undef all
+use mockData
+dataPath = "/home/ffliu/data/"
+
+
+select * from defs() where name like "%mockData%"
+
+dates = getMarketCalendar('XSHE', 2022.01.01, 2022.01.31)
+t = stockMinuteKLine(dates[0], dates[dates.size()-1], 10)
+// 对时间戳进行一些处理
+t.replaceColumn!("TradeTime", t.tradetime.string().regexFindStr('[0-9]*', false).concat:E())
+saveText(t, dataPath+"MinuteKLine.csv")
+
+
+dataPath = "/home/ffliu/data/MinuteKLine.csv"
+kline=loadText(dataPath)
+
+print kline.schema().colDefs
+
+schema = extractTextSchema(dataPath)
+update schema set type = "TIMESTAMP" where name = "tradetime"
+kline=loadText(dataPath, schema=schema)
+print kline.schema().colDefs
+print select top 1 * from kline

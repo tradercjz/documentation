@@ -1,0 +1,124 @@
+loadPlugin("path/PluginQuantLib.txt")
+go
+use QuantLib
+
+// 1. Construct a Yield Curve (ZeroCurve class)
+calc_date = 2015.01.15
+getSettingsInstance().setEvaluationDate(calc_date)
+spot_dates = [2015.01.15, 2015.07.15, 2016.01.15]
+spot_rates = [0.0, 0.005, 0.007]
+day_count = Thirty360("BondBasis")
+calendar = UnitedStates("NYSE")
+interpolation = Linear()
+compounding = "Compounded"
+compounding_frequency = "Annual"
+spot_curve = ZeroCurve(spot_dates, spot_rates, day_count, calendar, 
+                    interpolation, compounding, compounding_frequency)
+spot_curve_handle = YieldTermStructureHandle(spot_curve)
+
+// 2. Build a fixed rate bond object
+issue_date = 2015.01.15
+maturity_date = 2016.01.15
+tenor = Period("Semiannual")
+calendar = UnitedStates("NYSE")
+month_end = false
+schedule = Schedule(issue_date, maturity_date, tenor, calendar, 
+              "Unadjusted", "Unadjusted", "Backward", month_end)
+
+// 3. Create FixedRateBond instrument
+coupon_rate = 0.06
+coupons = [coupon_rate]
+settlement_days = 0
+face_value = 100.0
+fixed_rate_bond = FixedRateBond(settlement_days, face_value, schedule, coupons, day_count)
+
+// 4. A valuation engine in order to price this bond
+bond_engine = DiscountingBondEngine(spot_curve_handle)
+fixed_rate_bond.setPricingEngine(bond_engine)
+
+// 5. Bond Calculation and Pricing
+// a. CashFlow
+for(cf in fixed_rate_bond.cashflows()) {
+	print(cf.date(), cf.amount())
+};
+    
+// b. Basic Information
+print(fixed_rate_bond.settlementDate())
+print(fixed_rate_bond.maturityDate())
+
+// c. NPV
+fixed_rate_bond.NPV()
+
+// d. Clean Price and Dirty Price
+fixed_rate_bond.cleanPrice()
+fixed_rate_bond.dirtyPrice()
+
+// e. Accrued Interest
+fixed_rate_bond.accruedAmount()
+
+// f. BondYield
+bondYield = fixed_rate_bond.bondYield(day_count, compounding, compounding_frequency)
+print(bondYield)
+
+// 6. BondFunctions
+
+// Duration
+
+bondFunctions = getBondFunctions()
+bondFunctions.duration(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency)
+// or
+getBondFunctions().duration(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency)
+getBondFunctions().duration(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency, "Simple")
+getBondFunctions().duration(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency, "Modified")
+getBondFunctions().duration(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency, "Macaulay")
+
+// Convexity
+
+getBondFunctions().convexity(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency)
+
+// BPS
+
+getBondFunctions().basisPointValue(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency)
+getBondFunctions().bps(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency)
+getBondFunctions().yieldValueBasisPoint(fixed_rate_bond, bondYield, day_count, compounding, compounding_frequency)
+
+// other BondFunctions
+
+// C++: /*! deprecated Use the constructor taking a schedule.Deprecated in version 1.28. */
+// bond = FixedRateBond(2, ql.TARGET(), 100.0,  ql.Date(15,12,2019), ql.Date(15,12,2024), ql.Period('1Y'),  [0.05], ql.ActualActual(ql.ActualActual.Bond))
+bond = FixedRateBond(2, 100.0, Schedule(2019.12.15, 2024.12.15, Period(1, "Years"), TARGET(), "Unadjusted", "Unadjusted", "Backward", false), [0.05], ActualActual("Bond"))
+
+print(getBondFunctions().startDate(bond))
+print(getBondFunctions().maturityDate(bond))
+print(getBondFunctions().isTradable(bond))
+
+print(getBondFunctions().previousCashFlowDate(bond, 2020.12.15))
+print(getBondFunctions().previousCashFlowAmount(bond, 2020.12.15))
+print(getBondFunctions().nextCashFlowDate(bond, 2020.12.15))
+print(getBondFunctions().nextCashFlowAmount(bond, 2020.12.15))
+
+print(getBondFunctions().previousCouponRate(bond))
+print(getBondFunctions().nextCouponRate(bond))
+print(getBondFunctions().accrualStartDate(bond))
+print(getBondFunctions().accrualEndDate(bond))
+print(getBondFunctions().accrualPeriod(bond))
+print(getBondFunctions().accrualDays(bond))
+print(getBondFunctions().accruedPeriod(bond))
+print(getBondFunctions().accruedDays(bond))
+print(getBondFunctions().accruedAmount(bond))
+
+crv = FlatForward(2, TARGET(), 0.04, Actual360())
+print(getBondFunctions().cleanPrice(bond, crv))
+print(getBondFunctions().bps(bond, crv))
+print(getBondFunctions().atmRate(bond, crv))
+
+rate = InterestRate(0.05, Actual360(), "Compounded", "Annual")
+print(getBondFunctions().cleanPrice(bond, rate))
+print(getBondFunctions().bps(bond, rate))
+print(getBondFunctions().duration(bond, rate))
+print(getBondFunctions().convexity(bond, rate))
+print(getBondFunctions().basisPointValue(bond, rate))
+print(getBondFunctions().yieldValueBasisPoint(bond, rate))
+
+crv = FlatForward(2, TARGET(), 0.04, Actual360())
+print(getBondFunctions().zSpread(bond, 101.0, crv, Actual360(), "Compounded", "Annual"))

@@ -1,0 +1,111 @@
+
+installPlugin("WindTDF")
+loadPlugin("WindTDF")
+go
+
+// 清理环境
+try {
+    handle = WindTDF::getHandle()
+    WindTDF::delete(handle)
+} catch(ex) { print(ex) }
+
+try {
+dropDatabase("dfs://WindTDF_quote")
+} catch(ex) { print(ex) }
+
+try { unsubscribeTable(tableName="snapshot_sh_s", actionName="snapshotTableInsert_sh") } catch(ex) { print(ex) }
+try { unsubscribeTable(tableName="snapshot_sz_s", actionName="snapshotTableInsert_sz") } catch(ex) { print(ex) }
+try { unsubscribeTable(tableName="order_sh_s", actionName="orderTableInsert_sh") } catch(ex) { print(ex) }
+try { unsubscribeTable(tableName="order_sz_s", actionName="orderTableInsert_sz") } catch(ex) { print(ex) }
+try { unsubscribeTable(tableName="trade_sh_s", actionName="tradeTableInsert_sh") } catch(ex) { print(ex) }
+try { unsubscribeTable(tableName="trade_sz_s", actionName="tradeTableInsert_sz") } catch(ex) { print(ex) }
+
+
+HOST= "114.80.154.34"
+PORT=6421
+USERNAME=`MD6179909005
+PASSWORD="72747218"
+
+handle = WindTDF::createHandle([HOST], [PORT], [USERNAME], [PASSWORD])
+
+snapshotSchema = WindTDF::getSchema(`snapshot);
+orderSchema = WindTDF::getSchema(`order);
+tradeSchema = WindTDF::getSchema(`trade);
+
+cacheSize = 1000000
+snapshot_sh = streamTable(10000:0, snapshotSchema[`name], snapshotSchema[`typeString]);
+enableTableShareAndPersistence(table=snapshot_sh,tableName=`snapshot_sh_s,cacheSize=cacheSize, preCache=cacheSize)
+snapshot_sz = streamTable(10000:0, snapshotSchema[`name], snapshotSchema[`typeString]);
+enableTableShareAndPersistence(table=snapshot_sz,tableName=`snapshot_sz_s,cacheSize=cacheSize, preCache=cacheSize)
+
+order_sh = streamTable(10000:0, orderSchema[`name], orderSchema[`typeString]);
+enableTableShareAndPersistence(table=order_sh,tableName=`order_sh_s,cacheSize=cacheSize, preCache=cacheSize)
+order_sz = streamTable(10000:0, orderSchema[`name], orderSchema[`typeString]);
+enableTableShareAndPersistence(table=order_sz,tableName=`order_sz_s,cacheSize=cacheSize, preCache=cacheSize)
+
+trade_sh = streamTable(10000:0, tradeSchema[`name], tradeSchema[`typeString]);
+enableTableShareAndPersistence(table=trade_sh,tableName=`trade_sh_s,cacheSize=cacheSize, preCache=cacheSize)
+trade_sz = streamTable(10000:0, tradeSchema[`name], tradeSchema[`typeString]);
+enableTableShareAndPersistence(table=trade_sz,tableName=`trade_sz_s,cacheSize=cacheSize, preCache=cacheSize)
+go
+
+WindTDF::subscribe(handle, snapshot_sh_s, "SH-2-0", "snapshot");
+WindTDF::subscribe(handle, snapshot_sz_s, "SZ-2-0", "snapshot");
+
+WindTDF::subscribe(handle, order_sh_s, "SH-2-0", "order");
+WindTDF::subscribe(handle, order_sz_s, "SZ-2-0", "order");
+
+WindTDF::subscribe(handle, trade_sh_s, "SH-2-0", "trade");
+WindTDF::subscribe(handle, trade_sz_s, "SZ-2-0", "trade");
+
+
+dbName = "dfs://WindTDF_quote"
+shTransactionTbName = "transactionTable_sh"
+shOrderTbName = "orderTable_sh"
+shSnapshotTbName = "snapshotTable_sh"
+
+szTransactionTbName = "transactionTable_sz"
+szOrderTbName = "orderTable_sz"
+szSnapshotTbName = "snapshotTable_sz"
+
+dbDate = database(, partitionType=VALUE, partitionScheme=2024.01.01..2025.01.01)
+dbID = database(, partitionType=HASH, partitionScheme=[SYMBOL, 25])
+db = database(directory=dbName, partitionType=COMPO, partitionScheme=[dbDate, dbID],engine='TSDB',atomic='CHUNK')
+
+tbSchema = table(1:0, snapshotSchema.name, snapshotSchema.typeInt)
+db.createPartitionedTable(table=tbSchema,tableName=shSnapshotTbName,partitionColumns=`nActionDay`szWindCode,sortColumns=`szWindCode`nTime)
+shSnapshot = loadTable(db, shSnapshotTbName)
+db.createPartitionedTable(table=tbSchema,tableName=szSnapshotTbName,partitionColumns=`nActionDay`szWindCode,sortColumns=`szWindCode`nTime)
+szSnapshot = loadTable(db, szSnapshotTbName)
+
+tbSchema = table(1:0, orderSchema.name, orderSchema.typeInt)
+db.createPartitionedTable(table=tbSchema,tableName=shOrderTbName,partitionColumns=`nActionDay`szWindCode,sortColumns=`szWindCode`nTime)
+shOrder = loadTable(db, shOrderTbName)
+db.createPartitionedTable(table=tbSchema,tableName=szOrderTbName,partitionColumns=`nActionDay`szWindCode,sortColumns=`szWindCode`nTime)
+szOrder = loadTable(db, szOrderTbName)
+
+tbSchema = table(1:0, tradeSchema.name, tradeSchema.typeInt)
+db.createPartitionedTable(table=tbSchema,tableName=shTransactionTbName,partitionColumns=`nActionDay`szWindCode,sortColumns=`szWindCode`nTime)
+shTrade = loadTable(db, shTransactionTbName)
+db.createPartitionedTable(table=tbSchema,tableName=szTransactionTbName,partitionColumns=`nActionDay`szWindCode,sortColumns=`szWindCode`nTime)
+szTrade = loadTable(db, szTransactionTbName)
+
+
+def handleInsert(tb, mutable msg) {
+	tableInsert(tb, msg)
+}
+
+subscribeTable(tableName="snapshot_sh_s", actionName="snapshotTableInsert_sh", offset=-1, handler=handleInsert{shSnapshot}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
+subscribeTable(tableName="snapshot_sz_s", actionName="snapshotTableInsert_sz", offset=-1, handler=handleInsert{szSnapshot}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
+
+subscribeTable(tableName="order_sh_s", actionName="orderTableInsert_sh", offset=-1, handler=handleInsert{shOrder}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
+subscribeTable(tableName="order_sz_s", actionName="orderTableInsert_sz", offset=-1, handler=handleInsert{szOrder}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
+
+subscribeTable(tableName="trade_sh_s", actionName="tradeTableInsert_sh", offset=-1, handler=handleInsert{shTrade}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
+subscribeTable(tableName="trade_sz_s", actionName="tradeTableInsert_sz", offset=-1, handler=handleInsert{szTrade}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
+
+
+WindTDF::connect(handle)
+WindTDF::getStatus()
+getStreamingStat().subWorkers
+// WindTDF::delete(handle)

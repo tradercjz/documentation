@@ -1,0 +1,271 @@
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+def isBuyAble(data){
+	//判断是否可以以收盘价买入
+	if(data.volume <= 0.001 or (data.upLimitPrice == data.close)){
+		return false //买入条件：收盘价不是涨停价，当日没有停牌
+	}
+	return true
+}
+def isSellAble(data){
+	//判断是否可以以收盘价卖出
+	if(data.volume <= 0.001 or (data.downLimitPrice == data.close)){
+		return false //卖出条件：收盘价不是跌停价，当日没有停牌
+	}
+	return true
+}
+def getBuyVolume(istock, mv, close){
+	if(close <= 0. ) {return 0 }
+	if(istock.substr(0,2) == "68" and int(mv/close) >= 200){//科创板
+		return floor(mv/close)
+	}
+	else if(istock.substr(0,2) == "68"){ return 0}
+	return floor(int(mv/close)/100)*100
+}
+
+def getPos(pos, istock){//获取当前持仓
+	if(size(pos) < 1 || pos[pos.symbol == istock].size() < 1){
+	 	return 0
+	 }
+	 return pos[pos.symbol == istock].longPosition.nullFill(0)[0]	 
+}
+def initialize(mutable context, userParam){
+	print("initialize")
+	context["N"] = 10 //策略组合个数
+	//策略整体仓位比例，该比例大于1时，表示组合部分标的通过融资买入建立持仓
+	context["multiplier"] = 1.5
+	context["commission"] = userParam["commission"] //手续费
+	context["Holdings"] = array(STRING,0,context["N"])//持仓股票		
+}
+
+def beforeTrading(mutable context, userParam){
+	print ("beforeTrading: " + context["tradeDate"])
+	//获取当日标的是否可以进行融资买入信息
+	context["eligibleForMarginTrading"] = userParam[date(context["tradeDate"])]	
+}  
+
+def onBar(mutable context, msg, indicator){
+	//每个交易日收盘时，用当前最新资产的150%建立整体仓位，即先用现金买入持仓再通过融资买入建立整体仓位
+	buyList = array(STRING, 0, context["N"])
+	buyWeight = array(DOUBLE, 0, context["N"])
+	eligibleForMarginTradingLaBel =  array(INT, 0, context["N"])
+	//step 1
+	//获取当日可以进行买入的股票池，获取因子值前context["N"]个股票进行买入，
+	//如果有停牌，涨停的情况，买入数量小于context["N"]
+	i = 0
+	for( istock in msg.keys()){
+		if(i > context["N"] ){ break }
+		if(msg[istock].signal[0] < 0. ){ continue}
+		if(isBuyAble(msg[istock])){//可以进行买入
+			buyList = buyList.append!(istock)
+			buyWeight = buyWeight.append!(msg[istock].signal[0])
+			eligibleForMarginTradingLaBel = eligibleForMarginTradingLaBel.append!(int(context["eligibleForMarginTrading"][istock]))
+		}
+		i = i+1
+	}
+	//step 2
+	//获取当前持仓，检查是否有不能卖出的股票
+	MarginSecuPosition = Backtest::getMarginSecuPosition(context["engine"])
+	MarginTradingPosition = Backtest::getMarginTradingPosition(context["engine"])
+	posStock = keys( set(MarginSecuPosition.symbol ) | set(MarginTradingPosition.symbol))
+	//noSellStock = array(STRING, 0, posStock.size())
+	//记录不能卖出的持仓市值
+	noSellPosMV = 0.
+	for(istock in posStock){
+		if(isSellAble(msg[istock]) == false){//不能卖出
+			//noSellStock = noSellStock.append!(istock)
+			//计算不能卖出的股票占用的市值
+			pos = getPos(MarginSecuPosition, istock) +  getPos(MarginTradingPosition, istock)
+			mv = pos*msg[istock].close
+			if(mv > 0.){
+				noSellPosMV = noSellPosMV + mv
+			}
+			
+		}
+	}
+	//step 3
+	//权重归因化
+	buyWeight = buyWeight\buyWeight.sum()
+	//获取策略当前的总资产
+	totalEquity = Backtest::getTotalPortfolios(context["engine"]).totalEquity[0]
+	//计算个股应该买入的市值（）
+	totalMarketValue = (totalEquity - noSellPosMV) *buyWeight*context["multiplier"]
+	//step 4
+	//根据应该持有的市值进行买入
+	//先进行卖出操作，再进行买入
+	newStock = (set(buyList) - set(posStock)).keys()
+	for(istock in posStock){//进行卖出
+		if(isSellAble(msg[istock])){
+			//查询当前持仓，有可有能是担保品买入持仓，也有可能是融资买入持仓	
+			pos = getPos(MarginSecuPosition, istock) + getPos(MarginTradingPosition, istock)
+			mv = pos*msg[istock].close
+			//
+			diffmv = mv - totalMarketValue[at(buyList == istock)].nullFill(0)[0]
+			pos = getBuyVolume(istock, diffmv, msg[istock].close)
+			if(diffmv > 0 and pos > 0  ){
+				//进行担保品卖出
+				Backtest::submitOrder(context["engine"], (istock, context["tradeTime"], 5, msg[istock].close, pos, 2), "担保品卖出")
+			}		
+		}	
+	}
+	//step 5
+	//买入,先用现金买入当日不可融资买入的标的
+	buyList = buyList[isort(eligibleForMarginTradingLaBel)]
+	totalMarketValue = totalMarketValue[isort(eligibleForMarginTradingLaBel)]
+	i = 0
+	for( istock in buyList){
+		a =  getPos(Backtest::getMarginSecuPosition(context["engine"], [istock]), istock)
+		b =  getPos(Backtest::getMarginTradingPosition(context["engine"], [istock]), istock)
+		mv = (a + b)*msg[istock].close
+		//
+		diffmv = totalMarketValue[i].nullFill(0)[0] - mv
+		pos = getBuyVolume(istock, diffmv, msg[istock].close)
+		availableCash = Backtest::getTotalPortfolios(context["engine"]).availableCash
+		if(diffmv > 0 and pos >0  and pos*msg[istock].close*(1+context["commission"]) < availableCash){
+			//进行担保品买入
+			Backtest::submitOrder(context["engine"], (istock,context["tradeTime"], 5, msg[istock].close, pos,1),"担保品买入")
+		}
+		else if( diffmv > 0 and pos >0  and pos*msg[istock].close*(1+context["commission"]) > availableCash ){
+			//进行融资买入
+			Backtest::submitOrder(context["engine"], (istock,context["tradeTime"], 5, msg[istock].close, pos,3),"融资买入")	
+		}
+		i = i+1		
+	}		
+}
+
+def onOrder(mutable context, orders){
+}
+
+def onTrade(mutable context, trades){
+}
+def afterTrading(mutable context){
+	/*
+	 * 每日盘后调用
+	 */
+}
+
+def finalize(mutable context){
+	
+	
+ }
+
+// step 2：策略配置与引擎创建
+config = dict(STRING,ANY)
+config["startDate"] = 2020.05.08
+config["endDate"] = 2020.07.11
+///策略类型,股票信用账户，融资融券回测///
+config["strategyGroup"] = "securityCreditAccount"
+config["lineOfCredit"] = 100000000.//授信额度
+config["marginTradingInterestRate"] = 0.086
+config["secuLendingInterestRate"] = 0.106
+config["maintenanceMargin"] = [1.45,1.30,1.20]//维保比例
+//config["longConcentration"] = [1.45,1.30,1.20]//多头集中度限制
+//config["shortConcentration"] = [1.45,1.30,1.20]//空头集中度限制
+config["cash"] = 5000000.   
+config["commission"] = 0.0///手续费,    
+config["tax"] = 0.0 //印花税,
+config["dataType"] = 4 //日频行情
+config["outputOrderInfo"] = true
+config["matchingMode"] = 1//以收盘价撮合
+config["msgAsTable"] = false
+
+strategyName = "tradingMarginStrategy"
+// 记录每个交易日可以融资买入的标的
+eligibleForMarginTrading = dict(STRING, DOUBLE)
+//
+
+def getBarHqData(startDate, endDate, codes){
+	//日频
+	data = select string(ts_code) as symbol, timestamp(trade_date) as tradeTime, open,
+	low, high, close, long(vol*100000) as volume, amount,
+	0. as upLimitPrice, 0. as downLimitPrice, pre_close as prevClosePrice, exchange_code
+	from  loadTable("dfs://daily", "daily") where trade_date between startDate:endDate and ts_code in codes
+	update data set signal = fixedLengthArrayVector([close])
+	update data set symbol = symbol.substr(0,6)
+	update data set symbol = iif(exchange_code ==`SH,(symbol+".XSHG"), (symbol+".XSHE"))
+	temp=select * from data where tradeTime = max(tradeTime)
+	update temp set tradeTime = concatDateTime(tradeTime.date(), 16:00:00)
+	update temp set symbol = "END"
+	data = data.append!(temp)
+	data.dropColumns!(`exchange_code)
+	return data
+}
+// 获取分红除权数据表
+def getDividendData(data, startDate, endDate){
+	codes = ["600000.SH"]
+	dates = getMarketCalendar("CFFEX", startDate, endDate)
+	stockDividend=select symbol,dates[size(dates)-3] as endDate, dates[size(dates)-3] as annDate,
+			dates[size(dates)-2] as recordDate, date(date(tradeTime)) as exDate, date(date(tradeTime))as payDate,
+			date(date(tradeTime))as divListDate, 0.02 as bonusRatio, 0.05 as capitalConversion, 0.01 as afterTaxCashDiv, 0. as allotPrice, 0. as allotRatio
+			from data where date(tradeTime) =max(dates) and symbol in codes
+	return stockDividend
+}
+
+def getSecurityMarginBasicData(startDate, endDate, codes){
+	/*
+	 * 获取融资融券基本信息表
+	 */
+	//模拟数据
+	tradeDates = getMarketCalendar("CFFEX",startDate, endDate)
+	tb = select * from table(cj(table(codes as symbol), table(tradeDates as tradeDate))) order by tradeDate
+	update tb set symbolSource = iif(symbol.substr(0,1) == `6, "XSHG", "XSHE")
+	update tb set symbol = iif(symbol.substr(0,1)==`6, (symbol.substr(0,6)+".XSHG"), (symbol.substr(0,6)+".XSHE"))
+	update tb set securityRating = "1"
+	update tb set marginable = true
+	update tb set conversionRatio = 0.8
+	update tb set tradingMargin = 0.75
+	update tb set lendingMargin = 0.75
+	update tb set eligibleForMarginTrading = true
+	update tb set eligibleForLending = true
+	return tb	
+}
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+col = [`symbol,`tradeTime,`open,`low,`high,`close,`volume,`amount,`upLimitPrice,`downLimitPrice,`prevClosePrice,`signal]
+type = [`STRING,`TIMESTAMP,`DOUBLE,`DOUBLE,`DOUBLE,`DOUBLE,`LONG,`DOUBLE,`DOUBLE,`DOUBLE,`DOUBLE,"DOUBLE[]"]
+
+dayData =loadText("/ssd/ssd7/mhxiang/Data/dayData.csv",schema=table(col as name,type as type))
+//codes = (exec distinct( ts_code)  from loadTable("dfs://daily","daily") where date(trade_date) between config["startDate"]:config["endDate"])[:300]
+codes = distinct(dayData.symbol)
+securityReference = getSecurityMarginBasicData(config["startDate"], config["endDate"], codes)
+
+eligibleForMarginTrading = dict(DATE,ANY)
+for( idate in distinct(securityReference.tradeDate)){
+	temp = securityReference[securityReference.tradeDate == idate]
+	eligibleForMarginTrading[idate] = dict(temp.symbol, int(temp.eligibleForMarginTrading))
+}
+
+engine = Backtest::createBacktestEngine(strategyName, config, securityReference, initialize{, config},
+					beforeTrading{, eligibleForMarginTrading}, onBar, , onOrder, onTrade,afterTrading, finalize)
+go
+
+// step 3：获取数据与执行策略回测
+//dayData=select * from getBarHqData(temporalAdd(config["startDate"], -400, "d"), config["endDate"] , codes) order by tradeTime
+
+//计算因子
+update dayData set ret = percentChange(close) context by symbol
+update dayData set  cumretIndex = cumprod(1+ret) context by  symbol
+update dayData set signal_mom = move(cumretIndex, 21)\move(cumretIndex, 252)-1  context by  symbol
+//因子排序
+update dayData set signal_Rank = rank(signal_mom, false) context by tradeTime
+dayData = select *, fixedLengthArrayVector([signal_mom, signal_Rank]) as signal_ from dayData  context by symbol  csort tradeTime
+dayData = select * from dayData where tradeTime >= timestamp(config["startDate"]) order by tradeTime, signal_Rank
+update dayData set signal = signal_
+dropColumns!(dayData, ["ret", "cumretIndex", "signal_mom", "signal_Rank", "signal_"])
+
+//开始执行回测
+timer Backtest::appendQuotationMsg(engine, dayData)
+
+// step 4：获取回测结果
+  //成交明细
+tradeDetails =select * from Backtest::getTradeDetails(engine) where orderStatus in [0,1]
+//每日持仓
+dailyPosition = Backtest::getDailyPosition(engine)
+//日组合指标展示
+totalPortfolios = Backtest::getDailyTotalPortfolios(engine)
+//回测结果综合展示
+
+plot(totalPortfolios.netValue, totalPortfolios.tradeDate, "策略净值")
+
+
+

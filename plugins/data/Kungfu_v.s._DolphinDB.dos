@@ -1,0 +1,110 @@
+// 加载引擎插件
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+
+
+// 创建回调函数
+def initialize(mutable context){
+}
+def beforeTrading(mutable context){
+	//print ("startBacktesting: "+context["tradeDate"]	
+}
+def onSnapshot(mutable context, msg, indicator){
+	maxP = context["maxPosition"]
+	orderV = context["orderVolume"]
+	istock = msg.symbol
+	ask_volume_sum = sum(msg.offerQty)
+	bid_volume_sum = sum(msg.bidQty)
+	if (ask_volume_sum > 0){
+	    if (bid_volume_sum > 2 * ask_volume_sum){
+	        posL = Backtest::getPosition(context["engine"], istock).longPosition
+	        if(posL < maxP){
+	            buyPrice = msg.bidPrice[1]
+	            Backtest::submitOrder(context["engine"], (istock, context["tradeTime"], 5, buyPrice, orderV, 1), 'oimOBUY')	
+	        }
+	    }
+	}
+	if (bid_volume_sum > 0){
+	    if (2*bid_volume_sum < ask_volume_sum){
+	        posH=Backtest::getPosition(context["engine"], istock).shortPosition
+	        if(posH >= orderV){
+	            sellPrice = msg.offerPrice[1]
+	            Backtest::submitOrder(context["engine"], (istock, context["tradeTime"], 5, sellPrice, orderV, 2), 'oimOSELL') 	
+	        }
+	    }
+	}  
+}
+//订单触发的回调函数
+def onOrder(mutable context, orders){}
+//成交触发的回调函数
+def onTrade(mutable context, trades){}
+//每日盘后的回调函数
+def afterTrading(mutable context){}
+//回测结束时的回调函数
+def finalize(mutable context){}
+
+startDate = 2021.01.01
+endDate = 2021.02.01
+userConfig = dict(STRING,ANY)
+userConfig["startDate"] = startDate
+userConfig["endDate"] = endDate
+///策略类型:固定
+userConfig["strategyGroup"] = "stock"
+///以指定的频率通过逐笔数据合成快照
+userConfig["frequency"] = 0
+userConfig["cash"] = 1000000
+/////行情类型，0：逐笔+快照，1：快照，2：快照+成交，3：分钟
+userConfig["dataType"] = 1
+//订单深度
+userConfig["depth"] = 10
+//订单延时
+userConfig["latency"] = 0
+//手续费,        
+userConfig["commission"] = 0.0
+//印花税,
+userConfig["tax"] = 0.0
+////tick的数据格式，table或dict
+userConfig["msgAsTable"] = false
+
+//配置策略全局变量
+//创建策略参数
+context = dict(STRING,ANY)
+context["maxPosition"] = 2000
+context["orderVolume"] = 100
+userConfig["context"] = context
+
+//配置策略回调函数
+callbacks = dict(STRING,ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+callbacks["onSnapshot"] = onSnapshot 
+callbacks["onTrade"] = onTrade
+callbacks["onOrder"] = onOrder
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalize
+strategyName = "Strategy"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks, false)
+strategyName="Strategy"+`01
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine2 = Backtest::createBacktester(strategyName, userConfig, callbacks, true)
+go
+defg fff(x){
+	return count(distinct(x))
+}
+//// step 3：获取数据与执行策略回测
+t = select fff(datetime.date()) as d from loadTable("dfs://level2_tickTrade",`tickTradeTable) where datetime.date() between startDate:endDate and 
+SecurityID like "60%SH" group by SecurityID order by d desc  
+codes = t.SecurityID[:10]
+
+timer messageTb = select top 850000* from getSnapShotHqData(startDate, endDate, codes, 1) //where symbol in ["600306.XSHG","600226.XSHG","600180.XSHG"]///开始执行回测
+timer Backtest::appendQuotationMsg(engine, messageTb)
+timer Backtest::appendQuotationMsg(engine2, messageTb)
+
+DailyPosition = Backtest::getDailyPosition(long(engine))
+OpenOrdersTable = Backtest::getOpenOrders(engine)
+DailyTotalPortfolios = Backtest::getDailyTotalPortfolios(long(engine))
+OpenOrdersTable = Backtest::getOpenOrders(engine)
+TradeDetails = Backtest::getTradeDetails(long(engine))
+ReturnSummary = Backtest::getReturnSummary(long(engine))

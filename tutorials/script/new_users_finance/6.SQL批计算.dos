@@ -1,0 +1,192 @@
+// 加载库表
+dbName = "dfs://stock_lv2_snapshot"
+snapdb = database(dbName)
+schema(snapdb)
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+snaptb = loadTable(dbName, tbName)
+select count(*) from snaptb
+// 或者 select count(*) from loadTable(dbName, tbName)
+
+
+// 分区剪枝
+
+select count(*) from loadTable(dbName, tbName) where TradeDate between 2022.11.30 and 2022.12.02 map
+
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where TradeDate between 2022.11.30 and 2022.12.02
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where TradeDate >= 2022.12.01 and TradeDate <= 2022.12.03
+
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where 2022.12.01 <= TradeDate <= 2022.12.03
+
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where SecurityID = "000001"
+
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where SecurityID in ["000001", "000002"]
+
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where month(TradeDate) = 2022.02M and SecurityID = "000001"
+
+// 单点查询
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+print loadTable(dbName, tbName).schema().sortColumns
+
+
+select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where TradeDate = 2022.12.01 and SecurityID = "000002"
+
+
+// 时间聚合
+undef all
+go
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+
+defg high(DeltasHighPrice, HighPrice, LastPrice){
+	if(sum(DeltasHighPrice)>0.000001){
+		return max(HighPrice)
+	}
+	else{
+		return max(LastPrice)
+	}
+}
+
+defg low(DeltasLowPrice, LowPrice, LastPrice){
+	sumDeltas = sum(DeltasLowPrice)
+	if(sumDeltas<-0.000001 and sumDeltas!=NULL){
+		return min(iif(LowPrice==0.0, NULL, LowPrice))
+	}
+	else{
+		return min(LastPrice)
+	}
+}
+
+tempTB1 =	select	TradeDate,
+			iif(TradeTime <=09:30:00.000, 09:30:00.000, TradeTime) as TradeTime,
+			SecurityID,
+			OpenPrice,
+			PreCloPrice,
+			HighPrice,
+			LowPrice,
+			LastPrice,
+			PreCloseIOPV,
+			IOPV,
+			UpLimitPx,
+			DownLimitPx,
+			iif(deltas(HighPrice)>0.000001, 1, 0) as DeltasHighPrice,
+			iif(abs(deltas(LowPrice))>0.000001, -1, 0) as DeltasLowPrice,
+			iif(deltas(TotalVolumeTrade)==NULL, TotalVolumeTrade, deltas(TotalVolumeTrade)) as DeltasVolume,
+			iif(deltas(TotalValueTrade)==NULL, TotalValueTrade, deltas(TotalValueTrade)) as DeltasTurnover,
+			iif(deltas(NumTrades)==NULL, NumTrades, deltas(NumTrades)) as DeltasTradesCount
+		from loadTable(dbName, tbName)
+		where TradeTime >=09:25:00.000
+		context by SecurityID
+
+re = select	firstNot(LastPrice, 0) as OpenPrice,
+			high(DeltasHighPrice, HighPrice, LastPrice) as HighPrice,
+			low(DeltasLowPrice, LowPrice, LastPrice) as LowPrice,
+			last(LastPrice) as ClosePrice,
+			sum(DeltasVolume) as Volume,
+			sum(DeltasTurnover) as Turnover,
+			sum(DeltasTradesCount) as TradesCount,
+			last(PreCloPrice) as PreClosePrice,
+			last(PreCloseIOPV) as PreCloseIOPV,
+			last(IOPV) as IOPV,
+			last(UpLimitPx) as UpLimitPx,
+			last(DownLimitPx) as DownLimitPx,
+			lastNot(LastPrice, 0)\firstNot(LastPrice, 0)-1 as FirstBarChangeRate	
+		from tempTB1
+		group by SecurityID, TradeDate, interval(X=TradeTime, duration=60s, label='left', fill=0) as TradeTime
+
+
+
+def calcKLine(snapshot){
+    tempTB1 = select TradeDate,
+			iif(TradeTime <=09:30:00.000, 09:30:00.000, TradeTime) as TradeTime,
+			SecurityID,
+			OpenPrice,
+			PreCloPrice,
+			HighPrice,
+			LowPrice,
+			LastPrice,
+			PreCloseIOPV,
+			IOPV,
+			UpLimitPx,
+			DownLimitPx,
+			iif(deltas(HighPrice)>0.000001, 1, 0) as DeltasHighPrice,
+			iif(abs(deltas(LowPrice))>0.000001, -1, 0) as DeltasLowPrice,
+			iif(deltas(TotalVolumeTrade)==NULL, TotalVolumeTrade, deltas(TotalVolumeTrade)) as DeltasVolume,
+			iif(deltas(TotalValueTrade)==NULL, TotalValueTrade, deltas(TotalValueTrade)) as DeltasTurnover,
+			iif(deltas(NumTrades)==NULL, NumTrades, deltas(NumTrades)) as DeltasTradesCount
+		from snapshot
+		where TradeTime >=09:25:00.000
+		context by SecurityID
+
+    re = select	firstNot(LastPrice, 0) as OpenPrice,
+                high(DeltasHighPrice, HighPrice, LastPrice) as HighPrice,
+                low(DeltasLowPrice, LowPrice, LastPrice) as LowPrice,
+                last(LastPrice) as ClosePrice,
+                sum(DeltasVolume) as Volume,
+                sum(DeltasTurnover) as Turnover,
+                sum(DeltasTradesCount) as TradesCount,
+                last(PreCloPrice) as PreClosePrice,
+                last(PreCloseIOPV) as PreCloseIOPV,
+                last(IOPV) as IOPV,
+                last(UpLimitPx) as UpLimitPx,
+                last(DownLimitPx) as DownLimitPx,
+                lastNot(LastPrice, 0)\firstNot(LastPrice, 0)-1 as FirstBarChangeRate	
+            from tempTB1
+            group by SecurityID, TradeDate, interval(X=TradeTime, duration=60s, label='left', fill=0) as TradeTime
+
+    return re
+}
+
+beginDate = 2022.01.01 
+endDate = 2022.01.31 
+ds = sqlDS(<select * from loadTable(dbName, tbName) where TradeDate between beginDate and endDate>)
+re = mr(ds, calcKLine, , unionAll, false)
+print select top 10 * from re order by SecurityId
+
+// 时序计算
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+def wavgSOIR(bidQty,askQty,lag=20){
+	imbalance= rowWavg((bidQty - askQty)\(bidQty + askQty), 10 9 8 7 6 5 4 3 2 1).ffill().nullFill(0)
+	mean = mavg(prev(imbalance), (lag-1), 2)
+	std = mstdp(prev(imbalance) * 1000000, (lag-1), 2) \ 1000000
+	return iif(std >= 0.0000001,(imbalance - mean) \ std, NULL).ffill().nullFill(0)
+}
+
+beginDate = 2022.01.01 
+endDate = 2022.01.10 
+
+re1 = select SecurityID, TradeDate, TradeTime, wavgSOIR(bidOrderQty, OfferOrderQty, lag=20) as HeightImbalance from loadTable(dbName, tbName) where TradeDate between beginDate and endDate context by SecurityID csort TradeTime
+
+re2 = select SecurityID, TradeDate, TradeTime, wavgSOIR(bidOrderQty, OfferOrderQty, lag=20) as HeightImbalance from loadTable(dbName, tbName) where TradeDate between beginDate and endDate context by Securityid csort TradeTime
+
+re = select SecurityID, TradeDate, TradeTime, wavgSOIR(bidOrderQty, OfferOrderQty, lag=20) as HeightImbalance from loadTable(dbName, tbName) where TradeDate between beginDate and endDate context by SecurityID csort TradeTime
+
+select top 10 * from loadTable(dbName, tbName)
+
+// 截面计算
+
+sym = `C`MS`MS`MS`IBM`IBM`C`C`C
+price= 49.6 29.46 29.52 30.02 174.97 175.23 50.76 50.32 51.29
+qty = 2200 1900 2100 3200 6800 5400 1300 2500 8800
+timestamp = [09:34:07,09:35:42,09:36:51,09:36:59,09:35:47,09:36:26,09:34:16,09:35:26,09:36:12]
+t = table(timestamp, sym, qty, price);
+print t
+
+m = exec price from t pivot by timestamp, sym;
+print m
+
+typestr m
+print m.colNames()
+print m.rowNames()
+
+m = exec last(LastPrice) from loadTable(dbName, tbName) pivot by TradeDate, SecurityID
+print rowRank(m)

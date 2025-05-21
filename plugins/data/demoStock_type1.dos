@@ -1,0 +1,90 @@
+//基于快照行情的股票回测
+login("admin", "123456")
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+
+//事件函数编写
+def initialize(mutable context){
+}
+
+def beforeTrading(mutable context){
+}
+
+def onSnapshot(mutable context, msg, indicator){	
+}
+
+def onOrder( mutable context, orders){
+}
+
+def onTrade(mutable context, trades){
+}
+
+def afterTrading(mutable context){	
+}
+
+def finalize (mutable context){
+}
+go
+
+//引擎配置项
+userConfig = dict(STRING, ANY) 
+userConfig["startDate"] = 2023.02.01        
+userConfig["endDate"] = 2023.02.28       
+userConfig["strategyGroup"] = "stock"      //策略类型：股票
+userConfig["cash"] = 10000000
+userConfig["commission"] = 0.0005
+userConfig["tax"] = 0.001
+userConfig["dataType"] = 1		       //行情为快照
+userConfig["msgAsTable"] = false           
+userConfig["frequency"] = 0    
+
+ //策略全局变量      
+Context = dict(STRING, ANY)                
+Context["buySignalRSI"] = 70.
+Context["sellSignalRSI"] = 30.
+Context["closeLine"] = 0.004
+Context["lowPrice"] = dict(STRING, ANY)
+Context["highPrice"] = dict(STRING, ANY)
+userConfig["context"] = Context
+
+//对应的快照的股票数据表：
+colName = ["symbol", "symbolSource", "timestamp", "lastPrice", "upLimitPrice",
+"downLimitPrice", "bidPrice", "bidQty",
+"offerPrice", "offerQty", "signal", "prevClosePrice"]
+colType = ["STRING", "STRING", "TIMESTAMP", "DOUBLE", "DOUBLE", "DOUBLE", "LONG",
+"LONG", "DOUBLE[]", "LONG[]", "DOUBLE[]", "DOUBLE"]
+tb = table(1:0, colName, colType)
+
+
+//创建回测引擎，执行回测				
+callbacks = dict(STRING, ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+callbacks["onSnapshot"] = onSnapshot
+callbacks["onOrder"] = onOrder
+callbacks["onTrade"] = onTrade
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalize
+strategyName = "Backtest_test1"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks, )
+timer Backtest::appendQuotationMsg(engine, tb)
+
+//开启JIT优化
+strategyName = "Backtest_test2"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine2 = Backtest::createBacktester(strategyName, userConfig, callbacks, true, )
+timer Backtest::appendQuotationMsg(engine2, tb)
+
+///回测结束标志
+a = select * from tb where tradeTime=max(tradeTime) limit 1
+update a set symbol = "END"
+Backtest::appendQuotationMsg(engine, a)
+go
+
+// 回测结果获取
+tradeDetails = Backtest::getTradeDetails(engine)		  	//成交明细
+openOrders = Backtest::getOpenOrders(long(engine))      	//查询当前的未成交（未完成）订单列表
+dailyPosition = Backtest::getDailyPosition(long(engine))	//每日持仓
+

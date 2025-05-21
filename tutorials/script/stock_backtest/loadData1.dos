@@ -1,0 +1,87 @@
+pnodeRun(clearCachedModules)
+go;
+use mytt
+
+
+// 短期均线
+def getShortTermMA(close, period=5){
+    return MA(close, period)
+}
+// 长期均线
+def getLongTermMA(close, period=20){
+    return MA(close, period)
+}
+
+// RSI
+def getRSI(close, N = 24){
+    return RSI(close, N = 24) //直接调用mytt的RSI函数
+}
+
+// 波动率
+def getVolatility(close, period=10){
+    returns = DIFF(close) / REF(close, 1)
+    return STD(returns, period)
+}
+
+
+def getDailyPctChg(lastPrice,prevClosePrice){
+    return lastPrice\prevClosePrice-1
+}
+
+def getOpenPctChg(open,prevClosePrice){
+    return open\prevClosePrice-1
+}
+
+def mockOneSymbolMsg(symbol,startDate,endDate){
+    tradeDate = getMarketCalendar("XSHG",startDate,endDate)
+    tradeSecond = second(09:31m..11:30m join 13:01m..15:00m)
+    tradeTime = timestamp(each(concatDateTime{,tradeSecond},tradeDate)).flatten().sort()
+    tradingDay = date(tradeTime)
+    high = rand(100.0,tradeTime.size())
+    low = high*0.01*(90+abs(randNormal(5,5,1)))[0]
+    open = rand(high-low,tradeTime.size())+low
+    close = rand(high-low,tradeTime.size())+low
+    volume = long(rand(100000,tradeTime.size()))
+    amount = rand(1000000.0,tradeTime.size())
+    prevClosePrice = move(close,1)
+    upLimitPrice = prevClosePrice*1.1
+    downLimitPrice = prevClosePrice*0.9
+    symbols = take(symbol,tradeTime.size())
+    turnover = rand(100.0,tradeTime.size())
+    t =  table(symbols as `symbol, tradeTime, open, low, high, close, volume, amount, upLimitPrice, downLimitPrice,  prevClosePrice, turnover)
+    return select * from t order by tradeTime,symbol
+}
+
+def getMessageTb(symbol,startDate,endDate){
+    """计算分钟数据
+    """
+    // STEP0 加载行情数据
+    messageTable = mockOneSymbolMsg(symbol,startDate,endDate)
+
+    // STEP1 因子表计算
+    facTable = select symbol,tradeTime,getShortTermMA(close, 5) as `shortMA, getLongTermMA(close, 20) as `longMA, getRSI(close, 24) as `RSI, getVolatility(close, 10) as `volatility from messageTable context by symbol csort tradeTime
+    update facTable set prevShortMA = prev(shortMA).bfill(), prevLongMA = prev(longMA).bfill()
+    // 转成窄表
+    facTable =select * from facTable.unpivot(`symbol`tradeTime, facTable.columnNames()[2:]) order by tradeTime, symbol
+
+    // STEP2 合并因子
+    // 先将msgTable转成宽表
+    facTable = select value from facTable pivot by symbol, tradeTime,valueType
+    messageTable = select * from ej(messageTable, facTable,`symbol`tradeTime) order by tradeTime,symbol
+    update messageTable set signal = fixedLengthArrayVector([turnover,RSI,longMA,shortMA,volatility,prevShortMA,prevLongMA])
+    // 删除多余列
+    messageTable.dropColumns!(`turnover`RSI`longMA`shortMA`volatility`prevShortMA`prevLongMA)
+
+    return messageTable
+}
+
+startDate = 2020.07.03
+endDate = 2024.11.15
+symbol = (format(1..10,"000000")+".XSHG") 
+messageTable = each(getMessageTb{,startDate,endDate},symbol).unionAll(false)
+messageTable = select * from messageTable order by tradeTime,symbol
+
+
+
+
+

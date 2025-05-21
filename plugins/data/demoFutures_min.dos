@@ -1,0 +1,92 @@
+//基于分钟频行情的期货回测
+login("admin", "123456")
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+
+//事件函数编写
+def initialize(mutable context){
+}
+
+def beforeTrading(mutable context){
+}
+
+def onBar(mutable context, msg, indicator){	
+}
+
+def onOrder( mutable context, orders){
+}
+
+def onTrade(mutable context, trades){
+}
+
+def afterTrading(mutable context){	
+}
+
+def finalize (mutable context){
+}
+go
+
+//引擎配置项
+userConfig = dict(STRING, ANY) 
+userConfig["startDate"] = 2023.02.01        
+userConfig["endDate"] = 2023.02.28       
+userConfig["strategyGroup"] = "futures"        //期货
+userConfig["cash"] = 10000000
+userConfig["commission"] = 0.0005
+userConfig["tax"] = 0.001
+userConfig["dataType"] = 3		       //行情为分钟频率
+userConfig["msgAsTable"] = false           
+userConfig["frequency"] = 0            
+Context = dict(STRING,ANY)                //策略全局变量context 
+Context["buySignalRSI"] = 70.
+Context["sellSignalRSI"] = 30.
+Context["closeLine"] = 0.004
+Context["lowPrice"] = dict(STRING, ANY)
+Context["highPrice"] = dict(STRING, ANY)
+userConfig["context"] = Context
+
+//对应的分钟频期货数据表：
+colName = ["symbol", "symbolSource", "tradeTime", "tradingDay", "open", "low", "high", "close",
+"volume", "amount", "upLimitPrice", "downLimitPrice", "signal", "prevClosePrice",
+"settlementPrice", "prevSettlementPrice"]
+colType = [SYMBOL, SYMBOL, TIMESTAMP, DATE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, LONG, DOUBLE,
+DOUBLE, DOUBLE, DOUBLE[], DOUBLE, DOUBLE, DOUBLE]
+tb = table(1:0, colName, colType)
+symbol = distinct(tb.symbol)
+//合约基本信息表
+securityReference = table(symbol as symbol, take(100., size(symbol)) as multiplier, take(0.2, size(symbol)) as marginRatio,
+				take(0.01, size(symbol)) as tradeUnit, take(0.02,size(symbol)) as priceUnit, 
+				take(0.03, size(symbol)) as priceTick, take(1.5, size(symbol)) as commission, take(1, size(symbol)) as deliveryCommissionMode)
+
+//创建回测引擎，执行回测				
+callbacks = dict(STRING, ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+callbacks["onBar"] = onBar
+callbacks["onOrder"] = onOrder
+callbacks["onTrade"] = onTrade
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalize
+strategyName = "Backtest_test1"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks, , securityReference)
+timer Backtest::appendQuotationMsg(engine, tb)
+
+//开启JIT优化
+strategyName = "Backtest_test2"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine2 = Backtest::createBacktester(strategyName, userConfig, callbacks, true, securityReference)
+timer Backtest::appendQuotationMsg(engine2, tb)
+
+///回测结束标志
+a = select * from tb where tradeTime=max(tradeTime) limit 1
+update a set symbol = "END"
+Backtest::appendQuotationMsg(engine, a)
+go
+
+// 回测结果获取
+res1 = select * from Backtest::getTradeDetails(engine) where orderStatus in [0,1]
+availCash1 = Backtest::getAvailableCash(engine)  //可用资金
+dailyPos1 = Backtest::getDailyPosition(engine)  //每日盘后持仓
+

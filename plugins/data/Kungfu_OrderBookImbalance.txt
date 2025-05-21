@@ -1,0 +1,73 @@
+from kungfu.wingchun.constants import *
+import kungfu.yijinjing.time as kft
+
+# 柜台
+source = "sim"
+# 账户
+account = "simTest"
+
+# 策略参数
+MAX_POSITION = 2000
+ORDER_VOLUME = 100
+
+# 获取持仓
+def get_position(instrument_id, book):
+    long_position = None
+    for pos in book.long_positions.values():
+        if instrument_id == pos.instrument_id:
+            long_position = pos
+    return long_position
+    
+# 启动前回调，添加交易账户，订阅行情，策略初始化计算等
+def pre_start(context):
+    context.log.info("preparing strategy")
+
+    context.subscribe(source, ["600000", "600004", "600006", "600007"], Exchange.SSE)
+    context.subscribe(source, ["000001", "000004", "000005", "000006"], Exchange.SZE)
+    context.add_account(source, account)
+
+# 快照数据回调
+def on_quote(context, quote, location, dest):
+    # context.log.info(f"{quote=}")
+    # 跳过集合竞价时间
+    # if "T" not in quote.trading_phase_code:
+    #     return
+
+    # 策略逻辑
+    ask_volume_sum = sum(x for x in quote.ask_volume)
+    bid_volume_sum = sum(x for x in quote.bid_volume)
+    
+    if bid_volume_sum > 2 * ask_volume_sum and ask_volume_sum > 0:
+        position = get_position(quote.instrument_id, context.book) 
+        if not position or position.volume < MAX_POSITION:
+            order_id = context.insert_order(quote.instrument_id, quote.exchange_id, source, account, quote.ask_price[0], ORDER_VOLUME,
+                                            PriceType.Limit, Side.Buy, Offset.Open)
+            if order_id:
+                # 通过添加时间回调，在五秒以后撤单, 如果5m秒内未能成交，订单会被撤
+                context.add_timer(context.now() + 5 * kft.NANO_PER_SECOND, lambda context, event: context.cancel_order(order_id))
+
+    if ask_volume_sum > 2 * bid_volume_sum and bid_volume_sum > 0:
+        position = get_position(quote.instrument_id, context.book) 
+        if position and position.volume > ORDER_VOLUME:
+            order_id = context.insert_order(quote.instrument_id, quote.exchange_id, source, account, quote.bid_price[0], ORDER_VOLUME,
+                                            PriceType.Limit, Side.Sell, Offset.Close)
+            if order_id:
+                context.add_timer(context.now() + 5 * kft.NANO_PER_SECOND, lambda context, event: context.cancel_order(order_id))
+
+
+# 订单回报
+def on_order(context, order, location, dest):
+    pass
+
+# 成交回报
+def on_trade(context, trade, location, dest):
+    context.log.info(f"{trade=}")    
+    pass
+
+# 策略进程退出前方法
+def post_stop(context):
+    book = context.book
+    # context.log.info("trades: \n", list(book.trades.items()))
+    context.log.info(f"{book.long_positions=}")
+
+    pass

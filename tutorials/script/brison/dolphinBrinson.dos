@@ -1,0 +1,265 @@
+module dolphinBrinson
+def Brinson_BHB_GRAP(pfPosition, bmPosition, multiPeriodMethod, GRAP_yields) {
+    /*
+        基准表：code，bmWeight、bmYield、category, date
+        组合表：code，pfWeight、pfYield、category, date
+    */
+    pfPosition_t = select category, date, sum(pfWeight) as pfWeight, wavg(pfYield, pfWeight) as pfYield from pfPosition group by category, date 
+
+    bmPosition_t = select category, date, sum(bmWeight) as bmWeight, wavg(bmYield, bmWeight) as bmYield from bmPosition group by category, date
+
+    tmp = fj(pfPosition_t, bmPosition_t, `date`category).nullFill(0)
+    update tmp set category = iif(category == '0', bmPosition_t_category, category)
+    update tmp set date = iif(date == date(0), bmPosition_t_date, date)
+    update tmp set pfYield = iif(pfYield == 0, bmYield, pfYield)
+    tmp = aj(tmp, GRAP_yields, `date).nullFill(1)
+    if(multiPeriodMethod == 'grap'){
+        tmp = select date, category, (pfWeight-bmWeight)*bmYield*GRAP_yields as 配置收益, (pfYield-bmYield)*bmWeight*GRAP_yields as 选择收益, (pfYield-bmYield)*(pfWeight-bmWeight)*GRAP_yields as 交叉收益 from tmp
+    }
+    else{
+        tmp = select date, category, (pfWeight-bmWeight)*bmYield as 配置收益, (pfYield-bmYield)*bmWeight as 选择收益, (pfYield-bmYield)*(pfWeight-bmWeight) as 交叉收益 from tmp
+    }
+    return tmp
+}
+def Brinson_BHB(pfPosition, bmPosition) {
+    /*
+        基准表: code, bmWeight, bmYield, category, date
+        组合表: code, pfWeight, pfYield, category, date
+     */
+    pfPosition_t = select category, date, sum(pfWeight) as pfWeight, wavg(pfYield, pfWeight) as pfYield from pfPosition group by category, date order by date
+
+    bmPosition_t = select category, date, sum(bmWeight) as bmWeight, wavg(bmYield, bmWeight) as bmYield from bmPosition group by category, date order by date
+
+    tmp = fj(pfPosition_t, bmPosition_t, `date`category).nullFill(0)
+    update tmp set category = iif(category == '0', bmPosition_t_category, category)
+    update tmp set date = iif(date == date(0), bmPosition_t_date, date)
+    update tmp set pfYield = iif(pfYield == 0, bmYield, pfYield)
+    res = select sum((pfWeight-bmWeight)*bmYield) as 配置收益, sum((pfYield-bmYield)*bmWeight) as 选择收益, sum((pfYield-bmYield)*(pfWeight-bmWeight)) as 交叉收益 from tmp group by date,category
+    overall = select date as date, '总效应' as category, sum(res.配置收益) as 配置收益, sum(res.选择收益) as 选择收益, sum(res.交叉收益) as 交叉收益 from res group by date
+    tableInsert(res,overall);
+    res = select * from res order by date 
+
+    update res set 总效应 = 配置收益 + 选择收益 + 交叉收益
+    return res
+}
+def Brinson_BF_GARP(pfPosition, bmPosition, bchYield, multiPeriodMethod, GRAP_yields) {
+    /*
+        基准表：code，bmWeight、bmYield、category, date
+        组合表：code，pfWeight、pfYield、category, date
+     */
+    pfPosition_t = select category, date, sum(pfWeight) as pfWeight, wavg(pfYield, pfWeight) as pfYield from pfPosition group by category, date 
+
+    bmPosition_t = select category, date, sum(bmWeight) as bmWeight, wavg(bmYield, bmWeight) as bmYield from bmPosition group by category, date
+
+    tmp = fj(pfPosition_t, bmPosition_t, `date`category).nullFill(0)
+    update tmp set category = iif(category == '0', bmPosition_t_category, category)
+    update tmp set date = iif(date == date(0), bmPosition_t_date, date)
+    tmp = aj(tmp, GRAP_yields, `date).nullFill(1)
+    if(multiPeriodMethod == 'grap'){
+        tmp = select date, category, (pfWeight - bmWeight) * (bmYield - bchYield)*GRAP_yields as 配置收益, pfWeight * (pfYield - bmYield)*GRAP_yields as 选择收益 from tmp
+    }
+    else{
+        tmp = select date, category, (pfWeight - bmWeight) * (bmYield - bchYield) as 配置收益, pfWeight * (pfYield - bmYield) as 选择收益 from tmp
+    }
+    return tmp
+}
+def Brinson_BF(pfPosition, bmPosition, bchYield) {
+    /*
+        基准表：code，bmWeight、bmYield、category, date
+        组合表：code，pfWeight、pfYield、category, date
+     */
+    pfPosition_t = select category, date, sum(pfWeight) as pfWeight, wavg(pfYield, pfWeight) as pfYield from pfPosition group by category, date order by date 
+    bmPosition_t = select category, date, sum(bmWeight) as bmWeight, wavg(bmYield, bmWeight) as bmYield from bmPosition group by category, date order by date
+    
+    tmp = fj(pfPosition_t, bmPosition_t, `date`category).nullFill(0)
+    update tmp set category = iif(category == '0', bmPosition_t_category, category)
+    update tmp set date = iif(date == date(0), bmPosition_t_date, date)
+    res = select sum((pfWeight - bmWeight) * (bmYield - bchYield)) as 配置收益, sum(pfWeight * (pfYield - bmYield)) as 选择收益 from tmp group by date,category
+    overall = select date as date, '总效应' as category, sum(res.配置收益) as 配置收益, sum(res.选择收益) as 选择收益 from res group by date
+    tableInsert(res,overall);
+    res = select * from res order by date 
+    update res set 总效应 = 配置收益 + 选择收益
+    return res
+}
+
+// method = 'BF'
+// 单期（组合内持仓不变）
+def Brinson_single(dailyPosition, benchmarkPosition, marketData, dateList, method, industryBrinson) {
+    ret = dict(STRING, ANY)
+    dailyPosition_adjusted = select * from dailyPosition order by date
+    benchmark_adjusted = select * from benchmarkPosition order by date
+    marketData_adjusted = select * from marketData order by date
+    // 日期
+    dateTb = table(dateList as positionDate)
+    dailyPosition_adjusted = aj(dailyPosition_adjusted, dateTb, `date, `positionDate)
+    benchmark_adjusted = aj(benchmark_adjusted, dateTb, `date, `positionDate)
+    // 大类资产配置归因
+    // 算出期限内的收益率
+    pfPosition = select symbol as code, nullFill(weight,0) as pfWeight, nullFill(returnPerPeriod,0) as pfYield, nullFill(asset,'其它') as category, positionDate as date from aj(dailyPosition_adjusted, marketData_adjusted, `symbol`positionDate, `symbol`date) where !weight.isNull() and date in dateTb.positionDate
+    // lj(dailyPosition_adjusted, marketDatatmp, `symbol`positionDate, `symbol`date)
+    bmInfo = select * from aj(marketData_adjusted, benchmark_adjusted, `symbol`date, `symbol`positionDate) where date in dateTb.positionDate and not benchmark_adjusted.weight.isNull()
+    bmPosition = select symbol, nullFill(weight,0) as bmWeight, nullFill(returnPerPeriod,0) as bmYield, asset as category, date from bmInfo
+    // 1. 组合收益率，基准收益率，超额收益率
+    // 基准收益率
+    bmYieldList = exec sum(bmWeight*bmYield) as 基准收益率 from bmPosition group by date
+    //bchYield = bmYieldList.pct_change
+    //bchYield = prod(1+bmYieldList.pct_change)-1
+    // 组合收益率
+    pfYieldList = exec sum(pfWeight*pfYield) as 组合收益率 from pfPosition group by date
+    //pfYield = pfYieldList.pct_change
+    //pfYield = prod(1+pfYieldList.pct_change)-1
+    // 超额收益率
+    // ttmp = aj(pfD, bmD, `date).nullFill(0)
+    basicInfo = select * from bmYieldList inner join pfYieldList on bmYieldList.date = pfYieldList.date
+    basicInfo = select *, (basicInfo.组合收益率-basicInfo.基准收益率) as 超额收益率 from basicInfo
+    //basicInfo = dict(["基准收益率", "组合收益率", "超额收益率"], [bchYield, pfYield, excessYield])
+    ret["基本信息"] = basicInfo
+    bchYield = prod(1+basicInfo.基准收益率)-1
+    pfYield = prod(1+basicInfo.组合收益率)-1
+    excessYield = prod(1+basicInfo.超额收益率)-1
+    basicInfo_cum = dict(["基准收益率", "组合收益率", "超额收益率"], [bchYield, pfYield, excessYield])
+    ret["区间收益"] = basicInfo_cum
+    // 资产归因
+    res_portfolio = iif(method == 'BF', Brinson_BF(pfPosition, bmPosition, bchYield), Brinson_BHB(pfPosition, bmPosition))
+
+    ret["大类资产归因"] = res_portfolio
+    if (industryBrinson.isNull()) {
+        return ret
+    } else {
+        // b = '股票'
+        for (b in industryBrinson) {
+            pfPosition = select symbol as code, nullFill(weight,0) as pfWeight, nullFill(returnPerPeriod,0) as pfYield, industry as category, date from aj(dailyPosition_adjusted, marketData_adjusted, `symbol`date) where asset = b and (date in dateTb.positionDate) order by date DESC
+            update pfPosition set pfWeight = pfWeight/pfWeight.sum() context by date
+            bmPosition = select symbol, weight.nullFill(0) as bmWeight, returnPerPeriod.nullFill(0) as bmYield, industry as category, date from bmInfo where asset = b
+            update bmPosition set bmWeight = bmWeight/bmWeight.sum() context by date
+
+            // 基准收益率
+            stockbmYieldList = exec sum(bmWeight*bmYield) as pct_change from bmPosition group by date
+            stockbmYield = prod(1+stockbmYieldList.pct_change)-1
+            stockbmYieldList = exec sum(bmWeight*bmYield) as pct_change from bmPosition group by date
+            stockbmYield = prod(1+stockbmYieldList.pct_change)
+            
+            stock_portfolio = iif(method == 'BF', Brinson_BF(pfPosition, bmPosition, stockbmYield), Brinson_BHB(pfPosition, bmPosition))
+            ret[b + "行业归因"] = stock_portfolio
+        }
+    }
+    return ret
+}
+// Brinson_single(dailyPosition, benchmarkPosition, marketData, dateList, method = 'BF', industryBrinson = `股票) 
+
+// 多期（组合内持仓变化）
+def Brinson_multiple(dailyPosition, benchmarkPosition, marketData, dateList, method, industryBrinson, showAll=false, multiPeriodMethod = 'grap') {
+    ret = dict(STRING, ANY)
+    dailyPosition_adjusted = select * from dailyPosition order by date
+    benchmark_adjusted = select * from benchmarkPosition order by date
+    marketData_adjusted = select * from marketData order by date
+    
+    // 日期
+    dateTb = table(dateList as positionDate)
+    dailyPosition_adjusted = aj(dailyPosition_adjusted, dateTb, `date, `positionDate)
+    benchmark_adjusted = aj(benchmark_adjusted, dateTb, `date, `positionDate)
+    // 大类资产配置归因
+    // 算出期限内的收益率
+    pfPosition = select symbol as code, nullFill(weight,0) as pfWeight, nullFill(returnPerPeriod,0) as pfYield, nullFill(asset,'其它') as category, positionDate as date from aj(dailyPosition_adjusted, marketData_adjusted, `symbol`positionDate, `symbol`date) where date in dateTb.positionDate
+    //sum = select sum(pfWeight) from pfPosition where category = `股票
+    bmInfo = select * from aj(marketData_adjusted, benchmark_adjusted, `symbol`date, `symbol`positionDate) where date in dateTb.positionDate and not benchmark_adjusted.weight.isNull()
+    bmPosition = select symbol, nullFill(weight,0) as bmWeight, nullFill(returnPerPeriod,0) as bmYield, asset as category, date from bmInfo
+    // 1. 组合收益率，基准收益率，超额收益率
+    // 基准收益率
+    bmYieldList = exec sum(bmWeight*bmYield) as 基准收益率 from bmPosition group by date
+    //bchYield = prod(1+bmYieldList.pct_change)-1
+    // 组合收益率
+    pfYieldList = exec sum(pfWeight*pfYield) as 组合收益率 from pfPosition group by date
+    //pfYield = prod(1+pfYieldList.pct_change)-1
+    // 超额收益率
+    basicInfo = select * from bmYieldList inner join pfYieldList on bmYieldList.date = pfYieldList.date
+    basicInfo = select *, (basicInfo.组合收益率-basicInfo.基准收益率) as 超额收益率 from basicInfo
+    GRAP_yields = select basicInfo.date, cumprod(nullFill(prev(basicInfo.组合收益率),0)+1) * nullFill(next(reverse(cumprod(reverse(basicInfo.基准收益率)+1))),1) as GRAP_yields from basicInfo
+    if(multiPeriodMethod == 'grap'){
+        //更新超额收益到GRAP版本
+        update basicInfo set basicInfo.超额收益率 = basicInfo.超额收益率 * GRAP_yields.GRAP_yields
+        //更新组合收益到GRAP版本
+        update basicInfo set basicInfo.组合收益率 = basicInfo.超额收益率 + basicInfo.基准收益率
+    }
+    ret["基本信息"] = basicInfo
+    bchYield = prod(1+basicInfo.基准收益率)-1
+    pfYield = prod(1+basicInfo.组合收益率)-1
+    excessYield = sum(basicInfo.超额收益率)
+    basicInfo_cum = dict(["基准收益率", "组合收益率", "超额收益率"], [bchYield, pfYield, excessYield])
+    ret["区间收益"] = basicInfo_cum
+    // 资产归因
+    pf_multi = dict(STRING, ANY)
+    ret["大类资产归因"] = dict(STRING,ANY)
+    ret_tmp = dict(STRING,ANY)
+    if (method == 'BF') {
+        tmp = Brinson_BF_GARP(pfPosition, bmPosition, bchYield, multiPeriodMethod,GRAP_yields)     
+        res = select sum(配置收益) as 配置收益, sum(选择收益) as 选择收益 from tmp group by category
+        res.tableInsert(table('总效应' as category, sum(res.配置收益) as 配置收益, sum(res.选择收益) as 选择收益))
+        update res set 总效应 = 配置收益 + 选择收益
+        ret_tmp["总结"] = res
+    } else{
+        tmp =Brinson_BHB_GRAP(pfPosition, bmPosition, multiPeriodMethod, GRAP_yields)
+        res = select sum(配置收益) as 配置收益, sum(选择收益) as 选择收益, sum(交叉收益) as 交叉收益 from tmp group by category
+        res.tableInsert(table('总效应' as category, sum(res.配置收益) as 配置收益, sum(res.选择收益) as 选择收益, sum(res.交叉收益) as 交叉收益))
+        update res set 总效应 = 配置收益 + 选择收益 + 交叉收益
+        ret_tmp["总结"] = res
+    }
+    // d = 2024.02.28
+    //showAll = true
+    if (showAll) {
+        ret_tmp['每期归因'] = select * from tmp order by date
+    }
+    ret["大类资产归因"] = ret_tmp
+    if (industryBrinson.isNull()) {
+        return ret
+    } else {
+        //b = '股票'
+        for (b in industryBrinson) {
+            ret[b + "行业归因"] = dict(STRING,ANY)
+            pfPosition = select symbol as code, nullFill(weight,0) as pfWeight, nullFill(returnPerPeriod,0) as pfYield, industry as category, date from aj(dailyPosition_adjusted, marketData_adjusted, `symbol`date) where asset = b and (date in dateTb.positionDate) order by date DESC
+
+            
+            bmPosition = select symbol, weight.nullFill(0) as bmWeight, returnPerPeriod.nullFill(0) as bmYield, industry as category, date from bmInfo where asset = b
+            
+            ret_tmp = dict(STRING,ANY)
+            if (method == 'BF') {
+                tmp = Brinson_BF_GARP(pfPosition, bmPosition, bchYield, multiPeriodMethod, GRAP_yields)
+                res = select sum(配置收益) as 配置收益, sum(选择收益) as 选择收益 from tmp group by category
+                res.tableInsert(table('总效应' as category, sum(res.配置收益) as 配置收益, sum(res.选择收益) as 选择收益))
+                update res set 总效应 = 配置收益 + 选择收益
+                ret_tmp['总结'] = res
+            } else{
+                tmp = Brinson_BHB_GRAP(pfPosition, bmPosition,  multiPeriodMethod, GRAP_yields)  
+                res = select sum(配置收益) as 配置收益, sum(选择收益) as 选择收益, sum(交叉收益) as 交叉收益 from tmp group by category
+                res.tableInsert(table('总效应' as category, sum(res.配置收益) as 配置收益, sum(res.选择收益) as 选择收益, sum(res.交叉收益) as 交叉收益))
+                update res set 总效应 = 配置收益 + 选择收益 + 交叉收益
+                ret_tmp['总结'] = res
+            }
+            
+            if (showAll) {
+                ret_tmp['每期归因'] = select * from tmp order by date
+            }
+            ret[b + "行业归因"] = ret_tmp
+        }
+    }
+    return ret
+}
+
+
+def brinson(dailyPosition, benchmarkPosition, marketData, dateList, method = 'BF', multiPeriod = false, industryBrinson = NULL, showAll = false, multiPeriodMethod = 'grap') {
+    //dateList = dateList1
+    startDate = dateList[0]
+    endDate = dateList[size(dateList)-1]
+    dailyPositiontmp = select * from dailyPosition where date between startDate and endDate order by date
+    benchmarkPositiontmp = select * from benchmarkPosition where date between startDate and endDate order by date
+    marketDatatmp = select * from marketData where (date between startDate and endDate) and ((symbol in dailyPositiontmp.symbol) or (symbol in benchmarkPositiontmp.symbol)) order by date
+    
+    if (multiPeriod) {
+        return Brinson_multiple(dailyPositiontmp, benchmarkPositiontmp, marketDatatmp, dateList, method, industryBrinson, showAll, multiPeriodMethod)
+    } else {
+        return Brinson_single(dailyPositiontmp, benchmarkPositiontmp, marketDatatmp, dateList, method, industryBrinson)
+    }
+}
+ 
+
+

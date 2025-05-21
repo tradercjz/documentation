@@ -1,0 +1,127 @@
+module dolphinCampisi
+def campisi_without_benchmark(dailyPosition, marketData,treasuryCurve, dateList, convexity=false, multiPeriod=false) {
+    dateTb = select * from table(dateList[0:(size(dateList)-1)] as startDate, dateList[1:(size(dateList))] as endDate) order by endDate
+    dp = select symbol, positionQty, positionDate, startDate, endDate from lj(dailyPosition,dateTb, `positionDate, `endDate) where endDate.isValid() order by endDate
+    dp = select symbol,positionQty, positionDate, marketData.price as startPrice, (positionDate-startDate)\365 as holding_years, marketData.date as startDate, marketData.duration as startDuration, marketData.convexity as startConvexity from aj(dp, marketData,`symbol`startDate, `symbol`date)
+    tmp = select symbol,positionQty, startPrice, startDuration, startConvexity, holding_years, startDate, industry, date as positionDate, price, faceValue, couponRate, duration, convexity from aj(dp, marketData, `symbol`positionDate, `symbol`date)
+
+    update tmp set upperDur = cast(ceil(startDuration), INT)
+    update tmp set lowerDur = cast(floor(startDuration), INT)
+    update tmp set lowWeight = upperDur - startDuration
+    
+
+    tmp = wj(wj(tmp, treasuryCurve, -1:0, <[first(value) as lowValueEnd, last(value) as highValueEnd]>, `positionDate`upperDur, `date`period), treasuryCurve, -1:0, <[first(value) as lowValueStart, last(value) as highValueStart]>, `startDate`upperDur, `date`period)
+    tmp = select *, ((highValueEnd-lowValueEnd)*(lowWeight) + lowValueEnd)-((highValueStart-lowValueStart)*(lowWeight) + lowValueStart) as 国债收益率变化 from tmp
+    update tmp set 收入效应 = faceValue * couponRate * holding_years \ startPrice
+    update tmp set 总收益率 = ((faceValue*couponRate*holding_years + (price-startPrice))\startPrice)
+    // 无基准的Campisi绩效归因模型
+    if (convexity == false) {
+        update tmp set 国债效应 = -startDuration*国债收益率变化
+    } else {
+        update tmp set 国债效应 = -startDuration*国债收益率变化 + 0.5*pow(国债收益率变化,2)*startConvexity
+    }
+    update tmp set 利差效应 = 总收益率-收入效应-国债效应
+    update tmp set 利差变化 = 利差效应\startDuration
+
+    res = select sum(positionQty*startPrice).nullFill(0) as 市值 , sum(positionQty*faceValue).nullFill(0) as faceValue, wavg(总收益率,positionQty*startPrice).nullFill(0) as 总收益率, wavg(收入效应,positionQty*startPrice).nullFill(0) as 收入效应, wavg(国债效应, positionQty*startPrice).nullFill(0) as 国债效应, wavg(利差效应, positionQty*startPrice).nullFill(0) as 利差效应, wavg(利差变化, positionQty*startPrice).nullFill(0) as 利差变化 from tmp group by industry, positionDate, startDate
+    update res set 市值权重 = 市值 \ sum(市值) context by positionDate
+
+
+    res = select positionDate as 持仓日期, startDate as 期初日期, industry as 行业, 市值权重,收入效应,国债效应,利差效应,(收入效应+国债效应+利差效应) as 总计,利差变化 from res where positionDate.isValid() order by positionDate, startDate DESC
+
+    sumRes = select '总计' as 行业, sum(市值权重) as 市值权重, wavg(收入效应, 市值权重) as 收入效应, wavg(国债效应, 市值权重) as 国债效应, wavg(利差效应, 市值权重) as 利差效应,wavg(总计, 市值权重) as 总计, wavg(利差变化, 市值权重) as 利差变化 from res group by 持仓日期, 期初日期
+    if (multiPeriod == true) {
+        // 多期计算
+        res = select res.*, cumprod(prev(1+sumRes.总计).nullFill(1)) as Rs from lj(res, sumRes, `持仓日期) context by 行业 order by 持仓日期
+        res = select 持仓日期, 期初日期, 行业, 市值权重,收入效应*Rs as 收入效应,国债效应*Rs as 国债效应,利差效应*Rs as 利差效应,利差变化*Rs as 利差变化 from res order by 持仓日期 ASC
+        res = select 持仓日期, 期初日期, 行业, 市值权重,收入效应,国债效应,利差效应, 收入效应+国债效应+利差效应 as 总计,利差变化 from res order by 持仓日期 ASC
+        sumRes = select '总计' as 行业, sum(市值权重) as 市值权重, wavg(收入效应, 市值权重) as 收入效应, wavg(国债效应, 市值权重) as 国债效应, wavg(利差效应, 市值权重) as 利差效应,wavg(总计, 市值权重) as 总计, wavg(利差变化, 市值权重) as 利差变化 from res group by 持仓日期, 期初日期
+    }
+    res.append!(sumRes)
+    res = select 持仓日期, 期初日期, 行业, 市值权重,收入效应,国债效应,利差效应,利差变化, 总计 from res order by 持仓日期 ASC
+    ret = dict(STRING, ANY)
+    ret["债券组合收益率归因"] = res
+    return ret
+}
+
+def campisi_with_benchmark(dailyPosition, benchmarkPosition, marketData, treasuryCurve, industryCurve, dateList, convexity=false, multiPeriod=false) {
+    ret = dict(STRING, ANY)
+    benchmarktmp = benchmarkPosition
+    update benchmarktmp set positionQty = weight
+    dateTb = table(dateList[1:(size(dateList))] as endDate)
+    benchmarktmp = cj(benchmarktmp, dateTb)
+    update benchmarktmp set positionDate = endDate
+    benchmarktmp = select symbol, positionQty, positionDate from benchmarktmp order by positionDate
+    benmark_info = campisi_without_benchmark(benchmarktmp, marketData,treasuryCurve, dateList, convexity, multiPeriod)
+    bchres = select 持仓日期,期初日期, '基准' as 名称, 收入效应, 国债效应, 利差效应, 0.0 as 择券效应,总计 from benmark_info.债券组合收益率归因 where 行业 = '总计'
+    dateTb = select * from table(dateList[0:(size(dateList)-1)] as startDate, dateList[1:(size(dateList))] as endDate) order by endDate
+    dp = select symbol, positionQty, positionDate, startDate, endDate from lj(dailyPosition,dateTb, `positionDate, `endDate) where endDate.isValid() order by endDate
+    dp = select symbol,positionQty, positionDate, marketData.price as startPrice, (positionDate-startDate)\365 as holding_years, marketData.date as startDate, marketData.duration as startDuration, marketData.convexity as startConvexity from aj(dp, marketData,`symbol`startDate, `symbol`date)
+    tmp = select symbol,positionQty, startPrice, startDuration, startConvexity, holding_years, startDate, industry, date as positionDate, price, faceValue, couponRate, duration, convexity from aj(dp, marketData, `symbol`positionDate, `symbol`date)
+    update tmp set upperDur = cast(ceil(startDuration), INT)
+    update tmp set lowerDur = cast(floor(startDuration), INT)
+    update tmp set lowWeight = upperDur - startDuration
+    
+    tmp = wj(wj(tmp, treasuryCurve, -1:0, <[first(value) as lowValueEnd, last(value) as highValueEnd]>, `positionDate`upperDur, `date`period), treasuryCurve, -1:0, <[first(value) as lowValueStart, last(value) as highValueStart]>, `startDate`upperDur, `date`period)
+    tmp = select *, ((highValueEnd-lowValueEnd)*(lowWeight) + lowValueEnd)-((highValueStart-lowValueStart)*(lowWeight) + lowValueStart) as 国债收益率变化 from tmp
+    tmp = wj(wj(tmp, industryCurve, -1:0, <[first(value) as indLowEnd, last(value) as indHighEnd]>, `industry`positionDate`upperDur, `industry`date`period), industryCurve, -1:0, <[first(value) as indLowStart, last(value) as indHighStart]>, `industry`startDate`upperDur, `industry`date`period)
+
+    update tmp set 行业收益率变化 = ((indHighEnd-indLowEnd)*(lowWeight) + indLowEnd)-((indHighStart-indLowStart)*(lowWeight) + lowValueStart)
+    update tmp set 利差 = 行业收益率变化 - 国债收益率变化
+    update tmp set 收入效应 = faceValue * couponRate * holding_years \ startPrice
+    update tmp set 总收益率 = ((faceValue*couponRate*holding_years + (price-startPrice))\faceValue)
+    // 无基准的Campisi绩效归因模型
+    if (convexity == false) {
+        update tmp set 国债效应 = -startDuration*国债收益率变化
+        update tmp set 利差效应 = -startDuration*利差
+    } else {
+        update tmp set 国债效应 =  -startDuration*国债收益率变化 + 0.5*pow(国债收益率变化,2)*startConvexity
+        update tmp set 利差效应 = -startDuration*利差 + 0.5*pow(利差,2)*startConvexity
+    }
+    update tmp set 择券效应 = 总收益率-收入效应-国债效应-利差效应
+
+    res = select sum(positionQty*startPrice).nullFill(0) as 市值 , sum(positionQty*faceValue).nullFill(0) as faceValue, wavg(总收益率,positionQty*startPrice).nullFill(0) as 总收益率, wavg(收入效应,positionQty*startPrice).nullFill(0) as 收入效应, wavg(国债效应, positionQty*startPrice).nullFill(0) as 国债效应, wavg(利差效应, positionQty*startPrice).nullFill(0) as 利差效应, wavg(择券效应, positionQty*startPrice).nullFill(0) as 择券效应 from tmp group by industry, positionDate, startDate
+    update res set 市值权重 = 市值 \ sum(市值) context by positionDate, startDate
+    res = select positionDate as 持仓日期, startDate as 期初日期, industry as 行业, 市值权重,收入效应,国债效应,利差效应,择券效应, (收入效应+国债效应+利差效应+择券效应) as 总计 from res where positionDate.isValid() order by positionDate, startDate DESC
+    sumRes = select '总计' as 行业,  sum(市值权重) as 市值权重, wavg(收入效应, 市值权重) as 收入效应, wavg(国债效应, 市值权重) as 国债效应, wavg(利差效应, 市值权重) as 利差效应, wavg(择券效应, 市值权重) as 择券效应, wavg(总计, 市值权重) as 总计 from res group by 持仓日期, 期初日期
+    if (multiPeriod == true) {
+        // 多期计算
+        res = select res.*, cumprod(prev(1+sumRes.总计).nullFill(1)) as Rs from lj(res, sumRes, `持仓日期) context by 行业 order by 持仓日期
+        res = select 持仓日期, 期初日期, 行业, 市值权重,收入效应*Rs as 收入效应,国债效应*Rs as 国债效应,利差效应*Rs as 利差效应,择券效应*Rs as 择券效应 from res order by 持仓日期 ASC
+        res = select 持仓日期, 期初日期, 行业, 市值权重,收入效应,国债效应,利差效应, 择券效应, (收入效应+国债效应+利差效应+择券效应) as 总计 from res order by 持仓日期 ASC
+        sumRes = select '总计' as 行业,  sum(市值权重) as 市值权重, wavg(收入效应, 市值权重) as 收入效应, wavg(国债效应, 市值权重) as 国债效应, wavg(利差效应, 市值权重) as 利差效应, wavg(择券效应, 市值权重) as 择券效应, wavg(总计, 市值权重) as 总计 from res group by 持仓日期, 期初日期
+    }
+    res.append!(sumRes)
+    res = select 持仓日期, 期初日期, 行业, 市值权重,收入效应,国债效应,利差效应,择券效应,总计 from res order by 持仓日期 DESC
+    ret["债券组合收益率归因"] = res
+    alpha_res = table(1:0, `持仓日期`期初日期`名称`收入效应`国债效应`利差效应`择券效应`总计, [DATE, DATE,STRING, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE])
+    pf_res = select '组合' as 名称, wavg(收入效应, 市值权重) as 收入效应, wavg(国债效应, 市值权重) as 国债效应, wavg(利差效应, 市值权重) as 利差效应, wavg(择券效应, 市值权重) as 择券效应, wavg(总计, 市值权重) as 总计 from res where 持仓日期.isValid() group by 持仓日期, 期初日期
+    alpha_res.append!(pf_res)
+    alpha_res.append!(bchres)
+    alpha_tmp = select 持仓日期,期初日期,'阿尔法', pf_res.收入效应-bchres.收入效应, pf_res.国债效应-bchres.国债效应, pf_res.利差效应-bchres.利差效应, pf_res.择券效应-bchres.择券效应, pf_res.总计-bchres.总计 from lj(pf_res, bchres, `持仓日期)
+    alpha_res.append!(alpha_tmp)
+    alpha_res = select 持仓日期, 期初日期, 名称, 收入效应,国债效应,利差效应,择券效应,总计 from alpha_res order by 持仓日期 DESC
+    ret["债券组合阿尔法"] = alpha_res
+    return ret
+} 
+
+def campisi(dailyPosition,marketData,treasuryCurve,dateList,convexity=false,benchmark=false,benchmarkPosition=NULL, industryCurve=NULL, multiPeriod=false){
+    dailyPositionTmp = select * from dailyPosition order by positionDate
+    treasuryCurveTmp = select * from treasuryCurve order by date
+    if (benchmark == true) {
+        marketDataTmp = select * from marketData where symbol in dailyPosition.symbol or symbol in benchmarkPosition.symbol order by date
+    } else {
+        marketDataTmp = select * from marketData where symbol in dailyPosition.symbol order by date
+    }
+    if (!industryCurve.isVoid()) {
+        industryCurveTmp = select * from industryCurve order by date
+    }
+    
+    if (benchmark == false) {
+        return campisi_without_benchmark(dailyPosition=dailyPosition,marketData=marketDataTmp,treasuryCurve=treasuryCurveTmp, dateList = dateList, convexity=convexity, multiPeriod=multiPeriod)
+    } else {
+        return campisi_with_benchmark(dailyPosition=dailyPosition, benchmarkPosition=benchmarkPosition, marketData=marketDataTmp, treasuryCurve=treasuryCurveTmp, industryCurve=industryCurveTmp, dateList = dateList, convexity=convexity, multiPeriod=multiPeriod)
+    }
+}
+
+

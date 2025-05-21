@@ -1,0 +1,123 @@
+loadPlugin("path/PluginQuantLib.txt")
+go
+use QuantLib
+
+today = 2023.07.18
+getSettingsInstance().setEvaluationDate(today)
+
+// Schedule Setting
+settlementDays = 0
+faceAmount = 100.0
+
+effectiveDate = 2020.06.09
+terminationDate = 2025.06.09
+tenor = Period("Quarterly")
+
+//日历采用中国的银行间市场，遇到假期不调整。
+calendar = China("IB")
+convention = "Unadjusted"
+terminationDateConvention = convention
+rule = "Backward"
+endOfMonth = false
+
+schedule = Schedule(
+    effectiveDate,
+    terminationDate,
+    tenor,
+    calendar,
+    convention,
+    terminationDateConvention,
+    rule,
+    endOfMonth)
+
+// Lastest LPR1Y
+nextLpr = 3.55 / 100.0 
+nextLprQuote = SimpleQuote(nextLpr)
+nextLprHandle = QuoteHandle(nextLprQuote)
+fixedLpr = 3.85 / 100.0
+
+compounding = "Compounded"
+frequency = "Quarterly"
+accrualDayCounter = ActualActual("Bond", schedule)
+cfDayCounter = ActualActual("Bond")
+paymentConvention = "Unadjusted"
+
+// 构建平坦远期收益率曲线
+cfLprTermStructure = YieldTermStructureHandle(
+      FlatForward(
+        settlementDays,
+        calendar,
+        nextLprHandle,
+        cfDayCounter,
+        compounding,
+        frequency))
+
+lprTermStructure = YieldTermStructureHandle(
+    FlatForward(
+        settlementDays,
+        calendar,
+        nextLprHandle,
+        accrualDayCounter,
+        compounding,
+        frequency))
+
+lpr3m = IborIndex(
+    'LPR1Y',
+    Period(3, "Months"),
+    settlementDays,
+    CNYCurrency(),
+    calendar,
+    convention,
+    endOfMonth,
+    cfDayCounter,
+    cfLprTermStructure)
+
+lpr3m.addFixing(2020.06.08, fixedLpr)
+lpr3m.addFixing(2020.09.08, fixedLpr)
+lpr3m.addFixing(2020.12.08, fixedLpr)
+
+lpr3m.addFixing(2021.03.08, fixedLpr)
+lpr3m.addFixing(2021.06.08, fixedLpr)
+lpr3m.addFixing(2021.09.08, fixedLpr)
+lpr3m.addFixing(2021.12.08, fixedLpr)
+
+lpr3m.addFixing(2022.03.08, 3.7/100)
+lpr3m.addFixing(2022.06.08, 3.7/100)
+lpr3m.addFixing(2022.09.08, 3.65/100)
+lpr3m.addFixing(2022.12.08, 3.65/100)
+
+lpr3m.addFixing(2023.03.08, 3.65/100)
+lpr3m.addFixing(2023.06.08, 3.65/100)
+
+// 使用fixing()方法获取指定日期的利率值
+fixing_date = 2023.06.08
+rate = lpr3m.fixing(fixing_date) 
+print("rate: ", rate)
+
+// 建立FloatingRateBond
+fixingDays = 1
+gearings = [1.0]
+benchmarkSpread = [ -0.75 / 100.0]
+bond = FloatingRateBond(settlementDays, faceAmount, schedule, lpr3m, accrualDayCounter, convention, fixingDays, gearings, benchmarkSpread)
+
+bondYield = 2.35 / 100.0
+basisSpread = bondYield - nextLpr
+basisSpreadQuote = SimpleQuote(basisSpread)
+basisSpreadHandle = QuoteHandle(basisSpreadQuote)
+
+zeroSpreadedTermStructure = ZeroSpreadedTermStructure(lprTermStructure, basisSpreadHandle, compounding, frequency, accrualDayCounter)
+zeroSpreadedTermStructure.enableExtrapolation()
+
+zeroSpreadedTermStructureHandle = YieldTermStructureHandle(zeroSpreadedTermStructure)
+engine = DiscountingBondEngine(zeroSpreadedTermStructureHandle)
+
+bond.setPricingEngine(engine)
+
+cfs = bond.cashflows()
+for(cf in cfs) {
+	print(cf.date(), cf.amount())
+};
+
+cleanPrice = bond.cleanPrice()
+dirtyPrice = bond.dirtyPrice()
+accruedAmount = bond.accruedAmount()

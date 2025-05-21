@@ -1,0 +1,44 @@
+module parseJsonl
+
+// 使用 readLines 函数将 Jsonl 文件读取至新建向量
+def readJsonl(filePath){
+    f = file(filePath)
+    jsonl = array(STRING,0,100)
+    do{
+       x = f.readLines()
+       jsonl.append!(x)
+    }
+    while(x.size()==1024)
+    f.close()
+    return jsonl
+}
+
+// 使用 parseExpr 函数将新建向量中 Jsonl 文件字符串逐行解析成字典
+def parseJsonl(jsonl){
+    dictionary = each(eval,parseExpr(jsonl))
+    return dictionary
+}
+
+// 取出需要存储的字段
+def getColumns(cols, d){
+    newD = dict(STRING, ANY)
+    newD[cols] = d[cols]
+    return newD
+}
+
+// 使用 transpose 函数将字典向量逐行转变为表并将表合并得到目标表
+def transDict(columns, dictionary,transCols){
+    table = unionAll(each(transpose,eachRight(getColumns,columns,dictionary)), false)
+    for(col in transCols.keys()){
+    a = <exec temporalParse(_$col, transCols[col]) as m from table>.eval()
+    replaceColumn!(table, col, a)
+    }
+    return table
+}
+
+// 整合上述函数
+def transJsonlToTable(filePath,columns,transCols){
+    dictionary = parseJsonl(readJsonl(filePath))
+    table = transDict(columns, dictionary,transCols)
+    return table
+}

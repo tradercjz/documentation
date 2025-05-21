@@ -1,0 +1,84 @@
+// 加载库表
+dbName = "dfs://stock_lv2_snapshot"
+snapdb = database(dbName)
+schema(snapdb)
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+snaptb = loadTable(dbName, tbName)
+select count(*) from snaptb
+// 或者 select count(*) from loadTable(dbName, tbName)
+
+// 增加数据
+use mockData
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+date = 2023.01.03
+t = stockSnapshot(tradeDate=date, securityNumber=1)
+re1 = loadTable(dbName, tbName).append!(t)
+select count(*) from re1
+
+re2 = loadTable(dbName, tbName).tableInsert(t)
+re2 // 4802
+
+getConfig(`enableInsertStatementForDFSTable)
+snaptb = loadTable(dbName, tbName)
+
+insert into snaptb values(2023.01.03,09:30:00.000,'',"000001",'',"OCALL",2,1.045,37,0,10001.799999999999272,
+    1.4,1.41,1.631,1.633,0,0,0,0,0,0,0,22300,7.002,0,12100,7.002,0,0,0,0,0,
+    array(DOUBLE[]).append!([[6.940000000000001,6.940000000000001,6.950000000000001,6.97,6.980000000000001,6.990000000000001,7.02,7.05,7.08,7.1]]),
+    array(DOUBLE[]).append!([[7.09,7.06,7.05,7.04,7.030000000000001,7.01,6.990000000000001,6.980000000000001,6.950000000000001,6.92]]),
+    array(INT[]).append!([[32400,32400,33300,36900,36900,36900,39600,41400,41400,44100]]),
+    array(INT[]).append!([[48600,48600,47700,46800,42300,41400,40500,40500,34200,31500]]),
+    array(INT[]).append!([[20,20,18,18,17,17,16,16,15,13]]),
+    array(INT[]).append!([[10,10,12,16,17,17,17,18,18,19]]),
+    0,0,0,0,0,0,0,0,1,1000,2454.300000000000181,30,45000,31392.200000000000727,237,237,204,210,236,226,10:57:45.000,1,
+    array(LONG[]).append!([[,0,0,0,3600,5200,5200,12400,15600,15600]]),
+    array(LONG[]).append!([[,0,100,3500,3600,3900,5900,12400,13500,15600]]))
+
+
+// 查询数据
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+select * from loadTable(dbName, tbName) where TradeDate = 2023.01.03
+
+select * from loadTable(dbName, tbName) where TradeDate = 2023.01.03
+
+select concatDateTime(TradeDate, TradeTime) as TradeDateTime,
+       SecurityID, OfferPrice[0] as offerPx1, 
+       BidPrice[0] as bidPx1 
+from loadTable(dbName, tbName) 
+where TradeDate = 2023.01.03
+
+
+// 删除数据
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+db = database(dbName)
+dropPartition(db, [2023.01.04], tableName=tbName)
+// dropPartition(db, "/20230104", tableName=tbName)
+
+delete from loadTable(dbName, tbName) where SecurityId = "000001"
+select count(*) from loadTable(dbName, tbName) where SecurityId = "000001"
+
+// 更新数据
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+loadTable(dbName, tbName).addColumn(["OfferPx1", "BidPrice1"], [DOUBLE, DOUBLE])
+update loadTable(dbName, tbName) set OfferPx1 = OfferPrice[0], BidPrice1 = BidPrice[0] where TradeDate == 2022.12.01
+
+use mockData
+date = 2023.01.03
+select count(*) from loadTable(dbName, tbName) where TradeDate == 2023.01.03
+
+t = stockSnapshot(tradeDate=date, securityNumber=1)
+update t set OfferPx1 = OfferPrice[0], BidPrice1 = BidPrice[0] // 如果执行了增加列字段的代码，需要执行此步
+
+loadTable(dbName, tbName).upsert!(t, keyColNames=["TradeDate", "TradeTime", "SecurityID"])
+select count(*) from loadTable(dbName, tbName) where TradeDate == 2023.01.03
+

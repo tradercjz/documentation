@@ -1,0 +1,34 @@
+def mockOneSymbolMsg(symbol,startDate,endDate){
+    tradeDate = getMarketCalendar("XSHG",startDate,endDate)
+    tradeSecond = second(09:31m..11:30m join 13:01m..15:00m)
+    tradeTime = timestamp(each(concatDateTime{,tradeSecond},tradeDate)).flatten().sort()
+    tradingDay = date(tradeTime)
+    high = rand(100.0,tradeTime.size())
+    low = high*0.01*(90+abs(randNormal(5,5,1)))[0]
+    open = rand(high-low,tradeTime.size())+low
+    close = rand(high-low,tradeTime.size())+low
+    volume = long(rand(100000,tradeTime.size()))
+    amount = rand(1000000.0,tradeTime.size())
+    prevClosePrice = move(close,1)
+    upLimitPrice = prevClosePrice*1.1
+    downLimitPrice = prevClosePrice*0.9
+    settlementPrice = rand(1000000.0,tradeTime.size())
+    prevSettlementPrice = prev(settlementPrice)
+    symbols = take(symbol,tradeTime.size())
+    symbolSource = symbols.split(".")[1]
+    signal = fixedLengthArrayVector(close)
+
+    t =  table(symbols as `symbol, symbolSource, tradeTime, tradingDay, open, low, high, close, volume, amount, upLimitPrice, downLimitPrice, signal, prevClosePrice, settlementPrice, prevSettlementPrice)
+    return select * from t order by tradeTime,symbol
+}
+
+startDate = 2024.01.01
+endDate = 2024.01.11
+// 300只股票 + 1个股指期货
+symbol = (format(1..300,"000000")+".XSHG") <- "IF2412.CCFX"
+messageTable = each(mockOneSymbolMsg{,startDate,endDate},symbol).unionAll(false)
+messageTable = select * from messageTable order by tradeTime,symbol
+
+symbol = ["IF2412.CCFX"]
+basicInfo = table(symbol as symbol, take(100., size(symbol)) as multiplier, take(0.2, size(symbol)) as marginRatio, take(0.01, size(symbol)) as tradeUnit, take(0.02, size(symbol)) as priceUnit, take(0.03, size(symbol)) as priceTick, take(1.5, size(symbol)) as commission, take(1, size(symbol)) as deliveryCommissionMode)
+

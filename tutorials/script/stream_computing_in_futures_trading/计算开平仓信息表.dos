@@ -1,0 +1,310 @@
+
+try{
+    unsubscribeTable(,`OnTradeStreamTable ,'getOpenPositionMessage')
+}catch(ex){}
+
+
+// 生成开平仓表的函数
+def getOpenPositionMessage(msg){
+    OpenPositionMessage = loadTable("dfs://onStreamTable",OpenPositionMessage)
+    // 开仓信息 -- 处理 TradingDay
+    // 将msg中的开仓数据分出来 ， 夜盘处理
+    openMsg = select ExchangeID,Direction,OffsetFlag,Price,Volume,TradeDate as TradingDay, iif(TradeTime >= 21:00:00 and TradeTime <= 23:59:59, transFreq(TradeDate-1, "CZCE"), TradeDate) as TradeDate, 
+    TradeTime,InstrumentID,'' as ReTradeID,TradeID,Volume as Position,take(array(INT[]).append!(NULL),count(*)) as ClosedPosition,take(array(DOUBLE[]).append!(NULL),count(*)) as OpenPrice,take(array(DATE[]).append!(NULL),count(*)) as OpenDate,0 as PreClosePrice from msg where OffsetFlag= '0'
+    
+    OpenPositionMessage.append!(openMsg)
+    
+    //  将msg中的平仓数据分出来 ， 夜盘处理
+    closeMsg = select ExchangeID,Direction,OffsetFlag,Price,Volume,TradeDate as TradingDay, iif(TradeTime >= 21:00:00 and TradeTime <= 23:59:59, transFreq(TradeDate-1, "CZCE"), TradeDate) as TradeDate, 
+    TradeTime,InstrumentID,'' as ReTradeID,TradeID,0 as Position,take(array(INT[]).append!(NULL),count(*)) as ClosedPosition,take(array(DOUBLE[]).append!(NULL),count(*)) as OpenPrice,take(array(DATE[]).append!(NULL),count(*)) as OpenDate,0 as PreClosePrice from msg where OffsetFlag != '0'
+    
+    InstrumentIDs = (exec InstrumentID from closeMsg).distinct()
+    
+    // 遍历平仓信息中的所有InstrumentID
+    for(InstrumentID_ in InstrumentIDs){
+            // 判断InstrumentID , 看是期权还是期货
+            CPMode = iif(InstrumentID_.regexReplace("^[a-zA-Z]{0,}","").regexReplace("^[0-9|-]{0,}","").regexReplace("[0-9|-]{0,}$","") in ["C","c"],1,iif(InstrumentID_.regexReplace("^[a-zA-Z]{0,}","").regexReplace("^[0-9|-]{0,}","").regexReplace("[0-9|-]{0,}$","") in ["P",'p'], -1, 0)) 
+                
+            if(CPMode == 0){
+                // 昨日收盘价
+                PreClosePrice_ = 
+                    (exec PreClosePrice.nullFill(0) from (
+                        select * 
+                        from loadTable("dfs://ctp_market_data","ctp_market_data") 
+                        where InstrumentID = InstrumentID_ and TradingDay = closeMsg.TradingDay[0]  context by InstrumentID limit -1 ))[0]
+            }else{
+                // 昨日收盘价 -- 期权合约，用昨日最后一笔的（bid + ask ）/2来计算逐日盈亏
+                PreClosePrice_ = 
+                    (exec  ((AskPrice1 + BidPrice1)\2).nullFill(0) from  loadTable("dfs://ctp_market_data","ctp_market_data") where InstrumentID = InstrumentID_ and TradingDay = date(temporalAdd( closeMsg.TradingDay[0],-1,"CZCE")) and time(ReceivedTime)<= 15:00:00  context by InstrumentID limit -1)[0]
+            }
+                
+        TradeIDs = exec TradeID from closeMsg where InstrumentID=InstrumentID_ order by TradeDate, TradeTime
+        // 遍历同一个InstrumentID的所有TradeID
+        for(TradeID_ in TradeIDs){
+            // TradeID_ = TradeIDs[0]
+            // 平仓量
+            VolumeValue = exec Volume from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_
+            // 买卖方向 - 买平仓 - 卖开仓
+            if ((exec Direction from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_)[0] == '0'){
+                // 获取所有该code 能够 用来平仓的开仓信息 （卖开仓）
+                 dts = exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and Direction='1' group by TradeDate order by TradeDate
+                 // 便利日期
+                 for(dt in dts){
+                    if(VolumeValue == 0){
+                        break;
+                    }
+                    // dt = dts[0]
+                    //该天卖开仓 的 id
+                    OpenTradeIDs = exec TradeID from OpenPositionMessage where InstrumentID=InstrumentID_ and  Position!=0 and OffsetFlag='0' and Direction='1' and TradeDate = dt order by TradeDate,TradeTime, TradeID
+                    
+                    // 遍历id
+                    for(OpenTradeID in OpenTradeIDs){
+                        // OpenTradeID = OpenTradeIDs[0]
+                        
+                        // 还剩多少开仓量
+                        OpenPosition = exec Position from OpenPositionMessage where InstrumentID=InstrumentID_ and  Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1'and TradeDate = dt
+                        if(VolumeValue == 0){
+                            break;
+                        }
+                        // 平仓量 < 还剩下的开仓量
+                        if(VolumeValue <= OpenPosition[0]){
+                        
+                            // 该开仓msg 已经 被平的 信息
+                            ClosedPosition_=exec ClosedPosition from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt
+                            
+                            ClosedPositionUpdate = array(INT[]).append!(
+                                [iif(ClosedPosition_.flatten().append!(OpenPosition)[0].isNull(),
+                                    ClosedPosition_.flatten().append!(OpenPosition)[1:], 
+                                    ClosedPosition_.flatten().append!(OpenPosition) )])
+                            
+                            OpenPrice_ = (exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt )
+                            OpenPriceUpdate = array(DOUBLE[]).append!([OpenPrice_.flatten()])
+
+                            OpenDate_ = (exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)
+
+                            OpenDateUpdate = array(DATE[]).append!([OpenDate_.flatten()])
+                            
+                            // 更新剩下开仓量 和 ReTradeID
+                            update OpenPositionMessage 
+                            set Position = OpenPosition-VolumeValue,
+                            ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",")  + (exec TradeID from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0')
+                            where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt
+                            
+                            // 
+                            tmp = 
+                            select ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate, count(*) ),take(OpenPriceUpdate, count(*)),take(OpenDateUpdate, count(*)),PreClosePrice from OpenPositionMessage where InstrumentID=InstrumentID_ and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1'  and OffsetFlag='0' and TradeDate = dt
+                            
+                            delete from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt and OffsetFlag='0'
+                            
+                            OpenPositionMessage.append!(tmp)
+                            
+                            // 开始更新 平仓信息
+                            OpenDate_=exec OpenDate from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'
+                            
+                            OpenDateUpdate =array(DATE[]).append!([iif(OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0])[0].isNull(),OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0])[1:], OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0]) )])
+                            
+                            ClosedPosition_=exec ClosedPosition from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0' 
+                            ClosedPositionUpdate =array(INT[]).append!([iif(ClosedPosition_.flatten().append!(VolumeValue)[0].isNull(),ClosedPosition_.flatten().append!(VolumeValue)[1:], ClosedPosition_.flatten().append!(VolumeValue) )])
+                            
+                            OpenPrice_=exec OpenPrice from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0' 
+                            
+                            OpenPriceUpdate =array(DOUBLE[]).append!([iif(OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0])[0].isNull(),OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0])[1:], OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0]) )])
+                            
+                            update closeMsg 
+                            set ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",")  + (exec TradeID from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)[0]
+                            where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'
+                            
+                            
+                            tmp =  select  ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate, count(*) ),take(OpenPriceUpdate, count(*)),take(OpenDateUpdate, count(*)),PreClosePrice_ from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'  
+                            
+                            delete from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'
+                            
+                            closeMsg.append!(tmp)   
+
+                            VolumeValue = 0
+                        }else{
+                    
+                            // 该开仓msg 已经 被平的 信息
+                            ClosedPosition_=exec ClosedPosition from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt
+                            
+                            ClosedPositionUpdate = array(INT[]).append!(
+                                [iif(ClosedPosition_.flatten().append!(OpenPosition)[0].isNull(),
+                                    ClosedPosition_.flatten().append!(OpenPosition)[1:], 
+                                    ClosedPosition_.flatten().append!(OpenPosition) )])
+                            
+                            OpenPrice_ = (exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt )
+                            OpenPriceUpdate = array(DOUBLE[]).append!([OpenPrice_.flatten()])
+
+                            OpenDate_ = (exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='1' and TradeDate = dt)
+
+                            OpenDateUpdate = array(DATE[]).append!([OpenDate_.flatten()])
+                            
+                            
+                            update OpenPositionMessage 
+                            set Position = 0 ,
+                            ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",") + ((exec TradeID from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1')[0])
+                            where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                            
+                            
+                            tmp = 
+                            select ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate, count(*) ),take(OpenPriceUpdate, count(*)),take(OpenDateUpdate, count(*)),PreClosePrice from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt
+                            
+                            delete from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='1' and TradeDate = dt
+                            
+                            OpenPositionMessage.append!(tmp)
+                            
+                            
+                            OpenDate_=exec OpenDate from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'
+                            
+                            OpenDateUpdate =array(DATE[]).append!([iif(OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0])[0].isNull(),OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0])[1:], OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0] ) )])
+                            
+                            ClosedPosition_=exec ClosedPosition from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0' 
+                            ClosedPositionUpdate =array(INT[]).append!([iif(ClosedPosition_.flatten().append!(OpenPosition)[0].isNull(),ClosedPosition_.flatten().append!(OpenPosition)[1:], ClosedPosition_.flatten().append!(OpenPosition) )])
+                            
+                            OpenPrice_=exec OpenPrice from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'
+                            
+                            OpenPriceUpdate =array(DOUBLE[]).append!([iif(OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0])[0].isNull(),OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0])[1:], OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0]) )]) 
+                            
+                            update closeMsg 
+                            set ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",")  + (exec TradeID from OpenPositionMessage where InstrumentID=InstrumentID_  and TradeID = OpenTradeID and Direction= "1" and TradeDate = dt)[0]
+                            where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'
+                            
+                            tmp =  select  ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate , count(*)) ,take(OpenPriceUpdate, count(*)) ,take(OpenDateUpdate,count(*)),PreClosePrice_ from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'  
+                            
+                            delete from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='0'   
+                            closeMsg.append!(tmp)
+                            VolumeValue = VolumeValue - OpenPosition
+                        }
+                    }
+                }
+                
+            }else{
+                 dts = exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and Direction='0' group by TradeDate order by TradeDate
+                 for(dt in dts){
+                    if(VolumeValue == 0){
+                        break;
+                    }
+                    //dt = 2024.10.17
+                    //买开仓
+                    OpenTradeIDs = exec TradeID from OpenPositionMessage where InstrumentID=InstrumentID_ and  Position!=0 and OffsetFlag='0' and Direction='0' and TradeDate = dt order by TradeDate,TradeTime,TradeID
+                    for(OpenTradeID in OpenTradeIDs){
+                    // OpenTradeID = OpenTradeIDs[0]
+                        if(VolumeValue == 0){
+                            break;
+                        }
+                        OpenPosition = exec Position from OpenPositionMessage where InstrumentID=InstrumentID_ and  Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0'and TradeDate = dt
+                        
+                        if(VolumeValue <= OpenPosition[0]){
+                    
+                        // 该开仓msg 已经 被平的 信息
+                        ClosedPosition_=exec ClosedPosition from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                            
+                        ClosedPositionUpdate = array(INT[]).append!(
+                            [iif(ClosedPosition_.flatten().append!(OpenPosition)[0].isNull(),
+                                ClosedPosition_.flatten().append!(OpenPosition)[1:], 
+                                ClosedPosition_.flatten().append!(OpenPosition) )])
+                        
+                        OpenPrice_ = (exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt )
+                        OpenPriceUpdate = array(DOUBLE[]).append!([OpenPrice_.flatten()])
+
+                        OpenDate_ = (exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)
+
+                        OpenDateUpdate = array(DATE[]).append!([OpenDate_.flatten()])
+                        
+                    
+                        update OpenPositionMessage 
+                        set Position = OpenPosition-VolumeValue,
+                        ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",")  + (exec TradeID from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1')[0]
+                        where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                       
+
+                    
+                        tmp = 
+                        select ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate, count(*) ),take(OpenPriceUpdate, count(*)),take(OpenDateUpdate, count(*)),PreClosePrice from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                    
+                        delete from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                    
+                        OpenPositionMessage.append!(tmp)
+                    
+                        OpenDate_=exec OpenDate from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'
+                    
+                        OpenDateUpdate =array(DATE[]).append!([iif(OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0])[0].isNull(),OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0])[1:], OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0]) )])
+                    
+                        ClosedPosition_=exec ClosedPosition from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1' 
+                        ClosedPositionUpdate =array(INT[]).append!([iif(ClosedPosition_.flatten().append!(VolumeValue)[0].isNull(),ClosedPosition_.flatten().append!(VolumeValue)[1:], ClosedPosition_.flatten().append!(VolumeValue) )])
+                      
+                        OpenPrice_=exec OpenPrice from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1' 
+                        OpenPriceUpdate =array(DOUBLE[]).append!([iif(OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0])[0].isNull(),OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0])[1:], OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0]) )])
+                    
+                        update closeMsg 
+                        set ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",")  + (exec TradeID from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)[0]
+                        where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'
+                    
+                    
+                        tmp =  select  ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate, count(*) ),take(OpenPriceUpdate, count(*)),take(OpenDateUpdate, count(*)),PreClosePrice_ from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'  
+                    
+                        delete from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'
+                      
+                        closeMsg.append!(tmp)   
+                    
+                        VolumeValue = 0
+                        }else{
+                    
+                        // 该开仓msg 已经 被平的 信息
+                        ClosedPosition_=exec ClosedPosition from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                            
+                        ClosedPositionUpdate = array(INT[]).append!(
+                            [iif(ClosedPosition_.flatten().append!(OpenPosition)[0].isNull(),
+                                ClosedPosition_.flatten().append!(OpenPosition)[1:], 
+                                ClosedPosition_.flatten().append!(OpenPosition) )])
+                        
+                        OpenPrice_ = (exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt )
+                        OpenPriceUpdate = array(DOUBLE[]).append!([OpenPrice_.flatten()])
+
+                        OpenDate_ = (exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt)
+
+                        OpenDateUpdate = array(DATE[]).append!([OpenDate_.flatten()])
+                        
+                    
+                        update OpenPositionMessage 
+                        set Position = 0 ,
+                        ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",") + ((exec TradeID from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1')[0])
+                        where InstrumentID=InstrumentID_ and Position!=0 and OffsetFlag='0' and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                    
+                    
+                        tmp = 
+                        select ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate, count(*) ),take(OpenPriceUpdate, count(*)),take(OpenDateUpdate, count(*)),PreClosePrice from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                    
+                        delete from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction='0' and TradeDate = dt
+                    
+                        OpenPositionMessage.append!(tmp)
+                    
+                    
+                        OpenDate_=exec OpenDate from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'
+                        OpenDateUpdate =array(DATE[]).append!([iif(OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0])[0].isNull(),OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0])[1:], OpenDate_.flatten().append!((exec TradeDate from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0] ) )])
+                    
+                        ClosedPosition_=exec ClosedPosition from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1' 
+                        ClosedPositionUpdate =array(INT[]).append!([iif(ClosedPosition_.flatten().append!(OpenPosition)[0].isNull(),ClosedPosition_.flatten().append!(OpenPosition)[1:], ClosedPosition_.flatten().append!(OpenPosition) )])
+                      
+                        OpenPrice_=exec OpenPrice from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'
+                        OpenPriceUpdate =array(DOUBLE[]).append!([iif(OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0])[0].isNull(),OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0])[1:], OpenPrice_.flatten().append!((exec Price from OpenPositionMessage where InstrumentID=InstrumentID_ and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0]) )]) 
+                    
+                        update closeMsg 
+                        set ReTradeID = iif(ReTradeID.isNull(), "", ReTradeID+",")  + (exec TradeID from OpenPositionMessage where InstrumentID=InstrumentID_  and TradeID = OpenTradeID and Direction= "0" and TradeDate = dt)[0]
+                        where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'
+                    
+                        tmp =  select  ExchangeID,Direction,OffsetFlag,Price,Volume,TradingDay,TradeDate,TradeTime,InstrumentID,ReTradeID,TradeID,Position,take(ClosedPositionUpdate , count(*)) ,take(OpenPriceUpdate, count(*)) ,take(OpenDateUpdate,count(*)),PreClosePrice_ from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'  
+                        delete from closeMsg where InstrumentID=InstrumentID_ and TradeID = TradeID_ and Direction='1'   
+                        closeMsg.append!(tmp)
+                        VolumeValue = VolumeValue - OpenPosition
+                        }
+                        }
+                    }
+
+            }
+        }
+    } 
+    OpenPositionMessage.append!(select * from closeMsg order by TradeID) 
+ }
+
+subscribeTable(tableName = `OnTradeStreamTable ,actionName='getOpenPositionMessage',offset = -1,handler =  getOpenPositionMessage,msgAsTable = true,batchSize=100,throttle=1)

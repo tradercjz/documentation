@@ -1,0 +1,159 @@
+// 加载引擎插件
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+
+// 加载行情数据
+t = ploadText('/root/Data/mink_data.csv')
+minData = select symbol,tradeTime,open,low,high,high as close,volume,amount,upLimitPrice,downLimitPrice,prevClose as prevClose, signal from t
+klinedata = select string(symbol) as symbol,timestamp(tradeTime) as tradeTime, open, low, high, close, long(volume) as volume,amount,double(upLimitPrice) as upLimitPrice, double(downLimitPrice) as downLimitPrice, prevClose as prevClose, signal from minData
+ssignal = klinedata.signal.double()
+update klinedata set signal = ssignal[0]
+ssignal = fixedLengthArrayVector(klinedata.signal)
+ssignal = ssignal.double()
+replaceColumn!(klinedata, `signal, ssignal)
+klinedata = select * from klinedata order by tradeTime
+testdata = klinedata
+// testdata.schema()
+@state
+def macd(close, short_ = 12, long_ = 26, m = 9) {
+	dif = ewmMean(close, span = short_, adjust = false) - ewmMean(close, span = long_, adjust = false)
+	dea = ewmMean(dif, span = m,adjust = false) 
+	macd = (dif - dea) * 2
+	return round(macd, 4), round(prev(macd), 4)
+}
+//////////////////////////////////////////////////////////////////
+use ta
+def getOpenQty(openOrders){
+    qty = 0
+    for (i in openOrders){
+    if(i.openQty > 0){
+            qty = qty + i.openQty
+            }
+    }
+    return qty
+}
+def initialize(mutable context){
+    // print("initialize")
+    d = dict(STRING,ANY)
+    d["macd"] = <macd(close,12,26,9)[0]>
+	d["prevMacd"] = <macd(close,12,26,9)[1]>
+	// Backtest::subscribeIndicator(context["engine"], "kline", d)
+    d["rsi"] = <ta::rsi(close,14)>
+	Backtest::subscribeIndicator(context["engine"], "kline", d)
+}
+def beforeTrading(mutable context){
+    // print("beforeTrading: " + context["tradeDate"])
+	// tb = context["log"]
+	// context["log"] = tb.append!(table(context["tradeDate"] as tradeDate, now() as time, "beforeTrading" as info))
+}
+def onBar(mutable context, msg, indicator){
+    if(second(context["tradeTime"]) < 09:30:00 or second(context["tradeTime"]) > 14:57:00){
+		// print msg
+		return 
+	}
+    for (istock in msg.keys()){
+        // print(msg)
+		macd = indicator[istock]["macd"]
+		prevMacd = indicator[istock]["prevMacd"]
+        prersi = context['prersi']
+        rsi = indicator[istock]["rsi"]
+        context['prersi'] = rsi
+        if(macd > 0 and prevMacd < 0 and rsi > 30 and prersi < 30 ){
+            lastPrice = msg[istock]["close"]
+            Backtest::submitOrder(context["engine"], (istock, context["tradeTime"], 5, lastPrice, 1000, 1),"buy")
+        }
+        if(macd < 0 and prevMacd > 0 and rsi < 70 and prersi > 70 ){
+            lastPrice = msg[istock]["close"]
+            pos = Backtest::getPosition(context["engine"], istock).longPosition[0]
+            openQty = Backtest::getOpenOrders(context["engine"], istock,, "close")
+			remainQty = sum(nullFill(getOpenQty(openQty), 0))
+            if(pos - remainQty > 0){
+                Backtest::submitOrder(context["engine"], (istock,context["tradeTime"], 5, lastPrice, 1000, 2), "sell")
+            }
+        }
+}}
+def onOrder(mutable context,orders){}
+def onTrade(mutable context,trades){}
+def afterTrading(mutable context){}
+def finalize (mutable context){}
+startDate = 2021.01.01
+endDate = 2022.01.01
+userConfig = dict(STRING,ANY)
+userConfig["startDate"] = startDate
+userConfig["endDate"] = endDate
+///策略类型,暂时固定股票///
+userConfig["strategyGroup"] = "stock"
+///以指定的频率通过逐笔数据合成快照
+userConfig["frequency"] = 0
+userConfig["cash"] = 100000000
+///手续费,        
+userConfig["commission"] = 0.0
+//印花税,
+userConfig["tax"] = 0.0
+//行情分钟
+userConfig["dataType"] = 3
+//订单撮合模式
+//默认一：行情时间大于订单时间时,进行订单撮合
+//默认二：行情时间等于订单时间时，以当前收盘价进行订单撮合，未完成订单按模式一撮合订单
+userConfig["matchingMode"] = 2
+////tick的数据格式，table或dict
+userConfig["msgAsTable"] = false
+userConfig["stockDividend"] = table(["600467.XSHG"] as symbol, [2023.04.01] as endDate, [2023.01.01] as annDate, [2023.02.01] as recordDate,
+[2023.02.02] as exDate, [2023.02.02] as payDate, [2023.02.02] as divListDate,
+[0.02] as bonusRatio, [0.05] as capitalConversion, [0.01] as afterTaxCashDiv, [0.] as allotPrice, [0.] as allotRatio)
+////tick的数据格式，table或dict
+context = dict(STRING,ANY)
+context['prersi'] = 50
+context["feeRatio"] = 0.00015
+//日志
+context["log"] = table(10000:0,[`tradeDate,`time,`info],[DATE,TIMESTAMP,STRING])
+userConfig["context"] = context
+
+callbacks = dict(STRING,ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+//callbacks["onSnapshot"] = onSnapshot 
+//callbacks["onTick"] = onTick 
+callbacks["onBar"] = onBar
+callbacks["onOrder"] = onOrder
+callbacks["onTrade"] = onTrade
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalize
+
+strategyName = "testStrategy_NotJIT"
+strategyName1 = "testStrategy_JIT"
+userParam = dict(STRING,DOUBLE)
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+try{Backtest::dropBacktestEngine(strategyName1)}catch(ex){print ex}
+// engine = Backtest::createBacktestEngine(strategyName, userConfig,,initialize{,userParam}, beforeTrading,onBar{,,},,onOrder,onTrade,afterTrading,finalized)
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks, false,)
+engine2 = Backtest::createBacktester(strategyName1, userConfig, callbacks, true,)
+go
+
+print("\nnotJIT\ntime:")
+timer Backtest::appendQuotationMsg(engine, testdata)
+print("JIT\ntime:")
+timer Backtest::appendQuotationMsg(engine2, testdata)
+
+messageTable = select top 1* from testdata where tradeTime=max(tradeTime)
+update messageTable set symbol = "END"
+update messageTable set tradeTime = concatDateTime(tradeTime.date(), 16:00:00)
+Backtest::appendQuotationMsg(engine, messageTable)
+Backtest::appendQuotationMsg(engine2, messageTable)
+
+// step 4：获取回测结果
+  //成交明细
+tradeDetails = Backtest::getTradeDetails(engine)
+//查询当前的未成交（未完成）订单列表
+openOrders = Backtest::getOpenOrders(long(engine))
+//每日持仓
+dailyPosition = Backtest::getDailyPosition(long(engine))
+//可用资金
+enableCash = Backtest::getAvailableCash(long(engine))
+//未成交订单明细
+openOrders = tradeDetails[tradeDetails.orderStatus == -3]
+//日组合指标展示
+totalPortfolios = Backtest::getTotalPortfolios(long(engine))
+//回测结果综合展示
+returnSummary = Backtest::getReturnSummary(long(engine))

@@ -1,0 +1,98 @@
+undef all
+go
+
+dbName = "dfs://stock_trade"
+tbName = "trade"
+streamTbName = "trade_st"
+
+// 清理环境
+try{unsubscribeTable(tableName=streamTbName, actionName="act_tsEngine")}catch(ex){print(ex)}
+try{dropStreamTable(streamTbName)}catch(ex){print(ex)}
+try{dropStreamEngine("rsEngine")}catch(ex){print(ex)}
+try{dropStreamEngine("tsEngine")}catch(ex){print(ex)}
+try{dropStreamEngine("csEngine")}catch(ex){print(ex)}
+
+// 定义一个持久化流表 snap2 接收流数据
+colName=loadTable(dbName, tbName).schema().colDefs.name
+colType=loadTable(dbName, tbName).schema().colDefs.typeString
+t = streamTable(100:0, colName, colType);
+
+try{ 
+    enableTableShareAndPersistence(table=t, tableName=streamTbName, asynWrite=true, compress=true, cacheSize=100000, retentionMinutes=1440, flushMode=0, preCache=10000)
+}
+catch(ex){ 
+    print(ex) 
+}
+
+undef("t")
+go
+
+sids = exec distinct SecurityID from loadTable(dbName, tbName)
+
+//  模拟成分股权重因子的创建
+def createWeightDict(sids){
+
+	return dict(sids, take(0.001, sids.size()))
+}
+
+weightDict = createWeightDict(sids)
+
+
+// 输入表结构定义
+tsEngineDummy = table(1:0, `SecurityID`TradeTime`TradePrice`TradeQty`TradeBSFlag, [SYMBOL, TIMESTAMP, DOUBLE, INT, SYMBOL])
+rsEngineDummy = table(1:0, `TradeTime`SecurityID`SellTradeAmount`BuyTradeAmount, [TIMESTAMP, SYMBOL, DOUBLE, DOUBLE])
+csEngineDummy = table(1:0, `SecurityID`TradeTime`SellTradeAmount`BuyTradeAmount, [SYMBOL, TIMESTAMP, DOUBLE, DOUBLE])
+
+//创建存储结果的表
+share(keyedTable(`Time, 2000:0, `Time`SellTradeAmount`BuyTradeAmount`UpdateTime, [TIMESTAMP, DOUBLE, DOUBLE, TIMESTAMP]), "tradeAmountIndex")
+go
+
+
+//创建横截面引擎
+csEngine = createCrossSectionalEngine(name="csEngine", metrics=<[wsum(SellTradeAmount, weightDict[SecurityID]), wsum(BuyTradeAmount, weightDict[SecurityID]), now()]>, dummyTable=csEngineDummy, outputTable=objByName("tradeAmountIndex"), keyColumn=`SecurityID, triggeringPattern="keyCount",  triggeringInterval=1000, useSystemTime=false, timeColumn=`TradeTime, lastBatchOnly=false)
+
+//创建响应式状态引擎
+rsEngine = createReactiveStateEngine(name="rsEngine", metrics=<[cummax(TradeTime), cumsum(SellTradeAmount), cumsum(BuyTradeAmount)]>, dummyTable=rsEngineDummy, outputTable=csEngine, keyColumn=`SecurityID)
+
+//创建时间序列引擎
+tsEngine = createTimeSeriesEngine(name="tsEngine", windowSize=60000, step=60000, metrics=<[sum(iif(TradeBSFlag=="S", 1, 0)*TradeQty*TradePrice), sum(iif(TradeBSFlag=="B", 1, 0)*TradeQty*TradePrice)]>, dummyTable=tsEngineDummy, outputTable=rsEngine, timeColumn=`TradeTime, keyColumn=`SecurityID, useWindowStartTime=true,  fill=[0, 0], forceTriggerTime=100)
+
+// handler 数据处理函数
+def streamHandler(mutable engine, msg){
+    data = select SecurityID, concatDateTime(TradeDate, TradeTime) as TradeTime, TradePrice, TradeQty, TradeBSFlag from msg
+    engine.append!(data)
+}
+
+// 订阅流数据表
+subscribeTable(tableName=streamTbName, actionName="act_tsEngine", offset=0, handler=streamHandler{tsEngine}, msgAsTable=true, batchSize=10000, throttle=0.001)
+
+// 后台提交数据回放任务，模拟实时数据注入
+ds = replayDS(<select * from loadTable(dbName, tbName) limit 10000>, dateColumn="TradeDate", timeColumn="TradeTime", timeRepartitionSchema=09:30:00.000 + 15*1000*60*(0..22))
+
+submitJob("relay", "replay to trade", replay{inputTables=ds, outputTables=streamTbName, dateColumn="TradeDate", timeColumn="TradeTime", replayRate=10000000, absoluteRate=true})
+getRecentJobs(1)
+
+// 查询计算结果表
+re1 = select * from tradeAmountIndex
+trade_st
+
+unsubscribeTable(tableName=streamTbName, actionName="sub")
+colName=loadTable(dbName, tbName).schema().colDefs.name
+colType=loadTable(dbName, tbName).schema().colDefs.typeString
+share table(100:0, colName, colType) as data
+
+subscribeTable(tableName=streamTbName, actionName="sub", offset=0, handler=data)
+data = select SecurityID, concatDateTime(TradeDate, TradeTime) as TradeTime, TradePrice, TradeQty, TradeBSFlag from loadTable(dbName, tbName)
+
+t1 = select sum(iif(TradeBSFlag=="S", 1, 0)*TradeQty*TradePrice) as SellTradeAmount,
+            sum(iif(TradeBSFlag=="B", 1, 0)*TradeQty*TradePrice) as BuyTradeAmount
+    from data group by SecurityID, interval(TradeTime, 1m, 0) as TradeTime
+
+t2 = select SecurityID, cummax(TradeTime) as Time, 
+            cumsum(SellTradeAmount) as SellTradeAmount, 
+            cumsum(BuyTradeAmount) as BuyTradeAmount 
+     from t1 context by SecurityID
+
+t3 = select wsum(SellTradeAmount, weightDict[SecurityID]) as SellTradeAmount,
+            wsum(BuyTradeAmount, weightDict[SecurityID]) as BuyTradeAmount 
+    from t2 group by Time

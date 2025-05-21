@@ -1,0 +1,91 @@
+//基于分钟频的数字货币demo
+//事件函数编写
+login("admin", "123456")
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+
+def initialize(mutable context){
+}
+
+def beforeTrading(mutable context){
+}
+
+def onBar(mutable context, msg, indicator){	
+}
+
+def onOrder( mutable context, orders){
+}
+
+def onTrade(mutable context, trades){
+}
+
+def finalize (mutable context){
+}
+go
+
+//引擎配置项
+userConfig = dict(STRING, ANY)
+userConfig["startDate"] = 2023.02.01        
+userConfig["endDate"] = 2023.02.28    
+userConfig["strategyGroup"] = "cryptocurrency"  //策略类型：数字货币
+userConfig["frequency"] = 0
+cash = dict(STRING, DOUBLE)
+cash["spot"] = 100000.
+cash["futures"] = 100000.
+cash["option"] = 100000.
+userConfig["cash"] = cash
+userConfig["dataType"] = 3         //分钟频
+userConfig["matchingMode"] = 1
+userConfig["msgAsTable"] = false
+//userConfig["fundingRate"] = select  symbol, settlementTime,decimal128(lastFundingRate,8) as lastFundingRate from CryptoFundingRate 
+userConfig["fundingRate"] = table(1:0, [`symbol, `settlementTime, `lastFundingRate], [STRING, TIMESTAMP, DECIMAL128(8)])
+//配置策略全局变量
+Context = dict(STRING, ANY)
+Context["initPrice"] = dict(SYMBOL, ANY)
+Context["feeRatio"] = 0.00002
+Context["N"] = dict(SYMBOL, ANY)
+userConfig["context"] = Context
+
+//对应的分钟频数字货币数据表：
+colName = [`symbol, `symbolSource, `tradeTime, `tradingDay, `open, `low, `high, `close, `volume, `amount, `upLimitPrice,
+        `downLimitPrice, `signal, `prevClosePrice, `settlementPrice, `prevSettlementPrice, `contractType]
+colType = [SYMBOL, SYMBOL, TIMESTAMP, DATE, DECIMAL128(8), DECIMAL128(8), DECIMAL128(8), DECIMAL128(8), DECIMAL128(8),
+DECIMAL128(8), DECIMAL128(8), DECIMAL128(8), DOUBLE[], DECIMAL128(8), DECIMAL128(8), DECIMAL128(8), INT]
+tb = table(1:0, colName, colType)
+
+//合约基本信息表
+securityReference=select last(contractType)  as contractType from tb group by symbol 
+update securityReference set optType=1
+update securityReference set strikePrice=decimal128(0, 8)
+update securityReference set contractSize=decimal128(100.,8)
+update securityReference set marginRatio=decimal128(0.2,8)
+update securityReference set tradeUnit=decimal128(0.2,8)
+update securityReference set priceUnit=decimal128(0.,8)
+update securityReference set priceTick=decimal128(0.,8)
+update securityReference set takerRate=decimal128(0.,8)
+update securityReference set makerRate=decimal128(0.,8)
+update securityReference set deliveryCommissionMode=iif(contractType!=2,1,2)              //交付佣金模式
+update securityReference set fundingSettlementMode=iif(contractType==2,1,2)   
+update securityReference set lastTradeTime=timestamp()
+
+
+
+//创建回测引擎，执行回测				
+strategyName = "Backtest_test1"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+engine = Backtest::createBacktestEngine(strategyName, userConfig, securityReference, initialize, beforeTrading, onBar, , onOrder, onTrade, , finalize)
+go
+timer Backtest::appendQuotationMsg(engine, tb)
+
+
+//回测结束标志
+a = select * from tb where tradeTime=max(tradeTime) limit 1
+update a set symbol = "END"
+Backtest::appendQuotationMsg(engine, a)
+go
+
+// step 4：获取回测结果
+tradeDetails_spot = Backtest::getTradeDetails(engine, "spot")     //成交明细
+tradeDetails_futeres = Backtest::getTradeDetails(engine, "futures")
+Backtest::getDailyPosition(engine, "spot")  //每日持仓

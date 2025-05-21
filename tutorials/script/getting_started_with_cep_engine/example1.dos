@@ -1,0 +1,38 @@
+class StockTick { 
+    name :: STRING
+    price :: FLOAT
+    def StockTick(n, p){
+        name = n
+        price = p
+    }
+} 
+class SimpleShareSearch {
+	newTick :: StockTick //保存最新的 StockTick 事件
+	//构造函数
+	def SimpleShareSearch(){
+		newTick = StockTick("init", 0.0)
+	}
+	def processTick(stockTickEvent)
+	// 创建 CEP 子引擎之后，系统会自动构造 SimpleShareSearch 类对象为 Monitor 实例并调用 onload 函数
+	def onload() {
+		//监听StockTick事件
+		addEventListener(handler=processTick, eventType="StockTick", times="all")
+	}
+	// 收到StockTick事件之后执行回调函数，此处为在日志中记录StockTick相关信息。 
+	def processTick(stockTickEvent) { 
+		newTick = stockTickEvent
+		str = "StockTick event received" + 
+			" name = " + newTick.name + 
+			" Price = " + newTick.price.string()
+		writeLog(str)
+	}
+}
+
+dummy = table(array(STRING, 0) as eventType, array(BLOB, 0) as eventBody)
+try { dropStreamEngine(`simpleMonitor)} catch(ex) {}
+createCEPEngine(name="simpleMonitor", monitors=<SimpleShareSearch()>, dummyTable=dummy, eventSchema=[StockTick])
+
+stockTick1 = StockTick('600001',6.66)
+getStreamEngine(`simpleMonitor).appendEvent(stockTick1)
+stockTick2 = StockTick('300001',1666.66)
+getStreamEngine(`simpleMonitor).appendEvent(stockTick2)

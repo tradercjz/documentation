@@ -1,0 +1,554 @@
+/**
+File name: CTAStrategy.dos
+Application: script to backtest CTA strategy.
+Author: Daliang Zheng
+Company: DolphinDB Inc.
+DolphinDB server version: 3.00.1.3
+Storage engine: TSDB
+Last modification time: 2024.09.27
+*/
+
+// 加载模拟撮合插件
+try { loadPlugin("MatchingEngineSimulator") } catch(ex) {}
+// 加载 ta 模块
+use ta
+
+//============================ 01.定义事件类 ============================
+//initiating的作用是传递策略参数、初始策略资金等设定。当监听到这个事件时，cep引擎会根据instanceId策略进行分发到对应子引擎，并且spawn一个monitor。
+class Initiating {
+    instanceId :: STRING
+    factorParams :: ANY
+    strategyParams :: ANY
+    eventTime :: TIMESTAMP
+    cashAmount :: INT
+    holdingQty :: INT VECTOR
+    stockPool :: STRING VECTOR
+    def Initiating(instanceId_, factorParams_, strategyParams_, time_,cashAmount_,holdingQty_,stockPool_){
+        instanceId = instanceId_
+        factorParams = factorParams_
+        strategyParams = strategyParams_
+        eventTime = time_
+        cashAmount = cashAmount_
+        holdingQty = holdingQty_
+        stockPool = stockPool_
+    }
+}
+
+class Snapshot {
+    market :: STRING
+    snapshotTime :: TIMESTAMP
+    securityid :: STRING
+    lastPrice :: DOUBLE
+    openPrice :: DOUBLE
+    highPrice :: DOUBLE
+    lowPrice :: DOUBLE
+    upLimitPx :: DOUBLE
+    downLimitPx :: DOUBLE
+    totalBidQty :: LONG
+    totalOfferQty :: LONG
+    bidPrice :: DOUBLE VECTOR
+    bidOrderQty :: INT VECTOR
+    offerPrice :: DOUBLE VECTOR
+    offerOrderQty :: INT VECTOR
+    def Snapshot(Market_, snapshotTime_, securityid_, LastPrice_, OpenPrice_, HighPrice_, LowPrice_, UpLimitPx_, DownLimitPx_, TotalBidQty_, TotalOfferQty_, BidPrice_, BidOrderQty_, OfferPrice_, OfferOrderQty_) {
+        market = Market_
+        snapshotTime = snapshotTime_
+        securityid = securityid_
+        lastPrice =  LastPrice_
+        openPrice =  OpenPrice_
+        highPrice =  HighPrice_
+        lowPrice  =  LowPrice_
+        upLimitPx = UpLimitPx_
+        downLimitPx = DownLimitPx_
+        totalBidQty = TotalBidQty_
+        totalOfferQty = TotalOfferQty_
+        bidPrice = BidPrice_
+        bidOrderQty = BidOrderQty_
+        offerPrice = OfferPrice_
+        offerOrderQty = OfferOrderQty_
+    }
+}
+
+class Transaction {
+    securityid :: STRING
+    tradePrice :: DOUBLE
+    volume :: INT
+    transTime :: TIMESTAMP
+    def Transaction(securityid_, tradePrice_, volume_, transTime_) {
+        securityid = securityid_
+        tradePrice = tradePrice_
+        volume = volume_
+        transTime = transTime_               
+    }
+}                               
+
+class InnerOrder {
+    securityid :: STRING
+    timestamp :: TIMESTAMP
+    priceJustTraded :: DOUBLE
+    quantity :: INT
+    instanceId :: STRING
+    def InnerOrder(securityid_, timestamp_, latestTradedPrice_, quantity_, instanceId_) {
+        securityid = securityid_
+        timestamp = timestamp_
+        priceJustTraded = latestTradedPrice_
+        quantity = quantity_ 
+        instanceId = instanceId_
+    }
+}
+
+class BuyOrder {
+    securityid :: STRING
+    orderTime :: TIMESTAMP
+    orderType :: INT
+    orderPrice :: DOUBLE
+    orderQty :: INT
+    direction :: INT
+    orderID :: LONG
+    def BuyOrder(securityid_, orderTime_, orderType_, orderPrice_, orderQty_, direction_, orderID_) {
+        securityid = securityid_
+        orderTime = orderTime_
+        orderType = orderType_
+        orderPrice = orderPrice_
+        orderQty = orderQty_
+        direction = direction_
+        orderID = orderID_
+    }
+}
+
+class SellOrder {
+    securityid :: STRING
+    orderTime :: TIMESTAMP
+    orderType :: INT
+    sellPrice :: DOUBLE
+    sellQty :: INT
+    direction :: INT
+    orderID :: LONG
+    def SellOrder(securityid_, orderTime_, orderType_, sellPrice_, sellQty_, direction_, orderID_) {
+        securityid = securityid_
+        orderTime = orderTime_
+        orderType = orderType_
+        sellPrice = sellPrice_
+        sellQty = sellQty_
+        direction = direction_
+        orderID = orderID_
+    }
+}
+
+//============================ 02.定义监视器 ============================
+class Monitor {
+    securitySelected :: STRING VECTOR
+    instanceId :: STRING
+    factorParams :: ANY 
+    strategyParams :: ANY 
+    newDiff :: ANY
+    preDiff :: ANY
+    preDea :: ANY
+    pre30cci :: ANY
+    pre30vol :: ANY
+    newCci :: ANY
+    priceJustTraded :: ANY 
+    orderState :: ANY      
+    availablePos :: ANY
+    initCash :: INT
+    availableCash :: INT
+    initHoldingValue :: INT
+    timestamp :: TIMESTAMP
+    orderCount :: INT
+    def Monitor(){ 
+        availablePos = dict(STRING, INT)
+        newDiff = dict(STRING, DOUBLE)
+        preDiff = dict(STRING, DOUBLE)
+        preDea = dict(STRING, DOUBLE)
+        pre30cci = dict(STRING, DOUBLE)
+        pre30vol = dict(STRING, DOUBLE)
+        newCci = dict(STRING, DOUBLE)
+        priceJustTraded = dict(STRING, DOUBLE)
+        orderState = dict(STRING, BOOL) //设置了相应的计时器，每0.5秒更新下单状态，模拟高频交易次数限制情况 
+        timestamp = 2023.02.01 08:00:00.000 //保存最新进入引擎数据的时间
+        orderCount = 0 //为了构造orderID设置了一个简单的计数器
+    }
+
+    def createMatchingEngine(instanceId){
+        //撮合引擎cfg
+        config = dict(STRING, DOUBLE);
+        config["latency"] = 0;
+        config["depth"] = 10; 
+        config["outputOrderBook"] = 0              //用户订单时延为0
+        config["orderBookMatchingRatio"] = 1;      //与订单薄匹配时的成交百分比
+        config["dataType"] = 1;                    //行情类别：1表示股票快照
+        config["matchingMode"] = 1;                //撮合模式一：与最新成交价以及对手方盘口按配置的比例撮合
+        config["matchingRatio"] = 0.1;             //快照模式下，快照的区间成交百分比
+        //根据行情表和用户订单表的表结构来创建相应的列名映射字典
+        //snapshot输入表结构
+        dummyQuotationTable = table(1:0,`SecurityID`Market`TradeTime`LastPrice`UpLimitPx`DownLimitPx`TotalBidQty`TotalOfferQty`BidPrice`BidOrderQty`OfferPrice`OfferOrderQty,[STRING,STRING,TIMESTAMP,DOUBLE,DOUBLE,DOUBLE,LONG,LONG,DOUBLE[],INT[],DOUBLE[],INT[]])
+        quotationColMap = dict(`symbol`symbolSource`timestamp`lastPrice`upLimitPrice`downLimitPrice`totalBidQty`totalOfferQty`bidPrice`bidQty`offerPrice`offerQty, `SecurityID`Market`TradeTime`LastPrice`UpLimitPx`DownLimitPx`TotalBidQty`TotalOfferQty`BidPrice`BidOrderQty`OfferPrice`OfferOrderQty)
+        //cep内部构造下列结构的订单给撮合引擎
+        dummyUserOrderTable = table(1:0, `symbol`time`orderType`price`qty`BSFlag`orderID, [STRING, TIMESTAMP, INT, DOUBLE, LONG, INT, LONG])
+        userOrderColMap = dict(`symbol`timestamp`orderType`price`orderQty`direction`orderId, `symbol`time`orderType`price`qty`BSFlag`orderID)
+        //自定义输出表的形式
+        tradeOutputTable  = table(1:0, `orderId`symbol`direction`sendTime`orderPrice`orderQty`tradeTime`tradePrice`tradeQty`orderStatus`sysReceiveTime, [LONG, STRING, INT, TIMESTAMP,DOUBLE,LONG, TIMESTAMP,DOUBLE,LONG, INT,NANOTIMESTAMP])
+        share(tradeOutputTable,"MatchingResult"+instanceId)
+        //创建引擎
+        name = "MatchingEngine"+instanceId
+        exchange = "XSHE"  //撮合深交所股票
+        engine = MatchingEngineSimulator::createMatchEngine(name, exchange, config, dummyQuotationTable, quotationColMap, dummyUserOrderTable, userOrderColMap, objByName("MatchingResult"+instanceId))
+    }
+
+    //MACD死叉后（有持仓）就清仓，发送卖单事件到事件输出队列+给模拟撮合下卖单
+    def emptyPosition(securityid){ 
+        availableQty = availablePos[securityid]
+        sellTime = timestamp
+        if (availableQty > 0){
+            sellPrice = priceJustTraded[securityid]
+            direction = 2 
+            orderType = 5
+            orderID = long(orderCount)
+            sellAmount = sellPrice * availableQty
+            sellOrder = SellOrder(securityid, sellTime, orderType, sellPrice, availableQty, direction, orderID)  
+            emitEvent(sellOrder)            
+            t = objByName("signalTb"+instanceId)
+            insert into t values (securityid, direction, sellTime, sellPrice, newDiff[securityid])
+            msgBody = (securityid, sellTime, orderType, sellPrice, availableQty, direction, orderID)
+            MatchingEngineSimulator::insertMsg(getStreamEngine("MatchingEngine"+instanceId), msgBody, 2)
+            orderCount = orderCount + 1
+            availablePos[securityid] = 0 
+            availableCash += sellAmount
+            objByName("CashTable"+instanceId).tableInsert(sellTime,sellAmount,availableCash)
+        }
+    }
+
+    //刷新每只股票的下单状态（如果信号实在太频繁，需要通过这种方式限制下单量、限制下单频率）
+    def refreshOrderState(orderSecurity){orderState[orderSecurity] = 0}
+
+    def buyOrder(innerOrder){
+        orderPrice = innerOrder.priceJustTraded
+        orderQty = innerOrder.quantity
+        buyAmount = orderPrice * orderQty
+        if (availableCash > buyAmount){           
+            orderSecurity = innerOrder.securityid
+            orderTime = innerOrder.timestamp
+            direction = 1
+            orderType = 5
+            orderCount = orderCount + 1
+            orderID = long(orderCount)
+            buyOrder = BuyOrder(orderSecurity, orderTime, orderType, orderPrice, orderQty, direction, orderID)
+            emitEvent(buyOrder)
+            msgBody = (orderSecurity, orderTime, orderType, orderPrice, orderQty, direction, orderID)
+            t = objByName("signalTb"+instanceId)
+            insert into t values (orderSecurity, direction, orderTime, orderPrice, newDiff[orderSecurity])
+            MatchingEngineSimulator::insertMsg(getStreamEngine("MatchingEngine"+instanceId), msgBody, 2)
+            //下单后把下单状态改为1，设置一个定时器，times=1 + wait=1s 即 1秒后触发一次 handler，更新下单状态
+            orderState[orderSecurity] = 1
+            addEventListener(handler=refreshOrderState{orderSecurity}, times=1, wait=1s)
+            availableCash -= buyAmount
+            objByName("CashTable"+instanceId).tableInsert(orderTime, -buyAmount, availableCash)
+        }
+    }
+
+    //更新macd、cci值
+    def handleMacdCciOutput(macdCciResult) {
+        tableInsert(objByName("MacdAndCci"+instanceId), macdCciResult)
+        if(second(macdCciResult.time)<09:30:00 or second(macdCciResult.time) >15:00:00 ){return}    
+        self.checkGoldenCross(macdCciResult.securityid[0], macdCciResult.diff[0], macdCciResult.dea[0])
+        preDiff[macdCciResult.securityid[0]] = macdCciResult.diff[0]
+        preDea[macdCciResult.securityid[0]] = macdCciResult.dea [0]   
+        if (pre30cci[macdCciResult.securityid[0]] == NULL) {
+            pre30cci[macdCciResult.securityid[0]] = macdCciResult.cci[0]
+        }
+        else if(pre30cci[macdCciResult.securityid[0]] != NULL and newCci[macdCciResult.securityid[0]] == NULL){
+            newCci[macdCciResult.securityid[0]] = macdCciResult.cci[0]
+        }
+        else{pre30cci[macdCciResult.securityid[0]] = newCci[macdCciResult.securityid[0]]
+            newCci[macdCciResult.securityid[0]] = macdCciResult.cci[0]
+        }
+    }
+
+    //检查cci和成交量条件，满足则route内部下单事件
+    def checkCciAndVol(securityid){
+        if(pre30cci[securityid] < strategyParams[`cci][`lowerBoundary] and newCci[securityid] > strategyParams[`cci][`lowerBoundary]){
+            innerOrderTime = timestamp
+            innerOrder = InnerOrder(securityid, innerOrderTime, priceJustTraded[securityid], strategyParams[`order][`orderQty], instanceId)
+            routeEvent(innerOrder)
+        }
+        else if(pre30cci[securityid] < strategyParams[`cci][`upperBoundary] and newCci[securityid] > strategyParams[`cci][`upperBoundary] and pre30vol[securityid] > strategyParams[`volume][`triggerAmount]){ 
+        innerOrderTime = timestamp
+        innerOrder = InnerOrder(securityid, innerOrderTime, priceJustTraded[securityid], strategyParams[`order][`orderQty], instanceId)
+        routeEvent(innerOrder)
+        }    
+    }
+
+    //下单状态检查，是否刚下过单
+    def orderStateCheck(innerOrder){
+        if(orderState[innerOrder.securityid] == 1){return}
+        else {buyOrder(innerOrder)}
+    }
+
+    //检查macd金叉
+    def checkGoldenCross(securityid, diff, dea) {
+        if (self.preDiff[securityid] != NULL and self.preDea[securityid] != NULL) {
+            if (self.preDiff[securityid] < self.preDea[securityid] and diff > dea) {  
+                newDiff[securityid] = diff
+                checkCciAndVol(securityid)
+            }
+            if (self.preDiff[securityid] > self.preDea[securityid] and diff < dea){ 
+                newDiff[securityid] = diff
+                emptyPosition(securityid)
+            }
+        }
+    }   
+
+    //更新成交量变量 
+    def handleVolOutput(volResult){       
+        tableInsert(objByName("Vol"+instanceId), volResult)
+        priceJustTraded[volResult.securityid[0]] = volResult.TradePrice[0]
+        pre30vol[volResult.securityid[0]] = volResult[`vol][0]
+    }   
+
+    //同步给模拟撮合引擎发送行情
+    def updateMatchingEngineQuotes(SnapshotEvent){
+        SecurityID = SnapshotEvent.securityid
+        Market = SnapshotEvent.market
+        TradeTime = SnapshotEvent.snapshotTime
+        LastPrice = SnapshotEvent.lastPrice
+        UplimitPx = SnapshotEvent.upLimitPx
+        DownLimitPx = SnapshotEvent.downLimitPx
+        TotalBidQty = SnapshotEvent.totalBidQty
+        TotalOfferQty = SnapshotEvent.totalOfferQty
+        BidPrice = SnapshotEvent.bidPrice
+        BidOrderQty = SnapshotEvent.bidOrderQty
+        OfferPrice = SnapshotEvent.offerPrice
+        OfferOrderQty = SnapshotEvent.offerOrderQty
+        quoteTable = table(100:0,["SecurityID", "Market","TradeTime", "LastPrice","UplimitPx","DownLimitPx","TotalBidQty","TotalOfferQty","BidPrice","BidOrderQty","OfferPrice","OfferOrderQty"], [STRING, STRING, TIMESTAMP, DOUBLE, DOUBLE, DOUBLE, LONG, LONG, DOUBLE[], INT[], DOUBLE[], INT[]])
+        quoteTable.tableInsert([SecurityID],[Market],[TradeTime],[LastPrice],[UplimitPx],[DownLimitPx],[TotalBidQty],[TotalOfferQty],[BidPrice],[BidOrderQty],[OfferPrice],[OfferOrderQty])
+        MatchingEngineSimulator::insertMsg(getStreamEngine("MatchingEngine"+instanceId), quoteTable, 1)
+    }
+
+    //将快照事件输入给计算引擎.算macd和cci
+    def processSnapshot(SnapshotEvent) {       
+        timestamp = SnapshotEvent.snapshotTime
+        macdCciCalEngine = getStreamEngine("CalMacdCciEngine"+instanceId) 
+        insert into macdCciCalEngine values([SnapshotEvent.snapshotTime, SnapshotEvent.securityid, SnapshotEvent.lastPrice, SnapshotEvent.openPrice,SnapshotEvent.highPrice, SnapshotEvent.lowPrice])
+    }   
+
+    // 成交事件给计算30秒的成交量
+    def processTrans(transactionEvent) {  
+        if(transactionEvent.tradePrice != 0 and transactionEvent.tradePrice !=NULL){ 
+            timestamp = transactionEvent.transTime
+            volCalEngine = getStreamEngine("CalVolEngine"+instanceId)
+            insert into volCalEngine values([transactionEvent.securityid, transactionEvent.tradePrice, transactionEvent.volume, transactionEvent.transTime])   
+        }     
+        else{return}
+    }
+
+    //创建计算引擎
+    def createCalFactorEngines(instanceId){
+        calDummy = streamTable(1:0, ["snapshotTime","securityid","LastPrice","OpenPrice","HighPrice","LowPrice"], [TIMESTAMP, STRING, DOUBLE, DOUBLE , DOUBLE , DOUBLE])
+        macdFastPeriod = factorParams[`macd][`fastPeriod]
+        macdSlowPeriod = factorParams[`macd][`slowPeriod]
+        macdSignalPeriod = factorParams[`macd][`signalPeriod]
+        cciTimePeriod = factorParams[`cci][`timePeriod]
+        calMetrics = [<snapshotTime>, <ta::macd(LastPrice, macdFastPeriod, macdSlowPeriod, macdSignalPeriod) as `diff`dea`macdHistogram>, <ta::cci(HighPrice, LowPrice, LastPrice, cciTimePeriod) as `cci>]    
+        macdCciOutputTable = streamTable(1:0,  ["securityid", "time", "diff", "dea", "macdHistogram", "cci"],  [STRING, TIMESTAMP, DOUBLE, DOUBLE, DOUBLE, DOUBLE])
+        share(macdCciOutputTable,"MacdAndCci"+instanceId) 
+        createReactiveStateEngine(name="CalMacdCciEngine"+instanceId, metrics=calMetrics, dummyTable=calDummy, outputTable=objByName("MacdAndCci"+instanceId), outputHandler=handleMacdCciOutput ,keyColumn=`securityid, keepOrder=true, msgAsTable=true)
+        securitySelected_ = securitySelected
+        warmupTable = select TradeTime,SecurityID,LastPrice,OpenPrice,HighPrice,LowPrice from loadTable('dfs://testDB',`snapshot) where SecurityID in securitySelected_ and date(TradeTime) = 2023.02.01 and (second(TradeTime) >= second(09:30:00.000) and second(TradeTime) <= second(15:00:00.000)) order by TradeTime 
+        warmupStreamEngine(getStreamEngine("CalMacdCciEngine"+instanceId), warmupTable)
+        //vol 
+        volDummy = streamTable(1:0, ["securityid", "TradePrice", "vol", "transTime"], [STRING, DOUBLE, INT, TIMESTAMP])
+        volTimePeriod = factorParams[`volume][`timePeriod]
+        volMetrics = [<TradePrice>, <tmsum(transTime, vol, volTimePeriod)>, <transTime>]
+        volOutputTable = streamTable(1:0, ["securityid", "TradePrice","vol", "time"], [STRING, DOUBLE,INT, TIMESTAMP])
+        share(volOutputTable,"Vol"+instanceId)
+        createReactiveStateEngine(name="CalVolEngine"+instanceId, metrics=volMetrics, dummyTable=volDummy, outputTable=objByName("Vol"+instanceId), outputHandler=handleVolOutput ,keyColumn=`securityid, keepOrder=true, msgAsTable=true)
+    }
+    
+    def createInstanceMonitor(Initiating){
+        instanceId = Initiating.instanceId
+        factorParams = Initiating.factorParams
+        strategyParams = Initiating.strategyParams
+        initCash = Initiating.cashAmount
+        availableCash = initCash
+        initHoldingQty = Initiating.holdingQty
+        securitySelected = Initiating.stockPool
+        availablePos[securitySelected] = initHoldingQty   
+        securitySelected_ = securitySelected
+        preCloTable = select SecurityID, PreCloPrice from loadTable('dfs://testDB',`snapshot) where date(TradeTime) = 2023.02.02 and SecurityID in securitySelected_ context by SecurityID limit 1 
+        preCloDict = dict(preCloTable.SecurityID, preCloTable.PreCloPrice)
+        preClo = preCloDict[securitySelected]
+        initHoldingValue =  sum(preClo * initHoldingQty)
+        //创建信号表，dashboard展示
+        share(table(100:0,`securityid`direction`Time`orderPrice`BS_Signal,`STRING`INT`TIMESTAMP`DOUBLE`DOUBLE),"signalTb"+instanceId)
+        //创建仓位表，统计实时资金情况
+        share(table(100:0,["time","changeAmount","availableCash"],[TIMESTAMP, INT, INT]),"CashTable"+instanceId) 
+        objByName("CashTable"+instanceId).tableInsert(timestamp,0,availableCash)
+        //创建模拟撮合引擎
+        createMatchingEngine(instanceId)
+        createCalFactorEngines(instanceId)
+        //监听快照
+        addEventListener(handler=processSnapshot, eventType="Snapshot", times="all")
+        addEventListener(handler=updateMatchingEngineQuotes, eventType="Snapshot", times="all")
+        //监听成交算成交量指标
+        addEventListener(handler=processTrans, eventType="Transaction", times="all")
+        //监听内部事件，检查下单状态
+        addEventListener(handler=orderStateCheck, eventType="InnerOrder", condition=<InnerOrder.instanceId=instanceId>, times="all")
+    }
+
+    def initiatingSpawn(Initiating){
+        spawnMonitor(createInstanceMonitor,Initiating)
+    }
+    def createTableForDB(){
+        share(table(100:0,`securityId`EndHoldingNum`CloPrice`EndHoldingValue,[STRING,LONG,DOUBLE,DOUBLE]),"EndHoldingForPre")
+        share(table(100:0,`Id`AccountChangeAmount`RetTodayOnPct`CCIThreshold`CCITimePeriod`VolumeThreshold`VolumeTimePeriod,[STRING,DOUBLE,DOUBLE,STRING,INT,INT,INT]),"PnLTable")
+    }
+    //初始化
+    def onload() {
+        createTableForDB()
+        addEventListener(handler=initiatingSpawn, eventType="Initiating", times="all")
+    }
+}
+
+//============================ 03.创建CEP引擎 ============================
+def createCEP(){
+    cepDummy = table(array(TIMESTAMP,0) as time, array(STRING, 0) as eventType, array(BLOB, 0) as blobs)
+    //在emitOutput表中可以查看cep内部被emitEvent发出来的事件
+    share(streamTable(array(STRING, 0) as eventType, array(BLOB, 0) as eventBody, array(STRING, 0) as securityid), "emitOutput")
+    outputSerializer = streamEventSerializer(name=`serOutput, eventSchema=[BuyOrder, SellOrder], outputTable=objByName("emitOutput"), commonField = ["securityid"])
+    engine = createCEPEngine(name='macdCciVol', monitors=<Monitor()>, dummyTable=cepDummy, eventSchema=[Snapshot, Transaction,Initiating], eventQueueDepth=10000000, outputTable=outputSerializer, useSystemTime=false, timeColumn=`time, dispatchKey=`instanceId)
+}
+//创建并共享replay的结果表，使排序后的数据逐条进CEP
+def subscribeEventStreamToCEP(){
+    share(streamTable(100:0,`timestamp`eventType`blob, [TIMESTAMP, STRING, BLOB]),"replayOutput")
+    subscribeTable(tableName="replayOutput", actionName="replayOutput",handler=getStreamEngine(`macdCciVol),msgAsTable=true)
+}    
+createCEP()
+subscribeEventStreamToCEP()
+
+//============================ 04.启动策略实例 ============================
+// 网格调参范围
+cciUpperBoundaries = [50, 100]
+cciLowerBoundaries = -cciUpperBoundaries
+triggerAmounts = [50000, 150000]
+cciTimePeriods = [10,20]
+volumeTimePeriods = [30 * 1000, 60* 1000]
+cashAmount_ = 300000
+stockPool_ = ['111111','222222','333333','444444','555555']
+holdingQty_ = take([100,200,300],count(stockPool_))
+
+//给 initiating 事件一个“比行情更早”的时间，即在行情来之前就启动策略
+time_ = 2023.01.30 09:30:00.000
+CEPEngine = getStreamEngine("macdCciVol")
+instanceId = 1
+//创建一个表 用来放策略参数
+share(table(100:0,["instanceId", "CCIThreshold","CCITimePeriod","VolumeThreshold","VolumeTimePeriod"],[STRING, STRING, INT, INT, INT]),"gridParamInfo")
+
+//循环产生Initiating事件append给引擎
+for(cciTimePeriod in cciTimePeriods){
+    for(volumeTimePeriod in volumeTimePeriods){
+        // 因子计算参数
+        factorParams_ = dict(`macd`cci`volume,
+            [
+            dict(`fastPeriod`slowPeriod`signalPeriod, [240, 520, 180]), // macd参数
+            dict(`timePeriod, [cciTimePeriod]), // cci参数
+            dict(`timePeriod, [volumeTimePeriod]) // volume参数
+            ]
+        )
+        for(upperBoundary in cciUpperBoundaries){
+            for(lowerBoundary in cciLowerBoundaries){
+                for(triggerAmount in triggerAmounts){
+                    // 策略参数
+                    strategyParams_ = dict(`cci`volume`order,
+                                    [
+                                    dict(`upperBoundary`lowerBoundary, [upperBoundary, lowerBoundary]),
+                                    dict(`triggerAmount, [triggerAmount]),
+                                    dict(`orderQty, [500])
+                                    ]
+                    )
+                    // 生成并添加事件实例
+                    
+                    tmp = objByName("gridParamInfo")
+                    insert into tmp(instanceId,CCIThreshold,CCITimePeriod,VolumeThreshold,VolumeTimePeriod) values (instanceId, (upperBoundary.string() +","+lowerBoundary.string()), cciTimePeriod, triggerAmount, volumeTimePeriod)
+                    initEvent = Initiating(instanceId.string(), factorParams_, strategyParams_, time_, cashAmount_,holdingQty_,stockPool_)
+                    appendEvent(CEPEngine, initEvent)    
+                    instanceId += 1
+                }
+            }
+        }
+    }
+}
+go
+
+//============================ 05.回放历史数据 ============================
+def fromReplayToCEP(stockPool_){
+    snapshotData = select string(Market) as Market, TradeTime as snapshotTime, string(SecurityID) as securityid, LastPrice, OpenPrice, HighPrice, LowPrice, UpLimitPx, DownLimitPx, long(TotalBidQty) as TotalBidQty, long(TotalOfferQty) as TotalOfferQty, BidPrice, BidOrderQty, OfferPrice, OfferOrderQty from loadTable('dfs://testDB',"snapshot") where (second(TradeTime) >= second(09:30:00.000) and second(TradeTime) <= second(15:00:00.000)) and date(TradeTime) = 2023.02.02 and (SecurityID in stockPool_) order by TradeTime 
+    transData = select SecurityID as securityid, TradePrice, TradeQty as volume, TradeTime as transTime from loadTable('dfs://testDB',"trade") where date(TradeTime) = 2023.02.02 and (SecurityID in stockPool_) and (second(TradeTime) >= second(09:30:00.000) and second(TradeTime) <= second(15:00:00.000)) order by TradeTime 
+
+    input_dict=dict(["Snapshot", "Transaction"], [snapshotData, transData])
+    time_dict=dict(["Snapshot", "Transaction"],[`snapshotTime, `transTime])
+    submitJob("replayToCEP", "replayToCEP", replay, input_dict, objByName(`replayOutput), , time_dict,)
+}
+fromReplayToCEP(stockPool_)
+
+//============================ 06.统计回测总耗时与计算策略收益率 ============================
+def calPnl(){
+    prev = -1
+    startTime = now()
+    // 所有的事件都处理完了以后，再能开始计算利润
+    do{
+        sleep(1000*3)
+        curr = sum(getCEPEngineStat(getStreamEngine("macdCciVol")).subEngineStat.eventsOnInputQueue)
+        print("prev: " + prev + ", curr: " + curr)
+        if(prev == 0 and curr == 0){
+            break
+        }
+        prev = curr
+    }while(true)
+    endTime = now()
+    // 打印回测总耗时
+    print("Time elapsed: " + (endTime-startTime) + " ms. Start time:" + startTime + " , end time : " + endTime)
+    share(table(100:0,`Id`AccountChangeAmount`ReturnTodayOnPct,[STRING, DOUBLE, DOUBLE]),"gridPnl")
+    // 取所有的MatchingResult表遍历
+    tbNames = exec name from objs(true) where name.startsWith(`MatchingResult)==1
+    for (name in tbNames){
+        instanceId = name.strReplace("MatchingResult","")
+        //从模拟撮合引擎中获取未成交信息
+        untradedTable = MatchingEngineSimulator::getOpenOrders(getStreamEngine("MatchingEngine"+instanceId))        
+        refundBuyCash = (exec sum(price*openQty) from untradedTable where direction = 1).nullFill(0)
+        deductSellCash = (exec sum(price*openQty) from untradedTable where direction = 2).nullFill(0)
+        //从监视器中获取变量,主要是初始资金、初始持仓价值和只记录了卖出情况的持仓字典availablePos
+        monitors = getCEPEngineMonitor(engine=`macdCciVol, subEngineName=instanceId, monitorName=`Monitor)
+        keys = monitors.keys()
+        availableCash = monitors[keys[1]].availableCash
+        initCash = monitors[keys[1]].initCash
+        initHoldingValue = monitors[keys[1]].initHoldingValue     
+        availablePos = monitors[keys[1]].availablePos
+        //计算结束时刻的现金
+        endCash = availableCash + refundBuyCash - deductSellCash
+        objByName("CashTable"+instanceId).tableInsert(2023.02.02 15:00:00.000,0,endCash)
+        endHoldingTable = table(availablePos.keys() as `securityId, availablePos.values() as `EndHoldingNum)
+        //从模拟撮合引擎中获取成功买入的股票信息
+        buyInTable = select symbol, sum(tradeQty) as tradeQty from objByName(name) where direction = 1 and orderStatus in (0,1)  group by symbol
+        //卖出信息+买入信息的更新
+        endHoldingTable = select securityId, EndHoldingNum + tradeQty.nullFill(0) as EndHoldingNum from endHoldingTable as t1 left join buyInTable as t2 on t1.securityId = t2.symbol
+        //对于可能存在的卖出失败作相应调整
+        sellFailTable = select symbol, sum(openQty) as openQty  from untradedTable where direction = 2 group by symbol
+        endHoldingTable = select securityId, EndHoldingNum+openQty.nullFill(0) as EndHoldingNum from endHoldingTable as t1 left join sellFailTable as t2 on t1.securityId = t2.symbol
+        //获取今日结束时持有的股票，获取他们的收盘价，计算持仓价值
+        holdingSecurity = exec securityId from endHoldingTable         
+        todayClo = select SecurityID, PreCloPrice as CloPrice from loadTable('dfs://testDB',`snapshot) where SecurityID in holdingSecurity and date(TradeTime) = 2023.02.03 context by SecurityID limit 1
+        endHoldingTable = select *, EndHoldingNum * CloPrice as EndHoldingValue from endHoldingTable as t1 left join todayClo as t2 on t1.securityId = t2.SecurityID
+        endHoldingValue = sum(exec EndHoldingValue from endHoldingTable)
+        //计算收益率
+        AccountChangeAmount = endHoldingValue + endCash - initCash - initHoldingValue
+        retOnPct = round((((endHoldingValue + endCash)\(initCash + initHoldingValue))-1)*100,5)
+        objByName("gridPnl").tableInsert(instanceId,AccountChangeAmount,retOnPct)
+        share(endHoldingTable,"endHoldingTable"+instanceId)       
+    
+    }
+    nullFill!(objByName("gridPnl"),0)
+    PLTable = select * from objByName("gridPnl") as t1 left join objByName("gridParamInfo") as t2 on t1.Id = t2.instanceId order by ReturnTodayOnPct desc
+    objByName("PnLTable").tableInsert(PLTable)
+}
+calPnl()
+

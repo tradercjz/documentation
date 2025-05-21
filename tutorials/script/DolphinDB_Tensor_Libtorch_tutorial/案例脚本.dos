@@ -1,0 +1,37 @@
+loadPlugin("/path/PluginLibTorch.txt")
+go
+
+//加载数据
+data_vector = float(loadText("/path/closing_prices.csv").Closing_Price)
+
+//模型预测需要三维结构，所以需要对输入数据做预处理
+//1. 加载数据并做归一化
+//2. 按照 20 大小的滑动窗口展开生成预测所需的数据结构
+def prepareData(data_vector){
+    // 对数据进行归一化操作，归一化到 [-1,1]范围
+    minv = min(data_vector)
+    maxv = max(data_vector)
+    data_normal = 2 * ((data_vector - minv) / (maxv - minv)) - 1
+
+    // 按照 20 大小的滑动窗口展开成3维预测数据
+    input = []
+    aggrJoin = defg(mutable re, data){
+        re.append!(matrix(data))
+        return 0
+    }
+    moving(aggrJoin{input}, data_normal, 20)
+    return input
+}
+
+// 输入数据集预处理，并将数据转换成 Tensor 形式
+input_data = prepareData(data_vector)
+input = tensor(input_data)
+
+// 加载模型并进行预测
+model = LibTorch::load("/path/scripted_model.pth")
+output = LibTorch::predict(model, input)
+
+// 把 [-1,1] 范围的预测结果反归一化回原始范围
+maxv = max(data_vector)
+minv = min(data_vector)
+result =  (output + 1) * (maxv - minv) / 2 + minv

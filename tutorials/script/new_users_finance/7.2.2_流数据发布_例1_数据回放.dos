@@ -1,0 +1,19 @@
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+beginDate = 2022.01.01 
+endDate = 2022.01.31 
+ds = replayDS(<select * from loadTable(dbName, tbName) where TradeDate between beginDate and endDate>, dateColumn="TradeDate", timeColumn="TradeTime")
+
+
+colName=loadTable(dbName, tbName).schema().colDefs.name
+colType=loadTable(dbName, tbName).schema().colDefs.typeString
+t = streamTable(100:0, colName, colType);
+enableTableShareAndPersistence(table=t, tableName="st1", cacheSize=100000)
+go
+replay(inputTables=ds, outputTables="st1", dateColumn="TradeDate", timeColumn="TradeTime", replayRate=100000, absoluteRate=true)
+
+getConsoleJobs()
+
+
+select top 10 * from st2

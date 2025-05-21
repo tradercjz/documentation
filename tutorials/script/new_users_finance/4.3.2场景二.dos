@@ -1,0 +1,63 @@
+undef all
+go
+
+use mockData
+t = stockSnapshot(tradeDate=2023.01.04, securityNumber=10)
+
+t1 = select TradeDate, TradeTime, MDStreamID, Securityid, SecurityIDSource, TradingPhaseCode, ImageStatus, PreCloPrice, NumTrades,TotalVolumeTrade, TotalValueTrade, LastPrice, OpenPrice, HighPrice, LowPrice, ClosePrice, DifPrice1, DifPrice2, PE1, PE2, PreCloseIOPV, IOPV, TotalBidQty, WeightedAvgBidPx, AltWAvgBidPri, TotalOfferQty, WeightedAvgOfferPx, AltWAvgAskPri, UpLimitPx, DownLimitPx, 
+OpenInt, OptPremiumRatio, 
+OfferPrice.transpose() as `offerPx1`offerPx2`offerPx3`offerPx4`offerPx5`offerPx6`offerPx7`offerPx8`offerPx9`offerPx10,
+BidPrice.transpose() as `bidPx1`bidPx2`bidPx3`bidPx4`bidPx5`bidPx6`bidPx7`bidPx8`bidPx9`bidPx10,
+OfferOrderQty.transpose() as `offerOrderQty1`offerOrderQty2`offerOrderQty3`offerOrderQty4`offerOrderQty5`offerOrderQty6`offerOrderQty7`offerOrderQty8`offerOrderQty9`offerOrderQty10,
+BidOrderQty.transpose() as `bidOrderQty1`bidOrderQty2`bidOrderQty3`bidOrderQty4`bidOrderQty5`bidOrderQty6`bidOrderQty7`bidOrderQty8`bidOrderQty9`bidOrderQty10,
+BidNumOrders.transpose() as `bidNumOrders1`bidNumOrders2`bidNumOrders3`bidNumOrders4`bidNumOrders5`bidNumOrders6`bidNumOrders7`bidNumOrders8`bidNumOrders9`bidNumOrders10,
+OfferNumOrders.transpose() as `offerNumOrders1`offerNumOrders2`offerNumOrders3`offerNumOrders4`offerNumOrders5`offerNumOrders6`offerNumOrders7`offerNumOrders8`offerNumOrders9`offerNumOrders10,
+ETFBuyNumber, ETFBuyAmount, ETFBuyMoney, ETFSellNumber, ETFSellAmount, ETFSellMoney, YieldToMatu, TotWarExNum, WithdrawBuyNumber, WithdrawBuyAmount, WithdrawBuyMoney, WithdrawSellNumber, WithdrawSellAmount, WithdrawSellMoney, TotalBidNumber, TotalOfferNumber, MaxBidDur, MaxSellDur, BidNum, SellNum, LocalTime, SeqNo, 
+OfferOrder.transpose() as `offerOrder1`offerOrder2`offerOrder3`offerOrder4`offerOrder5`offerOrder6`offerOrder7`offerOrder8`offerOrder9`offerOrder10,
+BidOrder.transpose() as `bidOrder1`bidOrder2`bidOrder3`bidOrder4`bidOrder5`bidOrder6`bidOrder7`bidOrder8`bidOrder9`bidOrder10
+from t
+
+saveText(t1, "/home/ffliu/data/tu/snapshot_array.csv")
+
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+dataPath = "/home/ffliu/data/tu/snapshot_array.csv"
+
+schema = extractTextSchema(dataPath)
+update schema set type="LONG" where name in ["NumTrades", "TotalValueTrade", "TotalBidQty", "TotalOfferQty", "ETFBuyAmount", "ETFSellAmount", "WithdrawBuyAmount", "WithdrawSellAmount"] or regexFind(name, "[bid|offer]Order[0-9]{1,2}") >= 0 
+
+def transFunc1(mutable msg){
+    update msg set offerPx = fixedLengthArrayVector(offerPx1...offerPx10), bidPx = fixedLengthArrayVector(bidPx1...bidPx10),
+                   offerOrderQty = fixedLengthArrayVector(offerOrderQty1...offerOrderQty10),
+                   bidOrderQty = fixedLengthArrayVector(bidOrderQty1...bidOrderQty10),
+                   bidNumOrders = fixedLengthArrayVector(bidNumOrders1...bidNumOrders10),
+                   offerNumOrders = fixedLengthArrayVector(offerNumOrders1...offerNumOrders10),
+                   offerOrder = fixedLengthArrayVector(offerOrder1...offerOrder10),
+                   bidOrder = fixedLengthArrayVector(bidOrder1...bidOrder10)
+    
+    arrayCols = ["offerPx", "bidPx", "offerOrderQty", "bidOrderQty", "bidNumOrders", "offerNumOrders", "offerOrder", "bidOrder"]
+    each(replaceColumn!{msg}, arrayCols + "1", msg[arrayCols])
+    dropCols = cross(+, arrayCols, NULL join string(2..10)).flatten().flatten()
+    msg.dropColumns!(dropCols)
+    
+    return msg
+}
+
+def transFunc(mutable msg){
+    return select  TradeDate, TradeTime, MDStreamID, Securityid, SecurityIDSource, TradingPhaseCode, ImageStatus, 
+                    PreCloPrice, NumTrades,TotalVolumeTrade, TotalValueTrade, LastPrice, OpenPrice, HighPrice, LowPrice, ClosePrice, DifPrice1, DifPrice2, PE1, PE2, PreCloseIOPV, IOPV, TotalBidQty, WeightedAvgBidPx, AltWAvgBidPri, TotalOfferQty, WeightedAvgOfferPx, AltWAvgAskPri, UpLimitPx, DownLimitPx, OpenInt, OptPremiumRatio, 
+                    fixedLengthArrayVector(offerPx1...offerPx10) as offerPx, fixedLengthArrayVector(bidPx1...bidPx10) as bidPx,
+                    fixedLengthArrayVector(offerOrderQty1...offerOrderQty10) as offerOrderQty,
+                    fixedLengthArrayVector(bidOrderQty1...bidOrderQty10) as bidOrderQty,
+                    fixedLengthArrayVector(bidNumOrders1...bidNumOrders10) as bidNumOrders,
+                    fixedLengthArrayVector(offerNumOrders1...offerNumOrders10) as offerNumOrders,
+                    ETFBuyNumber, ETFBuyAmount, ETFBuyMoney, ETFSellNumber, ETFSellAmount, ETFSellMoney, YieldToMatu, TotWarExNum, WithdrawBuyNumber, WithdrawBuyAmount, WithdrawBuyMoney, WithdrawSellNumber, WithdrawSellAmount, WithdrawSellMoney, TotalBidNumber, TotalOfferNumber, MaxBidDur, MaxSellDur, BidNum, SellNum, LocalTime, SeqNo, 
+                    fixedLengthArrayVector(offerOrder1...offerOrder10) as offerOrder,
+                    fixedLengthArrayVector(bidOrder1...bidOrder10) as bidOrder
+    from msg
+}
+
+loadTextEx(dbHandle=database(dbName), tableName=tbName, partitionColumns=["TradeTime", "SecurityID"], filename=dataPath, schema=schema, sortColumns=["SecurityID", "TradeTime"], transform=transFunc)
+
+re1 = select * from loadTable(dbName, tbName) where TradeDate = 2023.01.04 and TradeTime = 09:30:00.000 order by SecurityId
+re2 = select * from loadText(dataPath) where TradeDate = 2023.01.04 and TradeTime = 09:30:00.000 order by SecurityId

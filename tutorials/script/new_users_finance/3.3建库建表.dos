@@ -1,0 +1,104 @@
+// 环境清理：如果重复试验可执行此步，请确保自身环境内不存在同名数据库，否则会被删除
+drop database if exists "dfs://stock_lv2_snapshot"
+
+// 创建一个路径为 "dfs://stock_lv2_snapshot" 的数据库，按照日期值 + SYMBOL 哈希组合分区，存储引擎为 TSDB
+create database "dfs://stock_lv2_snapshot" partitioned by VALUE(2024.01.01..2024.01.02), HASH([SYMBOL, 50]), engine='TSDB'
+
+go
+
+use MockData
+t = stockSnapshot(tradeDate=2020.01.06, securityNumber=1)
+exec count(*) from t
+// output: 4802
+
+// 调用 schema 函数获取表字段信息（字段名，类型）
+s = schema(t).colDefs
+print s
+
+
+create table "dfs://stock_lv2_snapshot"."snapshot"(
+    TradeDate DATE[comment="交易日期", compress="delta"]   
+    TradeTime TIME[comment="交易时间", compress="delta"]
+    MDStreamID SYMBOL
+    SecurityID SYMBOL
+    SecurityIDSource SYMBOL
+    TradingPhaseCode SYMBOL
+    ImageStatus INT
+    PreCloPrice DOUBLE
+    NumTrades LONG
+    TotalVolumeTrade LONG
+    TotalValueTrade DOUBLE
+    LastPrice DOUBLE
+    OpenPrice DOUBLE
+    HighPrice DOUBLE
+    LowPrice DOUBLE
+    ClosePrice DOUBLE
+    DifPrice1 DOUBLE
+    DifPrice2 DOUBLE
+    PE1 DOUBLE
+    PE2 DOUBLE
+    PreCloseIOPV DOUBLE
+    IOPV DOUBLE
+    TotalBidQty LONG
+    WeightedAvgBidPx DOUBLE
+    AltWAvgBidPri DOUBLE
+    TotalOfferQty LONG
+    WeightedAvgOfferPx DOUBLE
+    AltWAvgAskPri DOUBLE
+    UpLimitPx DOUBLE
+    DownLimitPx DOUBLE
+    OpenInt INT
+    OptPremiumRatio DOUBLE
+    OfferPrice DOUBLE[]
+    BidPrice DOUBLE[]
+    OfferOrderQty LONG[]
+    BidOrderQty LONG[]
+    BidNumOrders INT[]
+    OfferNumOrders INT[]
+    ETFBuyNumber INT
+    ETFBuyAmount LONG
+    ETFBuyMoney DOUBLE
+    ETFSellNumber INT
+    ETFSellAmount LONG
+    ETFSellMoney DOUBLE
+    YieldToMatu DOUBLE
+    TotWarExNum DOUBLE
+    WithdrawBuyNumber INT
+    WithdrawBuyAmount LONG
+    WithdrawBuyMoney DOUBLE
+    WithdrawSellNumber INT
+    WithdrawSellAmount LONG
+    WithdrawSellMoney DOUBLE
+    TotalBidNumber INT
+    TotalOfferNumber INT
+    MaxBidDur INT
+    MaxSellDur INT
+    BidNum INT
+    SellNum INT
+    LocalTime TIME
+    SeqNo INT
+    OfferOrders LONG[]
+    BidOrders LONG[]
+)
+partitioned by TradeDate, SecurityID,
+sortColumns=[`SecurityID,`TradeTime],
+keepDuplicates=ALL
+
+go
+
+
+def writeDataByDate(date, dbName, tbName, stockNum): tableInsert(loadTable(dbName, tbName), stockSnapshot(tradeDate=date, securityNumber=stockNum))
+
+dates = getMarketCalendar('XSHE', 2022.01.01, 2022.01.10)
+print dates
+each(date -> submitJob("writeData2snapshot", "write by date", writeDataByDate{, "dfs://stock_lv2_snapshot", "snapshot", 100}, date), dates)
+
+getRecentJobs(5)
+
+// print each(getJobReturn, getRecentJobs(5).jobId)
+// print  exec count(*) from loadTable("dfs://stock_lv2_snapshot", "snapshot")
+
+
+// re1 = select top 10 * from loadTable("dfs://stock_lv2_snapshot", "snapshot")
+
+// not weekday(date(2024.07.25)) in [0, 6]

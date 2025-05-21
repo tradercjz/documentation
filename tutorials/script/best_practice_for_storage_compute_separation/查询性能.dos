@@ -1,0 +1,20 @@
+//单次查询内容上限
+setMemLimitOfQueryResult(50)
+
+// 加载level-2快照表
+pt = loadTable("dfs://l2TLDB", "trade")
+
+//case1：范围查询，随机1只股票1天
+timer{
+    result1 = select * from pt where date(TradeTime) = 2023.02.27 and SecurityID = `603222
+}
+
+//case2：范围查询，全市场股票 1 天
+timer{
+    result2 = select * from pt where date(TradeTime) = 2023.02.27
+}
+
+//case3：大数据量聚合计算，按股票对全市场股票 1 周数据进行聚合，计算成交价最大值
+timer{
+    result3 = select max(TradePrice) from pt where date(TradeTime) >= 2023.02.01 and date(TradeTime) <= 2023.02.07 group by SecurityID
+}

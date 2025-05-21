@@ -1,0 +1,2784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="ddb_intro" path="about/ddb_intro.html"/>
+   <appContext helpID="chap1_getstarted" path="getstarted/chap1_getstarted.html"/>
+   <appContext helpID="sectionddb_deployment" path="deploy/deploy_intro.html"/>
+   <appContext helpID="单节点部署与升级" path="tutorials/standalone_server.html"/>
+   <appContext helpID="单节点部署与升级-arm" path="tutorials/ARM_standalone_deploy.html"/>
+   <appContext helpID="单服务器集群部署与升级"
+               path="tutorials/single_machine_cluster_deploy.html"/>
+   <appContext helpID="多服务器集群部署与升级"
+               path="tutorials/multi_machine_cluster_deployment.html"/>
+   <appContext helpID="高可用集群部署与升级" path="tutorials/ha_cluster_deployment.html"/>
+   <appContext helpID="高可用服务部署与迁移"
+               path="tutorials/service_deployment_and_migration.html"/>
+   <appContext helpID="基于-docker-部署-dolphindb"
+               path="tutorials/docker_single_deployment.html"/>
+   <appContext helpID="基于-docker-compose-部署-dolphindb"
+               path="tutorials/docker-compose_high_cluster.html"/>
+   <appContext helpID="基于-k8s-部署-dolphindb" path="tutorials/k8s_deployment.html"/>
+   <appContext helpID="基于阿里云-k8s-部署-dolphindb"
+               path="tutorials/k8s_deployment_in_Aliyun.html"/>
+   <appContext helpID="基于-aws-部署-dolphindb"
+               path="tutorials/k8s_deployment_in_AWS.html"/>
+   <appContext helpID="使用-terraform-在云上部署-dolphindb"
+               path="tutorials/cloud_deployment_with_terraform.html"/>
+   <appContext helpID="linux-系统部署准备" path="tutorials/prep_linux_for_deploy.html"/>
+   <appContext helpID="chap1_sect_using_clients" path="db_distr_comp/clients.html"/>
+   <appContext helpID="intro" path="db_distr_comp/db_man/web/intro.html"/>
+   <appContext helpID="getting_start"
+               path="db_distr_comp/db_man/web/GettingStart.html"/>
+   <appContext helpID="cluster_overview"
+               path="db_distr_comp/db_man/web/cluster_overview.html"/>
+   <appContext helpID="cfg_man" path="db_distr_comp/db_man/web/cfg_man.html"/>
+   <appContext helpID="module_introduction" path="db_distr_comp/db_man/web/Shell.html"/>
+   <appContext helpID="git_multiple_tabs"
+               path="db_distr_comp/db_man/web/git_multiple_tabs.html"/>
+   <appContext helpID="querybuilder" path="db_distr_comp/db_man/web/querybuilder.html"/>
+   <appContext helpID="dashboard-使用教程" path="tutorials/dashboard_tutorial.html"/>
+   <appContext helpID="stream_monitor"
+               path="db_distr_comp/db_man/web/stream_monitor.html"/>
+   <appContext helpID="stream_graph" path="db_distr_comp/db_man/web/stream_graph.html"/>
+   <appContext helpID="cep" path="db_distr_comp/db_man/web/cep.html"/>
+   <appContext helpID="access_man" path="db_distr_comp/db_man/web/access_man.html"/>
+   <appContext helpID="job_management" path="db_distr_comp/db_man/web/job_man.html"/>
+   <appContext helpID="regular_inspection"
+               path="db_distr_comp/db_man/web/regulr_inspection.html"/>
+   <appContext helpID="function_panel" path="db_distr_comp/db_man/web/log.html"/>
+   <appContext helpID="plugin_management"
+               path="db_distr_comp/db_man/web/plugin_management.html"/>
+   <appContext helpID="function_panel"
+               path="db_distr_comp/db_man/web/feature_settings.html"/>
+   <appContext helpID="kafka_mqtt" path="db_distr_comp/db_man/web/kafka_mqtt.html"/>
+   <appContext helpID="vscode_client" path="db_distr_comp/vscode.html"/>
+   <appContext helpID="gui_client" path="db_distr_comp/gui.html"/>
+   <appContext helpID="notebook_client" path="db_distr_comp/jupyter.html"/>
+   <appContext helpID="terminal_client" path="db_distr_comp/terminal.html"/>
+   <appContext helpID="parameters_configuration"
+               path="db_distr_comp/cfg/para_cfg.html"/>
+   <appContext helpID="初始化" path="db_distr_comp/cfg/init.html"/>
+   <appContext helpID="单节点模式" path="db_distr_comp/cfg/standalone.html"/>
+   <appContext helpID="集群模式" path="db_distr_comp/cfg/cluster.html"/>
+   <appContext helpID="configparamref"
+               path="db_distr_comp/cfg/function_configuration.html"/>
+   <appContext helpID="new_chap_database_manage_new_chap_dbmanage_landing_page"
+               path="db_distr_comp/cfg/db_intro.html"/>
+   <appContext helpID="chap3_sect_database_distributed_computing"
+               path="db_distr_comp/db_distr_comp.html"/>
+   <appContext helpID="创建数据库" path="db_distr_comp/db_oper/create_db_tb.html"/>
+   <appContext helpID="插入数据" path="db_distr_comp/db_oper/insert_data.html"/>
+   <appContext helpID="mod_data" path="db_distr_comp/mod_data.html"/>
+   <appContext helpID="modify_table_structure"
+               path="db_distr_comp/modify_table_structure.html"/>
+   <appContext helpID="增加分区" path="db_distr_comp/db_oper/add_partitions.html"/>
+   <appContext helpID="查询数据" path="db_distr_comp/db_oper/queries.html"/>
+   <appContext helpID="删除数据库和表" path="db_distr_comp/db_oper/drop_db_tb.html"/>
+   <appContext helpID="drop_database_table"
+               path="db_distr_comp/drop_database_table.html"/>
+   <appContext helpID="删除分区" path="db_distr_comp/db_oper/drop_partitions.html"/>
+   <appContext helpID="函数视图" path="db_distr_comp/db_oper/FunctionView.html"/>
+   <appContext helpID="用户权限管理" path="tutorials/ACL_and_Security.html"/>
+   <appContext helpID="topic_pg3_22w_ryb" path="db_distr_comp/db/db_architecture.html"/>
+   <appContext helpID="事务" path="db_distr_comp/db/transaction.html"/>
+   <appContext helpID="数据库分区" path="db_distr_comp/db/db_partitioning.html"/>
+   <appContext helpID="storage_compute_separation"
+               path="db_distr_comp/db/storage_compute_separation.html"/>
+   <appContext helpID="topic_u1t_cqd_gcc" path="db_distr_comp/db/recovery.html"/>
+   <appContext helpID="rebalance" path="db_distr_comp/db/rebalance.html"/>
+   <appContext helpID="ha" path="db_distr_comp/db/ha.html"/>
+   <appContext helpID="分级存储" path="db_distr_comp/db/tiered_storage.html"/>
+   <appContext helpID="集群间异步复制" path="sys_man/cluster_async_replc.html"/>
+   <appContext helpID="multimodal_storage"
+               path="db_distr_comp/db/multimodal_storage.html"/>
+   <appContext helpID="rdma" path="db_distr_comp/db/rdma.html"/>
+   <appContext helpID="tsdb" path="db_distr_comp/db/tsdb.html"/>
+   <appContext helpID="olap" path="db_distr_comp/db/olap.html"/>
+   <appContext helpID="pkey_engine" path="db_distr_comp/db/pkey_engine.html"/>
+   <appContext helpID="imoltp" path="db_distr_comp/db/imoltp.html"/>
+   <appContext helpID="vectordb" path="db_distr_comp/db/vectordb.html"/>
+   <appContext helpID="textdb" path="db_distr_comp/db/textdb.html"/>
+   <appContext helpID="catalog" path="db_distr_comp/db/catalog.html"/>
+   <appContext helpID="iotdb" path="db_distr_comp/db/iotdb.html"/>
+   <appContext helpID="chap7_tutorials_streaming" path="stream/str_intro.html"/>
+   <appContext helpID="streamfunctions" path="stream/str_funcs.html"/>
+   <appContext helpID="流数据表" path="stream/str_table.html"/>
+   <appContext helpID="订阅和发布" path="stream/sub_pub.html"/>
+   <appContext helpID="streamprocess" path="stream/str_process.html"/>
+   <appContext helpID="timelystreamprocess" path="stream/timely_str_process.html"/>
+   <appContext helpID="入门示例-01实时计算买卖价差" path="stream/try_example1.html"/>
+   <appContext helpID="内置流式计算算子" path="stream/str_operator.html"/>
+   <appContext helpID="statelessoperators" path="stream/stateless_operators.html"/>
+   <appContext helpID="statefuloperators" path="stream/stateful_operators.html"/>
+   <appContext helpID="streamingEngineTopic" path="funcs/themes/streamingEngine.html"/>
+   <appContext helpID="时序聚合引擎" path="stream/time_series_engine.html"/>
+   <appContext helpID="cross_sectional_engine"
+               path="stream/cross_sectional_engine.html"/>
+   <appContext helpID="reactive_state_engine" path="stream/reactive_state_engine.html"/>
+   <appContext helpID="session_window_engine" path="stream/session_window_engine.html"/>
+   <appContext helpID="anomaly_detection_engine"
+               path="stream/anomaly_detection_engine.html"/>
+   <appContext helpID="chap7_tutorials_streaming" path="stream/str_join_engine.html"/>
+   <appContext helpID="asof_join_engine" path="stream/asof_join_engine.html"/>
+   <appContext helpID="window_join_engine" path="stream/window_join_engine.html"/>
+   <appContext helpID="equi_join_engine" path="stream/equi_join_engine.html"/>
+   <appContext helpID="lookup_join_engine" path="stream/lookup_join_engine.html"/>
+   <appContext helpID="leftsemi_join_engine" path="stream/leftsemi_join_engine.html"/>
+   <appContext helpID="streamha" path="stream/str_ha.html"/>
+   <appContext helpID="流计算状态监控" path="stream/str_monitor.html"/>
+   <appContext helpID="replay" path="stream/str_replay.html"/>
+   <appContext helpID="singletable" path="stream/str_replay_1.html"/>
+   <appContext helpID="nton" path="stream/str_replay_n2n.html"/>
+   <appContext helpID="notoone" path="stream/str_replay_n21.html"/>
+   <appContext helpID="流批一体功能" path="stream/str_batch.html"/>
+   <appContext helpID="streamengineparser-解析原理介绍" path="stream/str_eng_parser.html"/>
+   <appContext helpID="realtime_data_acces" path="stream/realtime_data_acces.html"/>
+   <appContext helpID="dolphindb-apipython" path="stream/str_api_python.html"/>
+   <appContext helpID="行情数据插件nsq" path="stream/nsq.html"/>
+   <appContext helpID="nsq" path="plugins/nsq/nsq.html"/>
+   <appContext helpID="easynsq-实时行情数据接入功能模块" path="modules/easyNSQ/easynsq.html"/>
+   <appContext helpID="amdquote" path="plugins/amdquote/amdquote.html"/>
+   <appContext helpID="insight" path="plugins/insight/insight.html"/>
+   <appContext helpID="ctp" path="plugins/ctp.html"/>
+   <appContext helpID="mdl_best_practice" path="stream/mdl_best_practice.html"/>
+   <appContext helpID="best_practice_datafeed"
+               path="stream/datafeed_best_practice.html"/>
+   <appContext helpID="cep" path="stream/cep.html"/>
+   <appContext helpID="cep_basic_concept" path="stream/cep_basic_concept.html"/>
+   <appContext helpID="cep_intro" path="stream/cep_events_defining.html"/>
+   <appContext helpID="cep_intro" path="stream/cep_monitor_defining.html"/>
+   <appContext helpID="cep_engine" path="stream/cep_engine.html"/>
+   <appContext helpID="topic_td1_n1v_x1c" path="stream/defining_event_listeners.html"/>
+   <appContext helpID="topic_tcx_tmj_gfc"
+               path="stream/getting_event_listener_instances.html"/>
+   <appContext helpID="event_stream_serializer"
+               path="stream/event_stream_serializer.html"/>
+   <appContext helpID="event_stream_deserializer"
+               path="stream/event_stream_deserializer.html"/>
+   <appContext helpID="cep_viewing" path="stream/cep_viewing.html"/>
+   <appContext helpID="cep_monitoring" path="stream/cep_monitoring.html"/>
+   <appContext helpID="cep_application_scenario" path="stream/cep_application.html"/>
+   <appContext helpID="cep_application"
+               path="stream/streaming_computing_engine_in_cep.html"/>
+   <appContext helpID="localsub" path="stream/local_sub.html"/>
+   <appContext helpID="subincluster" path="stream/cluster_sub.html"/>
+   <appContext helpID="subbetweencluster" path="stream/cross_cluster_sub.html"/>
+   <appContext helpID="pythonsub" path="stream/py_sub.html"/>
+   <appContext helpID="altair" path="stream/str_altair.html"/>
+   <appContext helpID="dolphindb-grafana-datasource-plugin" path="tools/grafana.html"/>
+   <appContext helpID="节点启动时的流计算自动订阅" path="tutorials/streaming_auto_sub.html"/>
+   <appContext helpID="k-线计算" path="tutorials/OHLC.html"/>
+   <appContext helpID="金融因子流式实现" path="tutorials/str_comp_fin_quant.html"/>
+   <appContext helpID="多数据源流式实时关联处理"
+               path="tutorials/streaming-real-time-correlation-processing.html"/>
+   <appContext helpID="实时计算高频因子" path="tutorials/hf_factor_streaming.html"/>
+   <appContext helpID="股票行情回放" path="tutorials/stock_market_replay.html"/>
+   <appContext helpID="金融实时实际波动率预测" path="tutorials/ml_volatility.html"/>
+   <appContext helpID="开发股票波动率预测模型的-676-个输入特征"
+               path="tutorials/metacode_derived_features.html"/>
+   <appContext helpID="实时计算日累计逐单资金流"
+               path="tutorials/streaming_capital_flow_daily.html"/>
+   <appContext helpID="实时计算分钟资金流"
+               path="tutorials/streaming_capital_flow_order_by_order.html"/>
+   <appContext helpID="流式计算中证-1000-指数主买主卖交易量" path="tutorials/CSI_1000.html"/>
+   <appContext helpID="快速搭建-level-2-快照数据流批一体因子计算平台最佳实践"
+               path="tutorials/l2_snapshot_factor_calc.html"/>
+   <appContext helpID="处理-level-2-行情数据实例" path="tutorials/l2_stk_data_proc.html"/>
+   <appContext helpID="实时计算涨幅榜" path="tutorials/rt_stk_price_inc_calc.html"/>
+   <appContext helpID="基金份额参考价值-iopv-计算" path="tutorials/streaming_IOPV.html"/>
+   <appContext helpID="实时检测传感器状态变化" path="tutorials/ddb_str_app_iot.html"/>
+   <appContext helpID="基于波形数据的地震预测" path="tutorials/earthquake_prediction_ddb_ml.html"/>
+   <appContext helpID="出租车行程时间预测" path="tutorials/forecast_taxi_trip_dura.html"/>
+   <appContext helpID="传感器数据异常检测" path="tutorials/iot_anomaly_detection.html"/>
+   <appContext helpID="dolphindb-在工业物联网的应用" path="tutorials/iot_demo.html"/>
+   <appContext helpID="物联网实时数据异常率预警" path="tutorials/knn_iot.html"/>
+   <appContext helpID="随机振动信号分析解决方案" path="tutorials/random_vibr_sig_analysis.html"/>
+   <appContext helpID="地震波形数据存储解决方案" path="tutorials/waveform_data_storage.html"/>
+   <appContext helpID="引擎级联监测门禁异常状态"
+               path="tutorials/streaming_engine_anomaly_alerts.html"/>
+   <appContext helpID="orca" path="stream/orca.html"/>
+   <appContext helpID="data_import_method"
+               path="db_distr_comp/db_oper/data_import_method.html"/>
+   <appContext helpID="text_files_import"
+               path="db_distr_comp/db_oper/text_files_import.html"/>
+   <appContext helpID="binary_records_import"
+               path="db_distr_comp/db_oper/binary_records_import.html"/>
+   <appContext helpID="hdf5_files_import"
+               path="db_distr_comp/db_oper/hdf5_files_import.html"/>
+   <appContext helpID="parquet_files_import"
+               path="db_distr_comp/db_oper/parquet_files_import.html"/>
+   <appContext helpID="MySQL_to_DolphinDB" path="tutorials/MySQL_to_DolphinDB.html"/>
+   <appContext helpID="从-clickhouse-迁移到-dolphindb"
+               path="tutorials/ClickHouse_to_DolphinDB.html"/>
+   <appContext helpID="从-influxdb-迁移到-dolphindb"
+               path="tutorials/Migrate_data_from_InfluxDB_to_DolphinDB.html"/>
+   <appContext helpID="从-kdb-迁移到-dolphindb" path="tutorials/kdb_to_dolphindb.html"/>
+   <appContext helpID="从-oceanbase-迁移到-dolphindb"
+               path="tutorials/OceanBase_to_DolphinDB.html"/>
+   <appContext helpID="从-oracle-迁移到-dolphindb"
+               path="tutorials/Oracle_to_DolphinDB.html"/>
+   <appContext helpID="从-postgregreenplum-迁移到-dolphindb"
+               path="tutorials/migrate_data_from_Postgre_and_Greenplum_to_DolphinDB.html"/>
+   <appContext helpID="从-redshift-迁移到-dolphindb"
+               path="tutorials/Migrate_data_from_Redshift_to_DolphinDB.html"/>
+   <appContext helpID="从-sql-server-迁移到-dolphindb"
+               path="tutorials/SQLServer_to_DolphinDB.html"/>
+   <appContext helpID="chap7_tutorials_system_management" path="sys_man/om_intro.html"/>
+   <appContext helpID="cluster_manage" path="sys_man/cluster_manage.html"/>
+   <appContext helpID="集群扩容" path="tutorials/scale_out_cluster.html"/>
+   <appContext helpID="使用计算节点" path="tutorials/Compute_Node.html"/>
+   <appContext helpID="高可用集群的灰度升级" path="tutorials/gray_scale_upgrade_ha.html"/>
+   <appContext helpID="使用-haproxy-实现负载均衡" path="tutorials/haProxy_best_practices.html"/>
+   <appContext helpID="multi_cluster_management"
+               path="sys_man/multi_cluster_management.html"/>
+   <appContext helpID="线程简介" path="tutorials/thread_intro.html"/>
+   <appContext helpID="作业管理" path="tutorials/job_management_tutorial.html"/>
+   <appContext helpID="定时作业" path="tutorials/scheduledJob.html"/>
+   <appContext helpID="批处理作业管理" path="sys_man/BatchJobManagement.html"/>
+   <appContext helpID="e6_97_a0_e6_a0_87_e9_a2_9810"
+               path="tutorials/e6_97_a0_e6_a0_87_e9_a2_9810.html"/>
+   <appContext helpID="e6_97_a0_e6_a0_87_e9_a2_9811" path="tutorials/oauth.html"/>
+   <appContext helpID="性能监控" path="sys_man/perf_man.html"/>
+   <appContext helpID="集群运维监控" path="tutorials/cluster_monitor.html"/>
+   <appContext helpID="数据备份与恢复" path="sys_man/bak_resto.html"/>
+   <appContext helpID="安全通信" path="sys_man/secure_conn.html"/>
+   <appContext helpID="安全关机" path="sys_man/shutdown.html"/>
+   <appContext helpID="troubleshooting" path="error_codes/troubleshooting.html"/>
+   <appContext helpID="无法连接服务器" path="omc/omc_connection_lost_guidelines.html"/>
+   <appContext helpID="节点启动异常" path="tutorials/node_startup_exception.html"/>
+   <appContext helpID="节点宕机" path="tutorials/how_to_handle_crash.html"/>
+   <appContext helpID="系统卡死" path="omc/omc_server_hang_guidelines.html"/>
+   <appContext helpID="查询写入慢" path="omc/omc_slow_io_guidelines.html"/>
+   <appContext helpID="out-of-memory" path="tutorials/oom_settlement.html"/>
+   <appContext helpID="error_code_list" path="error_codes/err_codes.html"/>
+   <appContext helpID="s00001" path="error_codes/S00001.html"/>
+   <appContext helpID="s00002" path="error_codes/S00002.html"/>
+   <appContext helpID="s00003" path="error_codes/S00003.html"/>
+   <appContext helpID="s00004" path="error_codes/S00004.html"/>
+   <appContext helpID="s00005" path="error_codes/s00005.html"/>
+   <appContext helpID="s00006" path="error_codes/S00006.html"/>
+   <appContext helpID="s00007" path="error_codes/S00007.html"/>
+   <appContext helpID="s00008" path="error_codes/S00008.html"/>
+   <appContext helpID="s00009" path="error_codes/s00009.html"/>
+   <appContext helpID="s00009" path="error_codes/s00010.html"/>
+   <appContext helpID="s00009" path="error_codes/s00011.html"/>
+   <appContext helpID="s00009" path="error_codes/s00012.html"/>
+   <appContext helpID="s00009" path="error_codes/s00013.html"/>
+   <appContext helpID="s00009" path="error_codes/s00014.html"/>
+   <appContext helpID="s00009" path="error_codes/s00015.html"/>
+   <appContext helpID="s00009" path="error_codes/s00016.html"/>
+   <appContext helpID="s00009" path="error_codes/s00017.html"/>
+   <appContext helpID="s00009" path="error_codes/s00018.html"/>
+   <appContext helpID="s00009" path="error_codes/s00019.html"/>
+   <appContext helpID="s00020" path="error_codes/s00020.html"/>
+   <appContext helpID="s01001" path="error_codes/s01000_0.html"/>
+   <appContext helpID="s01001" path="error_codes/S01001.html"/>
+   <appContext helpID="s01002" path="error_codes/S01002.html"/>
+   <appContext helpID="s01003" path="error_codes/S01003.html"/>
+   <appContext helpID="s01004" path="error_codes/S01004.html"/>
+   <appContext helpID="s01005" path="error_codes/S01005.html"/>
+   <appContext helpID="s01006" path="error_codes/S01006.html"/>
+   <appContext helpID="s01007" path="error_codes/S01007.html"/>
+   <appContext helpID="s01008" path="error_codes/S01008.html"/>
+   <appContext helpID="s01009" path="error_codes/S01009.html"/>
+   <appContext helpID="s01001" path="error_codes/s01010.html"/>
+   <appContext helpID="s01011" path="error_codes/S01011.html"/>
+   <appContext helpID="s01012" path="error_codes/S01012.html"/>
+   <appContext helpID="s01013" path="error_codes/S01013.html"/>
+   <appContext helpID="s01014" path="error_codes/S01014.html"/>
+   <appContext helpID="s01015" path="error_codes/S01015.html"/>
+   <appContext helpID="s01016" path="error_codes/S01016.html"/>
+   <appContext helpID="s01001" path="error_codes/s01017.html"/>
+   <appContext helpID="s01018" path="error_codes/S01018.html"/>
+   <appContext helpID="s01019" path="error_codes/S01019.html"/>
+   <appContext helpID="s01020" path="error_codes/S01020.html"/>
+   <appContext helpID="s01021" path="error_codes/S01021.html"/>
+   <appContext helpID="s01022" path="error_codes/S01022.html"/>
+   <appContext helpID="s01023" path="error_codes/S01023.html"/>
+   <appContext helpID="s01024" path="error_codes/S01024.html"/>
+   <appContext helpID="s01025" path="error_codes/S01025.html"/>
+   <appContext helpID="s01026" path="error_codes/S01026.html"/>
+   <appContext helpID="s01027" path="error_codes/S01027.html"/>
+   <appContext helpID="s01028" path="error_codes/S01028.html"/>
+   <appContext helpID="s01029" path="error_codes/S01029.html"/>
+   <appContext helpID="s01030" path="error_codes/S01030.html"/>
+   <appContext helpID="s01031" path="error_codes/S01031.html"/>
+   <appContext helpID="s01032" path="error_codes/S01032.html"/>
+   <appContext helpID="s01001" path="error_codes/s01033.html"/>
+   <appContext helpID="s01001" path="error_codes/s01034.html"/>
+   <appContext helpID="S01035" path="error_codes/S01035.html"/>
+   <appContext helpID="S01036" path="error_codes/S01036.html"/>
+   <appContext helpID="S01037" path="error_codes/S01037.html"/>
+   <appContext helpID="S01038" path="error_codes/S01038.html"/>
+   <appContext helpID="S01039" path="error_codes/S01039.html"/>
+   <appContext helpID="S01040" path="error_codes/S01040.html"/>
+   <appContext helpID="S01041" path="error_codes/S01041.html"/>
+   <appContext helpID="S01042" path="error_codes/S01042.html"/>
+   <appContext helpID="S01043" path="error_codes/S01043.html"/>
+   <appContext helpID="S01044" path="error_codes/S01044.html"/>
+   <appContext helpID="S01045" path="error_codes/S01045.html"/>
+   <appContext helpID="s01001" path="error_codes/s01046.html"/>
+   <appContext helpID="s01001" path="error_codes/s01047.html"/>
+   <appContext helpID="s01001" path="error_codes/s01048.html"/>
+   <appContext helpID="s01001" path="error_codes/s01049.html"/>
+   <appContext helpID="S01050" path="error_codes/S01050.html"/>
+   <appContext helpID="S01051" path="error_codes/S01051.html"/>
+   <appContext helpID="S01052" path="error_codes/S01052.html"/>
+   <appContext helpID="S01053" path="error_codes/S01053.html"/>
+   <appContext helpID="S01054" path="error_codes/S01054.html"/>
+   <appContext helpID="S01055" path="error_codes/S01055.html"/>
+   <appContext helpID="S01055" path="error_codes/S01056.html"/>
+   <appContext helpID="S01049" path="error_codes/S01057.html"/>
+   <appContext helpID="S01048" path="error_codes/S01058.html"/>
+   <appContext helpID="S01047" path="error_codes/S01059.html"/>
+   <appContext helpID="S01046" path="error_codes/S01060.html"/>
+   <appContext helpID="S01034" path="error_codes/S01061.html"/>
+   <appContext helpID="S01033" path="error_codes/S01062.html"/>
+   <appContext helpID="S01063" path="error_codes/S01063.html"/>
+   <appContext helpID="S01064" path="error_codes/S01064.html"/>
+   <appContext helpID="S01065" path="error_codes/S01065.html"/>
+   <appContext helpID="S01067" path="error_codes/S01067.html"/>
+   <appContext helpID="S01068" path="error_codes/S01068.html"/>
+   <appContext helpID="S01069" path="error_codes/S01069.html"/>
+   <appContext helpID="s01070" path="error_codes/s01070.html"/>
+   <appContext helpID="s01071" path="error_codes/s01071.html"/>
+   <appContext helpID="s01072" path="error_codes/s01072.html"/>
+   <appContext helpID="s01074" path="error_codes/s01074.html"/>
+   <appContext helpID="s01076" path="error_codes/s01076.html"/>
+   <appContext helpID="s01077" path="error_codes/s01077.html"/>
+   <appContext helpID="s02000" path="error_codes/S02000.html"/>
+   <appContext helpID="s02001" path="error_codes/S02001.html"/>
+   <appContext helpID="s02002" path="error_codes/S02002.html"/>
+   <appContext helpID="s02003" path="error_codes/S02003.html"/>
+   <appContext helpID="s02004" path="error_codes/S02004.html"/>
+   <appContext helpID="s02005" path="error_codes/S02005.html"/>
+   <appContext helpID="s02006" path="error_codes/S02006.html"/>
+   <appContext helpID="s02007" path="error_codes/S02007.html"/>
+   <appContext helpID="s02008" path="error_codes/S02008.html"/>
+   <appContext helpID="s02009" path="error_codes/S02009.html"/>
+   <appContext helpID="s02010" path="error_codes/S02010.html"/>
+   <appContext helpID="s02011" path="error_codes/S02011.html"/>
+   <appContext helpID="s02012" path="error_codes/S02012.html"/>
+   <appContext helpID="s02013" path="error_codes/S02013.html"/>
+   <appContext helpID="s02014" path="error_codes/S02014.html"/>
+   <appContext helpID="S02015_0" path="error_codes/S02015_0.html"/>
+   <appContext helpID="s02016" path="error_codes/S02016.html"/>
+   <appContext helpID="s02017" path="error_codes/S02017.html"/>
+   <appContext helpID="s02018" path="error_codes/S02018.html"/>
+   <appContext helpID="s02019" path="error_codes/S02019.html"/>
+   <appContext helpID="s02020" path="error_codes/S02020.html"/>
+   <appContext helpID="s02021" path="error_codes/S02021.html"/>
+   <appContext helpID="s02022" path="error_codes/S02022.html"/>
+   <appContext helpID="s02023" path="error_codes/S02023.html"/>
+   <appContext helpID="s02024" path="error_codes/S02024.html"/>
+   <appContext helpID="S02025" path="error_codes/S02025.html"/>
+   <appContext helpID="s02026" path="error_codes/S02026.html"/>
+   <appContext helpID="s02027" path="error_codes/S02027.html"/>
+   <appContext helpID="s02028" path="error_codes/S02028.html"/>
+   <appContext helpID="s02029" path="error_codes/S02029.html"/>
+   <appContext helpID="s02030" path="error_codes/S02030.html"/>
+   <appContext helpID="s02031" path="error_codes/S02031.html"/>
+   <appContext helpID="s02032" path="error_codes/s02032.html"/>
+   <appContext helpID="s02033" path="error_codes/s02033.html"/>
+   <appContext helpID="s02034" path="error_codes/s02034.html"/>
+   <appContext helpID="s02035" path="error_codes/s02035.html"/>
+   <appContext helpID="s02036" path="error_codes/s02036.html"/>
+   <appContext helpID="s02037" path="error_codes/s02037.html"/>
+   <appContext helpID="s02038" path="error_codes/s02038.html"/>
+   <appContext helpID="s02039" path="error_codes/s02039.html"/>
+   <appContext helpID="s02040" path="error_codes/s02040.html"/>
+   <appContext helpID="s02041" path="error_codes/s02041.html"/>
+   <appContext helpID="s02042" path="error_codes/s02042.html"/>
+   <appContext helpID="s02043" path="error_codes/s02043.html"/>
+   <appContext helpID="S02044" path="error_codes/S02044.html"/>
+   <appContext helpID="S02045" path="error_codes/S02045.html"/>
+   <appContext helpID="S02046" path="error_codes/S02046.html"/>
+   <appContext helpID="S02047" path="error_codes/S02047.html"/>
+   <appContext helpID="s02048" path="error_codes/S02048.html"/>
+   <appContext helpID="S02049" path="error_codes/S02049.html"/>
+   <appContext helpID="S02050" path="error_codes/S02050.html"/>
+   <appContext helpID="S02051" path="error_codes/S02051.html"/>
+   <appContext helpID="S02052" path="error_codes/S02052.html"/>
+   <appContext helpID="S02053" path="error_codes/S02053.html"/>
+   <appContext helpID="S02054" path="error_codes/S02054.html"/>
+   <appContext helpID="S02055" path="error_codes/S02055.html"/>
+   <appContext helpID="S02056" path="error_codes/S02056.html"/>
+   <appContext helpID="S02057" path="error_codes/S02057.html"/>
+   <appContext helpID="S02059" path="error_codes/S02059.html"/>
+   <appContext helpID="s03000" path="error_codes/S03000.html"/>
+   <appContext helpID="s03001" path="error_codes/S03001.html"/>
+   <appContext helpID="s03002" path="error_codes/S03002.html"/>
+   <appContext helpID="s03003" path="error_codes/S03003.html"/>
+   <appContext helpID="s03005" path="error_codes/S03005.html"/>
+   <appContext helpID="s03006" path="error_codes/S03006.html"/>
+   <appContext helpID="s03007" path="error_codes/S03007.html"/>
+   <appContext helpID="s03008" path="error_codes/S03008.html"/>
+   <appContext helpID="s03009" path="error_codes/S03009.html"/>
+   <appContext helpID="s03012" path="error_codes/S03012.html"/>
+   <appContext helpID="s03013" path="error_codes/S03013.html"/>
+   <appContext helpID="s03014" path="error_codes/S03014.html"/>
+   <appContext helpID="s03015" path="error_codes/S03015.html"/>
+   <appContext helpID="s03016" path="error_codes/S03016.html"/>
+   <appContext helpID="s03017" path="error_codes/S03017.html"/>
+   <appContext helpID="s03018" path="error_codes/S03018.html"/>
+   <appContext helpID="s03019" path="error_codes/S03019.html"/>
+   <appContext helpID="s03020" path="error_codes/S03020.html"/>
+   <appContext helpID="s03020" path="error_codes/s03021.html"/>
+   <appContext helpID="s03020" path="error_codes/s03022.html"/>
+   <appContext helpID="s03020" path="error_codes/s03023.html"/>
+   <appContext helpID="s03020" path="error_codes/s03024.html"/>
+   <appContext helpID="s03020" path="error_codes/s03025.html"/>
+   <appContext helpID="s03020" path="error_codes/s03027.html"/>
+   <appContext helpID="s03020" path="error_codes/s03028.html"/>
+   <appContext helpID="s04001" path="error_codes/S04001.html"/>
+   <appContext helpID="s04002" path="error_codes/S04002.html"/>
+   <appContext helpID="s04003" path="error_codes/S04003.html"/>
+   <appContext helpID="s04004" path="error_codes/S04004.html"/>
+   <appContext helpID="s04005" path="error_codes/S04005.html"/>
+   <appContext helpID="s04005" path="error_codes/s04006.html"/>
+   <appContext helpID="s04005" path="error_codes/s04007.html"/>
+   <appContext helpID="s04005" path="error_codes/s04008.html"/>
+   <appContext helpID="s05000" path="error_codes/S05000.html"/>
+   <appContext helpID="s05001" path="error_codes/S05001.html"/>
+   <appContext helpID="s05003" path="error_codes/S05003.html"/>
+   <appContext helpID="s05004" path="error_codes/S05004.html"/>
+   <appContext helpID="s05005" path="error_codes/S05005.html"/>
+   <appContext helpID="s05006" path="error_codes/S05006.html"/>
+   <appContext helpID="s05007" path="error_codes/S05007.html"/>
+   <appContext helpID="s05007" path="error_codes/s05008.html"/>
+   <appContext helpID="s05007" path="error_codes/s05009.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/S05010.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05011.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05012.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05013.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05014.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05015.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05016.html"/>
+   <appContext helpID="topic_crp_cjn_1bc" path="error_codes/s05017.html"/>
+   <appContext helpID="s06000" path="error_codes/S06000.html"/>
+   <appContext helpID="s06001" path="error_codes/S06001.html"/>
+   <appContext helpID="s06002" path="error_codes/S06002.html"/>
+   <appContext helpID="s06003" path="error_codes/S06003.html"/>
+   <appContext helpID="s06004" path="error_codes/S06004.html"/>
+   <appContext helpID="s06005" path="error_codes/S06005.html"/>
+   <appContext helpID="s06006" path="error_codes/S06006.html"/>
+   <appContext helpID="s06006" path="error_codes/s06007.html"/>
+   <appContext helpID="s06006" path="error_codes/s06008.html"/>
+   <appContext helpID="s06006" path="error_codes/s06009.html"/>
+   <appContext helpID="s06006" path="error_codes/s06010.html"/>
+   <appContext helpID="s06006" path="error_codes/s06011.html"/>
+   <appContext helpID="s06006" path="error_codes/s06012.html"/>
+   <appContext helpID="s06006" path="error_codes/s06013.html"/>
+   <appContext helpID="s07000" path="error_codes/s07000.html"/>
+   <appContext helpID="s07001" path="error_codes/s07001.html"/>
+   <appContext helpID="s07002" path="error_codes/s07002.html"/>
+   <appContext helpID="s07003" path="error_codes/s07003.html"/>
+   <appContext helpID="s07004" path="error_codes/s07004.html"/>
+   <appContext helpID="s07005" path="error_codes/s07005.html"/>
+   <appContext helpID="s07006" path="error_codes/s07006.html"/>
+   <appContext helpID="s06000" path="error_codes/s09000.html"/>
+   <appContext helpID="s06000" path="error_codes/s09001.html"/>
+   <appContext helpID="s06000" path="error_codes/s09002.html"/>
+   <appContext helpID="s06000" path="error_codes/s09003.html"/>
+   <appContext helpID="s06000" path="error_codes/s09004.html"/>
+   <appContext helpID="s06000" path="error_codes/s09005.html"/>
+   <appContext helpID="s06000" path="error_codes/s09006.html"/>
+   <appContext helpID="s06000" path="error_codes/s09007.html"/>
+   <appContext helpID="s06000" path="error_codes/s09008.html"/>
+   <appContext helpID="s06000" path="error_codes/s09009.html"/>
+   <appContext helpID="s06000" path="error_codes/s10000.html"/>
+   <appContext helpID="s06000" path="error_codes/s10001.html"/>
+   <appContext helpID="s06000" path="error_codes/s10002.html"/>
+   <appContext helpID="s06000" path="error_codes/s10003.html"/>
+   <appContext helpID="s06000" path="error_codes/s10004.html"/>
+   <appContext helpID="s06000" path="error_codes/s10005.html"/>
+   <appContext helpID="s06000" path="error_codes/s10006.html"/>
+   <appContext helpID="s06000" path="error_codes/s10007.html"/>
+   <appContext helpID="s06000" path="error_codes/s10008.html"/>
+   <appContext helpID="s06000" path="error_codes/s10009.html"/>
+   <appContext helpID="s12000" path="error_codes/s12000.html"/>
+   <appContext helpID="s12001" path="error_codes/s12001.html"/>
+   <appContext helpID="s12002" path="error_codes/s12002.html"/>
+   <appContext helpID="s12003" path="error_codes/s12003.html"/>
+   <appContext helpID="s12004" path="error_codes/s12004.html"/>
+   <appContext helpID="s12005" path="error_codes/s12005.html"/>
+   <appContext helpID="s12006" path="error_codes/s12006.html"/>
+   <appContext helpID="s12007" path="error_codes/s12007.html"/>
+   <appContext helpID="s12008" path="error_codes/s12008.html"/>
+   <appContext helpID="s12009" path="error_codes/s12009.html"/>
+   <appContext helpID="about_language_resources" path="progr/progr_intro.html"/>
+   <appContext helpID="chap4_db_programming" path="progr/lang_intro.html"/>
+   <appContext helpID="chap4_sect_datatypes_forms"
+               path="progr/data_types_forms_intro.html"/>
+   <appContext helpID="chap4_sect_data_type_description" path="progr/data_types.html"/>
+   <appContext helpID="数据类型转换" path="progr/data_types_forms/data_type_conv.html"/>
+   <appContext helpID="chap4_sect_dataforms" path="progr/data_forms.html"/>
+   <appContext helpID="标量" path="progr/data_types_forms/Scalar.html"/>
+   <appContext helpID="数据对" path="progr/data_types_forms/Pair.html"/>
+   <appContext helpID="向量" path="progr/data_types_forms/vector.html"/>
+   <appContext helpID="元组tuple" path="progr/data_types_forms/TupleANYVector.html"/>
+   <appContext helpID="subarray" path="progr/data_types_forms/subarray.html"/>
+   <appContext helpID="数组向量array-vector"
+               path="progr/data_types_forms/arrayVector.html"/>
+   <appContext helpID="大数组bigarray" path="progr/data_types_forms/BigArray.html"/>
+   <appContext helpID="列式元组columnar-tuple"
+               path="progr/data_types_forms/columnarTuple.html"/>
+   <appContext helpID="矩阵" path="progr/data_types_forms/Matrix.html"/>
+   <appContext helpID="集合" path="progr/data_types_forms/Set.html"/>
+   <appContext helpID="字典" path="progr/data_types_forms/Dictionary.html"/>
+   <appContext helpID="表" path="progr/data_types_forms/Table.html"/>
+   <appContext helpID="tensor" path="progr/tensor.html"/>
+   <appContext helpID="chap4_sect_objects" path="progr/objs/objects.html"/>
+   <appContext helpID="常量" path="progr/objs/const.html"/>
+   <appContext helpID="变量" path="progr/objs/var.html"/>
+   <appContext helpID="列引用" path="progr/objs/col_ref.html"/>
+   <appContext helpID="函数" path="progr/objs/func_call.html"/>
+   <appContext helpID="expr" path="progr/objs/expr.html"/>
+   <appContext helpID="sql查询" path="progr/objs/sql_query.html"/>
+   <appContext helpID="命名对象" path="progr/objs/named_obj.html"/>
+   <appContext helpID="动态元组" path="progr/objs/dyn_tuple.html"/>
+   <appContext helpID="chap4_sect_operators" path="progr/operators/operators.html"/>
+   <appContext helpID="precedence" path="progr/operators/precedence.html"/>
+   <appContext helpID="chap4_sect_objects_list" path="progr/operators/oper_list.html"/>
+   <appContext helpID="add" path="progr/operators/add.html"/>
+   <appContext helpID="and" path="progr/operators/and.html"/>
+   <appContext helpID="cast" path="progr/operators/cast.html"/>
+   <appContext helpID="链式比较" path="progr/operators/chainingComparison.html"/>
+   <appContext helpID="div" path="progr/operators/div.html"/>
+   <appContext helpID="dot" path="progr/operators/dot.html"/>
+   <appContext helpID="eq" path="progr/operators/eq.html"/>
+   <appContext helpID="ge" path="progr/operators/ge.html"/>
+   <appContext helpID="gt" path="progr/operators/gt.html"/>
+   <appContext helpID="intersectionsetbitand"
+               path="progr/operators/intersectionsetbitAnd.html"/>
+   <appContext helpID="join-" path="progr/operators/join.html"/>
+   <appContext helpID="le" path="progr/operators/le.html"/>
+   <appContext helpID="lshift" path="progr/operators/lshift.html"/>
+   <appContext helpID="lt" path="progr/operators/lt.html"/>
+   <appContext helpID="member" path="progr/operators/member.html"/>
+   <appContext helpID="mod" path="progr/operators/mod.html"/>
+   <appContext helpID="mul" path="progr/operators/mul.html"/>
+   <appContext helpID="ne" path="progr/operators/ne.html"/>
+   <appContext helpID="neg-" path="progr/operators/neg.html"/>
+   <appContext helpID="not" path="progr/operators/not.html"/>
+   <appContext helpID="or" path="progr/operators/or.html"/>
+   <appContext helpID="pair" path="progr/operators/pair.html"/>
+   <appContext helpID="ratio" path="progr/operators/ratio.html"/>
+   <appContext helpID="rshift" path="progr/operators/rshift.html"/>
+   <appContext helpID="seq" path="progr/operators/seq.html"/>
+   <appContext helpID="sub-" path="progr/operators/sub.html"/>
+   <appContext helpID="symmetricdifferencesetbitxor"
+               path="progr/operators/symmetricDifferencesetbitXor.html"/>
+   <appContext helpID="unionsetbitor" path="progr/operators/unionsetbitOr.html"/>
+   <appContext helpID="at" path="progr/operators/at.html"/>
+   <appContext helpID="eachat" path="progr/operators/eachAt.html"/>
+   <appContext helpID="eachat" path="progr/operators/ternary_operator.html"/>
+   <appContext helpID="chap4_sect_programming_statements"
+               path="progr/statements/statements_intro.html"/>
+   <appContext helpID="chap4_sect_pro_statements_assign_statements"
+               path="progr/statements/assignments/assign_intro.html"/>
+   <appContext helpID="引用赋值" path="progr/statements/assignments/assign_by_ref.html"/>
+   <appContext helpID="按值赋值" path="progr/statements/assignments/assign_by_value.html"/>
+   <appContext helpID="多变量赋值" path="progr/statements/assignments/assign_multi.html"/>
+   <appContext helpID="取消变量" path="progr/statements/assignments/undef.html"/>
+   <appContext helpID="注解" path="progr/statements/annotate.html"/>
+   <appContext helpID="assert" path="progr/statements/assert.html"/>
+   <appContext helpID="程序块" path="progr/statements/blockStatement.html"/>
+   <appContext helpID="break" path="progr/statements/break.html"/>
+   <appContext helpID="注释" path="progr/statements/comment.html"/>
+   <appContext helpID="continue" path="progr/statements/continue.html"/>
+   <appContext helpID="do-while" path="progr/statements/doWhile.html"/>
+   <appContext helpID="for" path="progr/statements/for.html"/>
+   <appContext helpID="go" path="progr/statements/go.html"/>
+   <appContext helpID="if-else" path="progr/statements/ifElse.html"/>
+   <appContext helpID="include" path="progr/statements/Include.html"/>
+   <appContext helpID="mapr" path="progr/statements/mapr.html"/>
+   <appContext helpID="module" path="progr/statements/module.html"/>
+   <appContext helpID="return" path="progr/statements/return.html"/>
+   <appContext helpID="share" path="progr/statements/share.html"/>
+   <appContext helpID="throw" path="progr/statements/throw.html"/>
+   <appContext helpID="timer_func" path="progr/statements/timer.html"/>
+   <appContext helpID="transaction" path="progr/statements/transaction.html"/>
+   <appContext helpID="try-catch" path="progr/statements/tryCatch.html"/>
+   <appContext helpID="use" path="progr/statements/use.html"/>
+   <appContext helpID="取消变量" path="progr/objs/undef_var.html"/>
+   <appContext helpID="chap4_sect_data_manipulation"
+               path="progr/data_mani/dm_intro.html"/>
+   <appContext helpID="字符串对象" path="progr/data_mani/string_obj.html"/>
+   <appContext helpID="创建字符串" path="progr/data_mani/create_strings.html"/>
+   <appContext helpID="搜索字符串" path="progr/data_mani/search_in_string.html"/>
+   <appContext helpID="字符串操作" path="progr/data_mani/string_oper.html"/>
+   <appContext helpID="时间序列对象" path="progr/data_mani/temporal_obj.html"/>
+   <appContext helpID="日期和时间的调整及格式" path="progr/data_mani/format_temp_obj.html"/>
+   <appContext helpID="时序对象的操作" path="progr/data_mani/temp_obj_mani.html"/>
+   <appContext helpID="时序类型和转换" path="progr/data_mani/temp_type_conv.html"/>
+   <appContext helpID="时区和时区转换" path="progr/data_mani/tzone_conv.html"/>
+   <appContext helpID="null-值的操作" path="progr/data_mani/null_oper.html"/>
+   <appContext helpID="检查-null-值" path="progr/data_mani/detect_null.html"/>
+   <appContext helpID="null-初始化" path="progr/data_mani/init_null.html"/>
+   <appContext helpID="填充-null-值" path="progr/data_mani/replace_null.html"/>
+   <appContext helpID="null-值排序" path="progr/data_mani/sort_null.html"/>
+   <appContext helpID="null-值运算" path="progr/data_mani/process_null.html"/>
+   <appContext helpID="函数和-null-值" path="progr/data_mani/func_null.html"/>
+   <appContext helpID="null-值标量" path="progr/data_mani/null_scalar.html"/>
+   <appContext helpID="表中的-null-值" path="progr/data_mani/null_in_tb.html"/>
+   <appContext helpID="向量集合元组中的-null-值" path="progr/data_mani/null_in_vst.html"/>
+   <appContext helpID="chap4_sect_func_programming" path="progr/func_progr.html"/>
+   <appContext helpID="命名函数" path="progr/named_func.html"/>
+   <appContext helpID="匿名函数" path="progr/anonym_func.html"/>
+   <appContext helpID="部分应用" path="progr/partial_app.html"/>
+   <appContext helpID="lambda表达式" path="progr/lambda.html"/>
+   <appContext helpID="闭包" path="progr/closure.html"/>
+   <appContext helpID="远程函数调用" path="progr/rfc.html"/>
+   <appContext helpID="高阶函数" path="funcs/ho_funcs/ho_funcs.html"/>
+   <appContext helpID="composition" path="funcs/ho_funcs/composition.html"/>
+   <appContext helpID="元编程" path="progr/objs/meta_progr.html"/>
+   <appContext helpID="元编程" path="progr/metaProgr_func.html"/>
+   <appContext helpID="macrovariations" path="progr/macrovariations.html"/>
+   <appContext helpID="oop" path="progr/oop.html"/>
+   <appContext helpID="class_objects" path="progr/class_objects.html"/>
+   <appContext helpID="constructor" path="progr/constructor.html"/>
+   <appContext helpID="attributes" path="progr/attributes.html"/>
+   <appContext helpID="member_function" path="progr/member_function.html"/>
+   <appContext helpID="inheritance" path="progr/inheritance.html"/>
+   <appContext helpID="utility" path="progr/utility.html"/>
+   <appContext helpID="application" path="progr/application.html"/>
+   <appContext helpID="文件操作" path="progr/file_io/file_oper.html"/>
+   <appContext helpID="二进制文件处理" path="progr/file_io/process_bin.html"/>
+   <appContext helpID="表输入输出" path="progr/file_io/tb_io.html"/>
+   <appContext helpID="文本文件处理" path="progr/file_io/process_txt.html"/>
+   <appContext helpID="chap4_sect_sql_statements" path="progr/sql/sql_intro.html"/>
+   <appContext helpID="ddl" path="progr/sql/sql_ddl.html"/>
+   <appContext helpID="create" path="progr/sql/create.html"/>
+   <appContext helpID="alter" path="progr/sql/alter.html"/>
+   <appContext helpID="drop" path="progr/sql/drop.html"/>
+   <appContext helpID="dml" path="progr/sql/sql_dml.html"/>
+   <appContext helpID="insert-into" path="progr/sql/insertInto.html"/>
+   <appContext helpID="update" path="progr/sql/update.html"/>
+   <appContext helpID="delete" path="progr/sql/delete.html"/>
+   <appContext helpID="dql" path="progr/sql/sql_dql.html"/>
+   <appContext helpID="select" path="progr/sql/Select.html"/>
+   <appContext helpID="exec" path="progr/sql/exec.html"/>
+   <appContext helpID="where" path="progr/sql/where.html"/>
+   <appContext helpID="group-by" path="progr/sql/groupby.html"/>
+   <appContext helpID="context-by" path="progr/sql/contextBy.html"/>
+   <appContext helpID="pivot-by" path="progr/sql/pivotBy.html"/>
+   <appContext helpID="order-by" path="progr/sql/orderby.html"/>
+   <appContext helpID="top" path="progr/sql/top.html"/>
+   <appContext helpID="limit" path="progr/sql/limit.html"/>
+   <appContext helpID="case" path="progr/sql/case.html"/>
+   <appContext helpID="cgroup-by" path="progr/sql/cgroupby.html"/>
+   <appContext helpID="distinct" path="progr/sql/distinct.html"/>
+   <appContext helpID="having" path="progr/sql/having.html"/>
+   <appContext helpID="interval" path="progr/sql/interval.html"/>
+   <appContext helpID="map" path="progr/sql/map.html"/>
+   <appContext helpID="partition" path="progr/sql/partition.html"/>
+   <appContext helpID="sample" path="progr/sql/sample.html"/>
+   <appContext helpID="analyticFunction" path="progr/sql/analyticFunction.html"/>
+   <appContext helpID="predicates" path="progr/sql/predicates.html"/>
+   <appContext helpID="coalesce" path="progr/sql/coalesce.html"/>
+   <appContext helpID="anyall" path="progr/sql/any.html"/>
+   <appContext helpID="nullif" path="funcs/n/nullIf.html"/>
+   <appContext helpID="unionunion-all" path="progr/sql/union.html"/>
+   <appContext helpID="with" path="progr/sql/with.html"/>
+   <appContext helpID="between" path="progr/sql/between.html"/>
+   <appContext helpID="exists" path="progr/sql/exists.html"/>
+   <appContext helpID="is-null" path="progr/sql/isnull.html"/>
+   <appContext helpID="in_predicates" path="progr/sql/in.html"/>
+   <appContext helpID="like_predicates" path="progr/sql/like.html"/>
+   <appContext helpID="notlike_notlike" path="progr/sql/notlike.html"/>
+   <appContext helpID="notbetween_notbetween" path="progr/sql/notbetween.html"/>
+   <appContext helpID="notin_notin" path="progr/sql/notin.html"/>
+   <appContext helpID="table_joiners" path="progr/sql/tb_joiner_intro.html"/>
+   <appContext helpID="asof-join" path="progr/sql/asofjoin.html"/>
+   <appContext helpID="cross-join" path="progr/sql/crossjoin.html"/>
+   <appContext helpID="equi-join" path="progr/sql/equijoin.html"/>
+   <appContext helpID="full-joinfull-outer-join" path="progr/sql/fulljoin.html"/>
+   <appContext helpID="inner-join" path="progr/sql/innerjoin.html"/>
+   <appContext helpID="join_sql" path="progr/sql/join.html"/>
+   <appContext helpID="left-joinleft-outer-join" path="progr/sql/leftjoin.html"/>
+   <appContext helpID="prefix-join" path="progr/sql/prefixjoin.html"/>
+   <appContext helpID="right-joinright-outer-join" path="progr/sql/rightjoin.html"/>
+   <appContext helpID="window-join" path="progr/sql/windowjoin.html"/>
+   <appContext helpID="执行顺序" path="progr/sql/exe_order.html"/>
+   <appContext helpID="landingpage_sql_trace" path="progr/sql/sql_trace.html"/>
+   <appContext helpID="gettraces" path="progr/sql/getTraces.html"/>
+   <appContext helpID="settracemode" path="progr/sql/setTraceMode.html"/>
+   <appContext helpID="viewtraceinfo" path="progr/sql/viewTraceInfo.html"/>
+   <appContext helpID="hint" path="progr/sql/hint.html"/>
+   <appContext helpID="hint-explain" path="progr/sql/hint_explain.html"/>
+   <appContext helpID="python-parser-简介" path="progr/py_parser/py_par_intro.html"/>
+   <appContext helpID="如何使用" path="progr/py_parser/how-to-use.html"/>
+   <appContext helpID="兼容性说明" path="progr/py_parser/compatibility.html"/>
+   <appContext helpID="数据类型" path="progr/py_parser/datatype.html"/>
+   <appContext helpID="数据结构" path="progr/py_parser/datastructure/data_structure.html"/>
+   <appContext helpID="列表" path="progr/py_parser/datastructure/list.html"/>
+   <appContext helpID="元组" path="progr/py_parser/datastructure/tuple.html"/>
+   <appContext helpID="字典" path="progr/py_parser/datastructure/dict.html"/>
+   <appContext helpID="集合" path="progr/py_parser/datastructure/set.html"/>
+   <appContext helpID="语法" path="progr/py_parser/programming/syntax.html"/>
+   <appContext helpID="赋值语句" path="progr/py_parser/programming/assignment.html"/>
+   <appContext helpID="编程语句" path="progr/py_parser/programming/statement.html"/>
+   <appContext helpID="拓展语法" path="progr/py_parser/programming/extension.html"/>
+   <appContext helpID="推导式" path="progr/py_parser/programming/comprehension.html"/>
+   <appContext helpID="函数" path="progr/py_parser/programming/function.html"/>
+   <appContext helpID="类" path="progr/py_parser/programming/class.html"/>
+   <appContext helpID="dolphindb-pandas" path="progr/py_parser/pandas/ddb_pandas.html"/>
+   <appContext helpID="series" path="progr/py_parser/pandas/series.html"/>
+   <appContext helpID="dataframe" path="progr/py_parser/pandas/dataframe.html"/>
+   <appContext helpID="window" path="progr/py_parser/pandas/window.html"/>
+   <appContext helpID="groupby" path="progr/py_parser/pandas/groupby.html"/>
+   <appContext helpID="functions_references" path="funcs/funcs_intro.html"/>
+   <appContext helpID="funcs_by_topics" path="funcs/funcs_by_topics.html"/>
+   <appContext helpID="abs" path="funcs/a/abs.html"/>
+   <appContext helpID="acf" path="funcs/a/acf.html"/>
+   <appContext helpID="acos" path="funcs/a/acos.html"/>
+   <appContext helpID="acosh" path="funcs/a/acosh.html"/>
+   <appContext helpID="adaboostclassifier" path="funcs/a/adaBoostClassifier.html"/>
+   <appContext helpID="adaboostregressor" path="funcs/a/adaBoostRegressor.html"/>
+   <appContext helpID="add" path="funcs/a/add.html"/>
+   <appContext helpID="addaccesscontrol" path="funcs/a/addAccessControl.html"/>
+   <appContext helpID="addcolumn" path="funcs/a/addColumn.html"/>
+   <appContext helpID="addfunctionview" path="funcs/a/addFunctionView.html"/>
+   <appContext helpID="addgpfunction" path="funcs/a/addgpfunction.html"/>
+   <appContext helpID="addgroupmember" path="funcs/a/addGroupMember.html"/>
+   <appContext helpID="addipblacklist" path="funcs/a/addipblacklist.html"/>
+   <appContext helpID="addipwhitelist" path="funcs/a/addipwhitelist.html"/>
+   <appContext helpID="addmarketholiday" path="funcs/a/addMarketHoliday.html"/>
+   <appContext helpID="addmetrics" path="funcs/a/addMetrics.html"/>
+   <appContext helpID="addnode" path="funcs/a/addNode.html"/>
+   <appContext helpID="addrangepartitions" path="funcs/a/addRangePartitions.html"/>
+   <appContext helpID="addreactivemetrics" path="funcs/a/addreactivemetrics.html"/>
+   <appContext helpID="addvaluepartitions" path="funcs/a/addValuePartitions.html"/>
+   <appContext helpID="addvolumes" path="funcs/a/addVolumes.html"/>
+   <appContext helpID="adfuller" path="funcs/a/adfuller.html"/>
+   <appContext helpID="align" path="funcs/a/align.html"/>
+   <appContext helpID="all" path="funcs/a/all.html"/>
+   <appContext helpID="amortizingfixedratebonddirtyprice"
+               path="funcs/a/amortizingfixedratebonddirtyprice.html"/>
+   <appContext helpID="and" path="funcs/a/and.html"/>
+   <appContext helpID="anova" path="funcs/a/anova.html"/>
+   <appContext helpID="any" path="funcs/a/any.html"/>
+   <appContext helpID="append" path="funcs/a/append!.html"/>
+   <appContext helpID="appendforjoin" path="funcs/a/appendForJoin.html"/>
+   <appContext helpID="appendforprediction" path="funcs/a/appendforprediction.html"/>
+   <appContext helpID="appendmsg" path="funcs/a/appendMsg.html"/>
+   <appContext helpID="appendOrcaStreamTable"
+               path="funcs/a/appendOrcaStreamTable.html"/>
+   <appContext helpID="appendtuple" path="funcs/a/appendTupel_.html"/>
+   <appContext helpID="array" path="funcs/a/array.html"/>
+   <appContext helpID="arima" path="funcs/a/arima.html"/>
+   <appContext helpID="arrayvector" path="funcs/a/arrayVector.html"/>
+   <appContext helpID="asfreq" path="funcs/a/asFreq.html"/>
+   <appContext helpID="asfreq" path="funcs/a/asfreq1.html"/>
+   <appContext helpID="asin" path="funcs/a/asin.html"/>
+   <appContext helpID="asinh" path="funcs/a/asinh.html"/>
+   <appContext helpID="asis" path="funcs/a/asIs.html"/>
+   <appContext helpID="asof" path="funcs/a/asof.html"/>
+   <appContext helpID="at" path="funcs/a/at.html"/>
+   <appContext helpID="atan" path="funcs/a/atan.html"/>
+   <appContext helpID="atanh" path="funcs/a/atanh.html"/>
+   <appContext helpID="atimax" path="funcs/a/atImax.html"/>
+   <appContext helpID="atimin" path="funcs/a/atImin.html"/>
+   <appContext helpID="attributenames" path="funcs/a/attributenames.html"/>
+   <appContext helpID="attributevalues" path="funcs/a/attributevalues.html"/>
+   <appContext helpID="autocorr" path="funcs/a/autocorr.html"/>
+   <appContext helpID="avg" path="funcs/a/avg.html"/>
+   <appContext helpID="backup" path="funcs/b/backup.html"/>
+   <appContext helpID="backupdb" path="funcs/b/backupDB.html"/>
+   <appContext helpID="backupsettings" path="funcs/b/backupsettings.html"/>
+   <appContext helpID="backuptable" path="funcs/b/backupTable.html"/>
+   <appContext helpID="bar" path="funcs/b/bar.html"/>
+   <appContext helpID="base64decode" path="funcs/b/base64Decode.html"/>
+   <appContext helpID="base64encode" path="funcs/b/base64Encode.html"/>
+   <appContext helpID="beta" path="funcs/b/beta.html"/>
+   <appContext helpID="between" path="funcs/b/between.html"/>
+   <appContext helpID="bfill" path="funcs/b/bfill.html"/>
+   <appContext helpID="bfill" path="funcs/b/bfill_.html"/>
+   <appContext helpID="bigarray" path="funcs/b/bigarray.html"/>
+   <appContext helpID="binaryexpr" path="funcs/b/binaryExpr.html"/>
+   <appContext helpID="binsrch" path="funcs/b/binsrch.html"/>
+   <appContext helpID="bitand" path="funcs/b/bitAnd.html"/>
+   <appContext helpID="bitnot" path="funcs/b/bitNot.html"/>
+   <appContext helpID="bitor" path="funcs/b/bitOr.html"/>
+   <appContext helpID="bitxor" path="funcs/b/bitXor.html"/>
+   <appContext helpID="blob" path="funcs/b/blob.html"/>
+   <appContext helpID="bondaccrint" path="funcs/b/bondaccrint.html"/>
+   <appContext helpID="bondCalculator" path="funcs/b/bondCalculator.html"/>
+   <appContext helpID="ficashflow" path="funcs/b/bondCashflow.html"/>
+   <appContext helpID="bondconvexity" path="funcs/b/bondconvexity.html"/>
+   <appContext helpID="bonddirtyprice" path="funcs/b/bondDirtyPrice.html"/>
+   <appContext helpID="bondduration" path="funcs/b/bondDuration.html"/>
+   <appContext helpID="bondyield" path="funcs/b/bondyield.html"/>
+   <appContext helpID="bool" path="funcs/b/bool.html"/>
+   <appContext helpID="boxcox" path="funcs/b/boxcox.html"/>
+   <appContext helpID="brute" path="funcs/b/brute.html"/>
+   <appContext helpID="brentq" path="funcs/b/brentq.html"/>
+   <appContext helpID="bucket" path="funcs/b/bucket.html"/>
+   <appContext helpID="bucketcount" path="funcs/b/bucketCount.html"/>
+   <appContext helpID="businessday" path="funcs/b/businessDay.html"/>
+   <appContext helpID="businessmonthbegin" path="funcs/b/businessMonthBegin.html"/>
+   <appContext helpID="businessmonthend" path="funcs/b/businessMonthEnd.html"/>
+   <appContext helpID="businessquarterbegin" path="funcs/b/businessQuarterBegin.html"/>
+   <appContext helpID="businessquarterend" path="funcs/b/businessQuarterEnd.html"/>
+   <appContext helpID="businessyearbegin" path="funcs/b/businessYearBegin.html"/>
+   <appContext helpID="businessyearend" path="funcs/b/businessYearEnd.html"/>
+   <appContext helpID="bvls" path="funcs/b/bvls.html"/>
+   <appContext helpID="cacheds" path="funcs/c/cacheDS_.html"/>
+   <appContext helpID="cachedsnow" path="funcs/c/cacheDSNow.html"/>
+   <appContext helpID="cachedtable" path="funcs/c/cachedTable.html"/>
+   <appContext helpID="callableFixedRateBondDirtyPrice"
+               path="funcs/c/callableFixedRateBondDirtyPrice.html"/>
+   <appContext helpID="cancelconsolejob" path="funcs/c/cancelConsoleJob.html"/>
+   <appContext helpID="canceljob" path="funcs/c/cancelJob.html"/>
+   <appContext helpID="cancelpkeycompactiontask"
+               path="funcs/c/cancelpkeycompactiontask.html"/>
+   <appContext helpID="cancelrebalancetask" path="funcs/c/cancelRebalanceTask.html"/>
+   <appContext helpID="cancelrecoverytask" path="funcs/c/cancelRecoveryTask.html"/>
+   <appContext helpID="cast" path="funcs/c/cast.html"/>
+   <appContext helpID="cbrt" path="funcs/c/cbrt.html"/>
+   <appContext helpID="cdfbeta" path="funcs/c/cdfBeta.html"/>
+   <appContext helpID="cdfbinomial" path="funcs/c/cdfBinomial.html"/>
+   <appContext helpID="cdfchisquare" path="funcs/c/cdfChiSquare.html"/>
+   <appContext helpID="cdfexp" path="funcs/c/cdfExp.html"/>
+   <appContext helpID="cdff" path="funcs/c/cdfF.html"/>
+   <appContext helpID="cdfgamma" path="funcs/c/cdfGamma.html"/>
+   <appContext helpID="cdfkolmogorov" path="funcs/c/cdfKolmogorov.html"/>
+   <appContext helpID="cdflogistic" path="funcs/c/cdfLogistic.html"/>
+   <appContext helpID="cdfnormal" path="funcs/c/cdfNormal.html"/>
+   <appContext helpID="cdfpoisson" path="funcs/c/cdfPoisson.html"/>
+   <appContext helpID="cdfstudent" path="funcs/c/cdfStudent.html"/>
+   <appContext helpID="cdfuniform" path="funcs/c/cdfUniform.html"/>
+   <appContext helpID="cdfweibull" path="funcs/c/cdfWeibull.html"/>
+   <appContext helpID="cdfzipf" path="funcs/c/cdfZipf.html"/>
+   <appContext helpID="cds" path="funcs/c/cds.html"/>
+   <appContext helpID="ceil" path="funcs/c/ceil.html"/>
+   <appContext helpID="cell" path="funcs/c/cell.html"/>
+   <appContext helpID="cells" path="funcs/c/cells.html"/>
+   <appContext helpID="changepwd" path="funcs/c/changePwd.html"/>
+   <appContext helpID="char" path="funcs/c/char.html"/>
+   <appContext helpID="charat" path="funcs/c/charAt.html"/>
+   <appContext helpID="checkbackup" path="funcs/c/checkBackup.html"/>
+   <appContext helpID="chisquaretest" path="funcs/c/chiSquareTest.html"/>
+   <appContext helpID="cholesky" path="funcs/c/cholesky.html"/>
+   <appContext helpID="cj" path="funcs/c/cj.html"/>
+   <appContext helpID="cleanoutdatelogfiles" path="funcs/c/cleanOutdateLogFiles.html"/>
+   <appContext helpID="clear" path="funcs/c/clear_.html"/>
+   <appContext helpID="clearallcache" path="funcs/c/clearAllCache.html"/>
+   <appContext helpID="clearalliotdbstatictablecache"
+               path="funcs/c/clearalliotdblatestkeycache.html"/>
+   <appContext helpID="clearalliotdbstatictablecache"
+               path="funcs/c/clearalliotdbstatictablecache.html"/>
+   <appContext helpID="clearallcache" path="funcs/c/clearalltsdbsymbolbasecache.html"/>
+   <appContext helpID="clearcacheddatabase" path="funcs/c/clearCachedDatabase.html"/>
+   <appContext helpID="clearcomputenodecache"
+               path="funcs/c/clearcomputenodecache.html"/>
+   <appContext helpID="clearcomputenodediskcache"
+               path="funcs/c/clearcomputenodediskcache.html"/>
+   <appContext helpID="clearcachedmodules" path="funcs/c/clearCachedModules.html"/>
+   <appContext helpID="cleardscache" path="funcs/c/clearDSCache_.html"/>
+   <appContext helpID="cleardscachenow" path="funcs/c/clearDSCacheNow.html"/>
+   <appContext helpID="cleartablepersistence"
+               path="funcs/c/clearTablePersistence.html"/>
+   <appContext helpID="clip" path="funcs/c/clip.html"/>
+   <appContext helpID="clip_" path="funcs/c/clip_.html"/>
+   <appContext helpID="close" path="funcs/c/close.html"/>
+   <appContext helpID="closesessions" path="funcs/c/closeSessions.html"/>
+   <appContext helpID="coevent" path="funcs/c/coevent.html"/>
+   <appContext helpID="coint" path="funcs/c/coint.html"/>
+   <appContext helpID="col" path="funcs/c/col.html"/>
+   <appContext helpID="cols" path="funcs/c/cols.html"/>
+   <appContext helpID="columnnames" path="funcs/c/columnNames.html"/>
+   <appContext helpID="complex" path="funcs/c/complex.html"/>
+   <appContext helpID="compose" path="funcs/c/compose.html"/>
+   <appContext helpID="compress" path="funcs/c/compress.html"/>
+   <appContext helpID="concat" path="funcs/c/concat.html"/>
+   <appContext helpID="concatdatetime" path="funcs/c/concatDateTime.html"/>
+   <appContext helpID="concatmatrix" path="funcs/c/concatMatrix.html"/>
+   <appContext helpID="conditionalfilter" path="funcs/c/conditionalFilter.html"/>
+   <appContext helpID="conditionaliterate" path="funcs/c/conditionalIterate.html"/>
+   <appContext helpID="cvar" path="funcs/c/cvar.html"/>
+   <appContext helpID="constantdesc" path="funcs/c/constantdesc.html"/>
+   <appContext helpID="contextcount" path="funcs/c/contextCount.html"/>
+   <appContext helpID="contextsum" path="funcs/c/contextSum.html"/>
+   <appContext helpID="contextsum2" path="funcs/c/contextSum2.html"/>
+   <appContext helpID="convertencode" path="funcs/c/convertEncode.html"/>
+   <appContext helpID="convertexcelformula" path="funcs/c/convertExcelFormula.html"/>
+   <appContext helpID="convertiblefixedratebonddirtyprice"
+               path="funcs/c/convertiblefixedratebonddirtyprice.html"/>
+   <appContext helpID="converttz" path="funcs/c/convertTZ.html"/>
+   <appContext helpID="copy" path="funcs/c/copy.html"/>
+   <appContext helpID="copyreplicas" path="funcs/c/copyReplicas.html"/>
+   <appContext helpID="corr" path="funcs/c/corr.html"/>
+   <appContext helpID="corrmatrix" path="funcs/c/corrMatrix.html"/>
+   <appContext helpID="cos" path="funcs/c/cos.html"/>
+   <appContext helpID="cosh" path="funcs/c/cosh.html"/>
+   <appContext helpID="count" path="funcs/c/count.html"/>
+   <appContext helpID="countnaninf" path="funcs/c/countNanInf.html"/>
+   <appContext helpID="covar" path="funcs/c/covar.html"/>
+   <appContext helpID="covarmatrix" path="funcs/c/covarMatrix.html"/>
+   <appContext helpID="crc32" path="funcs/c/crc32.html"/>
+   <appContext helpID="createanomalydetectionengine"
+               path="funcs/c/createAnomalyDetectionEngine.html"/>
+   <appContext helpID="createasofjoinengine" path="funcs/c/createAsofJoinEngine.html"/>
+   <appContext helpID="createCatalog" path="funcs/c/createCatalog.html"/>
+   <appContext helpID="createcrosssectionalaggregator"
+               path="funcs/c/createCrossSectionalAggregator.html"/>
+   <appContext helpID="createcrosssectionalengine"
+               path="funcs/c/createCrossSectionalEngine.html"/>
+   <appContext helpID="createcryptoorderbookengine"
+               path="funcs/c/createcryptoorderbookengine.html"/>
+   <appContext helpID="createdailytimeseriesengine"
+               path="funcs/c/createDailyTimeSeriesEngine.html"/>
+   <appContext helpID="createdeviceengine" path="funcs/c/createdeviceengine.html"/>
+   <appContext helpID="createdimensiontable" path="funcs/c/createdimensiontable.html"/>
+   <appContext helpID="createdistributedinmemorytable"
+               path="funcs/c/createDistributedInMemoryTable.html"/>
+   <appContext helpID="createdualownershipreactivestateengine"
+               path="funcs/c/createDualOwnershipReactiveStateEngine.html"/>
+   <appContext helpID="createequaljoinengine"
+               path="funcs/c/createEqualJoinEngine.html"/>
+   <appContext helpID="createequijoinengine" path="funcs/c/createEquiJoinEngine.html"/>
+   <appContext helpID="creategplearnengine" path="funcs/c/creategplearnengine.html"/>
+   <appContext helpID="creategroup" path="funcs/c/createGroup.html"/>
+   <appContext helpID="createipcinmemorytable"
+               path="funcs/c/createIPCInMemoryTable.html"/>
+   <appContext helpID="createIMOLTPTable" path="funcs/c/createIMOLTPTable.html"/>
+   <appContext helpID="createleftsemijoinengine"
+               path="funcs/c/createLeftSemiJoinEngine.html"/>
+   <appContext helpID="createlookupjoinengine"
+               path="funcs/c/createLookupJoinEngine.html"/>
+   <appContext helpID="createnarrowreactivestateengine"
+               path="funcs/c/createnarrowreactivestateengine.html"/>
+   <appContext helpID="createorderbooksnapshotengine"
+               path="funcs/c/createorderbooksnapshotengine.html"/>
+   <appContext helpID="createpartitionedtable"
+               path="funcs/c/createPartitionedTable.html"/>
+   <appContext helpID="createpricingengine" path="funcs/c/createpricingengine.html"/>
+   <appContext helpID="createreactivestateengine"
+               path="funcs/c/createReactiveStateEngine.html"/>
+   <appContext helpID="createReactiveStatelessEngine"
+               path="funcs/c/createReactiveStatelessEngine.html"/>
+   <appContext helpID="createruleengine" path="funcs/c/createRuleEngine.html"/>
+   <appContext helpID="createSchema" path="funcs/c/createSchema.html"/>
+   <appContext helpID="createsessionwindowengine"
+               path="funcs/c/createSessionWindowEngine.html"/>
+   <appContext helpID="createsnapshotjoinengine"
+               path="funcs/c/createsnapshotjoinengine.html"/>
+   <appContext helpID="createstreambroadcastengine"
+               path="funcs/c/createstreambroadcastengine.html"/>
+   <appContext helpID="createstreamdispatchengine"
+               path="funcs/c/createStreamDispatchEngine.html"/>
+   <appContext helpID="createStreamGraph" path="funcs/c/createStreamGraph.html"/>
+   <appContext helpID="createtable" path="funcs/c/createTable.html"/>
+   <appContext helpID="createtimebucketengine"
+               path="funcs/c/createtimebucketengine.html"/>
+   <appContext helpID="createtimeseriesaggregator"
+               path="funcs/c/createTimeSeriesAggregator.html"/>
+   <appContext helpID="createtimeseriesengine"
+               path="funcs/c/createTimeSeriesEngine.html"/>
+   <appContext helpID="createuser" path="funcs/c/createUser.html"/>
+   <appContext helpID="createwindowjoinengine"
+               path="funcs/c/createWindowJoinEngine.html"/>
+   <appContext helpID="createyieldcurveengine"
+               path="funcs/c/createyieldcurveengine.html"/>
+   <appContext helpID="crmwcbond" path="funcs/c/crmwcbond.html"/>
+   <appContext helpID="crossstat" path="funcs/c/crossStat.html"/>
+   <appContext helpID="cubichermitesplinefit"
+               path="funcs/c/cubichermitesplinefit.html"/>
+   <appContext helpID="cubicspline" path="funcs/c/cubicspline.html"/>
+   <appContext helpID="cubicsplinepredic" path="funcs/c/cubicsplinepredic.html"/>
+   <appContext helpID="cumavg" path="funcs/c/cumavg.html"/>
+   <appContext helpID="cumavgtopn" path="funcs/c/cumavgTopN.html"/>
+   <appContext helpID="cumbeta" path="funcs/c/cumbeta.html"/>
+   <appContext helpID="cumbetatopn" path="funcs/c/cumbetaTopN.html"/>
+   <appContext helpID="cumcorr" path="funcs/c/cumcorr.html"/>
+   <appContext helpID="cumcorrtopn" path="funcs/c/cumcorrTopN.html"/>
+   <appContext helpID="cumcount" path="funcs/c/cumcount.html"/>
+   <appContext helpID="cumcovar" path="funcs/c/cumcovar.html"/>
+   <appContext helpID="cumcovartopn" path="funcs/c/cumcovarTopN.html"/>
+   <appContext helpID="cumdenserank" path="funcs/c/cumdenseRank.html"/>
+   <appContext helpID="cumfirstnot" path="funcs/c/cumfirstNot.html"/>
+   <appContext helpID="cumkurtosistopn" path="funcs/c/cumkurtosisTopN.html"/>
+   <appContext helpID="cumlastnot" path="funcs/c/cumlastNot.html"/>
+   <appContext helpID="cummax" path="funcs/c/cummax.html"/>
+   <appContext helpID="cummed" path="funcs/c/cummed.html"/>
+   <appContext helpID="cummdd" path="funcs/c/cummdd.html"/>
+   <appContext helpID="cummin" path="funcs/c/cummin.html"/>
+   <appContext helpID="cumnunique" path="funcs/c/cumnunique.html"/>
+   <appContext helpID="cumpercentile" path="funcs/c/cumpercentile.html"/>
+   <appContext helpID="cumpositivestreak" path="funcs/c/cumPositiveStreak.html"/>
+   <appContext helpID="cumprod" path="funcs/c/cumprod.html"/>
+   <appContext helpID="cumrank" path="funcs/c/cumrank.html"/>
+   <appContext helpID="cumskewtopn" path="funcs/c/cumskewTopN.html"/>
+   <appContext helpID="cumstd" path="funcs/c/cumstd.html"/>
+   <appContext helpID="cumstdp" path="funcs/c/cumstdp.html"/>
+   <appContext helpID="cumstdptopn" path="funcs/c/cumstdpTopN.html"/>
+   <appContext helpID="cumstdtopn" path="funcs/c/cumstdTopN.html"/>
+   <appContext helpID="cumsum" path="funcs/c/cumsum.html"/>
+   <appContext helpID="cumsum2" path="funcs/c/cumsum2.html"/>
+   <appContext helpID="cumsum3" path="funcs/c/cumsum3.html"/>
+   <appContext helpID="cumsum4" path="funcs/c/cumsum4.html"/>
+   <appContext helpID="cumsumtopn" path="funcs/c/cumsumTopN.html"/>
+   <appContext helpID="cumvar" path="funcs/c/cumvar.html"/>
+   <appContext helpID="cumvarp" path="funcs/c/cumvarp.html"/>
+   <appContext helpID="cumvarptopn" path="funcs/c/cumvarpTopN.html"/>
+   <appContext helpID="cumvartopn" path="funcs/c/cumvarTopN.html"/>
+   <appContext helpID="cumwavg" path="funcs/c/cumwavg.html"/>
+   <appContext helpID="cumwsum" path="funcs/c/cumwsum.html"/>
+   <appContext helpID="cumwcovartopn" path="funcs/c/cumwsumTopN.html"/>
+   <appContext helpID="cut" path="funcs/c/cut.html"/>
+   <appContext helpID="cutpoints" path="funcs/c/cutPoints.html"/>
+   <appContext helpID="dailyalignedbar" path="funcs/d/dailyAlignedBar.html"/>
+   <appContext helpID="database" path="funcs/d/database.html"/>
+   <appContext helpID="date" path="funcs/d/date.html"/>
+   <appContext helpID="datehour" path="funcs/d/datehour.html"/>
+   <appContext helpID="datetime" path="funcs/d/datetime.html"/>
+   <appContext helpID="datetimeparse" path="funcs/d/datetimeParse.html"/>
+   <appContext helpID="dayofmonth" path="funcs/d/dayOfMonth.html"/>
+   <appContext helpID="dayofweek" path="funcs/d/dayOfWeek.html"/>
+   <appContext helpID="dayofyear" path="funcs/d/dayOfYear.html"/>
+   <appContext helpID="daysinmonth" path="funcs/d/daysInMonth.html"/>
+   <appContext helpID="decimal32" path="funcs/d/decimal32.html"/>
+   <appContext helpID="decimal64" path="funcs/d/decimal64.html"/>
+   <appContext helpID="decimal128" path="funcs/d/decimal128.html"/>
+   <appContext helpID="decimalformat" path="funcs/d/decimalFormat.html"/>
+   <appContext helpID="decimalmultiply" path="funcs/d/decimalMultiply.html"/>
+   <appContext helpID="decodeshortgenomeseq" path="funcs/d/decodeShortGenomeSeq.html"/>
+   <appContext helpID="decompress" path="funcs/d/decompress.html"/>
+   <appContext helpID="deepCopy" path="funcs/d/deepCopy.html"/>
+   <appContext helpID="defined" path="funcs/d/defined.html"/>
+   <appContext helpID="defs" path="funcs/d/defs.html"/>
+   <appContext helpID="deg2rad" path="funcs/d/deg2rad.html"/>
+   <appContext helpID="deletechunkmetaonmasterbyid"
+               path="funcs/d/deletechunkmetaonmasterbyid.html"/>
+   <appContext helpID="deletegroup" path="funcs/d/deleteGroup.html"/>
+   <appContext helpID="deletegroupmember" path="funcs/d/deleteGroupMember.html"/>
+   <appContext helpID="deleteMarketHoliday" path="funcs/d/deleteMarketHoliday.html"/>
+   <appContext helpID="deletereplicas" path="funcs/d/deleteReplicas.html"/>
+   <appContext helpID="deleterule" path="funcs/d/deleteRule.html"/>
+   <appContext helpID="deletescheduledjob" path="funcs/d/deleteScheduledJob.html"/>
+   <appContext helpID="deleteuser" path="funcs/d/deleteUser.html"/>
+   <appContext helpID="deltas" path="funcs/d/deltas.html"/>
+   <appContext helpID="dema" path="funcs/d/dema.html"/>
+   <appContext helpID="demean" path="funcs/d/demean.html"/>
+   <appContext helpID="denserank" path="funcs/d/denseRank.html"/>
+   <appContext helpID="deny" path="funcs/d/deny.html"/>
+   <appContext helpID="derivative" path="funcs/d/derivative.html"/>
+   <appContext helpID="det" path="funcs/d/det.html"/>
+   <appContext helpID="diag" path="funcs/d/diag.html"/>
+   <appContext helpID="dict" path="funcs/d/dict.html"/>
+   <appContext helpID="dictupdate" path="funcs/d/dictUpdate_.html"/>
+   <appContext helpID="difference" path="funcs/d/difference.html"/>
+   <appContext helpID="differentialevolution"
+               path="funcs/d/differentialevolution.html"/>
+   <appContext helpID="digitize" path="funcs/d/digitize.html"/>
+   <appContext helpID="disableactivepartition"
+               path="funcs/d/disableActivePartition.html"/>
+   <appContext helpID="disablequerymonitor" path="funcs/d/disableQueryMonitor.html"/>
+   <appContext helpID="disableresourcetracking"
+               path="funcs/d/disableresourcetracking.html"/>
+   <appContext helpID="disabletablepersistence"
+               path="funcs/d/disableTablePersistence.html"/>
+   <appContext helpID="disabletsdbasyncsorting"
+               path="funcs/d/disableTSDBAsyncSorting.html"/>
+   <appContext helpID="distance" path="funcs/d/distance.html"/>
+   <appContext helpID="distinct" path="funcs/d/distinct.html"/>
+   <appContext helpID="div" path="funcs/d/div.html"/>
+   <appContext helpID="divideddifference" path="funcs/d/dividedDifference.html"/>
+   <appContext helpID="dot" path="funcs/d/dot.html"/>
+   <appContext helpID="double" path="funcs/d/double.html"/>
+   <appContext helpID="drop" path="funcs/d/drop.html"/>
+   <appContext helpID="dropaggregator" path="funcs/d/dropAggregator.html"/>
+   <appContext helpID="dropCatalog" path="funcs/d/dropCatalog.html"/>
+   <appContext helpID="dropcolumns" path="funcs/d/dropColumns_.html"/>
+   <appContext helpID="dropdatabase" path="funcs/d/dropDatabase.html"/>
+   <appContext helpID="dropdistributedinmemorytable"
+               path="funcs/d/dropDistributedInMemoryTable.html"/>
+   <appContext helpID="dropfunctionview" path="funcs/d/dropFunctionView.html"/>
+   <appContext helpID="dropipcinmemorytable" path="funcs/d/dropIPCInMemoryTable.html"/>
+   <appContext helpID="dropna" path="funcs/d/dropna.html"/>
+   <appContext helpID="droppartition" path="funcs/d/dropPartition.html"/>
+   <appContext helpID="dropSchema" path="funcs/d/dropSchema.html"/>
+   <appContext helpID="dropstreamengine" path="funcs/d/dropStreamEngine.html"/>
+   <appContext helpID="dropStreamGraph" path="funcs/d/dropStreamGraph.html"/>
+   <appContext helpID="dropstreamtable" path="funcs/d/dropStreamTable.html"/>
+   <appContext helpID="droptable" path="funcs/d/dropTable.html"/>
+   <appContext helpID="DStream_anomalyDetectionEngine"
+               path="funcs/d/DStream_anomalyDetectionEngine.html"/>
+   <appContext helpID="DStream_asofJoinEngine"
+               path="funcs/d/DStream_asofJoinEngine.html"/>
+   <appContext helpID="DStream_crossSectionalEngine"
+               path="funcs/d/DStream_crossSectionalEngine.html"/>
+   <appContext helpID="DStream_cryptoOrderBookEngine"
+               path="funcs/d/DStream_cryptoOrderBookEngine.html"/>
+   <appContext helpID="DStream_dailyTimeSeriesEngine"
+               path="funcs/d/DStream_dailyTimeSeriesEngine.html"/>
+   <appContext helpID="DStream_dualOwnershipReactiveStateEngine"
+               path="funcs/d/DStream_dualOwnershipReactiveStateEngine.html"/>
+   <appContext helpID="DStream_equalJoinEngine"
+               path="funcs/d/DStream_equalJoinEngine.html"/>
+   <appContext helpID="DStream_fork" path="funcs/d/DStream_fork.html"/>
+   <appContext helpID="DStream_getOutputSchema"
+               path="funcs/d/DStream_getOutputSchema.html"/>
+   <appContext helpID="DStream_haKeyedSink" path="funcs/d/DStream_haKeyedSink.html"/>
+   <appContext helpID="DStream_haSink" path="funcs/d/DStream_haSink.html"/>
+   <appContext helpID="DStream_keyedSink" path="funcs/d/DStream_keyedSink.html"/>
+   <appContext helpID="DStream_latestKeyedSink"
+               path="funcs/d/DStream_latestKeyedSink.html"/>
+   <appContext helpID="DStream_leftSemiJoinEngine"
+               path="funcs/d/DStream_leftSemiJoinEngine.html"/>
+   <appContext helpID="DStream_lookupJoinEngine"
+               path="funcs/d/DStream_lookupJoinEngine.html"/>
+   <appContext helpID="DStream_map" path="funcs/d/DStream_map.html"/>
+   <appContext helpID="DStream_narrowReactiveStateEngine"
+               path="funcs/d/DStream_narrowReactiveStateEngine.html"/>
+   <appContext helpID="DStream_orderBookSnapshotEngine"
+               path="funcs/d/DStream_orderBookSnapshotEngine.html"/>
+   <appContext helpID="DStream_parallelize" path="funcs/d/DStream_parallelize.html"/>
+   <appContext helpID="DStream_pricingEngine"
+               path="funcs/d/DStream_pricingEngine.html"/>
+   <appContext helpID="DStream_reactiveStateEngine"
+               path="funcs/d/DStream_reactiveStateEngine.html"/>
+   <appContext helpID="DStream_reactiveStatelessEngine"
+               path="funcs/d/DStream_reactiveStatelessEngine.html"/>
+   <appContext helpID="DStream_ruleEngine" path="funcs/d/DStream_ruleEngine.html"/>
+   <appContext helpID="DStream_sessionWindowEngine"
+               path="funcs/d/DStream_sessionWindowEngine.html"/>
+   <appContext helpID="DStream_setEngineName"
+               path="funcs/d/DStream_setEngineName.html"/>
+   <appContext helpID="DStream_sink" path="funcs/d/DStream_sink.html"/>
+   <appContext helpID="DStream_snapshotJoinEngine"
+               path="funcs/d/DStream_snapshotJoinEngine.html"/>
+   <appContext helpID="DStream_sync" path="funcs/d/DStream_sync.html"/>
+   <appContext helpID="DStream_timeBucketEngine"
+               path="funcs/d/DStream_timeBucketEngine.html"/>
+   <appContext helpID="DStream_timeSeriesEngine"
+               path="funcs/d/DStream_timeSeriesEngine.html"/>
+   <appContext helpID="DStream_windowJoinEngine"
+               path="funcs/d/DStream_windowJoinEngine.html"/>
+   <appContext helpID="dumpheapsample" path="funcs/d/dumpheapsample.html"/>
+   <appContext helpID="duration" path="funcs/d/duration.html"/>
+   <appContext helpID="dynamicgroupcumcount" path="funcs/d/dynamicGroupCumcount.html"/>
+   <appContext helpID="dynamicgroupcumsum" path="funcs/d/dynamicGroupCumsum.html"/>
+   <appContext helpID="eig" path="funcs/e/eig.html"/>
+   <appContext helpID="elasticnet" path="funcs/e/elasticNet.html"/>
+   <appContext helpID="elasticnetbasic" path="funcs/e/elasticNetBasic.html"/>
+   <appContext helpID="elasticnetcv" path="funcs/e/elasticNetCV.html"/>
+   <appContext helpID="ema" path="funcs/e/ema.html"/>
+   <appContext helpID="enableactivepartition"
+               path="funcs/e/enableActivePartition.html"/>
+   <appContext helpID="enablequerymonitor" path="funcs/e/enableQueryMonitor.html"/>
+   <appContext helpID="enableresourcetracking"
+               path="funcs/e/enableresourcetracking.html"/>
+   <appContext helpID="enabletablecachepurge"
+               path="funcs/e/enabletablecachepurge.html"/>
+   <appContext helpID="enabletablepersistence"
+               path="funcs/e/enableTablePersistence.html"/>
+   <appContext helpID="enabletableshareandcachepurge"
+               path="funcs/e/enabletableshareandcachepurge.html"/>
+   <appContext helpID="enabletableshareandpersistence"
+               path="funcs/e/enableTableShareAndPersistence.html"/>
+   <appContext helpID="enabletdekey" path="funcs/e/enabletdekey.html"/>
+   <appContext helpID="enabletsdbasyncsorting"
+               path="funcs/e/enableTSDBAsyncSorting.html"/>
+   <appContext helpID="encodeshortgenomeseq" path="funcs/e/encodeShortGenomeSeq.html"/>
+   <appContext helpID="endswith" path="funcs/e/endsWith.html"/>
+   <appContext helpID="enlist" path="funcs/e/enlist.html"/>
+   <appContext helpID="eq" path="funcs/e/eq.html"/>
+   <appContext helpID="eqfloat" path="funcs/e/eqFloat.html"/>
+   <appContext helpID="eqobj" path="funcs/e/eqObj.html"/>
+   <appContext helpID="eqpercent" path="funcs/e/eqpercent.html"/>
+   <appContext helpID="erase" path="funcs/e/erase_.html"/>
+   <appContext helpID="esd" path="funcs/e/esd.html"/>
+   <appContext helpID="euclidean" path="funcs/e/euclidean.html"/>
+   <appContext helpID="eval" path="funcs/e/eval.html"/>
+   <appContext helpID="evaltimer" path="funcs/e/evalTimer.html"/>
+   <appContext helpID="ewmcorr" path="funcs/e/ewmCorr.html"/>
+   <appContext helpID="ewmcov" path="funcs/e/ewmCov.html"/>
+   <appContext helpID="ewmmean" path="funcs/e/ewmMean.html"/>
+   <appContext helpID="ewmstd" path="funcs/e/ewmStd.html"/>
+   <appContext helpID="ewmvar" path="funcs/e/ewmVar.html"/>
+   <appContext helpID="exists" path="funcs/e/exists.html"/>
+   <appContext helpID="existsCatalog" path="funcs/e/existsCatalog.html"/>
+   <appContext helpID="existsdatabase" path="funcs/e/existsDatabase.html"/>
+   <appContext helpID="existspartition" path="funcs/e/existsPartition.html"/>
+   <appContext helpID="existstreamstable" path="funcs/e/existsStreamTable.html"/>
+   <appContext helpID="existssubscriptiontopic"
+               path="funcs/e/existsSubscriptionTopic.html"/>
+   <appContext helpID="existstable" path="funcs/e/existsTable.html"/>
+   <appContext helpID="exp" path="funcs/e/exp.html"/>
+   <appContext helpID="exp2" path="funcs/e/exp2.html"/>
+   <appContext helpID="expm1" path="funcs/e/expm1.html"/>
+   <appContext helpID="expr" path="funcs/e/expr.html"/>
+   <appContext helpID="extracttextschema" path="funcs/e/extractTextSchema.html"/>
+   <appContext helpID="eye" path="funcs/e/eye.html"/>
+   <appContext helpID="ffill" path="funcs/f/ffill_.html"/>
+   <appContext helpID="ffill" path="funcs/f/ffill.html"/>
+   <appContext helpID="fflush" path="funcs/f/fflush.html"/>
+   <appContext helpID="file" path="funcs/f/file.html"/>
+   <appContext helpID="files" path="funcs/f/files.html"/>
+   <appContext helpID="fill" path="funcs/f/fill_.html"/>
+   <appContext helpID="find" path="funcs/f/find.html"/>
+   <appContext helpID="first" path="funcs/f/first.html"/>
+   <appContext helpID="firsthit" path="funcs/f/firstHit.html"/>
+   <appContext helpID="firstnot" path="funcs/f/firstNot.html"/>
+   <appContext helpID="fixedlengtharrayvector"
+               path="funcs/f/fixedLengthArrayVector.html"/>
+   <appContext helpID="flatten" path="funcs/f/flatten.html"/>
+   <appContext helpID="flip" path="funcs/f/flip.html"/>
+   <appContext helpID="floatingratebonddirtyprice"
+               path="funcs/f/floatingratebonddirtyprice.html"/>
+   <appContext helpID="floor" path="funcs/f/floor.html"/>
+   <appContext helpID="flushcomputenodememcache"
+               path="funcs/f/flushcomputenodememcache.html"/>
+   <appContext helpID="flusholapcache" path="funcs/f/flushOLAPCache.html"/>
+   <appContext helpID="flushpkeycache" path="funcs/f/flushpkeycache.html"/>
+   <appContext helpID="flushtsdbcache" path="funcs/f/flushTSDBCache.html"/>
+   <appContext helpID="fmin" path="funcs/f/fmin.html"/>
+   <appContext helpID="fminlbfgsb" path="funcs/f/fminbfgs.html"/>
+   <appContext helpID="fminlbfgsb" path="funcs/f/fminlbfgsb.html"/>
+   <appContext helpID="fminncg" path="funcs/f/fminncg.html"/>
+   <appContext helpID="fminslsqp" path="funcs/f/fminslsqp.html"/>
+   <appContext helpID="form" path="funcs/f/form.html"/>
+   <appContext helpID="format" path="funcs/f/format.html"/>
+   <appContext helpID="fromjson" path="funcs/f/fromJson.html"/>
+   <appContext helpID="fromStdJson" path="funcs/f/fromStdJson.html"/>
+   <appContext helpID="fromutf8" path="funcs/f/fromUTF8.html"/>
+   <appContext helpID="ftest" path="funcs/f/fTest.html"/>
+   <appContext helpID="funcbyname" path="funcs/f/funcByName.html"/>
+   <appContext helpID="fy5253" path="funcs/f/fy5253.html"/>
+   <appContext helpID="fy5253quarter" path="funcs/f/fy5253Quarter.html"/>
+   <appContext helpID="garch" path="funcs/g/garch.html"/>
+   <appContext helpID="gaussiannb" path="funcs/g/gaussiankde.html"/>
+   <appContext helpID="gaussiannb" path="funcs/g/gaussiankdepredict.html"/>
+   <appContext helpID="gaussiannb" path="funcs/g/gaussianNB.html"/>
+   <appContext helpID="ge" path="funcs/g/ge.html"/>
+   <appContext helpID="gema" path="funcs/g/gema.html"/>
+   <appContext helpID="generateuserticket" path="funcs/g/generateuserticket.html"/>
+   <appContext helpID="genericstateiterate" path="funcs/g/genericStateIterate.html"/>
+   <appContext helpID="generictstateiterate" path="funcs/g/genericTStateIterate.html"/>
+   <appContext helpID="genoutputcolumnsforobsnapshotengine"
+               path="funcs/g/genoutputcolumnsforobsnapshotengine.html"/>
+   <appContext helpID="genshortgenomeseq" path="funcs/g/genShortGenomeSeq.html"/>
+   <appContext helpID="geowithin" path="funcs/g/geowithin.html"/>
+   <appContext helpID="getaclauditlog" path="funcs/g/getaclauditlog.html"/>
+   <appContext helpID="getactivemaster" path="funcs/g/getActiveMaster.html"/>
+   <appContext helpID="getaggregator" path="funcs/g/getAggregator.html"/>
+   <appContext helpID="getaggregatorstat" path="funcs/g/getAggregatorStat.html"/>
+   <appContext helpID="getAllCatalogs" path="funcs/g/getAllCatalogs.html"/>
+   <appContext helpID="getAllClusters" path="funcs/g/getAllClusters.html"/>
+   <appContext helpID="getalldbgranularity" path="funcs/g/getAllDBGranularity.html"/>
+   <appContext helpID="getalldbs" path="funcs/g/getAllDBs.html"/>
+   <appContext helpID="getauditlog" path="funcs/g/getauditlog.html"/>
+   <appContext helpID="getauthenticatedusers"
+               path="funcs/g/getAuthenticatedUsers.html"/>
+   <appContext helpID="getauthenticateduserticket"
+               path="funcs/g/getauthenticateduserticket.html"/>
+   <appContext helpID="getbackuplist" path="funcs/g/getBackupList.html"/>
+   <appContext helpID="getbackupmeta" path="funcs/g/getBackupMeta.html"/>
+   <appContext helpID="getbackupstatus" path="funcs/g/getBackupStatus.html"/>
+   <appContext helpID="getcachedsymbolbasememsize"
+               path="funcs/g/getCachedSymbolBaseMemSize.html"/>
+   <appContext helpID="getcacheenginememsize"
+               path="funcs/g/getCacheEngineMemSize.html"/>
+   <appContext helpID="getcacheenginestat" path="funcs/g/getCacheEngineStat.html"/>
+   <appContext helpID="getCatalogsByCluster" path="funcs/g/getCatalogsByCluster.html"/>
+   <appContext helpID="getchunkpath" path="funcs/g/getChunkPath.html"/>
+   <appContext helpID="getchunksmeta" path="funcs/g/getChunksMeta.html"/>
+   <appContext helpID="getclusterchunksstatus"
+               path="funcs/g/getClusterChunksStatus.html"/>
+   <appContext helpID="getclusterdfsdatabases"
+               path="funcs/g/getClusterDFSDatabases.html"/>
+   <appContext helpID="getclusterdfstables" path="funcs/g/getClusterDFSTables.html"/>
+   <appContext helpID="getclusterperf" path="funcs/g/getClusterPerf.html"/>
+   <appContext helpID="getClusterStatus" path="funcs/g/getClusterStatus.html"/>
+   <appContext helpID="getclustertdekeys" path="funcs/g/getclustertdekeys.html"/>
+   <appContext helpID="getcompletedqueries" path="funcs/g/getCompletedQueries.html"/>
+   <appContext helpID="getcomputegroupchunksstatus"
+               path="funcs/g/getcomputegroupchunksstatus.html"/>
+   <appContext helpID="getComputeNodeCacheDetails"
+               path="funcs/g/getComputeNodeCacheDetails.html"/>
+   <appContext helpID="getcomputenodecachestat"
+               path="funcs/g/getcomputenodecachestat.html"/>
+   <appContext helpID="getcomputenodecachewarmupjobstatus"
+               path="funcs/g/getcomputenodecachewarmupjobstatus.html"/>
+   <appContext helpID="getcomputenodecachingdelay"
+               path="funcs/g/getcomputenodecachingdelay.html"/>
+   <appContext helpID="getconfig" path="funcs/g/getConfig.html"/>
+   <appContext helpID="getconfigure" path="funcs/g/getConfigure.html"/>
+   <appContext helpID="getconnections" path="funcs/g/getConnections.html"/>
+   <appContext helpID="getconsolejobs" path="funcs/g/getConsoleJobs.html"/>
+   <appContext helpID="getcontrolleralias" path="funcs/g/getControllerAlias.html"/>
+   <appContext helpID="getcontrollerelectiontick"
+               path="funcs/g/getControllerElectionTick.html"/>
+   <appContext helpID="getCurrentCatalog" path="funcs/g/getCurrentCatalog.html"/>
+   <appContext helpID="getcurrentsessionanduser"
+               path="funcs/g/getCurrentSessionAndUser.html"/>
+   <appContext helpID="getcurrenttdekeyversion"
+               path="funcs/g/getcurrenttdekeyversion.html"/>
+   <appContext helpID="getdatabaseclusterreplicationstatus"
+               path="funcs/g/getDatabaseClusterReplicationStatus.html"/>
+   <appContext helpID="getDatabasesByCluster"
+               path="funcs/g/getDatabasesByCluster.html"/>
+   <appContext helpID="getDatanodeRestartInterval"
+               path="funcs/g/getDatanodeRestartInterval.html"/>
+   <appContext helpID="getdbaccess" path="funcs/g/getDBAccess.html"/>
+   <appContext helpID="getdfsdatabases" path="funcs/g/getDFSDatabases.html"/>
+   <appContext helpID="getdfsdatabasebyowner"
+               path="funcs/g/getdfsdatabasebyowner.html"/>
+   <appContext helpID="getDfsRebalanceConcurrency"
+               path="funcs/g/getDfsRebalanceConcurrency.html"/>
+   <appContext helpID="getDfsRecoveryConcurrency"
+               path="funcs/g/getDfsRecoveryConcurrency.html"/>
+   <appContext helpID="getdfstablesbydatabase"
+               path="funcs/g/getDFSTablesByDatabase.html"/>
+   <appContext helpID="getdiskiostat" path="funcs/g/getDiskIOStat.html"/>
+   <appContext helpID="getdynamicconfig" path="funcs/g/getdynamicconfig.html"/>
+   <appContext helpID="getenablenullsafejoin"
+               path="funcs/g/getenablenullsafejoin.html"/>
+   <appContext helpID="getenv" path="funcs/g/getEnv.html"/>
+   <appContext helpID="getfunctionviews" path="funcs/g/getFunctionViews.html"/>
+   <appContext helpID="getgroupaccess" path="funcs/g/getGroupAccess.html"/>
+   <appContext helpID="getGroupAccessByCluster"
+               path="funcs/g/getGroupAccessByCluster.html"/>
+   <appContext helpID="getgrouplist" path="funcs/g/getGroupList.html"/>
+   <appContext helpID="getGroupListOfAllClusters"
+               path="funcs/g/getGroupListOfAllClusters.html"/>
+   <appContext helpID="getgroupsbyuserid" path="funcs/g/getGroupsByUserId.html"/>
+   <appContext helpID="gethomedir" path="funcs/g/getHomeDir.html"/>
+   <appContext helpID="getipblacklist" path="funcs/g/getipblacklist.html"/>
+   <appContext helpID="getipwhitelist" path="funcs/g/getipwhitelist.html"/>
+   <appContext helpID="getjobmessage" path="funcs/g/getJobMessage.html"/>
+   <appContext helpID="getjobreturn" path="funcs/g/getJobReturn.html"/>
+   <appContext helpID="getjobstat" path="funcs/g/getJobStat.html"/>
+   <appContext helpID="getjobstatus" path="funcs/g/getJobStatus.html"/>
+   <appContext helpID="getleftstream" path="funcs/g/getLeftStream.html"/>
+   <appContext helpID="getlevelfileindexcachestatus"
+               path="funcs/g/getLevelFileIndexCacheStats.html"/>
+   <appContext helpID="getlicenseexpiration" path="funcs/g/getLicenseExpiration.html"/>
+   <appContext helpID="getloadedplugins" path="funcs/g/getloadedplugins.html"/>
+   <appContext helpID="getLocalIOTDBStaticTable"
+               path="funcs/g/getLocalIOTDBStaticTable.html"/>
+   <appContext helpID="getmarketcalendar" path="funcs/g/getMarketCalendar.html"/>
+   <appContext helpID="getmasterreplicationstatus"
+               path="funcs/g/getMasterReplicationStatus.html"/>
+   <appContext helpID="getmemlimitofqueryresult"
+               path="funcs/g/getMemLimitOfQueryResult.html"/>
+   <appContext helpID="getmemlimitoftaskgroupresult"
+               path="funcs/g/getMemLimitOfTaskGroupResult.html"/>
+   <appContext helpID="getmemlimitofalltempresults"
+               path="funcs/g/getmemlimitofalltempresults.html"/>
+   <appContext helpID="getmemorystat" path="funcs/g/getMemoryStat.html"/>
+   <appContext helpID="getnodealias" path="funcs/g/getNodeAlias.html"/>
+   <appContext helpID="getnodehost" path="funcs/g/getNodeHost.html"/>
+   <appContext helpID="getnodeport" path="funcs/g/getNodePort.html"/>
+   <appContext helpID="getnodetype" path="funcs/g/getNodeType.html"/>
+   <appContext helpID="getolapcachedsymbolbasememsize"
+               path="funcs/g/getOLAPCachedSymbolBaseMemSize.html"/>
+   <appContext helpID="getolapcacheenginesize"
+               path="funcs/g/getOLAPCacheEngineSize.html"/>
+   <appContext helpID="getolapcacheenginestat"
+               path="funcs/g/getOLAPCacheEngineStat.html"/>
+   <appContext helpID="getOrcaCheckpointConfig"
+               path="funcs/g/getOrcaCheckpointConfig.html"/>
+   <appContext helpID="getOrcaCheckpointJobInfo"
+               path="funcs/g/getOrcaCheckpointJobInfo.html"/>
+   <appContext helpID="getOrcaCheckpointSubjobInfo"
+               path="funcs/g/getOrcaCheckpointSubjobInfo.html"/>
+   <appContext helpID="getOrcaStateMachineEventTaskStatus"
+               path="funcs/g/getOrcaStateMachineEventTaskStatus.html"/>
+   <appContext helpID="getOrcaStreamEngineMeta"
+               path="funcs/g/getOrcaStreamEngineMeta.html"/>
+   <appContext helpID="getOrcaStreamTableMeta"
+               path="funcs/g/getOrcaStreamTableMeta.html"/>
+   <appContext helpID="getOrcaStreamTaskSubscriptionMeta"
+               path="funcs/g/getOrcaStreamTaskSubscriptionMeta.html"/>
+   <appContext helpID="getos" path="funcs/g/getOS.html"/>
+   <appContext helpID="getosbit" path="funcs/g/getOSBit.html"/>
+   <appContext helpID="getperf" path="funcs/g/getPerf.html"/>
+   <appContext helpID="getpersistencemeta" path="funcs/g/getPersistenceMeta.html"/>
+   <appContext helpID="getpkeycompactiontaskstatus"
+               path="funcs/g/getpkeycompactiontaskstatus.html"/>
+   <appContext helpID="getpkeymetadata" path="funcs/g/getpkeymetadata.html"/>
+   <appContext helpID="getprefetchcomputenodedata"
+               path="funcs/g/getprefetchcomputenodedata.html"/>
+   <appContext helpID="getquerystatus" path="funcs/g/getQueryStatus.html"/>
+   <appContext helpID="getraftelectiontick" path="funcs/g/getRaftElectionTick.html"/>
+   <appContext helpID="getreactivemetrics" path="funcs/g/getreactivemetrics.html"/>
+   <appContext helpID="getrecentjobs" path="funcs/g/getRecentJobs.html"/>
+   <appContext helpID="getrecentslavereplicationinfo"
+               path="funcs/g/getRecentSlaveReplicationInfo.html"/>
+   <appContext helpID="getrecoverytaskstatus"
+               path="funcs/g/getRecoveryTaskStatus.html"/>
+   <appContext helpID="getrecoveryworkernum" path="funcs/g/getRecoveryWorkerNum.html"/>
+   <appContext helpID="getredologgcstat" path="funcs/g/getRedoLogGCStat.html"/>
+   <appContext helpID="getrightstream" path="funcs/g/getRightStream.html"/>
+   <appContext helpID="getrules" path="funcs/g/getrules.html"/>
+   <appContext helpID="getrunningqueries" path="funcs/g/getRunningQueries.html"/>
+   <appContext helpID="getscheduledjobs" path="funcs/g/getScheduledJobs.html"/>
+   <appContext helpID="getSchemaByCatalog" path="funcs/g/getSchemaByCatalog.html"/>
+   <appContext helpID="getSchemasByCluster" path="funcs/g/getSchemasByCluster.html"/>
+   <appContext helpID="getsessionexpiredtime"
+               path="funcs/g/getsessionexpiredtime.html"/>
+   <appContext helpID="getsessionmemorystat" path="funcs/g/getSessionMemoryStat.html"/>
+   <appContext helpID="getslavereplicationexecutionstatus"
+               path="funcs/g/getslavereplicationexecutionstatus.html"/>
+   <appContext helpID="getslavereplicationqueuestatus"
+               path="funcs/g/getslavereplicationqueuestatus.html"/>
+   <appContext helpID="getslavereplicationstatus"
+               path="funcs/g/getSlaveReplicationStatus.html"/>
+   <appContext helpID="getsnapshotmsgid" path="funcs/g/getSnapshotMsgId.html"/>
+   <appContext helpID="getstreamengine" path="funcs/g/getStreamEngine.html"/>
+   <appContext helpID="getstreamenginelist" path="funcs/g/getstreamenginelist.html"/>
+   <appContext helpID="getstreamenginestat" path="funcs/g/getStreamEngineStat.html"/>
+   <appContext helpID="ggetStreamGraph" path="funcs/getStreamGraph.html"/>
+   <appContext helpID="getStreamGraphInfo" path="funcs/getStreamGraphInfo.html"/>
+   <appContext helpID="getStreamGraphMeta" path="funcs/getStreamGraphMeta.html"/>
+   <appContext helpID="getstreamingleader" path="funcs/g/getStreamingLeader.html"/>
+   <appContext helpID="getstreamingraftgroups"
+               path="funcs/g/getStreamingRaftGroups.html"/>
+   <appContext helpID="getstreamingstat" path="funcs/g/getStreamingStat.html"/>
+   <appContext helpID="getstreamtablecacheoffset"
+               path="funcs/g/getstreamtablecacheoffset.html"/>
+   <appContext helpID="getstreamtablefiltercolumn"
+               path="funcs/g/getStreamTableFilterColumn.html"/>
+   <appContext helpID="getstreamtables" path="funcs/g/getstreamtables.html"/>
+   <appContext helpID="getsubscriptiontopic" path="funcs/g/getSubscriptionTopic.html"/>
+   <appContext helpID="getsupportbundle" path="funcs/g/getSupportBundle.html"/>
+   <appContext helpID="getsystemcpuusage" path="funcs/g/getSystemCpuUsage.html"/>
+   <appContext helpID="getsystemloadavg" path="funcs/g/getSystemLoadAvg.html"/>
+   <appContext helpID="gettableaccess" path="funcs/g/gettableaccess.html"/>
+   <appContext helpID="getTableAccessByCluster"
+               path="funcs/g/getTableAccessByCluster.html"/>
+   <appContext helpID="getTablesOfAllClusters"
+               path="funcs/g/getTablesOfAllClusters.html"/>
+   <appContext helpID="gettables" path="funcs/g/getTables.html"/>
+   <appContext helpID="getTablesByCluster" path="funcs/g/getTablesByCluster.html"/>
+   <appContext helpID="getTableSchemaByCluster"
+               path="funcs/g/getTableSchemaByCluster.html"/>
+   <appContext helpID="gettablet" path="funcs/g/getTablet.html"/>
+   <appContext helpID="gettabletsmeta" path="funcs/g/getTabletsMeta.html"/>
+   <appContext helpID="gettopicprocessedoffset"
+               path="funcs/g/getTopicProcessedOffset.html"/>
+   <appContext helpID="gettradingcalendartype"
+               path="funcs/g/gettradingcalendartype.html"/>
+   <appContext helpID="gettransactionstatus" path="funcs/g/getTransactionStatus.html"/>
+   <appContext helpID="gettsdbcachedsymbolbasememsize"
+               path="funcs/g/getTSDBCachedSymbolBaseMemSize.html"/>
+   <appContext helpID="gettsdbcacheenginesize"
+               path="funcs/g/getTSDBCacheEngineSize.html"/>
+   <appContext helpID="gettsdbcompactiontaskstatus"
+               path="funcs/g/getTSDBCompactionTaskStatus.html"/>
+   <appContext helpID="gettsdbdatastat" path="funcs/g/gettsdbdatastat.html"/>
+   <appContext helpID="gettsdbmetadata" path="funcs/g/getTSDBMetaData.html"/>
+   <appContext helpID="gettsdbsortkeyentry" path="funcs/g/getTSDBSortKeyEntry.html"/>
+   <appContext helpID="gettsdbtableindexcachestatus"
+               path="funcs/g/gettsdbtableindexcachestatus.html"/>
+   <appContext helpID="getunresolvedtxn" path="funcs/g/getUnresolvedTxn.html"/>
+   <appContext helpID="getuseraccess" path="funcs/g/getUserAccess.html"/>
+   <appContext helpID="getUserAccessByCluster"
+               path="funcs/g/getUserAccessByCluster.html"/>
+   <appContext helpID="getUserHardwareUsage" path="funcs/g/getUserHardwareUsage.html"/>
+   <appContext helpID="getuserlist" path="funcs/g/getUserList.html"/>
+   <appContext helpID="getUserListOfAllClusters"
+               path="funcs/g/getUserListOfAllClusters.html"/>
+   <appContext helpID="getUserLockedStatus" path="funcs/g/getUserLockedStatus.html"/>
+   <appContext helpID="getUserPasswordStatus"
+               path="funcs/g/getUserPasswordStatus.html"/>
+   <appContext helpID="getusersbygroupid" path="funcs/g/getUsersByGroupId.html"/>
+   <appContext helpID="getUserTableAccessRecords"
+               path="funcs/g/getUserTableAccessRecords.html"/>
+   <appContext helpID="glm" path="funcs/g/glm.html"/>
+   <appContext helpID="gmd5" path="funcs/g/gmd5.html"/>
+   <appContext helpID="gmm" path="funcs/g/gmm.html"/>
+   <appContext helpID="gmtime" path="funcs/g/gmtime.html"/>
+   <appContext helpID="gpfit" path="funcs/g/gpfit.html"/>
+   <appContext helpID="gppredict" path="funcs/g/gppredict.html"/>
+   <appContext helpID="gram" path="funcs/g/gram.html"/>
+   <appContext helpID="gramschmidt" path="funcs/g/gramSchmidt.html"/>
+   <appContext helpID="grant" path="funcs/g/grant.html"/>
+   <appContext helpID="groups" path="funcs/g/groups.html"/>
+   <appContext helpID="gt" path="funcs/g/gt.html"/>
+   <appContext helpID="hashbucket" path="funcs/h/hashBucket.html"/>
+   <appContext helpID="hasnull" path="funcs/h/hasNull.html"/>
+   <appContext helpID="hastreamtable" path="funcs/h/haStreamTable.html"/>
+   <appContext helpID="head" path="funcs/h/head.html"/>
+   <appContext helpID="hex" path="funcs/h/hex.html"/>
+   <appContext helpID="highdouble" path="funcs/h/highDouble.html"/>
+   <appContext helpID="highlong" path="funcs/h/highlong.html"/>
+   <appContext helpID="histogram2d" path="funcs/h/histogram2d.html"/>
+   <appContext helpID="hmac" path="funcs/h/hmac.html"/>
+   <appContext helpID="hour" path="funcs/h/hour.html"/>
+   <appContext helpID="hourofday" path="funcs/h/hourOfDay.html"/>
+   <appContext helpID="ifirsthit" path="funcs/i/ifirstHit.html"/>
+   <appContext helpID="ifirstnot" path="funcs/i/ifirstNot.html"/>
+   <appContext helpID="ifnull" path="funcs/i/ifNull.html"/>
+   <appContext helpID="ifvalid" path="funcs/i/ifValid.html"/>
+   <appContext helpID="iif" path="funcs/i/iif.html"/>
+   <appContext helpID="ilastnot" path="funcs/i/ilastNot.html"/>
+   <appContext helpID="ilike" path="funcs/i/ilike.html"/>
+   <appContext helpID="imax" path="funcs/i/imax.html"/>
+   <appContext helpID="imin" path="funcs/i/imin.html"/>
+   <appContext helpID="imr" path="funcs/i/imr.html"/>
+   <appContext helpID="imtforcegcredolog" path="funcs/i/imtForceGCRedolog.html"/>
+   <appContext helpID="imtupdatechunkversionondatanode"
+               path="funcs/i/imtUpdateChunkVersionOnDataNode.html"/>
+   <appContext helpID="in" path="funcs/i/in.html"/>
+   <appContext helpID="indexedseries" path="funcs/i/indexedSeries.html"/>
+   <appContext helpID="indexedtable" path="funcs/i/indexedTable.html"/>
+   <appContext helpID="initcap" path="funcs/i/initcap.html"/>
+   <appContext helpID="initimoltpcheckpointencryption"
+               path="funcs/i/initimoltpcheckpointencryption.html"/>
+   <appContext helpID="installplugin" path="funcs/i/installPlugin.html"/>
+   <appContext helpID="int" path="funcs/i/int.html"/>
+   <appContext helpID="int128" path="funcs/i/int128.html"/>
+   <appContext helpID="integral" path="funcs/i/integral.html"/>
+   <appContext helpID="interpolate" path="funcs/i/interpolate.html"/>
+   <appContext helpID="intersection" path="funcs/i/intersection.html"/>
+   <appContext helpID="invbeta" path="funcs/i/invBeta.html"/>
+   <appContext helpID="invbinomial" path="funcs/i/invBinomial.html"/>
+   <appContext helpID="invchisquare" path="funcs/i/invChiSquare.html"/>
+   <appContext helpID="inverse" path="funcs/i/inverse.html"/>
+   <appContext helpID="invexp" path="funcs/i/invExp.html"/>
+   <appContext helpID="invf" path="funcs/i/invF.html"/>
+   <appContext helpID="invgamma" path="funcs/i/invGamma.html"/>
+   <appContext helpID="invlogistic" path="funcs/i/invLogistic.html"/>
+   <appContext helpID="invnormal" path="funcs/i/invNormal.html"/>
+   <appContext helpID="invpoisson" path="funcs/i/invPoisson.html"/>
+   <appContext helpID="invstudent" path="funcs/i/invStudent.html"/>
+   <appContext helpID="invuniform" path="funcs/i/invUniform.html"/>
+   <appContext helpID="invweibull" path="funcs/i/invWeibull.html"/>
+   <appContext helpID="ipaddr" path="funcs/i/ipaddr.html"/>
+   <appContext helpID="irs" path="funcs/i/irs.html"/>
+   <appContext helpID="isalnum" path="funcs/i/isAlNum.html"/>
+   <appContext helpID="isalpha" path="funcs/i/isAlpha.html"/>
+   <appContext helpID="ischunknodeinit" path="funcs/i/isChunkNodeInit.html"/>
+   <appContext helpID="isclientauth" path="funcs/i/isclientauth.html"/>
+   <appContext helpID="iscolumnartuple" path="funcs/i/isColumnarTuple.html"/>
+   <appContext helpID="iscontrollerinitialized"
+               path="funcs/i/isControllerInitialized.html"/>
+   <appContext helpID="isdatanodeinitialized"
+               path="funcs/i/isDataNodeInitialized.html"/>
+   <appContext helpID="isdigit" path="funcs/i/isDigit.html"/>
+   <appContext helpID="isduplicated" path="funcs/i/isDuplicated.html"/>
+   <appContext helpID="isindexedmatrix" path="funcs/i/isIndexedMatrix.html"/>
+   <appContext helpID="isindexedseries" path="funcs/i/isIndexedSeries.html"/>
+   <appContext helpID="isleapyear" path="funcs/i/isLeapYear.html"/>
+   <appContext helpID="isloggedin" path="funcs/i/isLoggedIn.html"/>
+   <appContext helpID="islower" path="funcs/i/isLower.html"/>
+   <appContext helpID="iminlast" path="funcs/i/imaxlast.html"/>
+   <appContext helpID="iminlast" path="funcs/i/iminlast.html"/>
+   <appContext helpID="ismonotonic" path="funcs/i/isMonotonic.html"/>
+   <appContext helpID="ismonotonicdecreasing"
+               path="funcs/i/isMonotonicDecreasing.html"/>
+   <appContext helpID="ismonotonicincreasing"
+               path="funcs/i/isMonotonicIncreasing.html"/>
+   <appContext helpID="ismonthend" path="funcs/i/isMonthEnd.html"/>
+   <appContext helpID="ismonthstart" path="funcs/i/isMonthStart.html"/>
+   <appContext helpID="isnaninf" path="funcs/i/isNanInf.html"/>
+   <appContext helpID="isnothing" path="funcs/i/isNothing.html"/>
+   <appContext helpID="isnull" path="funcs/i/isNull.html"/>
+   <appContext helpID="isnumeric" path="funcs/i/isNumeric.html"/>
+   <appContext helpID="isordereddict" path="funcs/i/isOrderedDict.html"/>
+   <appContext helpID="isort" path="funcs/i/isort_.html"/>
+   <appContext helpID="isort" path="funcs/i/isort.html"/>
+   <appContext helpID="isorttop" path="funcs/i/isortTop.html"/>
+   <appContext helpID="ispeak" path="funcs/i/isPeak.html"/>
+   <appContext helpID="isquarterend" path="funcs/i/isQuarterEnd.html"/>
+   <appContext helpID="isquarterstart" path="funcs/i/isQuarterStart.html"/>
+   <appContext helpID="issorted" path="funcs/i/isSorted.html"/>
+   <appContext helpID="isspace" path="funcs/i/isSpace.html"/>
+   <appContext helpID="istitle" path="funcs/i/isTitle.html"/>
+   <appContext helpID="isupper" path="funcs/i/isUpper.html"/>
+   <appContext helpID="isvalid" path="funcs/i/isValid.html"/>
+   <appContext helpID="isvalley" path="funcs/i/isValley.html"/>
+   <appContext helpID="isvoid" path="funcs/i/isVoid.html"/>
+   <appContext helpID="isyearend" path="funcs/i/isYearEnd.html"/>
+   <appContext helpID="isyearstart" path="funcs/i/isYearStart.html"/>
+   <appContext helpID="iterate" path="funcs/i/iterate.html"/>
+   <appContext helpID="join_" path="funcs/j/join.html"/>
+   <appContext helpID="join" path="funcs/j/join!.html"/>
+   <appContext helpID="jsonextract" path="funcs/j/jsonextract.html"/>
+   <appContext helpID="kama" path="funcs/k/kama.html"/>
+   <appContext helpID="kendall" path="funcs/k/kendall.html"/>
+   <appContext helpID="kernelRidge" path="funcs/k/kernelRidge.html"/>
+   <appContext helpID="keyedstreamtable" path="funcs/k/keyedStreamTable.html"/>
+   <appContext helpID="keyedtable" path="funcs/k/keyedTable.html"/>
+   <appContext helpID="keys" path="funcs/k/keys.html"/>
+   <appContext helpID="kmeans" path="funcs/k/kmeans.html"/>
+   <appContext helpID="knn" path="funcs/k/knn.html"/>
+   <appContext helpID="kroghinterpolate" path="funcs/k/kroghinterpolate.html"/>
+   <appContext helpID="kroghinterpolatefit" path="funcs/k/kroghinterpolatefit.html"/>
+   <appContext helpID="kstest" path="funcs/k/ksTest.html"/>
+   <appContext helpID="kurtosis" path="funcs/k/kurtosis.html"/>
+   <appContext helpID="lasso" path="funcs/l/lasso.html"/>
+   <appContext helpID="lassobasic" path="funcs/l/lassoBasic.html"/>
+   <appContext helpID="lassocv" path="funcs/l/lassoCV.html"/>
+   <appContext helpID="last" path="funcs/l/last.html"/>
+   <appContext helpID="lastnot" path="funcs/l/lastNot.html"/>
+   <appContext helpID="lastweekofmonth" path="funcs/l/lastWeekOfMonth.html"/>
+   <appContext helpID="latestindexedtable" path="funcs/l/latestIndexedTable.html"/>
+   <appContext helpID="latestkeyedstreamtable"
+               path="funcs/l/latestkeyedstreamtable.html"/>
+   <appContext helpID="latestkeyedtable" path="funcs/l/latestKeyedTable.html"/>
+   <appContext helpID="le" path="funcs/l/le.html"/>
+   <appContext helpID="left" path="funcs/l/left.html"/>
+   <appContext helpID="lfill" path="funcs/l/lfill_.html"/>
+   <appContext helpID="lfill" path="funcs/l/lfill.html"/>
+   <appContext helpID="license" path="funcs/l/license.html"/>
+   <appContext helpID="like" path="funcs/l/like.html"/>
+   <appContext helpID="linearinterpolatefit" path="funcs/l/linearinterpolatefit.html"/>
+   <appContext helpID="lineartimetrend" path="funcs/l/linearTimeTrend.html"/>
+   <appContext helpID="linprog" path="funcs/l/linprog.html"/>
+   <appContext helpID="listAllMarkets" path="funcs/l/listAllMarkets.html"/>
+   <appContext helpID="listremoteplugins" path="funcs/l/listRemotePlugins.html"/>
+   <appContext helpID="listtables" path="funcs/l/listTables.html"/>
+   <appContext helpID="listPluginsByCluster" path="funcs/l/listPluginsByCluster.html"/>
+   <appContext helpID="loadbackup" path="funcs/l/loadBackup.html"/>
+   <appContext helpID="loaddistributedinmemorytable"
+               path="funcs/l/loadDistributedInMemoryTable.html"/>
+   <appContext helpID="loadipcinmemorytable" path="funcs/l/loadIPCInMemoryTable.html"/>
+   <appContext helpID="loadmodel" path="funcs/l/loadModel.html"/>
+   <appContext helpID="loadmodule" path="funcs/l/loadModule.html"/>
+   <appContext helpID="loadmodulefromscript" path="funcs/l/loadmodulefromscript.html"/>
+   <appContext helpID="loadmvcctable" path="funcs/l/loadMvccTable.html"/>
+   <appContext helpID="loadnpy" path="funcs/l/loadNpy.html"/>
+   <appContext helpID="loadnpz" path="funcs/l/loadNpz.html"/>
+   <appContext helpID="loadplugin" path="funcs/l/loadPlugin.html"/>
+   <appContext helpID="loadrecord" path="funcs/l/loadRecord.html"/>
+   <appContext helpID="loadtable" path="funcs/l/loadTable.html"/>
+   <appContext helpID="loadtablebysql" path="funcs/l/loadTableBySQL.html"/>
+   <appContext helpID="loadtext" path="funcs/l/loadText.html"/>
+   <appContext helpID="loadtextex" path="funcs/l/loadTextEx.html"/>
+   <appContext helpID="loc" path="funcs/l/loc.html"/>
+   <appContext helpID="localtime" path="funcs/l/localtime.html"/>
+   <appContext helpID="lockUser" path="funcs/l/lockUser.html"/>
+   <appContext helpID="loess" path="funcs/l/loess.html"/>
+   <appContext helpID="log" path="funcs/l/log.html"/>
+   <appContext helpID="log1p" path="funcs/l/log1p.html"/>
+   <appContext helpID="log2" path="funcs/l/log2.html"/>
+   <appContext helpID="log10" path="funcs/l/log10.html"/>
+   <appContext helpID="login" path="funcs/l/login.html"/>
+   <appContext helpID="logisticregression" path="funcs/l/logisticRegression.html"/>
+   <appContext helpID="logout" path="funcs/l/logout.html"/>
+   <appContext helpID="long" path="funcs/l/long.html"/>
+   <appContext helpID="lowdouble" path="funcs/l/lowDouble.html"/>
+   <appContext helpID="lower" path="funcs/l/lower.html"/>
+   <appContext helpID="lowerbound" path="funcs/l/lowerbound.html"/>
+   <appContext helpID="lowlong" path="funcs/l/lowlong.html"/>
+   <appContext helpID="lowrange" path="funcs/l/lowRange.html"/>
+   <appContext helpID="lpad" path="funcs/l/lpad.html"/>
+   <appContext helpID="lshift" path="funcs/l/lshift.html"/>
+   <appContext helpID="lt" path="funcs/l/lt.html"/>
+   <appContext helpID="ltrim" path="funcs/l/ltrim.html"/>
+   <appContext helpID="lu" path="funcs/l/lu.html"/>
+   <appContext helpID="ma" path="funcs/m/ma.html"/>
+   <appContext helpID="mad" path="funcs/m/mad.html"/>
+   <appContext helpID="makecall" path="funcs/m/makeCall.html"/>
+   <appContext helpID="maxdrawdown" path="funcs/m/maxdrawdown.html"/>
+   <appContext helpID="makekey" path="funcs/m/makeKey.html"/>
+   <appContext helpID="makesortedkey" path="funcs/m/makeSortedKey.html"/>
+   <appContext helpID="makeunifiedcall" path="funcs/m/makeUnifiedCall.html"/>
+   <appContext helpID="mannwhitneyutest" path="funcs/m/mannWhitneyUTest.html"/>
+   <appContext helpID="manova" path="funcs/m/manova.html"/>
+   <appContext helpID="mask" path="funcs/m/mask.html"/>
+   <appContext helpID="matchall" path="funcs/m/matchall.html"/>
+   <appContext helpID="matchany" path="funcs/m/matchany.html"/>
+   <appContext helpID="matchphrase" path="funcs/m/matchphrase.html"/>
+   <appContext helpID="matchphraseinfix" path="funcs/m/matchphraseinfix.html"/>
+   <appContext helpID="matchphraseprefix" path="funcs/m/matchphraseprefix.html"/>
+   <appContext helpID="matchphrasesuffix" path="funcs/m/matchphrasesuffix.html"/>
+   <appContext helpID="matchprefix" path="funcs/m/matchprefix.html"/>
+   <appContext helpID="matchprefixsuffix" path="funcs/m/matchprefixsuffix.html"/>
+   <appContext helpID="matchspan" path="funcs/m/matchspan.html"/>
+   <appContext helpID="matchsuffix" path="funcs/m/matchsuffix.html"/>
+   <appContext helpID="matchunorderedspan" path="funcs/m/matchunorderedspan.html"/>
+   <appContext helpID="matrix" path="funcs/m/matrix.html"/>
+   <appContext helpID="matrixRank" path="funcs/m/matrixRank.html"/>
+   <appContext helpID="mavg" path="funcs/m/mavg.html"/>
+   <appContext helpID="mavgtopn" path="funcs/m/mavgTopN.html"/>
+   <appContext helpID="max" path="funcs/m/max.html"/>
+   <appContext helpID="maxpositivestreak" path="funcs/m/maxPositiveStreak.html"/>
+   <appContext helpID="mbeta" path="funcs/m/mbeta.html"/>
+   <appContext helpID="mbetatopn" path="funcs/m/mbetaTopN.html"/>
+   <appContext helpID="mcorr" path="funcs/m/mcorr.html"/>
+   <appContext helpID="mcorrtopn" path="funcs/m/mcorrTopN.html"/>
+   <appContext helpID="mcount" path="funcs/m/mcount.html"/>
+   <appContext helpID="mcovar" path="funcs/m/mcovar.html"/>
+   <appContext helpID="mcovartopn" path="funcs/m/mcovarTopN.html"/>
+   <appContext helpID="mdd" path="funcs/m/mdd.html"/>
+   <appContext helpID="md5" path="funcs/m/md5.html"/>
+   <appContext helpID="mean" path="funcs/m/mean.html"/>
+   <appContext helpID="med" path="funcs/m/med.html"/>
+   <appContext helpID="mem" path="funcs/m/mem.html"/>
+   <appContext helpID="member" path="funcs/m/member.html"/>
+   <appContext helpID="membermodify" path="funcs/m/membermodify.html"/>
+   <appContext helpID="memsize" path="funcs/m/memSize.html"/>
+   <appContext helpID="merge" path="funcs/m/merge.html"/>
+   <appContext helpID="mfirst" path="funcs/m/mfirst.html"/>
+   <appContext helpID="mfirstnot" path="funcs/m/mfirstnot.html"/>
+   <appContext helpID="microsecond" path="funcs/m/microsecond.html"/>
+   <appContext helpID="mifirstnot" path="funcs/m/mifirstNot.html"/>
+   <appContext helpID="migrate" path="funcs/m/migrate.html"/>
+   <appContext helpID="milastnot" path="funcs/m/milastNot.html"/>
+   <appContext helpID="millisecond" path="funcs/m/millisecond.html"/>
+   <appContext helpID="mimax" path="funcs/m/mimax.html"/>
+   <appContext helpID="mimin" path="funcs/m/mimin.html"/>
+   <appContext helpID="mimaxlast" path="funcs/m/mimaxlast.html"/>
+   <appContext helpID="iminlast" path="funcs/m/miminlast.html"/>
+   <appContext helpID="min" path="funcs/m/min.html"/>
+   <appContext helpID="minignorenull" path="funcs/m/minignorenull.html"/>
+   <appContext helpID="minute" path="funcs/m/minute.html"/>
+   <appContext helpID="minuteofhour" path="funcs/m/minuteOfHour.html"/>
+   <appContext helpID="mkdir" path="funcs/m/mkdir.html"/>
+   <appContext helpID="mkurtosis" path="funcs/m/mkurtosis.html"/>
+   <appContext helpID="mkurtosistopn" path="funcs/m/mkurtosisTopN.html"/>
+   <appContext helpID="mlast" path="funcs/m/mlast.html"/>
+   <appContext helpID="mlastnot" path="funcs/m/mlastnot.html"/>
+   <appContext helpID="mlowrange" path="funcs/m/mlowrange.html"/>
+   <appContext helpID="mmad" path="funcs/m/mmad.html"/>
+   <appContext helpID="mmax" path="funcs/m/mmax.html"/>
+   <appContext helpID="maxignorenull" path="funcs/m/maxignorenull.html"/>
+   <appContext helpID="mmaxpositivestreak" path="funcs/m/mmaxPositiveStreak.html"/>
+   <appContext helpID="mmed" path="funcs/m/mmed.html"/>
+   <appContext helpID="mmin" path="funcs/m/mmin.html"/>
+   <appContext helpID="mmse" path="funcs/m/mmse.html"/>
+   <appContext helpID="mod" path="funcs/m/mod.html"/>
+   <appContext helpID="mode" path="funcs/m/mode.html"/>
+   <appContext helpID="month" path="funcs/m/month.html"/>
+   <appContext helpID="monthbegin" path="funcs/m/monthBegin.html"/>
+   <appContext helpID="monthend" path="funcs/m/monthEnd.html"/>
+   <appContext helpID="monthofyear" path="funcs/m/monthOfYear.html"/>
+   <appContext helpID="move" path="funcs/m/move.html"/>
+   <appContext helpID="movechunksacrossvolume"
+               path="funcs/m/moveChunksAcrossVolume.html"/>
+   <appContext helpID="movehotdatatocoldvolume"
+               path="funcs/m/moveHotDataToColdVolume.html"/>
+   <appContext helpID="movereplicas" path="funcs/m/moveReplicas.html"/>
+   <appContext helpID="movingtopnindex" path="funcs/m/movingTopNIndex.html"/>
+   <appContext helpID="movingwindowdata" path="funcs/m/movingWindowData.html"/>
+   <appContext helpID="movingwindowindex" path="funcs/m/movingWindowIndex.html"/>
+   <appContext helpID="mpercentile" path="funcs/m/mpercentile.html"/>
+   <appContext helpID="mpercentiletopn" path="funcs/m/mpercentiletopn.html"/>
+   <appContext helpID="mprod" path="funcs/m/mprod.html"/>
+   <appContext helpID="mr" path="funcs/m/mr.html"/>
+   <appContext helpID="mrank" path="funcs/m/mrank.html"/>
+   <appContext helpID="mskew" path="funcs/m/mskew.html"/>
+   <appContext helpID="mskewtopn" path="funcs/m/mskewTopN.html"/>
+   <appContext helpID="mslr" path="funcs/m/mslr.html"/>
+   <appContext helpID="mstd" path="funcs/m/mstd.html"/>
+   <appContext helpID="mstdp" path="funcs/m/mstdp.html"/>
+   <appContext helpID="mstdptopn" path="funcs/m/mstdpTopN.html"/>
+   <appContext helpID="mstdtopn" path="funcs/m/mstdTopN.html"/>
+   <appContext helpID="msum" path="funcs/m/msum.html"/>
+   <appContext helpID="msum2" path="funcs/m/msum2.html"/>
+   <appContext helpID="msumtopn" path="funcs/m/msumTopN.html"/>
+   <appContext helpID="mtoprange" path="funcs/m/mtoprange.html"/>
+   <appContext helpID="mul" path="funcs/m/mul.html"/>
+   <appContext helpID="multinomialnb" path="funcs/m/multinomialNB.html"/>
+   <appContext helpID="multitablerepartitionds"
+               path="funcs/m/multiTableRepartitionDS.html"/>
+   <appContext helpID="mutualinfo" path="funcs/m/mutualInfo.html"/>
+   <appContext helpID="mvar" path="funcs/m/mvar.html"/>
+   <appContext helpID="mvarp" path="funcs/m/mvarp.html"/>
+   <appContext helpID="mvarptopn" path="funcs/m/mvarpTopN.html"/>
+   <appContext helpID="mvartopn" path="funcs/m/mvarTopN.html"/>
+   <appContext helpID="mvcctable" path="funcs/m/mvccTable.html"/>
+   <appContext helpID="mwavg" path="funcs/m/mwavg.html"/>
+   <appContext helpID="mwsum" path="funcs/m/mwsum.html"/>
+   <appContext helpID="mwsumtopn" path="funcs/m/mwsumTopN.html"/>
+   <appContext helpID="naninffill" path="funcs/n/nanInfFill.html"/>
+   <appContext helpID="nanosecond" path="funcs/n/nanosecond.html"/>
+   <appContext helpID="nanotime" path="funcs/n/nanotime.html"/>
+   <appContext helpID="nanotimestamp" path="funcs/n/nanotimestamp.html"/>
+   <appContext helpID="ne" path="funcs/n/ne.html"/>
+   <appContext helpID="neg" path="funcs/n/neg.html"/>
+   <appContext helpID="neville" path="funcs/n/neville.html"/>
+   <appContext helpID="next" path="funcs/n/next.html"/>
+   <appContext helpID="nextstate" path="funcs/n/nextState.html"/>
+   <appContext helpID="norm" path="funcs/n/norm.html"/>
+   <appContext helpID="normal" path="funcs/n/normal.html"/>
+   <appContext helpID="not" path="funcs/n/not.html"/>
+   <appContext helpID="notbetween" path="funcs/n/notbetween.html"/>
+   <appContext helpID="notin" path="funcs/n/notin.html"/>
+   <appContext helpID="notlike" path="funcs/n/notlike.html"/>
+   <appContext helpID="now" path="funcs/n/now.html"/>
+   <appContext helpID="ns" path="funcs/n/ns.html"/>
+   <appContext helpID="nss" path="funcs/n/nss.html"/>
+   <appContext helpID="nsspredict" path="funcs/n/nsspredict.html"/>
+   <appContext helpID="nullfill" path="funcs/n/nullFill_.html"/>
+   <appContext helpID="nullfill" path="funcs/n/nullFill.html"/>
+   <appContext helpID="nunique" path="funcs/n/nunique.html"/>
+   <appContext helpID="oauthlogin" path="funcs/o/oauthlogin.html"/>
+   <appContext helpID="objbyname" path="funcs/o/objByName.html"/>
+   <appContext helpID="objectchecksum" path="funcs/o/objectChecksum.html"/>
+   <appContext helpID="objs" path="funcs/o/objs.html"/>
+   <appContext helpID="ols" path="funcs/o/ols.html"/>
+   <appContext helpID="olsex" path="funcs/o/olsEx.html"/>
+   <appContext helpID="onehot" path="funcs/o/oneHot.html"/>
+   <appContext helpID="or" path="funcs/o/or.html"/>
+   <appContext helpID="osqp" path="funcs/o/osqp.html"/>
+   <appContext helpID="pack" path="funcs/p/pack.html"/>
+   <appContext helpID="pair" path="funcs/p/pair.html"/>
+   <appContext helpID="panel" path="funcs/p/panel.html"/>
+   <appContext helpID="parseInt" path="funcs/p/parseInt.html"/>
+   <appContext helpID="parseInteger" path="funcs/p/parseInteger.html"/>
+   <appContext helpID="parseexpr" path="funcs/p/parseExpr.html"/>
+   <appContext helpID="parsejsontable" path="funcs/p/parsejsontable.html"/>
+   <appContext helpID="partial" path="funcs/p/partial.html"/>
+   <appContext helpID="pca" path="funcs/p/pca.html"/>
+   <appContext helpID="pchipInterpolateFit" path="funcs/p/pchipInterpolateFit.html"/>
+   <appContext helpID="pdfChiSquare" path="funcs/p/pdfChiSquare.html"/>
+   <appContext helpID="pdfF" path="funcs/p/pdfF.html"/>
+   <appContext helpID="pdfNormal" path="funcs/p/pdfNormal.html"/>
+   <appContext helpID="percentchange" path="funcs/p/percentChange.html"/>
+   <appContext helpID="percentile" path="funcs/p/percentile.html"/>
+   <appContext helpID="percentilerank" path="funcs/p/percentileRank.html"/>
+   <appContext helpID="pinverse" path="funcs/p/pinverse.html"/>
+   <appContext helpID="piecewiselinfit" path="funcs/p/piecewiselinfit.html"/>
+   <appContext helpID="pipeline" path="funcs/p/pipeline.html"/>
+   <appContext helpID="ploadtext" path="funcs/p/ploadText.html"/>
+   <appContext helpID="plot" path="funcs/p/plot.html"/>
+   <appContext helpID="plothist" path="funcs/p/plotHist.html"/>
+   <appContext helpID="pnoderun" path="funcs/p/pnodeRun.html"/>
+   <appContext helpID="point" path="funcs/p/point.html"/>
+   <appContext helpID="poly1d_0" path="funcs/p/polyPredict.html"/>
+   <appContext helpID="poly1d" path="funcs/p/poly1d.html"/>
+   <appContext helpID="polyfit" path="funcs/p/polyfit.html"/>
+   <appContext helpID="polynomial" path="funcs/p/polynomial.html"/>
+   <appContext helpID="pop" path="funcs/p/pop_.html"/>
+   <appContext helpID="pow" path="funcs/p/pow.html"/>
+   <appContext helpID="power" path="funcs/p/power.html"/>
+   <appContext helpID="predict" path="funcs/p/predict.html"/>
+   <appContext helpID="prev" path="funcs/p/prev.html"/>
+   <appContext helpID="prevstate" path="funcs/p/prevState.html"/>
+   <appContext helpID="print" path="funcs/p/print.html"/>
+   <appContext helpID="prod" path="funcs/p/prod.html"/>
+   <appContext helpID="purgecacheengine" path="funcs/p/purgeCacheEngine.html"/>
+   <appContext helpID="purgeStreamGraphRecords_name"
+               path="funcs/purgeStreamGraphRecords.html"/>
+   <appContext helpID="push" path="funcs/p/push_.html"/>
+   <appContext helpID="piecewiselinfit" path="funcs/p/pwlfpredict.html"/>
+   <appContext helpID="qclp" path="funcs/q/qclp.html"/>
+   <appContext helpID="qr" path="funcs/q/qr.html"/>
+   <appContext helpID="quadprog" path="funcs/q/quadprog.html"/>
+   <appContext helpID="quantile" path="funcs/q/quantile.html"/>
+   <appContext helpID="quantileseries" path="funcs/q/quantileSeries.html"/>
+   <appContext helpID="quarterbegin" path="funcs/q/quarterBegin.html"/>
+   <appContext helpID="quarterend" path="funcs/q/quarterEnd.html"/>
+   <appContext helpID="quarterofyear" path="funcs/q/quarterOfYear.html"/>
+   <appContext helpID="rad2deg" path="funcs/r/rad2deg.html"/>
+   <appContext helpID="rand" path="funcs/r/rand.html"/>
+   <appContext helpID="randbeta" path="funcs/r/randBeta.html"/>
+   <appContext helpID="randbinomial" path="funcs/r/randBinomial.html"/>
+   <appContext helpID="randchisquare" path="funcs/r/randChiSquare.html"/>
+   <appContext helpID="randdiscrete" path="funcs/r/randDiscrete.html"/>
+   <appContext helpID="randexp" path="funcs/r/randExp.html"/>
+   <appContext helpID="randf" path="funcs/r/randF.html"/>
+   <appContext helpID="randgamma" path="funcs/r/randGamma.html"/>
+   <appContext helpID="randlogistic" path="funcs/r/randLogistic.html"/>
+   <appContext helpID="randmultivariatenormal"
+               path="funcs/r/randMultivariateNormal.html"/>
+   <appContext helpID="randnormal" path="funcs/r/randNormal.html"/>
+   <appContext helpID="randomforestclassifier"
+               path="funcs/r/randomForestClassifier.html"/>
+   <appContext helpID="randomforestregressor"
+               path="funcs/r/randomForestRegressor.html"/>
+   <appContext helpID="randpoisson" path="funcs/r/randPoisson.html"/>
+   <appContext helpID="randstudent" path="funcs/r/randStudent.html"/>
+   <appContext helpID="randuniform" path="funcs/r/randUniform.html"/>
+   <appContext helpID="randweibull" path="funcs/r/randWeibull.html"/>
+   <appContext helpID="rank" path="funcs/r/rank.html"/>
+   <appContext helpID="ratio" path="funcs/r/ratio.html"/>
+   <appContext helpID="ratios" path="funcs/r/ratios.html"/>
+   <appContext helpID="rdp" path="funcs/r/rdp.html"/>
+   <appContext helpID="read" path="funcs/r/read_.html"/>
+   <appContext helpID="readbytes" path="funcs/r/readBytes.html"/>
+   <appContext helpID="readline" path="funcs/r/readLine.html"/>
+   <appContext helpID="readlines" path="funcs/r/readLines_.html"/>
+   <appContext helpID="readlines" path="funcs/r/readLines.html"/>
+   <appContext helpID="readobject" path="funcs/r/readObject.html"/>
+   <appContext helpID="readrecord" path="funcs/r/readRecord_.html"/>
+   <appContext helpID="rebalancechunksamongdatanodes"
+               path="funcs/r/rebalanceChunksAmongDataNodes.html"/>
+   <appContext helpID="rebalancechunkswithindatanode"
+               path="funcs/r/rebalanceChunksWithinDataNode.html"/>
+   <appContext helpID="reciprocal" path="funcs/r/reciprocal.html"/>
+   <appContext helpID="refcount" path="funcs/r/refCount.html"/>
+   <appContext helpID="regexcount" path="funcs/r/regexCount.html"/>
+   <appContext helpID="regexfind" path="funcs/r/regexFind.html"/>
+   <appContext helpID="regexfindstr" path="funcs/r/regexfindstr.html"/>
+   <appContext helpID="regexreplace" path="funcs/r/regexReplace.html"/>
+   <appContext helpID="regroup" path="funcs/r/regroup.html"/>
+   <appContext helpID="remoterun" path="funcs/r/remoteRun.html"/>
+   <appContext helpID="remoteruncompatible" path="funcs/r/remoteruncompatible.html"/>
+   <appContext helpID="remoterunwithcompression"
+               path="funcs/r/remoteRunWithCompression.html"/>
+   <appContext helpID="removehead" path="funcs/r/removeHead_.html"/>
+   <appContext helpID="removeipblacklist" path="funcs/r/removeipblacklist.html"/>
+   <appContext helpID="removeipwhitelist" path="funcs/r/removeipwhitelist.html"/>
+   <appContext helpID="removetail" path="funcs/r/removeTail_.html"/>
+   <appContext helpID="removetopicoffset" path="funcs/r/removeTopicOffset.html"/>
+   <appContext helpID="rename" path="funcs/r/rename_.html"/>
+   <appContext helpID="renameCatalog" path="funcs/r/renameCatalog.html"/>
+   <appContext helpID="renameSchema" path="funcs/r/renameSchema.html"/>
+   <appContext helpID="renametable" path="funcs/r/renameTable.html"/>
+   <appContext helpID="reordercolumns" path="funcs/r/reorderColumns_.html"/>
+   <appContext helpID="repartitionds" path="funcs/r/repartitionDS.html"/>
+   <appContext helpID="repeat" path="funcs/r/repeat.html"/>
+   <appContext helpID="replace" path="funcs/r/replace_.html"/>
+   <appContext helpID="replace" path="funcs/r/replace.html"/>
+   <appContext helpID="replacecolumn" path="funcs/r/replaceColumn_.html"/>
+   <appContext helpID="replay" path="funcs/r/replay.html"/>
+   <appContext helpID="replayds" path="funcs/r/replayDS.html"/>
+   <appContext helpID="repmat" path="funcs/r/repmat.html"/>
+   <appContext helpID="resample" path="funcs/r/resample.html"/>
+   <appContext helpID="resetdbdirmeta" path="funcs/r/resetDBDirMeta.html"/>
+   <appContext helpID="resetDfsRebalanceConcurrency"
+               path="funcs/r/resetDfsRebalanceConcurrency.html"/>
+   <appContext helpID="resetDfsRecoveryConcurrency"
+               path="funcs/r/resetDfsRecoveryConcurrency.html"/>
+   <appContext helpID="resetpwd" path="funcs/r/resetPwd.html"/>
+   <appContext helpID="resetrecoveryworkernum"
+               path="funcs/r/resetRecoveryWorkerNum.html"/>
+   <appContext helpID="reshape" path="funcs/r/reshape.html"/>
+   <appContext helpID="residual" path="funcs/r/residual.html"/>
+   <appContext helpID="restore" path="funcs/r/restore.html"/>
+   <appContext helpID="restoredb" path="funcs/r/restoreDB.html"/>
+   <appContext helpID="restoredislocatedtablet"
+               path="funcs/r/restoreDislocatedTablet.html"/>
+   <appContext helpID="restoresettings" path="funcs/r/restoresettings.html"/>
+   <appContext helpID="restoretable" path="funcs/r/restoreTable.html"/>
+   <appContext helpID="resubmitStreamGraph" path="funcs/r/resubmitStreamGraph.html"/>
+   <appContext helpID="resumerecovery" path="funcs/r/resumeRecovery.html"/>
+   <appContext helpID="reverse" path="funcs/r/reverse.html"/>
+   <appContext helpID="revoke" path="funcs/r/revoke.html"/>
+   <appContext helpID="ridge" path="funcs/r/ridge.html"/>
+   <appContext helpID="ridgebasic" path="funcs/r/ridgeBasic.html"/>
+   <appContext helpID="ridgecv" path="funcs/r/ridgeCV.html"/>
+   <appContext helpID="right" path="funcs/r/right.html"/>
+   <appContext helpID="rm" path="funcs/r/rm.html"/>
+   <appContext helpID="rmdir" path="funcs/r/rmdir.html"/>
+   <appContext helpID="rms" path="funcs/r/rms.html"/>
+   <appContext helpID="rollingpanel" path="funcs/r/rollingPanel.html"/>
+   <appContext helpID="rotatetdekey" path="funcs/r/rotatetdekey.html"/>
+   <appContext helpID="round" path="funcs/r/round.html"/>
+   <appContext helpID="row" path="funcs/r/row.html"/>
+   <appContext helpID="rowalign" path="funcs/r/rowAlign.html"/>
+   <appContext helpID="rowand" path="funcs/r/rowAnd.html"/>
+   <appContext helpID="rowat" path="funcs/r/rowAt.html"/>
+   <appContext helpID="rowavg" path="funcs/r/rowAvg.html"/>
+   <appContext helpID="rowbeta" path="funcs/r/rowBeta.html"/>
+   <appContext helpID="rowcorr" path="funcs/r/rowCorr.html"/>
+   <appContext helpID="rowcount" path="funcs/r/rowCount.html"/>
+   <appContext helpID="rowcovar" path="funcs/r/rowCovar.html"/>
+   <appContext helpID="rowcummax" path="funcs/r/rowCummax.html"/>
+   <appContext helpID="rowcummin" path="funcs/r/rowCummin.html"/>
+   <appContext helpID="rowcumprod" path="funcs/r/rowCumprod.html"/>
+   <appContext helpID="rowcumsum" path="funcs/r/rowCumsum.html"/>
+   <appContext helpID="rowcumwsum" path="funcs/r/rowCumwsum.html"/>
+   <appContext helpID="rowdenserank" path="funcs/r/rowDenseRank.html"/>
+   <appContext helpID="rowdot" path="funcs/r/rowDot.html"/>
+   <appContext helpID="roweuclidean" path="funcs/r/rowEuclidean.html"/>
+   <appContext helpID="rowgmd5" path="funcs/r/rowgmd5.html"/>
+   <appContext helpID="rowimax" path="funcs/r/rowImax.html"/>
+   <appContext helpID="rowimin" path="funcs/r/rowImin.html"/>
+   <appContext helpID="rowimaxlast" path="funcs/r/rowimaxlast.html"/>
+   <appContext helpID="rowiminlast" path="funcs/r/rowiminlast.html"/>
+   <appContext helpID="rowkurtosis" path="funcs/r/rowKurtosis.html"/>
+   <appContext helpID="rowmax" path="funcs/r/rowMax.html"/>
+   <appContext helpID="rowmin" path="funcs/r/rowMin.html"/>
+   <appContext helpID="rowmove" path="funcs/r/rowMove.html"/>
+   <appContext helpID="rownames" path="funcs/r/rowNames.html"/>
+   <appContext helpID="rownext" path="funcs/r/rowNext.html"/>
+   <appContext helpID="rowno" path="funcs/r/rowNo.html"/>
+   <appContext helpID="rowor" path="funcs/r/rowOr.html"/>
+   <appContext helpID="rowprev" path="funcs/r/rowPrev.html"/>
+   <appContext helpID="rowprod" path="funcs/r/rowProd.html"/>
+   <appContext helpID="rowrank" path="funcs/r/rowRank.html"/>
+   <appContext helpID="rows" path="funcs/r/rows.html"/>
+   <appContext helpID="rowsize" path="funcs/r/rowSize.html"/>
+   <appContext helpID="rowskew" path="funcs/r/rowSkew.html"/>
+   <appContext helpID="rowstd" path="funcs/r/rowStd.html"/>
+   <appContext helpID="rowstdp" path="funcs/r/rowStdp.html"/>
+   <appContext helpID="rowsum" path="funcs/r/rowSum.html"/>
+   <appContext helpID="rowsum2" path="funcs/r/rowSum2.html"/>
+   <appContext helpID="rowtanimoto" path="funcs/r/rowTanimoto.html"/>
+   <appContext helpID="rowvar" path="funcs/r/rowVar.html"/>
+   <appContext helpID="rowvarp" path="funcs/r/rowVarp.html"/>
+   <appContext helpID="rowwavg" path="funcs/r/rowWavg.html"/>
+   <appContext helpID="rowwsum" path="funcs/r/rowWsum.html"/>
+   <appContext helpID="rowxor" path="funcs/r/rowXor.html"/>
+   <appContext helpID="rpad" path="funcs/r/rpad.html"/>
+   <appContext helpID="rpc" path="funcs/r/rpc.html"/>
+   <appContext helpID="rshift" path="funcs/r/rshift.html"/>
+   <appContext helpID="rtrim" path="funcs/r/rtrim.html"/>
+   <appContext helpID="run" path="funcs/r/run.html"/>
+   <appContext helpID="runscript" path="funcs/r/runScript.html"/>
+   <appContext helpID="runsql" path="funcs/r/runsql.html"/>
+   <appContext helpID="removenode" path="funcs/r/removenode.html"/>
+   <appContext helpID="saveasnpy" path="funcs/s/saveAsNpy.html"/>
+   <appContext helpID="savedatabase" path="funcs/s/saveDatabase.html"/>
+   <appContext helpID="savedualpartition" path="funcs/s/saveDualPartition.html"/>
+   <appContext helpID="savemodel" path="funcs/s/saveModel.html"/>
+   <appContext helpID="savemodule" path="funcs/s/saveModule.html"/>
+   <appContext helpID="savepartition" path="funcs/s/savePartition.html"/>
+   <appContext helpID="savetable" path="funcs/s/saveTable.html"/>
+   <appContext helpID="savetext" path="funcs/s/saveText.html"/>
+   <appContext helpID="savetextfile" path="funcs/s/saveTextFile.html"/>
+   <appContext helpID="schedulejob" path="funcs/s/scheduleJob.html"/>
+   <appContext helpID="schema" path="funcs/s/schema.html"/>
+   <appContext helpID="schur" path="funcs/s/schur.html"/>
+   <appContext helpID="scs" path="funcs/s/scs.html"/>
+   <appContext helpID="scramClientFirst" path="funcs/s/scramClientFirst.html"/>
+   <appContext helpID="scramClientFinal" path="funcs/s/scramClientFinal.html"/>
+   <appContext helpID="searchk" path="funcs/s/searchK.html"/>
+   <appContext helpID="seasonalesd" path="funcs/s/seasonalEsd.html"/>
+   <appContext helpID="second" path="funcs/s/second.html"/>
+   <appContext helpID="secondofminute" path="funcs/s/secondOfMinute.html"/>
+   <appContext helpID="seek" path="funcs/s/seek.html"/>
+   <appContext helpID="segment" path="funcs/s/segment.html"/>
+   <appContext helpID="sem" path="funcs/s/sem.html"/>
+   <appContext helpID="semimonthbegin" path="funcs/s/semiMonthBegin.html"/>
+   <appContext helpID="semimonthend" path="funcs/s/semiMonthEnd.html"/>
+   <appContext helpID="seq" path="funcs/s/seq.html"/>
+   <appContext helpID="sessionwindow" path="funcs/s/sessionWindow.html"/>
+   <appContext helpID="set" path="funcs/s/set.html"/>
+   <appContext helpID="setatomiclevel" path="funcs/s/setAtomicLevel.html"/>
+   <appContext helpID="setChunkLastUpdateTime"
+               path="funcs/s/setChunkLastUpdateTime.html"/>
+   <appContext helpID="setcolumnartuple" path="funcs/s/setColumnarTuple_.html"/>
+   <appContext helpID="setcolumncomment" path="funcs/s/setColumnComment.html"/>
+   <appContext helpID="setcomputenodecachingdelay"
+               path="funcs/s/setcomputenodecachingdelay.html"/>
+   <appContext helpID="setdatabaseforclusterreplication"
+               path="funcs/s/setDatabaseForClusterReplication.html"/>
+   <appContext helpID="setdatabaseclusterreplicationexecutionset"
+               path="funcs/s/setdatabaseclusterreplicationexecutionset.html"/>
+   <appContext helpID="setDatanodeRestartInterval"
+               path="funcs/s/setDatanodeRestartInterval.html"/>
+   <appContext helpID="setDefaultCatalog" path="funcs/s/setDefaultCatalog.html"/>
+   <appContext helpID="setdynamicconfig" path="funcs/s/setdynamicconfig.html"/>
+   <appContext helpID="setgpfitnessfunc" path="funcs/s/setgpfitnessfunc.html"/>
+   <appContext helpID="setindexedmatrix" path="funcs/s/setIndexedMatrix_.html"/>
+   <appContext helpID="setindexedseries" path="funcs/s/setIndexedSeries_.html"/>
+   <appContext helpID="setloglevel" path="funcs/s/setLogLevel.html"/>
+   <appContext helpID="setmaxblocksizeforreservedmemory"
+               path="funcs/s/setMaxBlockSizeForReservedMemory.html"/>
+   <appContext helpID="setmaxconnections" path="funcs/s/setMaxConnections.html"/>
+   <appContext helpID="setmaxjobparallelism" path="funcs/s/setMaxJobParallelism.html"/>
+   <appContext helpID="setmaxjobpriority" path="funcs/s/setMaxJobPriority.html"/>
+   <appContext helpID="setmemlimitofalltempresults"
+               path="funcs/s/setmemlimitofalltempresults.html"/>
+   <appContext helpID="setmemlimitofqueryresult"
+               path="funcs/s/setMemLimitOfQueryResult.html"/>
+   <appContext helpID="setmemlimitoftaskgroupresult"
+               path="funcs/s/setMemLimitOfTaskGroupResult.html"/>
+   <appContext helpID="setmemlimitoftempresult"
+               path="funcs/s/setMemLimitOfTempResult.html"/>
+   <appContext helpID="setmaxmemsize" path="funcs/s/setMaxMemSize.html"/>
+   <appContext helpID="setMaxTransactionSize"
+               path="funcs/s/setMaxTransactionSize.html"/>
+   <appContext helpID="setolapcacheenginesize"
+               path="funcs/s/setOLAPCacheEngineSize.html"/>
+   <appContext helpID="setOrcaCheckpointConfig"
+               path="funcs/s/setOrcaCheckpointConfig.html"/>
+   <appContext helpID="setprefetchcomputenodedata"
+               path="funcs/s/setprefetchcomputenodedata.html"/>
+   <appContext helpID="setraftelectiontick" path="funcs/s/setRaftElectionTick.html"/>
+   <appContext helpID="setrandomseed" path="funcs/s/setRandomSeed.html"/>
+   <appContext helpID="setreservedmemsize" path="funcs/s/setReservedMemSize.html"/>
+   <appContext helpID="setretentionpolicy" path="funcs/s/setRetentionPolicy.html"/>
+   <appContext helpID="setsessionexpiredtime"
+               path="funcs/s/setsessionexpiredtime.html"/>
+   <appContext helpID="setstreamtablefiltercolumn"
+               path="funcs/s/setStreamTableFilterColumn.html"/>
+   <appContext helpID="setstreamtabletimestamp"
+               path="funcs/s/setstreamtabletimestamp.html"/>
+   <appContext helpID="setsystem" path="funcs/s/setSystem.html"/>
+   <appContext helpID="settablecomment" path="funcs/s/settablecomment.html"/>
+   <appContext helpID="setTableSensitiveColumn"
+               path="funcs/s/setTableSensitiveColumn.html"/>
+   <appContext helpID="settimeouttick" path="funcs/s/setTimeoutTick.html"/>
+   <appContext helpID="settsdbcacheenginesize"
+               path="funcs/s/setTSDBCacheEngineSize.html"/>
+   <appContext helpID="shape" path="funcs/s/shape.html"/>
+   <appContext helpID="shapirotest" path="funcs/s/shapiroTest.html"/>
+   <appContext helpID="share" path="funcs/s/share.html"/>
+   <appContext helpID="shell" path="funcs/s/shell.html"/>
+   <appContext helpID="short" path="funcs/s/short.html"/>
+   <appContext helpID="shuffle" path="funcs/s/shuffle_.html"/>
+   <appContext helpID="shuffle" path="funcs/s/shuffle.html"/>
+   <appContext helpID="signum" path="funcs/s/signbit.html"/>
+   <appContext helpID="signum" path="funcs/s/signum.html"/>
+   <appContext helpID="sin" path="funcs/s/sin.html"/>
+   <appContext helpID="sinh" path="funcs/s/sinh.html"/>
+   <appContext helpID="size" path="funcs/s/size.html"/>
+   <appContext helpID="skew" path="funcs/s/skew.html"/>
+   <appContext helpID="skipclusterreplicationtask"
+               path="funcs/s/skipClusterReplicationTask.html"/>
+   <appContext helpID="sleep" path="funcs/s/sleep.html"/>
+   <appContext helpID="slice" path="funcs/s/slice.html"/>
+   <appContext helpID="slicebykey" path="funcs/s/sliceByKey.html"/>
+   <appContext helpID="sma" path="funcs/s/sma.html"/>
+   <appContext helpID="sinppet" path="funcs/s/sinppet.html"/>
+   <appContext helpID="socp" path="funcs/s/socp.html"/>
+   <appContext helpID="solve" path="funcs/s/solve.html"/>
+   <appContext helpID="sort" path="funcs/s/sort_.html"/>
+   <appContext helpID="sort" path="funcs/s/sort.html"/>
+   <appContext helpID="sortby" path="funcs/s/sortBy_.html"/>
+   <appContext helpID="spearmanr" path="funcs/s/spearmanr.html"/>
+   <appContext helpID="splev" path="funcs/s/splev.html"/>
+   <appContext helpID="spline" path="funcs/s/spline.html"/>
+   <appContext helpID="split" path="funcs/s/split.html"/>
+   <appContext helpID="splrep" path="funcs/s/splrep.html"/>
+   <appContext helpID="sql" path="funcs/s/sql.html"/>
+   <appContext helpID="sqlcol" path="funcs/s/sqlCol.html"/>
+   <appContext helpID="sqlcolalias" path="funcs/s/sqlColAlias.html"/>
+   <appContext helpID="sqldelete" path="funcs/s/sqlDelete.html"/>
+   <appContext helpID="sqlds" path="funcs/s/sqlDS.html"/>
+   <appContext helpID="sqlTuple" path="funcs/s/sqlTuple.html"/>
+   <appContext helpID="sqlupdate" path="funcs/s/sqlUpdate.html"/>
+   <appContext helpID="sqrt" path="funcs/s/sqrt.html"/>
+   <appContext helpID="square" path="funcs/s/square.html"/>
+   <appContext helpID="startclusterreplication"
+               path="funcs/s/startClusterReplication.html"/>
+   <appContext helpID="startdatanode" path="funcs/s/startDataNode.html"/>
+   <appContext helpID="startheapsample" path="funcs/s/startheapsample.html"/>
+   <appContext helpID="startswith" path="funcs/s/startsWith.html"/>
+   <appContext helpID="stat" path="funcs/s/stat.html"/>
+   <appContext helpID="stateiterate" path="funcs/s/stateIterate.html"/>
+   <appContext helpID="statemavg" path="funcs/s/stateMavg.html"/>
+   <appContext helpID="std" path="funcs/s/std.html"/>
+   <appContext helpID="stdp" path="funcs/s/stdp.html"/>
+   <appContext helpID="stl" path="funcs/s/stl.html"/>
+   <appContext helpID="stopclusterreplication"
+               path="funcs/s/stopClusterReplication.html"/>
+   <appContext helpID="stopdatanode" path="funcs/s/stopDataNode.html"/>
+   <appContext helpID="stopheapsample" path="funcs/s/stopheapsample.html"/>
+   <appContext helpID="streamengineparser" path="funcs/s/streamEngineParser.html"/>
+   <appContext helpID="streamfilter" path="funcs/s/streamFilter.html"/>
+   <appContext helpID="StreamGraph_haKeyedSource"
+               path="funcs/s/StreamGraph_haKeyedSource.html"/>
+   <appContext helpID="StreamGraph_haSource" path="funcs/s/StreamGraph_haSource.html"/>
+   <appContext helpID="StreamGraph_keyedSource"
+               path="funcs/s/StreamGraph_keyedSource.html"/>
+   <appContext helpID="StreamGraph_latestKeyedSource"
+               path="funcs/s/StreamGraph_latestKeyedSource.html"/>
+   <appContext helpID="StreamGraph_name" path="funcs/s/StreamGraph_name.html"/>
+   <appContext helpID="StreamGraph_setConfigMap"
+               path="funcs/s/StreamGraph_setConfigMap.html"/>
+   <appContext helpID="StreamGraph_source" path="funcs/s/StreamGraph_source.html"/>
+   <appContext helpID="StreamGraph_sourceByName"
+               path="funcs/s/StreamGraph_sourceByName.html"/>
+   <appContext helpID="StreamGraph_str" path="funcs/s/StreamGraph_str.html"/>
+   <appContext helpID="StreamGraph_submit" path="funcs/s/StreamGraph_submit.html"/>
+   <appContext helpID="StreamGraph_toGraphviz"
+               path="funcs/s/StreamGraph_toGraphviz.html"/>
+   <appContext helpID="streamtable" path="funcs/s/streamTable.html"/>
+   <appContext helpID="stretch" path="funcs/s/stretch.html"/>
+   <appContext helpID="string" path="funcs/s/string.html"/>
+   <appContext helpID="stringformat" path="funcs/s/stringFormat.html"/>
+   <appContext helpID="strip" path="funcs/s/strip.html"/>
+   <appContext helpID="strlen" path="funcs/s/strlen.html"/>
+   <appContext helpID="strlenu" path="funcs/s/strlenu.html"/>
+   <appContext helpID="strpos" path="funcs/s/strpos.html"/>
+   <appContext helpID="strreplace" path="funcs/s/strReplace.html"/>
+   <appContext helpID="sub" path="funcs/s/sub.html"/>
+   <appContext helpID="subarray" path="funcs/s/subarray.html"/>
+   <appContext helpID="submitjob" path="funcs/s/submitJob.html"/>
+   <appContext helpID="submitjobex" path="funcs/s/submitJobEx.html"/>
+   <appContext helpID="submitjobex2" path="funcs/s/submitJobEx2.html"/>
+   <appContext helpID="subscribetable" path="funcs/s/subscribeTable.html"/>
+   <appContext helpID="substr" path="funcs/s/substr.html"/>
+   <appContext helpID="substru" path="funcs/s/substru.html"/>
+   <appContext helpID="subtuple" path="funcs/s/subtuple.html"/>
+   <appContext helpID="sum" path="funcs/s/sum.html"/>
+   <appContext helpID="sum2" path="funcs/s/sum2.html"/>
+   <appContext helpID="sum3" path="funcs/s/sum3.html"/>
+   <appContext helpID="sum4" path="funcs/s/sum4.html"/>
+   <appContext helpID="sumbars" path="funcs/s/sumbars.html"/>
+   <appContext helpID="summary" path="funcs/s/summary.html"/>
+   <appContext helpID="suspendrecovery" path="funcs/s/suspendRecovery.html"/>
+   <appContext helpID="svd" path="funcs/s/svd.html"/>
+   <appContext helpID="symbol" path="funcs/s/symbol.html"/>
+   <appContext helpID="symbolcode" path="funcs/s/symbolCode.html"/>
+   <appContext helpID="symmetricdifference" path="funcs/s/symmetricDifference.html"/>
+   <appContext helpID="syncdict" path="funcs/s/syncDict.html"/>
+   <appContext helpID="syntax" path="funcs/s/syntax.html"/>
+   <appContext helpID="t3" path="funcs/t/t3.html"/>
+   <appContext helpID="table" path="funcs/t/table.html"/>
+   <appContext helpID="tableinsert" path="funcs/t/tableInsert.html"/>
+   <appContext helpID="tableUpsert" path="funcs/t/tableUpsert.html"/>
+   <appContext helpID="tail" path="funcs/t/tail.html"/>
+   <appContext helpID="take" path="funcs/t/take.html"/>
+   <appContext helpID="talibnull" path="funcs/t/talibNull.html"/>
+   <appContext helpID="tan" path="funcs/t/tan.html"/>
+   <appContext helpID="tanh" path="funcs/t/tanh.html"/>
+   <appContext helpID="tanimoto" path="funcs/t/tanimoto.html"/>
+   <appContext helpID="tema" path="funcs/t/tema.html"/>
+   <appContext helpID="temporaladd" path="funcs/t/temporalAdd.html"/>
+   <appContext helpID="temporalDeltas" path="funcs/t/temporalDeltas.html"/>
+   <appContext helpID="temporalDiff" path="funcs/t/temporalDiff.html"/>
+   <appContext helpID="temporalformat" path="funcs/t/temporalFormat.html"/>
+   <appContext helpID="temporalparse" path="funcs/t/temporalParse.html"/>
+   <appContext helpID="temporalseq" path="funcs/t/temporalSeq.html"/>
+   <appContext helpID="tensor" path="funcs/t/tensor.html"/>
+   <appContext helpID="test" path="funcs/t/test.html"/>
+   <appContext helpID="textchunkds" path="funcs/t/textChunkDS.html"/>
+   <appContext helpID="til" path="funcs/t/til.html"/>
+   <appContext helpID="time" path="funcs/t/time.html"/>
+   <appContext helpID="timestamp" path="funcs/t/timestamp.html"/>
+   <appContext helpID="tmavg" path="funcs/t/tmavg.html"/>
+   <appContext helpID="tmavgtopn" path="funcs/t/tmavgTopN.html"/>
+   <appContext helpID="tmbeta" path="funcs/t/tmbeta.html"/>
+   <appContext helpID="tmbetatopn" path="funcs/t/tmbetaTopN.html"/>
+   <appContext helpID="tmcorr" path="funcs/t/tmcorr.html"/>
+   <appContext helpID="tmcorrtopn" path="funcs/t/tmcorrTopN.html"/>
+   <appContext helpID="tmcount" path="funcs/t/tmcount.html"/>
+   <appContext helpID="tmcovar" path="funcs/t/tmcovar.html"/>
+   <appContext helpID="tmcovartopn" path="funcs/t/tmcovarTopN.html"/>
+   <appContext helpID="tmfirst" path="funcs/t/tmfirst.html"/>
+   <appContext helpID="tmkurtosis" path="funcs/t/tmkurtosis.html"/>
+   <appContext helpID="tmkurtosistopn" path="funcs/t/tmkurtosisTopN.html"/>
+   <appContext helpID="tmlast" path="funcs/t/tmlast.html"/>
+   <appContext helpID="tmlowrange" path="funcs/t/tmlowrange.html"/>
+   <appContext helpID="tmmax" path="funcs/t/tmmax.html"/>
+   <appContext helpID="tmmed" path="funcs/t/tmmed.html"/>
+   <appContext helpID="tmmin" path="funcs/t/tmmin.html"/>
+   <appContext helpID="tmove" path="funcs/t/tmove.html"/>
+   <appContext helpID="tmovingwindowdata" path="funcs/t/tmovingWindowData.html"/>
+   <appContext helpID="tmpercentile" path="funcs/t/tmpercentile.html"/>
+   <appContext helpID="tmprod" path="funcs/t/tmprod.html"/>
+   <appContext helpID="tmrank" path="funcs/t/tmrank.html"/>
+   <appContext helpID="tmskew" path="funcs/t/tmskew.html"/>
+   <appContext helpID="tmskewtopn" path="funcs/t/tmskewTopN.html"/>
+   <appContext helpID="tmstd" path="funcs/t/tmstd.html"/>
+   <appContext helpID="tmstdp" path="funcs/t/tmstdp.html"/>
+   <appContext helpID="tmstdptopn" path="funcs/t/tmstdpTopN.html"/>
+   <appContext helpID="tmstdtopn" path="funcs/t/tmstdTopN.html"/>
+   <appContext helpID="tmsum" path="funcs/t/tmsum.html"/>
+   <appContext helpID="tmsum2" path="funcs/t/tmsum2.html"/>
+   <appContext helpID="tmsumtopn" path="funcs/t/tmsumTopN.html"/>
+   <appContext helpID="tmtoprange" path="funcs/t/tmtoprange.html"/>
+   <appContext helpID="tmvar" path="funcs/t/tmvar.html"/>
+   <appContext helpID="tmvarp" path="funcs/t/tmvarp.html"/>
+   <appContext helpID="tmvarptopn" path="funcs/t/tmvarpTopN.html"/>
+   <appContext helpID="tmvartopn" path="funcs/t/tmvarTopN.html"/>
+   <appContext helpID="tmwavg" path="funcs/t/tmwavg.html"/>
+   <appContext helpID="tmwsum" path="funcs/t/tmwsum.html"/>
+   <appContext helpID="tmwsumtopn" path="funcs/t/tmwsumTopN.html"/>
+   <appContext helpID="tochararray" path="funcs/t/toCharArray.html"/>
+   <appContext helpID="today" path="funcs/t/today.html"/>
+   <appContext helpID="tojson" path="funcs/t/toJson.html"/>
+   <appContext helpID="tokenize" path="funcs/t/tokenize.html"/>
+   <appContext helpID="toprange" path="funcs/t/topRange.html"/>
+   <appContext helpID="tostdjson" path="funcs/t/toStdJson.html"/>
+   <appContext helpID="toutf8" path="funcs/t/toUTF8.html"/>
+   <appContext helpID="transds" path="funcs/t/transDS_.html"/>
+   <appContext helpID="transfreq" path="funcs/t/transFreq.html"/>
+   <appContext helpID="transpose" path="funcs/t/transpose.html"/>
+   <appContext helpID="treasuryconversionfactor"
+               path="funcs/t/treasuryconversionfactor.html"/>
+   <appContext helpID="triggercheckpointforimoltp"
+               path="funcs/t/triggercheckpointforimoltp.html"/>
+   <appContext helpID="triggernodereport" path="funcs/t/triggerNodeReport.html"/>
+   <appContext helpID="triggerPKEYCompaction"
+               path="funcs/t/triggerPKEYCompaction.html"/>
+   <appContext helpID="triggertsdbcompaction"
+               path="funcs/t/triggerTSDBCompaction.html"/>
+   <appContext helpID="tril" path="funcs/t/tril.html"/>
+   <appContext helpID="trim" path="funcs/t/trim.html"/>
+   <appContext helpID="trima" path="funcs/t/trima.html"/>
+   <appContext helpID="triu" path="funcs/t/triu.html"/>
+   <appContext helpID="truerange" path="funcs/t/trueRange.html"/>
+   <appContext helpID="truncate" path="funcs/t/truncate.html"/>
+   <appContext helpID="ttest" path="funcs/t/tTest.html"/>
+   <appContext helpID="tuplesum" path="funcs/t/tupleSum.html"/>
+   <appContext helpID="type" path="funcs/t/type.html"/>
+   <appContext helpID="typestr" path="funcs/t/typestr.html"/>
+   <appContext helpID="undef" path="funcs/u/undef.html"/>
+   <appContext helpID="ungroup" path="funcs/u/ungroup.html"/>
+   <appContext helpID="unifiedexpr" path="funcs/u/unifiedExpr.html"/>
+   <appContext helpID="union" path="funcs/u/union.html"/>
+   <appContext helpID="unionall" path="funcs/u/unionAll.html"/>
+   <appContext helpID="unlockUser" path="funcs/u/unlockUser.html"/>
+   <appContext helpID="unpack" path="funcs/u/unpack.html"/>
+   <appContext helpID="unpivot" path="funcs/u/unpivot.html"/>
+   <appContext helpID="unsubscribetable" path="funcs/u/unsubscribeTable.html"/>
+   <appContext helpID="update" path="funcs/u/update_.html"/>
+   <appContext helpID="updatelicense" path="funcs/u/updateLicense.html"/>
+   <appContext helpID="updatemarketholiday" path="funcs/u/updateMarketHoliday.html"/>
+   <appContext helpID="updateOrderBookEngineParams"
+               path="funcs/u/updateOrderBookEngineParams.html"/>
+   <appContext helpID="updatepkeydeletebitmap"
+               path="funcs/u/updatepkeydeletebitmap.html"/>
+   <appContext helpID="updaterule" path="funcs/u/updateRule.html"/>
+   <appContext helpID="upper" path="funcs/u/upper.html"/>
+   <appContext helpID="upsert" path="funcs/u/upsert_.html"/>
+   <appContext helpID="useOrcaStreamEngine" path="funcs/u/useOrcaStreamEngine.html"/>
+   <appContext helpID="useOrcaStreamTable" path="funcs/u/useOrcaStreamTable.html"/>
+   <appContext helpID="uuid" path="funcs/u/uuid.html"/>
+   <appContext helpID="valuechanged" path="funcs/v/valueChanged.html"/>
+   <appContext helpID="values" path="funcs/v/values.html"/>
+   <appContext helpID="cvar" path="funcs/v/var_0.html"/>
+   <appContext helpID="vanillaoption" path="funcs/v/vanillaoption.html"/>
+   <appContext helpID="var" path="funcs/v/var.html"/>
+   <appContext helpID="varma" path="funcs/v/varma.html"/>
+   <appContext helpID="varp" path="funcs/v/varp.html"/>
+   <appContext helpID="vectorar" path="funcs/v/vectorar.html"/>
+   <appContext helpID="vectornorm" path="funcs/v/vectornorm.html"/>
+   <appContext helpID="version" path="funcs/v/version.html"/>
+   <appContext helpID="volumebar" path="funcs/v/volumeBar.html"/>
+   <appContext helpID="warmupcomputenodecache"
+               path="funcs/w/warmupcomputenodecache.html"/>
+   <appContext helpID="warmupOrcaStreamEngine"
+               path="funcs/w/warmupOrcaStreamEngine.html"/>
+   <appContext helpID="warmupstreamengine" path="funcs/w/warmupStreamEngine.html"/>
+   <appContext helpID="wavg" path="funcs/w/wavg.html"/>
+   <appContext helpID="wc" path="funcs/w/wc.html"/>
+   <appContext helpID="wcovar" path="funcs/w/wcovar.html"/>
+   <appContext helpID="weekbegin" path="funcs/w/weekBegin.html"/>
+   <appContext helpID="weekday" path="funcs/w/weekday.html"/>
+   <appContext helpID="weekend" path="funcs/w/weekEnd.html"/>
+   <appContext helpID="weekofmonth" path="funcs/w/weekOfMonth.html"/>
+   <appContext helpID="weekofyear" path="funcs/w/weekOfYear.html"/>
+   <appContext helpID="wilder" path="funcs/w/wilder.html"/>
+   <appContext helpID="winsorize" path="funcs/w/winsorize_.html"/>
+   <appContext helpID="winsorize" path="funcs/w/winsorize.html"/>
+   <appContext helpID="wls" path="funcs/w/wls.html"/>
+   <appContext helpID="wma" path="funcs/w/wma.html"/>
+   <appContext helpID="write" path="funcs/w/write.html"/>
+   <appContext helpID="writebytes" path="funcs/w/writeBytes.html"/>
+   <appContext helpID="writeline" path="funcs/w/writeLine.html"/>
+   <appContext helpID="writelines" path="funcs/w/writeLines.html"/>
+   <appContext helpID="writelog" path="funcs/w/writeLog.html"/>
+   <appContext helpID="writeloglevel" path="funcs/w/writeloglevel.html"/>
+   <appContext helpID="writeobject" path="funcs/w/writeObject.html"/>
+   <appContext helpID="writerecord" path="funcs/w/writeRecord.html"/>
+   <appContext helpID="wsum" path="funcs/w/wsum.html"/>
+   <appContext helpID="wsum2" path="funcs/w/wsum2.html"/>
+   <appContext helpID="wslr" path="funcs/w/wslr.html"/>
+   <appContext helpID="xdb" path="funcs/x/xdb.html"/>
+   <appContext helpID="xor" path="funcs/x/xor.html"/>
+   <appContext helpID="year" path="funcs/y/year.html"/>
+   <appContext helpID="yearbegin" path="funcs/y/yearBegin.html"/>
+   <appContext helpID="yearend" path="funcs/y/yearEnd.html"/>
+   <appContext helpID="zigzag" path="funcs/z/zigzag.html"/>
+   <appContext helpID="zscore" path="funcs/z/zscore.html"/>
+   <appContext helpID="ztest" path="funcs/z/zTest.html"/>
+   <appContext helpID="types_formats" path="funcs/appendix.html"/>
+   <appContext helpID="chap8_sect_series_o_funcs" path="funcs/themes/themes.html"/>
+   <appContext helpID="累计窗口系列cum-系列" path="funcs/themes/cumFunctions.html"/>
+   <appContext helpID="cumtopn-系列" path="funcs/themes/cumTopN.html"/>
+   <appContext helpID="mvoingwindow" path="funcs/themes/mFunctions.html"/>
+   <appContext helpID="行计算系列row-系列" path="funcs/themes/rowFunctions.html"/>
+   <appContext helpID="ta-lib-系列" path="funcs/themes/TAlib.html"/>
+   <appContext helpID="时序滑动窗口系列tm-系列" path="funcs/themes/tmFunctions.html"/>
+   <appContext helpID="tmtopn-系列" path="funcs/themes/tmTopN.html"/>
+   <appContext helpID="mtopn-系列" path="funcs/themes/TopN.html"/>
+   <appContext helpID="accumulate-a" path="funcs/ho_funcs/accumulate.html"/>
+   <appContext helpID="aggrtopn" path="funcs/ho_funcs/aggrTopN.html"/>
+   <appContext helpID="all" path="funcs/ho_funcs/all.html"/>
+   <appContext helpID="any" path="funcs/ho_funcs/any.html"/>
+   <appContext helpID="bycolumn" path="funcs/ho_funcs/byColumn.html"/>
+   <appContext helpID="byrow" path="funcs/ho_funcs/byRow.html"/>
+   <appContext helpID="call" path="funcs/ho_funcs/call.html"/>
+   <appContext helpID="contextby-x" path="funcs/ho_funcs/contextby.html"/>
+   <appContext helpID="cross-c" path="funcs/ho_funcs/cross.html"/>
+   <appContext helpID="each-e" path="funcs/ho_funcs/each.html"/>
+   <appContext helpID="eachleft-l" path="funcs/ho_funcs/eachLeft.html"/>
+   <appContext helpID="eachpost-o" path="funcs/ho_funcs/eachPost.html"/>
+   <appContext helpID="eachpre-p" path="funcs/ho_funcs/eachPre.html"/>
+   <appContext helpID="eachright-r" path="funcs/ho_funcs/eachRight.html"/>
+   <appContext helpID="groupby-g" path="funcs/ho_funcs/groupby.html"/>
+   <appContext helpID="loop" path="funcs/ho_funcs/loop.html"/>
+   <appContext helpID="moving" path="funcs/ho_funcs/moving.html"/>
+   <appContext helpID="nullcompare" path="funcs/ho_funcs/nullCompare.html"/>
+   <appContext helpID="pcall" path="funcs/ho_funcs/pcall.html"/>
+   <appContext helpID="pcross" path="funcs/ho_funcs/pcross.html"/>
+   <appContext helpID="peach" path="funcs/ho_funcs/peach.html"/>
+   <appContext helpID="pivot" path="funcs/ho_funcs/pivot.html"/>
+   <appContext helpID="ploop" path="funcs/ho_funcs/ploop.html"/>
+   <appContext helpID="reduce-t" path="funcs/ho_funcs/reduce.html"/>
+   <appContext helpID="rolling" path="funcs/ho_funcs/rolling.html"/>
+   <appContext helpID="rowgroupby" path="funcs/ho_funcs/rowgroupby.html"/>
+   <appContext helpID="segmentby" path="funcs/ho_funcs/segmentby.html"/>
+   <appContext helpID="talib" path="funcs/ho_funcs/talib.html"/>
+   <appContext helpID="tmoving" path="funcs/ho_funcs/tmoving.html"/>
+   <appContext helpID="twindow" path="funcs/ho_funcs/twindow.html"/>
+   <appContext helpID="unifiedcall" path="funcs/ho_funcs/unifiedCall.html"/>
+   <appContext helpID="window" path="funcs/ho_funcs/window.html"/>
+   <appContext helpID="withnullfill" path="funcs/ho_funcs/withNullFill.html"/>
+   <appContext helpID="api_protocol" path="api/connapi_intro.html"/>
+   <appContext helpID="chap6_plugin" path="plugins/plg_intro.html"/>
+   <appContext helpID="插件介绍与使用" path="plugins/plg_howtos.html"/>
+   <appContext helpID="在插件市场安装插件" path="plugins/plg_mkt_inst.html"/>
+   <appContext helpID="插件开发教程" path="plugins/plg_dev_tutorial.html"/>
+   <appContext helpID="插件开发深度解析" path="plugins/plg_dev_adv.html"/>
+   <appContext helpID="amdhistory" path="plugins/amdquote/amdhistory.html"/>
+   <appContext helpID="amdquote" path="plugins/amdquote/amdquote.html"/>
+   <appContext helpID="amdquote-插件最佳实践指南" path="tutorials/amd_best_prac.html"/>
+   <appContext helpID="arrow" path="plugins/Arrow/arrow.html"/>
+   <appContext helpID="高效数据交互-arrow-插件使用教程" path="tutorials/arrow_plugin_usage.html"/>
+   <appContext helpID="awss3" path="plugins/aws/aws.html"/>
+   <appContext helpID="backtest" path="plugins/backtest.html"/>
+   <appContext helpID="interface_description"
+               path="plugins/backtest/interface_description.html"/>
+   <appContext helpID="股票" path="plugins/backtest/stock.html"/>
+   <appContext helpID="期权" path="plugins/backtest/option.html"/>
+   <appContext helpID="期货" path="plugins/backtest/futures.html"/>
+   <appContext helpID="银行间债券" path="plugins/backtest/interbank_bonds.html"/>
+   <appContext helpID="数字货币" path="plugins/backtest/digital_currency.html"/>
+   <appContext helpID="multi_asset" path="plugins/backtest/multi_asset.html"/>
+   <appContext helpID="performance_comparison"
+               path="plugins/performance_comparison.html"/>
+   <appContext helpID="dolphindb_回测平台使用和性能优化攻略"
+               path="plugins/backtest/performance_tuning.html"/>
+   <appContext helpID="_3_00_3" path="plugins/backtest/release/3_00_3.html"/>
+   <appContext helpID="release_notes" path="plugins/backtest/release/3_00_2.html"/>
+   <appContext helpID="ctp" path="plugins/ctp.html"/>
+   <appContext helpID="ctp_best_practice" path="plugins/ctp_best_practice.html"/>
+   <appContext helpID="datafeed" path="plugins/datafeed.html"/>
+   <appContext helpID="efh" path="plugins/efh.html"/>
+   <appContext helpID="encoderdecoder" path="plugins/EncoderDecoder.html"/>
+   <appContext helpID="excel_add_in" path="plugins/excel_add_in.html"/>
+   <appContext helpID="feather" path="plugins/feather/feather.html"/>
+   <appContext helpID="gp" path="plugins/gp/gp.html"/>
+   <appContext helpID="gurobi" path="plugins/gurobi.html"/>
+   <appContext helpID="hbase" path="plugins/hbase/hbase.html"/>
+   <appContext helpID="hdf5" path="plugins/hdf5/hdf5.html"/>
+   <appContext helpID="hdfs" path="plugins/hdfs/hdfs.html"/>
+   <appContext helpID="httpclient" path="plugins/httpClient/httpclient.html"/>
+   <appContext helpID="利用-httpclient-插件整合外部消息"
+               path="tutorials/httpclient_msg_case.html"/>
+   <appContext helpID="insight" path="plugins/insight/insight.html"/>
+   <appContext helpID="dolphindb-insight-行情插件最佳实践指南"
+               path="tutorials/insight_plugin.html"/>
+   <appContext helpID="kafka" path="plugins/kafka/kafka.html"/>
+   <appContext helpID="kdb" path="plugins/kdb/kdb.html"/>
+   <appContext helpID="ldap" path="plugins/LDAP.html"/>
+   <appContext helpID="lgmb" path="plugins/lgbm.html"/>
+   <appContext helpID="libtorch" path="plugins/libtorch/libtorch.html"/>
+   <appContext helpID="mat" path="plugins/mat/mat.html"/>
+   <appContext helpID="matchingengine" path="plugins/MatchingEngine/me.html"/>
+   <appContext helpID="mes" path="plugins/matchingEngineSimulator/mes.html"/>
+   <appContext helpID="模拟撮合引擎使用教程" path="tutorials/matching_engine_simulator.html"/>
+   <appContext helpID="rn" path="plugins/matchingEngineSimulator/rn.html"/>
+   <appContext helpID="mdl" path="plugins/MDL.html"/>
+   <appContext helpID="mdl-行情插件最佳实践指南" path="tutorials/best_practice_for_mdl.html"/>
+   <appContext helpID="mongodb" path="plugins/mongodb/mongodb.html"/>
+   <appContext helpID="mqtt" path="plugins/mqtt/mqtt.html"/>
+   <appContext helpID="mseed" path="plugins/mseed/mseed.html"/>
+   <appContext helpID="mysql" path="plugins/mysql/mysql.html"/>
+   <appContext helpID="nsq" path="plugins/nsq/nsq.html"/>
+   <appContext helpID="odbc" path="plugins/odbc/odbc.html"/>
+   <appContext helpID="odbc插件常见问题" path="plugins/odbc/odbc_faq.html"/>
+   <appContext helpID="opcua" path="plugins/opcua/opcua.html"/>
+   <appContext helpID="opc" path="plugins/opc/opc.html"/>
+   <appContext helpID="orc" path="plugins/orc.html"/>
+   <appContext helpID="parquet" path="plugins/parquet/parquet.html"/>
+   <appContext helpID="py" path="plugins/py/py.html"/>
+   <appContext helpID="rabbitmq" path="plugins/rabbitMQ.html"/>
+   <appContext helpID="redis" path="plugins/redis.html"/>
+   <appContext helpID="redis-插件使用教程" path="tutorials/redis_plugin_tutorial.html"/>
+   <appContext helpID="quantlib" path="plugins/quantlib/quantlib.html"/>
+   <appContext helpID="rocketmq" path="plugins/rocketMQ.html"/>
+   <appContext helpID="schemalesswriter" path="plugins/slwriter.html"/>
+   <appContext helpID="sevenzip" path="plugins/sevenzip.html"/>
+   <appContext helpID="signal" path="plugins/signal/signal.html"/>
+   <appContext helpID="sipui2" path="plugins/signal/sipui2.html"/>
+   <appContext helpID="ssequotationfile" path="plugins/SSEQuotationFile.html"/>
+   <appContext helpID="svm" path="plugins/svm/svm.html"/>
+   <appContext helpID="tcpsocket" path="plugins/tcpsocket.html"/>
+   <appContext helpID="websocket" path="plugins/websocket.html"/>
+   <appContext helpID="windtdf" path="plugins/windtdf.html"/>
+   <appContext helpID="_3_00_2_1455" path="plugins/windtdf_tutorial.html"/>
+   <appContext helpID="xgboost" path="plugins/xgboost/xgboost.html"/>
+   <appContext helpID="xtp" path="plugins/xtp.html"/>
+   <appContext helpID="dolphindb-xtp-插件最佳实践" path="tutorials/xtp.html"/>
+   <appContext helpID="zip" path="plugins/zip/zip.html"/>
+   <appContext helpID="zlib" path="plugins/zlib/zlib.html"/>
+   <appContext helpID="zmq" path="plugins/zmq/zmq.html"/>
+   <appContext helpID="third_party" path="third_party.html"/>
+   <appContext helpID="基于-datax-的-dolphindb-数据导入工具"
+               path="plugins/dataxwriter/README_CN.html"/>
+   <appContext helpID="基于-datax-的-dolphindb-数据读取工具" path="tools/datax_reader.html"/>
+   <appContext helpID="grafana-数据源插件" path="tools/grafana_overview.html"/>
+   <appContext helpID="dolphindb-grafana-datasource-plugin" path="tools/grafana.html"/>
+   <appContext helpID="dolphindb-datasource-next" path="tools/backend_grafana.html"/>
+   <appContext helpID="dbeaver" path="tools/dbeaver.html"/>
+   <appContext helpID="superset" path="tools/superset.html"/>
+   <appContext helpID="power_bi" path="tools/power_bi.html"/>
+   <appContext helpID="about_tutorials" path="tutorials/about_tutorials.html"/>
+   <appContext helpID="new_users_finance" path="tutorials/new_users_finance.html"/>
+   <appContext helpID="分区数据库设计和操作" path="tutorials/database.html"/>
+   <appContext helpID="dolphindb-内存表详解" path="tutorials/in_memory_table.html"/>
+   <appContext helpID="内存数据表" path="tutorials/partitioned_in_memory_table.html"/>
+   <appContext helpID="oltp-内存存储引擎非嵌入式版使用教程"
+               path="tutorials/oltp_in-memory_storage_engine_non-embedded_version_tutorials.html"/>
+   <appContext helpID="利用缓存表快速实现-mysql-库间信息同步" path="tutorials/cachedtable.html"/>
+   <appContext helpID="建库建表最容易忽略的十个细节"
+               path="tutorials/database_and_table_creation_details.html"/>
+   <appContext helpID="redo-log-和-cache-engine"
+               path="tutorials/redoLog_cacheEngine.html"/>
+   <appContext helpID="tsdb-存储引擎简介" path="tutorials/tsdb_engine.html"/>
+   <appContext helpID="tsdb-存储引擎详解" path="tutorials/tsdb_explained.html"/>
+   <appContext helpID="分布式表数据更新原理和性能" path="tutorials/dolphindb_update.html"/>
+   <appContext helpID="软删除" path="tutorials/soft_delete.html"/>
+   <appContext helpID="基于-datax-的-dolphindb-数据导入工具" path="tutorials/datax_writer.html"/>
+   <appContext helpID="debezium--kafka-实时同步-mysql-数据到-dolphindb"
+               path="tutorials/Debezium_and_Kafka_data_sync.html"/>
+   <appContext helpID="debeziumkafka-实时同步-oracle-11g-数据到-dolphindb"
+               path="tutorials/Debezium_Kafka_Oracle_sync.html"/>
+   <appContext helpID="clear_cache" path="tutorials/clear_cache.html"/>
+   <appContext helpID="best_practice_for_storage_compute_separation"
+               path="tutorials/best_practice_for_storage_compute_separation.html"/>
+   <appContext helpID="database_and_table_creation_wizard"
+               path="tutorials/database_and_table_creation_wizard.html"/>
+   <appContext helpID="textdb" path="tutorials/textdb.html"/>
+   <appContext helpID="sql-标准化" path="tutorials/std_sql_ddb.html"/>
+   <appContext helpID="topn-系列函数" path="tutorials/DolphinDB_TopN.html"/>
+   <appContext helpID="使用-summary-函数生成大规模数据统计信息"
+               path="tutorials/generate_large_scale_statistics_with_summary.html"/>
+   <appContext helpID="decimal-类型之于-dolphindb" path="tutorials/DECIMAL.html"/>
+   <appContext helpID="计算精度问题与-decimal-类型"
+               path="tutorials/DECIMAL_Calculation_Characteristics.html"/>
+   <appContext helpID="机器学习" path="tutorials/machine_learning.html"/>
+   <appContext helpID="面板数据处理" path="tutorials/panel_data.html"/>
+   <appContext helpID="时区处理" path="tutorials/timezone.html"/>
+   <appContext helpID="pip-降采样算法" path="tutorials/pip_ddb.html"/>
+   <appContext helpID="动态增加字段和计算指标" path="tutorials/add_Column.html"/>
+   <appContext helpID="利用-dolphindb-高效清洗数据" path="tutorials/data_ETL.html"/>
+   <appContext helpID="array-vector-的最佳实践指南" path="tutorials/Array_Vector.html"/>
+   <appContext helpID="python-到-dolphindb-的函数映射"
+               path="tutorials/function_mapping_py.html"/>
+   <appContext helpID="sql-编写案例" path="tutorials/ddb_sql_cases.html"/>
+   <appContext helpID="sql-执行计划" path="tutorials/DolphinDB_Explain.html"/>
+   <appContext helpID="启动脚本" path="tutorials/Startup.html"/>
+   <appContext helpID="窗口计算" path="tutorials/window_cal.html"/>
+   <appContext helpID="多范式编程" path="tutorials/hybrid_programming_paradigms.html"/>
+   <appContext helpID="函数化编程案例" path="tutorials/func_progr_cases.html"/>
+   <appContext helpID="基于函数的元编程应用" path="tutorials/meta_programming.html"/>
+   <appContext helpID="基于-sql-的元编程"
+               path="tutorials/macro_var_based_metaprogramming.html"/>
+   <appContext helpID="即时编译jit" path="tutorials/jit.html"/>
+   <appContext helpID="矩阵运算" path="tutorials/matrix.html"/>
+   <appContext helpID="通用计算" path="tutorials/general_computing.html"/>
+   <appContext helpID="自定义聚合函数" path="tutorials/udaf.html"/>
+   <appContext helpID="dolphindb-时间类型比较规则"
+               path="tutorials/ddb_comparison_rules_of_time_types.html"/>
+   <appContext helpID="dolphindb-教程概率统计分析"
+               path="tutorials/probabilistic_and_statistical_analysis.html"/>
+   <appContext helpID="编程最容易忽略的十个细节"
+               path="tutorials/the_ten_most_overlooked_details_of_programming.html"/>
+   <appContext helpID="dolphindb-数据访问接口开发教程"
+               path="tutorials/interface_development.html"/>
+   <appContext helpID="多数据源流式实时关联处理"
+               path="tutorials/streaming-real-time-correlation-processing.html"/>
+   <appContext helpID="流数据引擎解析器" path="tutorials/StreamEngineParser.html"/>
+   <appContext helpID="流数据高可用" path="tutorials/haStreaming.html"/>
+   <appContext helpID="节点启动时的流计算自动订阅" path="tutorials/streaming_auto_sub.html"/>
+   <appContext helpID="cep-引擎入门初级高频量价因子策略的实现"
+               path="tutorials/getting_started_with_cep_engine.html"/>
+   <appContext helpID="cep-引擎应用股票中高频-cta-策略实现与并行回测"
+               path="tutorials/cta_strategy_implementation_and_backtesting.html"/>
+   <appContext helpID="流计算时延统计与性能优化" path="tutorials/streaming_timer.html"/>
+   <appContext helpID="响应式状态引擎" path="tutorials/reactive_state_engine.html"/>
+   <appContext helpID="流数据功能应用" path="tutorials/streaming_tutorial.html"/>
+   <appContext helpID="数据回放" path="tutorials/data_replay.html"/>
+   <appContext helpID="使用-dolphindb-class-来开发流计算状态算子"
+               path="tutorials/stateful_stream_operators.html"/>
+   <appContext helpID="stream_computing_in_futures_trading"
+               path="tutorials/stream_computing_in_futures_trading.html"/>
+   <appContext helpID="定时作业" path="tutorials/scheduledJob.html"/>
+   <appContext helpID="作业管理" path="tutorials/job_management_tutorial.html"/>
+   <appContext helpID="用户权限管理" path="tutorials/ACL_and_Security.html"/>
+   <appContext helpID="数据备份以及恢复-130202008及之后版本"
+               path="tutorials/backup-restore-new.html"/>
+   <appContext helpID="数据备份以及恢复-130202008以前版本"
+               path="tutorials/backup_restore_before_208.html"/>
+   <appContext helpID="数据再平衡" path="tutorials/Data_Move_Rebalance.html"/>
+   <appContext helpID="集群间数据库同步" path="tutorials/data_sync_among_clusters.html"/>
+   <appContext helpID="集群间异步复制" path="tutorials/async_replication.html"/>
+   <appContext helpID="数据导入最容易忽略的十个细节" path="tutorials/data_import_details.html"/>
+   <appContext helpID="线程模型" path="tutorials/threading_model.html"/>
+   <appContext helpID="线程简介" path="tutorials/thread_intro.html"/>
+   <appContext helpID="内存管理" path="tutorials/memory_management.html"/>
+   <appContext helpID="out-of-memory" path="tutorials/oom_settlement.html"/>
+   <appContext helpID="非标权限管理"
+               path="tutorials/non-standard_permission_management.html"/>
+   <appContext helpID="节点启动流程简析与常见问题"
+               path="tutorials/node_startup_process_and_questions.html"/>
+   <appContext helpID="用户级别的资源跟踪详解" path="tutorials/user_level_resource_tracking.html"/>
+   <appContext helpID="使用-prometheus-监控告警" path="tutorials/promethues2.html"/>
+   <appContext helpID="redash-连接-dolphindb-数据源"
+               path="tutorials/data_interface_for_redash.html"/>
+   <appContext helpID="使用-chart-组件展示数据" path="tutorials/web_chart_integration.html"/>
+   <appContext helpID="debezium--kafka-实时同步-oracle-11g-数据到-dolphindb-运维手册"
+               path="tutorials/debezium_kafka_real_time_synchronization_of_oracle_11g_data.html"/>
+   <appContext helpID="基于_zabbix_的_dolphindb_集群运维监控"
+               path="tutorials/zabbix_cluster_monitoring.html"/>
+   <appContext helpID="best_practices_for_log_monitoring"
+               path="tutorials/best_practices_for_log_monitoring.html"/>
+   <appContext helpID="模块概述" path="tutorials/tu_modules.html"/>
+   <appContext helpID="dolphindb-脚本工程化管理模块代码版本与权限管理"
+               path="tutorials/module_code_versioning_and_rights_management.html"/>
+   <appContext helpID="easynsq-实时行情数据接入功能模块" path="modules/easyNSQ/easynsq.html"/>
+   <appContext helpID="easytldataimport-通联历史数据自动化导入功能模块"
+               path="modules/easyTLDataImport/easytl_data_import.html"/>
+   <appContext helpID="mytt-指标库" path="modules/mytt/mytt.html"/>
+   <appContext helpID="ops-运维函数库" path="modules/ops/ops.html"/>
+   <appContext helpID="worldquant-101-alpha-因子指标库"
+               path="modules/wq101alpha/wq101alpha.html"/>
+   <appContext helpID="国泰君安-191-alpha-因子库" path="modules/gtja191Alpha/191alpha.html"/>
+   <appContext helpID="基于-dolphindb-的多因子风险模型实践"
+               path="tutorials/multi_factor_risk_model.html"/>
+   <appContext helpID="技术分析technical-analysis指标库" path="modules/ta/ta.html"/>
+   <appContext helpID="交易日历" path="modules/MarketHoliday/mkt_calendar.html"/>
+   <appContext helpID="金融-mock-数据生成模块"
+               path="tutorials/financial_mock_data_generation_module.html"/>
+   <appContext helpID="dolphindb-日志分析工具使用手册"
+               path="tutorials/log_analysis_tool_user_manual.html"/>
+   <appContext helpID="ImportTLData_toturial"
+               path="tutorials/ImportTLData_toturial.html"/>
+   <appContext helpID="csap" path="tutorials/csap.html"/>
+   <appContext helpID="风险和绩效计算_empyrical_指标库" path="tutorials/empyrical.html"/>
+   <appContext helpID="k-线计算" path="tutorials/OHLC.html"/>
+   <appContext helpID="使用-klinechart-展示-dolphindb-k-线"
+               path="tutorials/displaying_the_dolphindb_k-line_with_klinechart.html"/>
+   <appContext helpID="python--hdf5-因子计算与-dolphindb-一体化因子计算方案对比"
+               path="tutorials/Python_HDF5_vs_DolphinDB.html"/>
+   <appContext helpID="python--文件存储与-dolphindb-因子计算性能比较"
+               path="tutorials/DolphinDB_VS_PythonFile_Storage.html"/>
+   <appContext helpID="python-parser-在金融量化分析场景的应用入门"
+               path="tutorials/py_parser__quant_fin.html"/>
+   <appContext helpID="处理-level-2-行情数据实例" path="tutorials/l2_stk_data_proc.html"/>
+   <appContext helpID="存储金融数据的分区方案最佳实践"
+               path="tutorials/best_practices_for_partitioned_storage.html"/>
+   <appContext helpID="公募基金历史数据基础分析教程"
+               path="tutorials/public_fund_basic_analysis.html"/>
+   <appContext helpID="股票行情回放" path="tutorials/stock_market_replay.html"/>
+   <appContext helpID="搭建行情回放服务的最佳实践"
+               path="tutorials/appendices_market_replay_bp.html"/>
+   <appContext helpID="国内股票行情数据导入实例" path="tutorials/stockdata_csv_import_demo.html"/>
+   <appContext helpID="基金份额参考价值-iopv-计算" path="tutorials/streaming_IOPV.html"/>
+   <appContext helpID="基于快照行情的股票和基金-k-线合成" path="tutorials/k.html"/>
+   <appContext helpID="计算基金日频因子" path="tutorials/fund_factor_contrasted_by_py.html"/>
+   <appContext helpID="基于逐笔数据合成高频-orderbookdolphindb-orderbook-引擎"
+               path="tutorials/orderBookSnapshotEngine.html"/>
+   <appContext helpID="金融-poc-用户历史数据导入指导手册之股票-level-2-逐笔篇"
+               path="tutorials/LoadDataForPoc.html"/>
+   <appContext helpID="金融实时实际波动率预测" path="tutorials/ml_volatility.html"/>
+   <appContext helpID="金融因子流式实现" path="tutorials/str_comp_fin_quant.html"/>
+   <appContext helpID="开发股票波动率预测模型的-676-个输入特征"
+               path="tutorials/metacode_derived_features.html"/>
+   <appContext helpID="快速搭建-level-2-快照数据流批一体因子计算平台最佳实践"
+               path="tutorials/l2_snapshot_factor_calc.html"/>
+   <appContext helpID="量化金融范例" path="tutorials/quant_finance_examples.html"/>
+   <appContext helpID="流式计算中证-1000-指数主买主卖交易量" path="tutorials/CSI_1000.html"/>
+   <appContext helpID="深度不平衡买卖压力指标波动率计算"
+               path="tutorials/sql_performance_optimization_wap_di_rv.html"/>
+   <appContext helpID="实时合成自定义频订单簿快照dolphindb-insight-行情插件与订单簿引擎应用"
+               path="tutorials/insight_plugin_orderbook_engine_application.html"/>
+   <appContext helpID="实时计算分钟资金流"
+               path="tutorials/streaming_capital_flow_order_by_order.html"/>
+   <appContext helpID="实时计算高频因子" path="tutorials/hf_factor_streaming.html"/>
+   <appContext helpID="实时计算日累计逐单资金流"
+               path="tutorials/streaming_capital_flow_daily.html"/>
+   <appContext helpID="实时计算涨幅榜" path="tutorials/rt_stk_price_inc_calc.html"/>
+   <appContext helpID="实时选取外汇行情多价源最优价" path="tutorials/best_price_selection.html"/>
+   <appContext helpID="外汇掉期估值计算" path="tutorials/FxSwapValuation.html"/>
+   <appContext helpID="因子计算平台构建" path="tutorials/Python_Celery.html"/>
+   <appContext helpID="因子计算最佳实践"
+               path="tutorials/best_practice_for_factor_calculation.html"/>
+   <appContext helpID="mvo_tutorial" path="tutorials/MVO.html"/>
+   <appContext helpID="中高频多因子库存储最佳实践"
+               path="tutorials/best_practices_for_multi_factor.html"/>
+   <appContext helpID="alphalens-在-dolphindb-中的应用因子分析建模实践"
+               path="tutorials/Practical_Factor_Analysis_Modeling.html"/>
+   <appContext helpID="dolphindb-与-dolphinscheduler-的集成"
+               path="tutorials/dolphinscheduler_integration.html"/>
+   <appContext helpID="dolphindb-与-python-airflow-最佳实践"
+               path="tutorials/ddb_airflow.html"/>
+   <appContext helpID="gplearn" path="tutorials/gplearn.html"/>
+   <appContext helpID="利用jit加速计算-etf-期权隐含波动率和希腊值"
+               path="tutorials/IV_Greeks_Calculation_for_ETF_Options_Using_JIT.html"/>
+   <appContext helpID="基于-dolphindb-的-brinson-绩效归因模型实践" path="tutorials/brinson.html"/>
+   <appContext helpID="基于-dolphindb-的-campisi-绩效归因模型实践" path="tutorials/campisi.html"/>
+   <appContext helpID="期货分钟频cta策略回测案例"
+               path="tutorials/futures_minute_frequency_cta_strategy_backtest_example.html"/>
+   <appContext helpID="exchdata-交易所历史股票数据自动化导入功能模块使用教程"
+               path="tutorials/exchdata_exchange_historical_stock_data_auto_import_module_tutorial.html"/>
+   <appContext helpID="ficc_func_uasge_and_performance"
+               path="tutorials/ficc_func_uasge_and_performance.html"/>
+   <appContext helpID="title1" path="tutorials/ficc_funcs_application.html"/>
+   <appContext helpID="最优化函数_socp_的使用及转化案例" path="tutorials/socp_usage_case.html"/>
+   <appContext helpID="k_line_calculation" path="tutorials/k_line_calculation%20.html"/>
+   <appContext helpID="backtest_introduction_usage"
+               path="tutorials/backtest_introduction_usage.html"/>
+   <appContext helpID="stock_backtest" path="tutorials/stock_backtest.html"/>
+   <appContext helpID="引擎级联监测门禁异常状态"
+               path="tutorials/streaming_engine_anomaly_alerts.html"/>
+   <appContext helpID="dolphindb-历史数据回放功能应用物联网设备故障分析"
+               path="tutorials/faultAnalysis.html"/>
+   <appContext helpID="dolphindb-在工业物联网的应用" path="tutorials/iot_demo.html"/>
+   <appContext helpID="出租车行程时间预测" path="tutorials/forecast_taxi_trip_dura.html"/>
+   <appContext helpID="传感器数据异常检测" path="tutorials/iot_anomaly_detection.html"/>
+   <appContext helpID="地震波形数据存储解决方案" path="tutorials/waveform_data_storage.html"/>
+   <appContext helpID="工业试验平台高频数据的存储和处理分析"
+               path="tutorials/high_freq_data_storage_and_analysis.html"/>
+   <appContext helpID="基于波形数据的地震预测" path="tutorials/earthquake_prediction_ddb_ml.html"/>
+   <appContext helpID="实时检测传感器状态变化" path="tutorials/ddb_str_app_iot.html"/>
+   <appContext helpID="实现设备指标的采集监控和展示" path="tutorials/ddb_telegraf_grafana.html"/>
+   <appContext helpID="随机振动信号分析解决方案" path="tutorials/random_vibr_sig_analysis.html"/>
+   <appContext helpID="物联网时序数据查询案例" path="tutorials/iot_query_case.html"/>
+   <appContext helpID="物联网实时数据异常率预警" path="tutorials/knn_iot.html"/>
+   <appContext helpID="物联网应用范例" path="tutorials/iot_examples.html"/>
+   <appContext helpID="云边协同dolphindb-构建一体化振动监控与故障诊断解决方案"
+               path="tutorials/Virbration_Monitor_Fault_Diagnose.html"/>
+   <appContext helpID="助力工业物联网实现智能运维" path="tutorials/Iot_intelligent_O&amp;M.html"/>
+   <appContext helpID="使用-node-red-构建-dolphindb-低代码平台"
+               path="tutorials/node_red_tutorial_iot.html"/>
+   <appContext helpID="基于-glibc-升级的性能优化案例" path="tutorials/perf_opti_glibc.html"/>
+   <appContext helpID="当电力市场碰上量化技术如何构建高效电力交易解决方案"
+               path="tutorials/efficient_power_trading_solutions.html"/>
+   <appContext helpID="使用-dolphindb-进行汽车用户驾驶习惯行为画像分析"
+               path="tutorials/behavioral_profiling_of_driving_habits.html"/>
+   <appContext helpID="edge_to_cloud" path="tutorials/edge_to_cloud.html"/>
+   <appContext helpID="dolphindb_tensor_1"
+               path="tutorials/dolphindb_tensor_libtorch_tutorial.html"/>
+   <appContext helpID="volatility_prediction"
+               path="tutorials/volatility_prediction.html"/>
+   <appContext helpID="api性能基准测试报告" path="tutorials/api_performance.html"/>
+   <appContext helpID="集群水平扩展性能测试" path="tutorials/cluster_scaleout_perf_test.html"/>
+   <appContext helpID="金融市场高频数据的有效管理" path="tutorials/pickle_comparison.html"/>
+   <appContext helpID="_3_00_3" path="rn/server/3_00_3.html"/>
+   <appContext helpID="_3_00_2" path="rn/server/3_00_2.html"/>
+   <appContext helpID="_3_00_1" path="rn/server/3_00_1.html"/>
+   <appContext helpID="_3000" path="rn/server/3000.html"/>
+   <appContext helpID="api" path="rn/server/api.html"/>
+   <appContext helpID="_3_00_3" path="rn/plugin/3_00_3.html"/>
+   <appContext helpID="_3_00_2" path="rn/plugin/3_00_2.html"/>
+   <appContext helpID="_3_00_1" path="rn/plugin/3_00_1.html"/>
+   <appContext helpID="plg300rn" path="rn/plugin/plg300rn.html"/>
+   <appContext helpID="rn_web" path="rn/rn_web.html"/>
+   <appContext helpID="rn_gui" path="rn/rn_gui.html"/>
+   <appContext helpID="rn_vscodeplg" path="rn/rn_vscode.html"/>
+   <appContext helpID="third_party_rn" path="rn/server/third_party_rn.html"/>
+   <appContext helpID="datax_dolphindbreader_0"
+               path="rn/server/datax_dolphindbreader_0.html"/>
+   <appContext helpID="datax_writer" path="rn/server/datax_writer.html"/>
+   <appContext helpID="grafana" path="rn/server/grafana.html"/>
+   <appContext helpID="compatibility_def" path="rn/compat_def.html"/>
+   <appContext helpID="compatbility_lv1" path="rn/compat1.html"/>
+   <appContext helpID="compatibility_lv2" path="rn/compat2.html"/>
+   <appContext helpID="compatibility_lv3" path="rn/compat3.html"/>
+   <appContext helpID="compatibility_lv4" path="rn/compat4.html"/>
+   <appContext helpID="compatibility_lv5" path="rn/compat5.html"/>
+   <appContext helpID="compatibility_levels" path="rn/compat_lv.html"/>
+   <appContext helpID="compact_report_3_00_3" path="rn/compact_report_3003.html"/>
+   <appContext helpID="compat_report_3002" path="rn/compact_report_2410.html"/>
+   <appContext helpID="_3_00_1" path="rn/compat_report_3001.html"/>
+   <appContext helpID="compat_report_3000" path="rn/compat_report_3000.html"/>
+</map>

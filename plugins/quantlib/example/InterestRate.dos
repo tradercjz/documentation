@@ -1,0 +1,11 @@
+loadPlugin("path/PluginQuantLib.txt")
+go
+use QuantLib
+
+rate = InterestRate(0.05, Actual360(), "Compounded", "Annual");
+rate.discountFactor(367, 109574);
+rate.compoundFactor(367, 109574);
+rate.rate();
+rate.dayCounter();
+rate.compounding();
+rate.frequency();

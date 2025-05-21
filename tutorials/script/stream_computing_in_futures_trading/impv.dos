@@ -1,0 +1,365 @@
+module Futures::impv
+
+
+def pdfNorm(x,mean=0,var=1){
+	return exp(-pow((x - mean) , 2) \ (2 * pow(var , 2)) ) \ sqrt(2 * pi) * var
+}
+
+
+
+/**
+ * ============================================= 计算greeks===================
+ */
+
+/** 计算 delta**/
+def calculateD1(etfTodayPrice, KPrice, r, dayRatio, HLMean){
+        skRatio = etfTodayPrice / KPrice
+        denominator = HLMean * sqrt(dayRatio)
+        result = (log(skRatio) + (r + 0.5 * pow(HLMean, 2)) * dayRatio) / denominator
+        return result
+}
+
+def cdfNormalMatrix(mean, stdev, X){
+        originalShape = X.shape()
+        X_vec = X.reshape()
+        result = cdfNormal(mean, stdev, X_vec)
+        return result.reshape(originalShape)
+}
+
+// def calculateDelta(etfTodayPrice, KPrice, r, dayRatio, impvMatrix, CPMode){
+//         delta = iif(
+//                         impvMatrix <= 0,
+//                         0,
+//                         CPMode *cdfNormal(0, 1, CPMode * calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix))
+//                 )
+//         return delta
+// }
+
+def calculateDelta(etfTodayPrice, KPrice, r, dayRatio, impvMatrix, CPMode){
+	delta = iif(
+							impvMatrix <= 0,
+							0,
+							CPMode *exp(-r * dayRatio)*cdfNormal(0, 1, CPMode * calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix))
+					)
+	return delta
+}
+
+/**计算gamma**/
+def normpdf(x){
+        return exp(-pow(x, 2)/2.0)/sqrt(2*pi)
+}
+
+
+
+// def calculateGamma(etfTodayPrice, KPrice, r, dayRatio, impvMatrix){
+//         gamma = iif(
+//                         impvMatrix <= 0,
+//                         0,
+//                         (normpdf(calculateD1(etfTodayPrice,  KPrice, r, dayRatio, impvMatrix)) \ (etfTodayPrice * impvMatrix * sqrt(dayRatio)))
+//                 )
+//         return gamma
+// }
+def calculateGamma(etfTodayPrice, KPrice, r, dayRatio, impvMatrix){
+	gamma = iif(
+									impvMatrix <= 0,
+									0,
+									exp(-r * dayRatio)*((normpdf(calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)) )\ (etfTodayPrice * impvMatrix * sqrt(dayRatio)))
+					)
+	return gamma
+}
+
+
+/**计算vega**/
+
+// def calculateVega(etfTodayPrice, KPrice, r, dayRatio, impvMatrix){
+//         vega = iif(
+//                         impvMatrix <= 0,
+//                         0,
+//                         etfTodayPrice * normpdf(calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)) * sqrt(dayRatio)
+//                 )
+//         return vega\100.0
+// }
+def calculateVega(etfTodayPrice, KPrice, r, dayRatio, impvMatrix){
+	vega = iif(
+							impvMatrix <= 0,
+							0,
+							exp(-r * dayRatio)* etfTodayPrice * normpdf(calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)) * sqrt(dayRatio)
+					)
+	return vega\100.0
+}
+
+/**计算theta**/
+
+
+// def calculateTheta(etfTodayPrice, KPrice, r, dayRatio, impvMatrix, CPMode){
+//         annualDays = 365
+//         d1 = calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)
+//         d2 = d1 - impvMatrix * sqrt(dayRatio)
+//         theta = (-etfTodayPrice * normpdf(d1) * impvMatrix \ (2 * sqrt(dayRatio)) - CPMode * r * KPrice * exp(-r * dayRatio) *cdfNormal(0, 1, CPMode * d2))\annualDays
+//         result = iif(impvMatrix<= 0, 0, theta)
+//         return result
+// }
+
+def calculateTheta(etfTodayPrice, KPrice, r, dayRatio, impvMatrix, CPMode){
+	annualDays = 365
+	d1 = calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)
+	d2 = d1 - impvMatrix * sqrt(dayRatio)
+	theta = (((exp(-r * dayRatio)*(-etfTodayPrice * normpdf(d1) * impvMatrix) )\ (2 * sqrt(dayRatio))) - (CPMode * r * KPrice * exp(-r * dayRatio) *cdfNormal(0, 1, CPMode * d2))+ (CPMode * r * etfTodayPrice * exp(-r * dayRatio) *cdfNormal(0, 1, CPMode * d1) ) )\annualDays
+	result = iif(impvMatrix<= 0, 0, theta)
+	return result
+}
+
+
+
+/**
+ * ============================================= black76+brentq方法（欧式期权)，计算隐含波动率
+ */
+// Black 76公式
+def black_76(F, K, T, r, sigma, option_type){
+    d1 = (log(F \ K) + (0.5 * pow(sigma , 2) ) * T) \ (sigma * sqrt(T))
+    d2 = d1 - sigma * sqrt(T)
+    if (option_type == 1){
+        return exp(-r * T) * (F * cdfNormal(0,1,d1) - K * cdfNormal(0,1,d2))
+    }else if( option_type == -1){
+        return exp(-r * T) * (K * cdfNormal(0,1,-d2) - F * cdfNormal(0,1,-d1))
+    }else{
+        return ("Option type must be 1 or -1.")
+    }
+}
+
+def loss_function(sigma, F, K, T, r, option_type, market_price){
+    return black_76(F, K, T, r, sigma, option_type) - market_price
+}
+
+/**
+ * @ Function name: 
+ * @ Brief: 
+ * @ Param: 
+ * sigma : /none
+ * F : 现货价，期货价格
+ * K : 执行价
+ * T : 剩余期限
+ * r : 无风险利率
+ * option_type : 期权类型 ，1或-1，代表C' or 'P'
+ * market_price : 期权价格
+ * @ Return: 
+ * @ Sample usage:
+ */
+def implied_volatility_Black76Brentq(F, K, T, r, option_type, market_price){
+	iv = double(NULL)
+	try{ 
+		iv = brentq(f=loss_function, a=1e-6, b=2, xtol=2e-12, rtol=1e-9, maxIter=100, funcDataParam=[F, K, T, r, option_type, market_price])[1]
+	}catch(ex){
+		writeLog("calculate error : " + ex)
+	}
+	return iv
+}
+
+
+/**
+ * ============================================= BSM模型和牛顿法2，计算隐含波动率
+ */
+def black_price(options_type, spot, strike, maturity, r, vol, q=0.0){ // vol = sigma
+	/*
+	 * options_type:'期权类型 ，1或-1，代表C' or 'P'
+	 * spot：现货价，float:
+	 * strike：行权价，float 
+	 * maturity：剩余天数，float、int
+	 * r：无风险利率，float
+	 * vol：波动率，float
+	*/
+	 if (options_type in [1, -1]){
+	 	phi = options_type
+	 }else{
+	 	print("The Options Type is Wrong!")
+	 	return
+	 }
+	if (vol == 0 or maturity == 0){
+		return max(0.0, phi * (spot - strike))
+		
+	}
+	if (strike == 0){
+		print('The strike_price price cannot be zero')
+	}
+	d1 = (log(spot \strike) + (0.5 * vol * vol) * maturity) \vol \sqrt(maturity)
+	d2 = d1 - vol * sqrt(maturity)
+	return exp(-1 * r * maturity) * (phi * spot * cdfNormal(0,1,phi * d1) - phi * strike * cdfNormal(0,1,phi * d2) )
+}
+
+
+def black_vega(spot, strike, maturity, r, vol, q=0.0){
+	/*
+	 * spot：现货价，float:
+	 * strike：行权价，float 
+	 * maturity：剩余天数，float、int
+	 * r：无风险利率，float
+	 * vol：波动率，float
+	*/
+	d1 = (log(spot \ strike) + (0.5 * vol * vol ) * maturity) \ (vol * sqrt(maturity))
+	return spot * pdfNorm(d1) * sqrt(maturity) * exp(-1 * r * maturity)
+}
+
+def implied_volatility_BlackNewton(options_price, options_type, spot, strike, maturity, r){
+	// options_price, options_type, spot, strike, maturity, r = 1.25, 1 , 9715.5, 12400, (2023.08.03-2023.07.19)\365.0, 0.02
+	/*
+	 * 牛顿法实现期权隐含波动率计算
+	 * options_price,期权价格，float:
+	 * options_type:'期权类型 ，1或-1，代表C' or 'P'
+	 * spot：现货价，float:
+	 * strike：行权价，float 
+	 * maturity：剩余天数，float、int
+	 * r：无风险利率，float
+	 * vol：波动率，float
+	 * 
+	*/
+	iterations= 100
+	precision= 1.0e-6
+	sigma = 0.8
+	for (i in 1..iterations){ // i = 1 ; i = i + 1
+	    price = black_price(options_type, spot, strike, maturity, r, sigma)
+	    diff = options_price - price 
+	    if (abs(diff) < precision){
+	        return sigma
+	    }
+	    vega = black_vega( spot, strike, maturity, r, sigma)
+	    sigma = sigma + diff \ vega 
+	}
+	return 0.0
+}
+/*
+options_price, options_type, spot, strike, maturity, r = 140.5, 1, 3503.5, 3500, 62\365, 0.03
+implied_volatility_BlackNewton(options_price, options_type, spot, strike, maturity, r)
+implied_volatility_BlackNewton(136.25, -1, spot, strike, maturity, r)
+*/
+
+/**
+ * ============================================= BSM模型和牛顿法1，计算隐含波动率
+ */
+
+def bs_price(options_type, spot, strike, maturity, r, vol, q=0.0){ // vol = sigma
+	/*
+	 * options_type:'期权类型 ，1或-1，代表C' or 'P'
+	 * spot：现货价，float:
+	 * strike：行权价，float 
+	 * maturity：剩余天数，float、int
+	 * r：无风险利率，float
+	 * vol：波动率，float
+	*/
+	 if (options_type in [1, -1]){
+	 	phi = options_type
+	 }else{
+	 	print("The Options Type is Wrong!")
+	 	return
+	 }
+	if (vol == 0 or maturity == 0){
+		return max(0.0, phi * (spot - strike))
+		
+	}
+	if (strike == 0){
+		print('The strike_price price cannot be zero')
+	}
+	d1 = (log(spot \strike) + (r + 0.5 * vol * vol) * maturity) \vol \sqrt(maturity)
+	d2 = d1 - vol * sqrt(maturity)
+	return phi * spot * cdfNormal(0,1,phi * d1) - phi * strike * exp(-r * maturity) * cdfNormal(0,1,phi * d2)
+}
+
+def bs_vega(spot, strike, maturity, r, vol, q=0.0){
+	/*
+	 * spot：现货价，float:
+	 * strike：行权价，float 
+	 * maturity：剩余天数，float、int
+	 * r：无风险利率，float
+	 * vol：波动率，float
+	*/
+	d1 = (log(spot \ strike) + (r + 0.5 * vol * vol ) * maturity) \ (vol * sqrt(maturity))
+	return spot * sqrt(maturity) * pdfNorm(d1)
+}
+
+def implied_volatility_Newton(options_price, options_type, spot, strike, maturity, r){
+	/*
+	 * 牛顿法实现期权隐含波动率计算
+	 * options_price,期权价格，float:
+	 * spot：现货价，float:
+	 * strike：行权价，float 
+	 * maturity：剩余天数，float、int
+	 * r：无风险利率，float
+	 * vol：波动率，float
+	 * options_type:'期权类型 ，1或-1，代表C' or 'P'
+	 * 
+	*/
+	max_iterations= 100
+	precision= 1.0e-6
+	sigma = 0.5
+	for (i in 1..max_iterations){ // i = 1
+	    price = bs_price(options_type, spot, strike, maturity, r, sigma)
+	    vega = bs_vega( spot, strike, maturity, r, sigma)
+	    diff = price - options_price
+	    if (abs(diff) < precision){
+	        return sigma
+	    }
+	    sigma = sigma - diff \ vega 
+	}
+	return 0.0
+}
+
+/**
+ * ============================================= 二分法，计算隐含波动率
+ */
+@jit
+def calculateD1JIT(etfTodayPrice, KPrice, r, dayRatio, HLMean){
+	skRatio = etfTodayPrice / KPrice
+	denominator = HLMean * sqrt(dayRatio)
+	result = (log(skRatio) + (r + 0.5 * pow(HLMean, 2)) * dayRatio) / denominator
+	return result
+}
+
+@jit
+def calculatePriceJIT(etfTodayPrice, KPrice , r , dayRatio , HLMean , CPMode){
+	testResult = 0.0
+	if (HLMean <= 0){
+		testResult = CPMode * (etfTodayPrice - KPrice)
+		if(testResult<0){
+			return 0.0
+		}
+		return testResult
+	}
+	d1 = calculateD1JIT(etfTodayPrice, KPrice, r, dayRatio, HLMean)
+	d2 = d1 - HLMean * sqrt(dayRatio)
+	price = CPMode * (etfTodayPrice * cdfNormal(0, 1, CPMode * d1) - KPrice * cdfNormal(0, 1, CPMode * d2) * exp(-r * dayRatio))
+	return price
+}
+
+@jit
+def calculateImpvJIT(optionTodayClose, etfTodayPrice, KPrice, r, dayRatio, CPMode){
+	v = 0.0	
+	high = 2.0
+	low = 0.0
+	do{
+		if ((high - low) <= 0.00001){
+			break
+		}
+		HLMean = (high + low) / 2.0
+		if (calculatePriceJIT(etfTodayPrice, KPrice, r, dayRatio, HLMean, CPMode) > optionTodayClose){
+			high = HLMean
+		}
+		else{
+			low = HLMean
+		}
+	}
+	while(true)
+	v = (high + low) / 2.0
+	return v
+}
+
+def calculateImpv(optionTodayClose, etfTodayPrice, KPrice, r, dayRatio, CPMode){
+	originalShape = optionTodayClose.shape()
+	optionTodayClose_vec = optionTodayClose.reshape()
+	etfTodayPrice_vec = etfTodayPrice.reshape()
+	KPrice_vec = KPrice.reshape()
+	dayRatio_vec = dayRatio.reshape()
+	CPMode_vec = CPMode.reshape()
+	impvTmp = each(calculateImpvJIT, optionTodayClose_vec, etfTodayPrice_vec, KPrice_vec, r, dayRatio_vec, CPMode_vec)	
+	impv = impvTmp.reshape(originalShape)	
+	return impv
+}
+

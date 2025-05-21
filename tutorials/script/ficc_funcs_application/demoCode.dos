@@ -1,0 +1,1225 @@
+login("admin", "123456")
+module MockData 
+use ops
+
+clearAllStreamEnv()
+go;
+
+// 4.0 需要按照存放路径读取bondInfoData.csv和returnSeries.csv
+
+// file_path 修改为 文件存放路径
+file_path = "/home/ddbchen/ddb/ddbdata/"  
+
+// 债券信息数据
+bondInfoTable = loadText(file_path + "bondInfoData.csv")
+
+// 投资组合收益率数据
+returnData = loadText(file_path + "returnSeries.csv")
+
+
+// 4.1 模拟数据生成模块
+
+/**
+ * @ Function Name:simulateDataLog
+ * @ Brief: Throwing a simulation data module error
+ * @ Param funcName: The name of the Function
+ * @ Param msg: Error message
+ * @ Return: A error
+ * @ Sample Usage: simulateDataLog(funcName, "The inputParam must be date type")
+ */
+ def simulateDataLog(funcName, msg) {
+	formattedMsg = stringFormat("[DolphinDBModules::simulateData::%W] : [ERRORINFO]: %W", funcName, msg)
+	throw(formattedMsg)
+}
+
+
+/**
+ * @ Function Name:validateDateAndScalarParam
+ * @ Brief: Verify if the parameter is a date type and if it is a scalar.
+ * @ Param funcName: The name of the Function
+ * @ Param param: The input parameter
+ * @ Return: A error or A parameter
+ * @ Sample Usage: startDate = validateDateAndScalarParam(funcName, startDate)
+ */
+def validateDateAndScalarParam(funcName, param) {
+	if( form(param) == 0 ){
+		if( type(param) in [6] ){
+			return param
+		}else{
+			simulateDataLog(funcName, "The inputParam must be date type")
+		}
+	}else{
+		simulateDataLog(funcName, "The inputParam must be scalar")
+		return
+	}
+}
+
+
+/**
+ * @ Function Name:validateIntAndScalarParam
+ * @ Brief: Verify if the parameter is a int type and if it is a scalar.
+ * @ Param funcName: The name of the Function
+ * @ Param param: The input parameter
+ * @ Return: A error or A parameter
+ * @ Sample Usage: SecurityIDNumber = validateIntAndScalarParam(funcName, securityNumber) 
+ */
+def validateIntAndScalarParam(funcName, param) {
+	if( form(param) in [0] ){
+		if( type(param) in [4] ){
+			return param
+		}else{
+			simulateDataLog(funcName, "The inputParam must be int type")
+		}
+	}else{
+		simulateDataLog(funcName, "The inputParam  must be scalar")
+		return
+	}
+}
+
+/**
+ * @ Function Name:validateStringAndScalarParam
+ * @ Brief: Verify if the parameter is a string type and if it is a scalar.
+ * @ Param funcName: The name of the Function
+ * @ Param param: The input parameter
+ * @ Return: A error or A parameter
+ * @ Sample Usage: newdbName = validateStringAndScalarParam(funcName, dbName)
+ */
+def validateStringAndScalarParam(funcName, param) {
+	if( form(param) in [0] ){
+		if( type(param) in [18] ){
+			return param
+		}else{
+			simulateDataLog(funcName, "The inputParam must be string type")
+		}
+	}else{
+		simulateDataLog(funcName, "The inputParam  must be scalar")
+		return
+	}
+}
+
+
+
+
+
+/**
+ * @Function Name: ESPDepth
+ * @Brief: Generates one-day ESP depth data.
+ * @Param tradeDate: Date for the ESPDepth data.
+ * @Param securityNumber: The number of the security (default: 4000).
+ * @Return: One-day ESP depth data.
+ * @Sample Usage: ESPDepthData = ESPDepth(tradeDate=2020.01.06, securityNumber=4000)
+ */
+ def ESPDepth(tradeDate, securityNumber=4000){
+    // 确定交易数量
+    funcName = "ESPDepthData"
+	validateDateAndScalarParam(funcName, tradeDate)
+    SecurityIDNumber = validateIntAndScalarParam(funcName, securityNumber)
+    if (size(getMarketCalendar("XSHG", tradeDate, tradeDate)) == 0){
+        colName = `tradeDate`createTime`bondCodeVal`marketDepth`marketIndicator`mdBookType`mdSubBookType`messageId`messageSource`msgSeqNum`msgType`askclearingMethod`bidclearingMethod`askdeliveryType`biddeliveryType`askinitAccountNumSixCode`bidinitAccountNumSixCode`asklastPx`bidlastPx`askmdEntryDate`bidmdEntryDate`askmdEntrySize`bidmdEntrySize`askmdEntryTime`bidmdEntryTime`askmdQuoteType`bidmdQuoteType`askquoteEntryID`bidquoteEntryID`asksettlType`bidsettlType`askyield`bidyield`ask1initPartyTradeCode`bid1initPartyTradeCode`ask2initPartyTradeCode`bid2initPartyTradeCode`ask3initPartyTradeCode`bid3initPartyTradeCode`ask4initPartyTradeCode`bid4initPartyTradeCode`ask5initPartyTradeCode`bid5initPartyTradeCode`ask6initPartyTradeCode`bid6initPartyTradeCode`ask7initPartyTradeCode`bid7initPartyTradeCode`ask8initPartyTradeCode`bid8initPartyTradeCode`ask9initPartyTradeCode`bid9initPartyTradeCode`ask10initPartyTradeCode`bid10initPartyTradeCode`securityID`securityType`senderCompID`senderSubID`sendingTime`symbol
+        colType = [DATE,TIME,SYMBOL,LONG,LONG,LONG,LONG,LONG,SYMBOL,LONG,SYMBOL,LONG[],LONG[],LONG[],LONG[],LONG[],LONG[],DOUBLE[],DOUBLE[],DATE[],DATE[],LONG[],LONG[],TIME[],TIME[],LONG[],LONG[],LONG[],LONG[],LONG[],LONG[],DOUBLE[],DOUBLE[],SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,TIMESTAMP,SYMBOL]
+        return table(1:0, colName, colType)
+    }   
+    eachTradeNum = 80
+    SecurityID = lpad(string(1..SecurityIDNumber),6,"800000")$SYMBOL
+	TimeList = (09:30:00.000 + 0..(2 * 60 * 60) * 1000) join (13:00:00.000+0..((2 * 60 + 30) * 60) * 1000)
+    CreateTime = table(cutPoints(TimeList, eachTradeNum-1) as CreateTime) 
+	tmpTable = cj(table(SecurityID as SecurityID),CreateTime as CreateTime)
+    n = size(tmpTable)
+    marketDepth = array(LONG, 0)
+    marketIndicator = array(LONG, 0)
+    mdBookType = array(LONG, 0)
+    mdSubBookType = array(LONG, 0)
+    messageId = array(LONG, 0)
+    messageSource = array(SYMBOL, 0)
+    msgSeqNum = array(LONG, 0)
+    msgType = array(SYMBOL, 0)
+    askclearingMethod = array(LONG[], 0)
+    bidclearingMethod = array(LONG[], 0)
+    askdeliveryType = array(LONG[], 0)
+    biddeliveryType = array(LONG[], 0)
+    askinitAccountNumSixCode = array(LONG[], 0)
+    bidinitAccountNumSixCode = array(LONG[], 0)
+    asklastPx = array(DOUBLE[], 0)
+    bidlastPx = array(DOUBLE[], 0)
+    askmdEntryDate = array(DATE[], 0) 
+    bidmdEntryDate = array(DATE[], 0) 
+    askmdEntrySize = array(LONG[], 0)
+    bidmdEntrySize = array(LONG[], 0)
+    askmdEntryTime = array(TIME[], 0) 
+    bidmdEntryTime = array(TIME[], 0) 
+    askmdQuoteType = array(LONG[], 0)
+    bidmdQuoteType = array(LONG[], 0)
+    askquoteEntryID = array(LONG[], 0)
+    bidquoteEntryID = array(LONG[], 0)
+    asksettlType = array(LONG[], 0)
+    bidsettlType = array(LONG[], 0)
+    askyield = array(DOUBLE[], 0)
+    bidyield = array(DOUBLE[], 0)
+    ask1initPartyTradeCode = array(SYMBOL, 0)
+    ask2initPartyTradeCode = array(SYMBOL, 0)
+    bid2initPartyTradeCode = array(SYMBOL, 0)
+    ask3initPartyTradeCode = array(SYMBOL, 0)
+    bid3initPartyTradeCode = array(SYMBOL, 0)
+    ask4initPartyTradeCode = array(SYMBOL, 0)
+    bid4initPartyTradeCode = array(SYMBOL, 0)
+    ask5initPartyTradeCode = array(SYMBOL, 0)
+    bid5initPartyTradeCode = array(SYMBOL, 0)
+    ask6initPartyTradeCode = array(SYMBOL, 0)
+    bid6initPartyTradeCode = array(SYMBOL, 0)
+    ask7initPartyTradeCode = array(SYMBOL, 0)
+    bid7initPartyTradeCode = array(SYMBOL, 0)
+    ask8initPartyTradeCode = array(SYMBOL, 0)
+    bid8initPartyTradeCode = array(SYMBOL, 0)
+    ask9initPartyTradeCode = array(SYMBOL, 0)
+    bid9initPartyTradeCode = array(SYMBOL, 0)
+    ask10initPartyTradeCode = array(SYMBOL, 0)
+    bid10initPartyTradeCode = array(SYMBOL, 0)
+    securityType = array(SYMBOL, 0)
+    senderCompID = array(SYMBOL, 0)
+    senderSubID = array(SYMBOL, 0)
+    sendingTime = array(TIMESTAMP, 0) 
+    symbol =array(SYMBOL, 0)
+
+    TradeCodeList = `chenyuhang`fuyitian1`miidi`mszq89`chenyh`hongye`qww0001`zhengmm`caohanjing1`shenxiaokai`zyang001`qc57147`wu7`015810`HYMJACK`lihanjun`ht019311`zoeyxuyao`dp6428`gonghaibo`wangxu`guyuexin`luhaoyu`liudash`lianghx`liangx`xulz`tanglin`chengsirui`mengjc`renztcicc`luye`teslaman`ZhangHuimin`zhangweixin`CZHY`chenxit`QQZZ`douyuewen`186111`cyao`volcano`wanglingyu`LEILINGXIAO`liyongzhen`7085`fjy5094`015967`songyuning`yiyh`wut`shgmfd`R622894`hzp`sczqwyp`pengchengye`wuhaimeng`shgmhy`liuyicheng2`linxuan`guanwenhui`XWZ2023`cheny1`chenghaizhuo`ADELA`liumm02`shgchengongyin`WANGJIAQING`046977`yuyunyu`zhangxiangheng`170193`ZHANGYIFEI`wanggezi`ZQZHANG
+    SecurityType = `ABS`CD`MTN`TB`GBAB`CORP`CP`Other`SCP`PFB
+    symbolList = ["21上海13","21成都国投PPN001","21上海18","21宁波债16","21湖南61","21陕西50","21四川46","23农业银行CD168","21广东95","21广东100","21广东102","21广东103","22云南债01","23中信银行CD172","21广东104","20吉林债05","23交通银行CD215"]
+    marketDepth.append!(take(10,n))
+    marketIndicator.append!(take(4,n))
+    mdBookType.append!(take(2, n))
+    mdSubBookType.append!(take(123, n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..5){
+            messageId.append!(take(rand(458779427231252481, 1), 16)) 
+        }
+    }
+    messageSource.append!(take("cfets", n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..5){
+            msgSeqNum.append!(take(rand(410000, 1), 16)) 
+        }
+    }
+    msgType.append!(take(`W, n))
+    askclearingMethod.append!(take([[54,,,,,,,,,],[15,,,,,,,,,] ,[13,,,,,,,,,]], n))
+    bidclearingMethod.append!(take([[54,,,,,,,,,],[15,,,,,,,,,] ,[13,,,,,,,,,]], n))
+    askdeliveryType.append!(take([[0,,,,,,,,,],[0,,,,,,,,,] ,[0,,,,,,,,,]], n))
+    biddeliveryType.append!(take([[0,,,,,,,,,],[0,,,,,,,,,] ,[0,,,,,,,,,]], n))
+    askinitAccountNumSixCode.append!(take([[100010,,,,,,,,,],[100008,,,,,,,,,] ,[100003,,,,,,,,,]], n))
+    bidinitAccountNumSixCode.append!(take([[100010,,,,,,,,,],[100008,,,,,,,,,] ,[100003,,,,,,,,,]], n))
+    asklastPx.append!(take([[111.7687,,,,,,,,,],[99.9418,,,,,,,,,] ,[99.9400,,,,,,,,,]], n))
+    bidlastPx.append!(take([[113.0295,,,,,,,,,],[100.0146,,,,,,,,,] ,[99.9911,,,,,,,,,]], n))
+    askmdEntryDate.append!(take([[2023.09.18,,,,,,,,,]], n))
+    bidmdEntryDate.append!(take([[2023.09.18,,,,,,,,,]], n))
+    askmdEntrySize.append!(take([[10000000,,,,,,,,,]], n))
+    bidmdEntrySize.append!(take([[10000000,,,,,,,,,]], n))
+    askmdEntryTime.append!(take([[09:06:11.455,,,,,,,,,]], n))
+    bidmdEntryTime.append!(take([[09:06:11.455,,,,,,,,,]], n))
+    askmdQuoteType.append!(take([[107,,,,,,,,,]], n))
+    bidmdQuoteType.append!(take([[107,,,,,,,,,]], n))
+    askquoteEntryID.append!(take([[230918020410022684l,,,,,,,,,]], n))
+    bidquoteEntryID.append!(take([[230918020410004415l,,,,,,,,,]], n))
+    asksettlType.append!(take([[2,,,,,,,,,]], n))
+    bidsettlType.append!(take([[2,,,,,,,,,]], n))
+    askyield.append!(take([[2.915,,,,,,,,,]], n))
+    bidyield.append!(take([[2.755,,,,,,,,,]], n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..5){
+            ask1initPartyTradeCode.append!(take(rand(TradeCodeList, 1), 16)) 
+        }
+    }
+    bid1initPartyTradeCode = ask1initPartyTradeCode
+    ask2initPartyTradeCode.append!(take("", n))
+    bid2initPartyTradeCode.append!(take("", n))
+    ask3initPartyTradeCode.append!(take("", n))
+    bid3initPartyTradeCode.append!(take("", n))
+    ask4initPartyTradeCode.append!(take("", n))
+    bid4initPartyTradeCode.append!(take("", n))
+    ask5initPartyTradeCode.append!(take("", n))
+    bid5initPartyTradeCode.append!(take("", n))
+    ask6initPartyTradeCode.append!(take("", n))
+    bid6initPartyTradeCode.append!(take("", n))
+    ask7initPartyTradeCode.append!(take("", n))
+    bid7initPartyTradeCode.append!(take("", n))
+    ask8initPartyTradeCode.append!(take("", n))
+    bid8initPartyTradeCode.append!(take("", n))
+    ask9initPartyTradeCode.append!(take("", n))
+    bid9initPartyTradeCode.append!(take("", n))
+    ask10initPartyTradeCode.append!(take("", n))
+    bid10initPartyTradeCode.append!(take("", n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..5){
+            securityType.append!(take(rand(SecurityType, 1), 16)) 
+        }
+    }
+    senderCompID.append!(take("CFETS-MD-INFI-1", n))
+    senderSubID.append!(take("QDM-ESP", n))
+
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..5){
+            symbol.append!(take(rand(symbolList, 1), 16)) 
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        sendingTime.append!(concatDateTime(tradeDate, exec * from CreateTime)-115) 
+    }
+    
+    
+	//返回最终数据
+	onedayESPDepthTable=select take(tradeDate, n) as tradeDate,
+                CreateTime,
+                SecurityID as bondCodeVal,
+                marketDepth,
+                marketIndicator,
+                mdBookType,
+                mdSubBookType,
+                messageId,
+                messageSource,
+                msgSeqNum,
+                msgType,
+                askclearingMethod,
+                bidclearingMethod,
+                askdeliveryType,
+                biddeliveryType,
+                askinitAccountNumSixCode,
+                bidinitAccountNumSixCode,
+                asklastPx,
+                bidlastPx,
+                askmdEntryDate,
+                bidmdEntryDate,
+                askmdEntrySize,
+                bidmdEntrySize,
+                askmdEntryTime,
+                bidmdEntryTime,
+                askmdQuoteType,
+                bidmdQuoteType,
+                askquoteEntryID,
+                bidquoteEntryID,
+                asksettlType,
+                bidsettlType,
+                askyield,
+                bidyield,
+                ask1initPartyTradeCode,
+                bid1initPartyTradeCode,
+                ask2initPartyTradeCode,
+                bid2initPartyTradeCode,
+                ask3initPartyTradeCode,
+                bid3initPartyTradeCode,
+                ask4initPartyTradeCode,
+                bid4initPartyTradeCode,
+                ask5initPartyTradeCode,
+                bid5initPartyTradeCode,
+                ask6initPartyTradeCode,
+                bid6initPartyTradeCode,
+                ask7initPartyTradeCode,
+                bid7initPartyTradeCode,
+                ask8initPartyTradeCode,
+                bid8initPartyTradeCode,
+                ask9initPartyTradeCode,
+                bid9initPartyTradeCode,
+                ask10initPartyTradeCode,
+                bid10initPartyTradeCode,
+                SecurityID,
+                securityType,
+                senderCompID,
+                senderSubID,
+                sendingTime,
+                symbol
+				from tmpTable
+	return onedayESPDepthTable			
+}
+
+
+
+
+/**
+ * @Function Name: ESPTrade
+ * @Brief: Generates one-day ESP trade data.
+ * @Param tradeDate: Date for the ESP trade data.
+ * @Param securityNumber: The number of the security (default: 3000).
+ * @Return: One-day ESP trade data.
+ * @Sample Usage: ESPTradeData = ESPTrade(tradeDate=2020.06.01, securityNumber=3000)
+ */
+def ESPTrade(tradeDate, securityNumber=3000){
+    // 确定交易数量
+    funcName = "ESPTradeData"
+	validateDateAndScalarParam(funcName, tradeDate)
+    SecurityIDNumber = validateIntAndScalarParam(funcName, securityNumber)
+    if (size(getMarketCalendar("XSHG", tradeDate , tradeDate)) == 0){
+        colName = `createDate`createTime`securityID`execId`execType`lastQty`marketIndicator`messageSource`msgSeqNum`msgType`price`senderCompID`stipulationType`stipulationValue`symbol`tradeDate`tradeMethod`tradeTime`tradeType`transactTime
+	    colType = [DATE,TIME,SYMBOL,SYMBOL,SYMBOL,LONG,LONG,SYMBOL,LONG,SYMBOL,DOUBLE,SYMBOL,SYMBOL,DOUBLE,SYMBOL,DATE,LONG,TIME,LONG,TIMESTAMP]
+        return table(1:0, colName, colType)
+    }    
+    eachTradeNum = 10
+    SecurityID = lpad(string(1..SecurityIDNumber),9,"012280000")$SYMBOL
+	TimeList = (09:30:00.000 + 0..(2 * 60 * 60) * 1000) join (13:00:00.000+0..((2 * 60 + 30) * 60) * 1000)
+    CreateTime = table(cutPoints(TimeList, eachTradeNum-1) as CreateTime) 
+	tmpTable = cj(table(SecurityID as SecurityID),CreateTime as CreateTime)
+    n = size(tmpTable)
+    symbolList = ["23乐清国投CP001", "23长沙银行CD172", "23广西北部湾银行CD281", "23广西北部湾银行CD282", "23广西北部湾银行CD283", "23江苏江南农村商业银行CD101", "23沪机场股SCP004", "21昆山国创PPN004", "23深圳农商银行CD102", "21广安控股MTN001", "23台州金投PPN001", "23东莞农村商业银行CD165", "23绍兴银行CD069", "23津保投SCP013", "22浦发银行CD163", "23长沙农商银行CD086", "22民生银行01", "23瑞穗银行CD010", "23泉州银行CD095", "21宁波轨交GN001(碳中和债)", "19渝水投MTN001", "23成都银行CD195", "23天台农商银行CD005", "21国开13", "23中原银行CD325"]
+    execId = array(SYMBOL,0)
+    execType = array(SYMBOL,0)
+    lastQty = array(LONG,0)
+    marketIndicator = array(LONG,0)
+    messageSource = array(SYMBOL,0)
+    msgSeqNum = array(LONG,0)
+    msgType = array(SYMBOL,0)
+    price = array(DOUBLE,0)
+    senderCompID = array(SYMBOL,0)
+    stipulationType = array(SYMBOL,0)
+    stipulationValue = array(DOUBLE,0)
+    symbol = array(SYMBOL,0)
+    Date = array(DATE,0)
+    tradeMethod = array(LONG,0)
+    tradeType = array(LONG,0)
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..2){
+            execId.append!(take(("CBT" + string(tradeDate).strReplace(".","") + string(rand(899999,1)+100000)), 5)) 
+        }
+    }
+    execType.append!(take("F", n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..2){
+            lastQty.append!(take((rand(200,1)*1000000), 5)) 
+        }
+    }
+    marketIndicator.append!(take(52, n))
+    messageSource.append!(take("cfets", n))
+    for(id in 1..SecurityIDNumber){
+        msgSeqNum.append!(rand(400000,10).sort!()) 
+    }
+    msgType.append!(take("8", n))
+    for(id in 1..SecurityIDNumber){
+        price.append!((rand(1.0,10) +100).sort!()) 
+    }
+    senderCompID.append!(take("CMDS", n))
+    stipulationType.append!(take("Yield2", n))
+    for(id in 1..SecurityIDNumber){
+        stipulationValue.append!((rand(1.0,10) + 2).sort!()) 
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..2){
+            symbol.append!(take((rand(symbolList,1)), 5)) 
+        }
+    }
+    Date.append!(take(tradeDate, n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..2){
+            tradeMethod.append!(take((rand(1..4,1)), 5)) 
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..2){
+            tradeType.append!(take((rand([4,5,1],1)), 5)) 
+        }
+    }
+    tradeTime = exec CreateTime from tmpTable
+    tradeTime += 300
+    transactTime = concatDateTime(tradeDate, tradeTime)
+	//返回最终数据
+	onedayESPTradeTable = select take(tradeDate, n) as createDate,
+                CreateTime,
+                SecurityID,
+                execId,
+                execType,
+                lastQty,
+                marketIndicator,
+                messageSource,
+                msgSeqNum,	
+                msgType,	
+                price,	
+                senderCompID,	
+                stipulationType,	
+                stipulationValue,	
+                symbol,	
+                Date as tradeDate,	
+                tradeMethod,	
+                tradeTime,	
+                tradeType,	
+                transactTime
+				from tmpTable
+	return onedayESPTradeTable			
+}
+
+/**
+ * @Function Name: XBondDepth
+ * @Brief: Generates one-day XBond depth data.
+ * @Param tradeDate: Date for the XBond depth data.
+ * @Param securityNumber: The number of the security (default: 200).
+ * @Return: One-day XBond depth data.
+ * @Sample Usage: XBondDepthData = XBondDepth(tradeDate=2020.06.01, securityNumber=200)
+ */
+def XBondDepth(tradeDate, securityNumber=200){
+    // 确定交易数量
+    funcName = "XBondDepth"
+	validateDateAndScalarParam(funcName, tradeDate)
+    SecurityIDNumber = validateIntAndScalarParam(funcName, securityNumber) 
+    if (size(getMarketCalendar("XSHG", tradeDate, tradeDate)) == 0){
+        colName = `bondCodeVal`tradeDate`createTime`marketDepth`mdBookType`messageId`messageSource`msgSeqNum`msgType`bidmdEntryPrice`offermdEntryPrice`bidmdEntrySize`offermdEntrySize`bidsettlType`offersettlType`bidyield`offeryield`bid1yieldType`offer1yieldType`bid2yieldType`offer2yieldType`bid3yieldType`offer3yieldType`bid4yieldType`offer4yieldType`bid5yieldType`offer5yieldType`bid6yieldType`offer6yieldType`securityID`senderCompID`senderSubID`sendingTime
+	    colType = [SYMBOL,DATE,TIME,LONG,LONG,LONG,SYMBOL,LONG,SYMBOL,DOUBLE[],DOUBLE[],LONG[],LONG[],LONG[],LONG[],DOUBLE[],DOUBLE[],SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,SYMBOL,TIMESTAMP]
+        return table(1:0, colName, colType)
+    } 
+    eachTradeNum = 1000
+    SecurityID = lpad(string(1..SecurityIDNumber),6,"230000")$SYMBOL
+	TimeList = (09:30:00.000 + 0..(2 * 60 * 60) * 1000) join (13:00:00.000+0..((2 * 60 + 30) * 60) * 1000)
+    CreateTime = table(cutPoints(TimeList, eachTradeNum-1) as CreateTime) 
+	tmpTable = cj(table(SecurityID as SecurityID),CreateTime as CreateTime)
+    n = size(tmpTable)
+    marketDepth = array(LONG, 0)
+    mdBookType = array(LONG, 0)
+    messageId = array(LONG, 0)
+    messageSource = array(STRING, 0)
+    msgSeqNum = array(LONG, 0)
+    msgType = array(STRING, 0)
+    bidmdEntryPrice = array(DOUBLE[], 0)
+    offermdEntryPrice = array(DOUBLE[], 0)
+    bidmdEntrySize = array(LONG[], 0)
+    offermdEntrySize = array(LONG[], 0)
+    bidsettlType = array(LONG[], 0)
+    offersettlType = array(LONG[], 0)
+    bidyield = array(DOUBLE[], 0)
+    offeryield = array(DOUBLE[], 0)
+    bid1yieldType = array(STRING, 0)
+    offer1yieldType = array(STRING, 0)
+    bid2yieldType = array(STRING, 0)
+    offer2yieldType = array(STRING, 0)
+    bid3yieldType = array(STRING, 0)
+    offer3yieldType = array(STRING, 0)
+    bid4yieldType = array(STRING, 0)
+    offer4yieldType = array(STRING, 0)
+    bid5yieldType = array(STRING, 0)
+    offer5yieldType = array(STRING, 0)
+    bid6yieldType = array(STRING, 0)
+    offer6yieldType = array(STRING, 0)
+    senderCompID = array(STRING, 0)
+    senderSubID = array(STRING, 0)
+    sendingTime = array(TIMESTAMP, 0)
+    marketDepth.append!(take(6, n))
+    mdBookType.append!(take(2, n))
+
+    messageId.append!(rand(458779427231252481, n)) 
+    messageSource.append!(take("cfets", n))
+    msgSeqNum.append!(rand(410000, n)) 
+    msgType.append!(take(`W, n))
+    bidmdEntryPrice.append!(take([[102.2155, 102.2155, 102.0319, , , ]], n))
+    offermdEntryPrice.append!(take([[102.6646, 102.6646, 102.7223, , , ]], n))
+    bidmdEntrySize.append!(take([[30,000,000, 30,000,000, 100,000,000, , , ]], n))
+    offermdEntrySize.append!(take([[10,000,000, 30,000,000, 100,000,000, , , ]], n))
+    bidsettlType.append!(take([[2, 2, 2, , , ]], n))
+    offersettlType.append!(take([[2, 2, 2, , , ]], n))
+    bidyield.append!(take([[2.7, 2.7, 2.74, , , ]], n))
+    offeryield.append!(take([[2.6025, 2.6025, 2.59, , , ]], n))
+    bid1yieldType.append!(take("MATURITY", n))
+    offer1yieldType.append!(take("MATURITY", n))
+    bid2yieldType.append!(take("MATURITY", n))
+    offer2yieldType.append!(take("MATURITY", n))
+    bid3yieldType.append!(take("MATURITY", n))
+    offer3yieldType.append!(take("MATURITY", n))
+    bid4yieldType.append!(take("", n))
+    offer4yieldType.append!(take("", n))
+    bid5yieldType.append!(take("", n))
+    offer5yieldType.append!(take("", n))
+    bid6yieldType.append!(take("", n))
+    offer6yieldType.append!(take("", n))
+    senderCompID.append!(take("CFETS-MD-INFI-1", n))
+    senderSubID.append!(take("ODM", n))
+    for(id in 1..SecurityIDNumber){
+        sendingTime.append!(concatDateTime(tradeDate, exec * from CreateTime)-115) 
+    }
+	//返回最终数据
+	onedayXBondDepthTable = select SecurityID as bondCodeVal,
+                take(tradeDate, n) as tradeDate,
+                CreateTime,
+                marketDepth,
+                mdBookType,
+                messageId,
+                messageSource,
+                msgSeqNum,
+                msgType,
+                bidmdEntryPrice,
+                offermdEntryPrice,
+                bidmdEntrySize,
+                offermdEntrySize,
+                bidsettlType,
+                offersettlType,
+                bidyield,
+                offeryield,
+                bid1yieldType,
+                offer1yieldType,
+                bid2yieldType,
+                offer2yieldType,
+                bid3yieldType,
+                offer3yieldType,
+                bid4yieldType,
+                offer4yieldType,
+                bid5yieldType,
+                offer5yieldType,
+                bid6yieldType,
+                offer6yieldType,
+                SecurityID,
+                senderCompID,
+                senderSubID,
+                sendingTime
+				from tmpTable
+	return onedayXBondDepthTable			
+}
+
+/**
+ * @Function Name: XBondTrade
+ * @Brief: Generates one-day XBond trade data.
+ * @Param tradeDate: Date for the XBond trade data.
+ * @Param securityNumber: The number of the security (default: 200).
+ * @Return: One-day XBond trade data.
+ * @Sample Usage: XBondTradeData = XBondTrade(tradeDate=2020.06.01, securityNumber=200)
+ */
+def XBondTrade(tradeDate, securityNumber=200){
+    // 确定交易数量
+    funcName = "XBondTrade"
+	validateDateAndScalarParam(funcName, tradeDate)
+    SecurityIDNumber = validateIntAndScalarParam(funcName, securityNumber)
+    if (size(getMarketCalendar("XSHG", tradeDate , tradeDate)) == 0){
+        colName = `tradeDate`createTime`securityID`beforeClosingPrice`beforeClosingYield`beforeWeightedAveragePrice`beforeWeightedAverageYield`fillSide`highestPrice`highestYield`lowestPrice`lowestYield`marketIndicator`mdSubType`mdType`messageId`messageSource`msgSeqNum`msgType`openingValence`openingYield`priceRiseFallAmplitude`senderCompID`sendingTime`settlType`symbol`tradeMethod`transactTime`transactionNumber`uniqueOutputKey`upToDatePrice`upToDateYield`weightedAveragePrice`weightedAverageYield`yieldRiseFall
+	    colType = [DATE,TIME,SYMBOL,DOUBLE,DOUBLE,DOUBLE,DOUBLE,LONG,DOUBLE,DOUBLE,DOUBLE,DOUBLE,LONG,LONG,LONG,LONG,SYMBOL,LONG,SYMBOL,DOUBLE,DOUBLE,DOUBLE,SYMBOL,TIMESTAMP,LONG,SYMBOL,LONG,TIMESTAMP,LONG,LONG,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE]
+        return table(1:0, colName, colType)
+    } 
+    eachTradeNum = 120
+    SecurityID = lpad(string(1..SecurityIDNumber), 6, "230000")$SYMBOL
+	TimeList = (09:30:00.000 + 0..(2 * 60 * 60) * 1000) join (13:00:00.000+0..((2 * 60 + 30) * 60) * 1000)
+    CreateTime = table(cutPoints(TimeList, eachTradeNum-1) as CreateTime) 
+	tmpTable = cj(table(SecurityID as SecurityID), CreateTime as CreateTime)
+    n = size(tmpTable)
+    symbolList = ["22国开05", "22国开02", "22附息国债25", "22附息国债24", "22附息国债19", "22附息国债17", "21浦发银行02", "21农发02", "22进出11", "21进出13", "21进出10", "21进出05", "21国开15", "21国开03", "21附息国债04", "20农发10", "20农发04", "20进出10", "20进出05", "20国开12", "19农发06", "18附息国债23", "15国开18", "23农业银行CD203", "22农发清发03"]
+    beforeClosingPrice = array(DOUBLE, 0)
+    beforeClosingYield = array(DOUBLE, 0)
+    beforeWeightedAveragePrice = array(DOUBLE, 0)
+    beforeWeightedAverageYield = array(DOUBLE, 0)
+    fillSide = array(LONG, 0)
+    highestPrice = array(DOUBLE, 0)
+    highestYield = array(DOUBLE, 0)
+    lowestPrice = array(DOUBLE, 0)
+    lowestYield = array(DOUBLE, 0)
+    marketIndicator = array(LONG, 0)
+    mdSubType = array(LONG, 0)
+    mdType = array(LONG, 0)
+    messageId = array(LONG, 0)
+    messageSource = array(SYMBOL, 0)
+    msgSeqNum = array(LONG, 0)
+    msgType = array(SYMBOL, 0)
+    openingValence = array(DOUBLE, 0)
+    openingYield = array(DOUBLE, 0)
+    priceRiseFallAmplitude = array(DOUBLE, 0)
+    senderCompID = array(SYMBOL, 0)
+    sendingTime = array(TIMESTAMP, 0)
+    settlType = array(LONG, 0)
+    symbol = array(SYMBOL, 0)
+    tradeMethod = array(LONG, 0)
+    transactTime = array(TIMESTAMP, 0)
+    transactionNumber = array(LONG, 0)
+    uniqueOutputKey = array(LONG, 0)
+    upToDatePrice = array(DOUBLE, 0)
+    upToDateYield = array(DOUBLE, 0)
+    weightedAveragePrice = array(DOUBLE, 0)
+    weightedAverageYield = array(DOUBLE, 0)
+    yieldRiseFall = array(DOUBLE, 0)
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..3){
+            beforeClosingPrice.append!(take(rand(4.0,1)+100, 40))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..3){
+            beforeClosingYield.append!(take(rand(0.5,1)+2, 40))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..3){
+            beforeWeightedAveragePrice.append!(take(rand(3.0,1)+100, 40))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..3){
+            beforeWeightedAverageYield.append!(take(rand(0.5,1)+2, 40))
+        }
+    }
+    fillSide.append!(rand(1..2, n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            highestPrice.append!(take(rand(3.0,1)+100, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            highestYield.append!(take(rand(0.5,1)+2, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            lowestPrice.append!(take(rand(3.0,1)+100, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            lowestYield.append!(take(rand(0.5,1)+2, 20))
+        }
+    }
+    marketIndicator.append!(take(4, n))
+    mdSubType.append!(take(0, n))
+    mdType.append!(take(0, n))
+    messageId.append!(rand(458779427231252481, n)) 
+    messageSource.append!(take(`cfets, n))
+    msgSeqNum.append!(rand(410000, n)) 
+    msgType.append!(take(`W, n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            openingValence.append!(take(rand(2.0,1)+100, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            openingYield.append!(take(rand(0.5,1)+2, 20))
+        }
+    }
+    priceRiseFallAmplitude.append!(-1*rand(0.5,n))
+    senderCompID.append!(take("CMDS", n))
+    for(id in 1..SecurityIDNumber){
+        sendingTime.append!(concatDateTime(tradeDate, exec * from CreateTime)-115) 
+    }
+    settlType.append!(take(2, n))
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            symbol.append!(take(rand(symbolList,1), 20))
+        }
+    }
+    tradeMethod.append!(take(3, n))
+    transactTime = sendingTime - rand(1000, n)
+    transactionNumber.append!(rand(240, n)*1000000)
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            uniqueOutputKey.append!(take(rand(958779427231252481l,1),20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            upToDatePrice.append!(take(rand(2.0,1)+100, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            upToDateYield.append!(take(rand(2.0,1)+1, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            weightedAveragePrice.append!(take(rand(2.0,1)+100, 20))
+        }
+    }
+    for(id in 1..SecurityIDNumber){
+        for(i in 1..6){
+            weightedAverageYield.append!(take(rand(2.0,1)+1, 20))
+        }
+    }
+    yieldRiseFall.append!(rand(5.0, n))
+	//返回最终数据
+	onedayXBondTradeTable=select 
+                take(tradeDate, n) as tradeDate,
+                CreateTime,
+                SecurityID,
+                beforeClosingPrice,
+                beforeClosingYield,	
+                beforeWeightedAveragePrice,	
+                beforeWeightedAverageYield,	
+                fillSide,	
+                highestPrice,	
+                highestYield,	
+                lowestPrice,	
+                lowestYield,	
+                marketIndicator,	
+                mdSubType,	
+                mdType,	
+                messageId,
+                messageSource,
+                msgSeqNum,
+                msgType,
+                openingValence,
+                openingYield,
+                priceRiseFallAmplitude,
+                senderCompID,
+                sendingTime,
+                settlType,
+                symbol,
+                tradeMethod,
+                transactTime,
+                transactionNumber,
+                uniqueOutputKey,
+                upToDatePrice,
+                upToDateYield,
+                weightedAveragePrice,
+                weightedAverageYield,
+                yieldRiseFall
+				from tmpTable
+	return onedayXBondTradeTable			
+}
+
+tradeDate = 2024.11.06
+secCount = 10
+ESPDepthData = ESPDepth(tradeDate=tradeDate, securityNumber=secCount)
+ESPTradeData = ESPTrade(tradeDate=tradeDate, securityNumber=secCount)
+XBondDepthData = XBondDepth(tradeDate=tradeDate, securityNumber=secCount)
+XBondTradeData = XBondTrade(tradeDate=tradeDate, securityNumber=secCount)
+
+
+// 4.2 生成订单簿交易信号模块
+
+// 定义买方Order变动计算函数
+def getDeltaVtB(BidPrice0, BidVolumes0){
+    BidPrice0A = BidPrice0[0]
+    BidVolumes0A = BidVolumes0[0]
+	riseLogical = BidPrice0A>prev(BidPrice0A)
+	keepLogical = BidPrice0A==prev(BidPrice0A)
+	descendLogical = BidPrice0A<prev(BidPrice0A)
+	deltaVtB = iif(
+		riseLogical, 
+        BidVolumes0A, //价格上涨的情况
+		iif(
+			keepLogical,
+			BidVolumes0A-prev(BidVolumes0A), //价格不变的情况
+			0.0 //下跌的情况
+		)
+	)
+	return deltaVtB
+}
+
+
+// 定义卖方Order变动动计算函数
+def getDeltaVtA(AskPrice0, AskVolumes0){
+    AskPrice0A = AskPrice0[0]
+    AskVolumes0A = AskVolumes0[0]
+	riseLogical = AskPrice0A>prev(AskPrice0A)
+	keepLogical = AskPrice0A==prev(AskPrice0A)
+	descendLogical = AskPrice0A<prev(AskPrice0A)
+	deltaVtA=iif(
+        riseLogical, 
+        0.0, //价格上涨的情况
+		iif(
+			keepLogical,
+			AskVolumes0A-prev(AskVolumes0A), //价格不变的情况
+			AskVolumes0A //下跌的情况
+		)
+	)
+	return deltaVtA
+}
+
+
+// 定义Order Imbalance 指标计算函数
+def getOrderImbalance(BidPrice0, BidVolumes0, AskPrice0, AskVolumes0){
+	deltaVtB = getDeltaVtB(BidPrice0, BidVolumes0)
+	deltaVtA = getDeltaVtA(AskPrice0, AskVolumes0)
+	return deltaVtB - deltaVtA
+}
+
+
+// 定义Depth Imblance 指标计算函数
+def getDepthImbalance(bidQty, askQty){
+	return (bidQty - askQty) \ (bidQty + askQty)
+}
+
+
+// 定义Height Imbalance 指标计算函数
+def getHeightImbalance(mutable BidPrices, mutable AskPrices){
+	if(size(BidPrices)>=2 and size(AskPrices)>=2){
+        bid_diff = byRow(deltas, BidPrices)
+        ask_diff = byRow(deltas, AskPrices)
+        return (bid_diff - ask_diff) \ (bid_diff + ask_diff)
+    }   
+}
+
+
+// 定义press 指标计算函数
+def getPress(bidPrice1, bidQty1, askPrice1, askQty1){
+	bidPrice = double(bidPrice1[0])
+	bidQty = double(bidQty1[0])
+	askPrice = double(askPrice1[0])
+	askQty = double(askQty1[0])
+	wap = (bidPrice * askQty + askPrice * bidQty) \ (bidQty + askQty) // 量加权平均中间价
+	bidw = (1.0 \ (bidPrice - wap))
+	bidw = bidw \ (bidw.rowSum())
+	askw = (wap \ (askPrice - wap))
+	askw = askw \ (askw.rowSum())
+	return log((bidQty * bidw).rowSum()) - log((askQty * askw).rowSum())
+}
+
+
+// 使用 XBond 订单簿数据，可接入实时数据
+order_book = select * from XBondDepthData where !isNull(bidmdEntryPrice[0]) <= !isNull(offermdEntryPrice[0])
+
+
+def clearStream(){
+	// 停止replay 任务
+	try{
+		migReplayIds = exec jobId from getRecentJobs() where jobDesc = "orderbookStreamReplay" and isNull(endTime)
+		cancelJob(migReplayIds)
+	}catch(ex){
+		print ex
+	}
+	// 取消订阅和流表
+	try{ unsubscribeTable(tableName=`orderbookStream, actionName="order_book_Stream") } catch(ex) {print ex}
+	try{ unsubscribeTable(tableName=`signalsStream, actionName="order_book_Stream") } catch(ex) {print ex}
+	try{ dropStreamTable(`orderbookStream) } catch(ex) {print ex}
+	try{ dropStreamTable(`signalsStream) } catch(ex) {print ex}
+}
+
+
+// 调用指标计算函数
+def calsignalsStream(msg){
+    result = select
+	securityID, 
+	tradeDate,  
+	createTime,
+	getOrderImbalance(
+		bidmdEntryPrice,
+		bidmdEntrySize,
+		offermdEntryPrice,
+		offermdEntrySize
+	) as OrderImbalance,
+	getDepthImbalance(
+		bidmdEntrySize,
+		offermdEntrySize
+	) as DepthImbalance,
+	getPress(
+		bidmdEntryPrice,
+		bidmdEntrySize,
+		offermdEntryPrice,
+		offermdEntrySize
+	) as Press, 
+	getHeightImbalance(bidmdEntryPrice, offermdEntryPrice) as HeightImbalance 
+	from msg 
+	context by bondCodeVal 
+	order by bondCodeVal, createTime
+	return result
+}
+
+resultStream = calsignalsStream(order_book)
+
+
+
+// 定义流表发布函数
+def streamSubmit(sourceData, streamAlias, dateColumn, timeColumn, replayRate){
+    share(
+        table = streamTable(
+            100000:0, 
+            sourceData.schema().colDefs.name, 
+            sourceData.schema().colDefs.typeString),
+        sharedName = streamAlias
+    )
+    go;
+    
+    submitJob(
+        streamAlias, 
+        streamAlias+"Table", 
+        replay,
+        sqlDS(<select * from sourceData>), 
+        objByName(streamAlias), 
+        dateColumn,
+        timeColumn,
+        replayRate,
+        true
+    )
+    print("Shared Success")
+}
+
+
+streamSubmit(resultStream, "resultStreamTable", "tradeDate", "createTime", 10000)
+
+
+// 4.3 曲线拟合模块
+
+
+// 曲线行情数据 2024.11.06
+curveData = table(
+    [`3M, `6M, `1y, `2y, `3y, `5y, `7y, `10y] as Tenor,
+    [1.8477, 1.7563, 1.6956, 1.6543, 1.7464, 1.7714, 1.9097, 1.973] as FR007Bid,
+    [1.82, 1.73, 1.67, 1.64, 1.66, 1.77, 1.86, 1.97] as FR007Ask,
+    [1.389, 1.4461, 1.4545, 1.4401, 1.5794, 1.8354, 2.0132, 2.1612] as TbondBid,
+    [1.38, 1.39, 1.41, 1.44, 1.52, 1.77, 2, 2.12] as TbondAsk
+)
+
+
+X = array(`Double)
+for (el in curveData.tenor){
+    time_to_mat = (temporalAdd(date(now()), duration(el))- date(now()))\365
+    X.append!(time_to_mat)
+}
+
+
+
+def curveFit(X, Y, XPred){
+    tenor = round(XPred, 4)
+
+    modelPieceWise = piecewiseLinFit(X, Y, 10) //分段
+    predPieceWise = predict(modelPieceWise, XPred)
+
+    modelKrogh = kroghInterpolateFit(X, Y) //多项式
+    predKrogh = predict(modelKrogh, XPred)
+
+    modelnss = nss(X,Y, method='nm') //nss
+    predNSS = nssPredict(modelnss, XPred)
+
+    modelCubic = cubicSpline(X, Y) // 三次样条
+    predCubic = cubicSplinePredict(modelCubic, XPred)
+
+    modelLinear = linearInterpolateFit(X, Y)
+    predLinear = predict(modelLinear, XPred)
+
+    return table(tenor, predPieceWise, predKrogh, predCubic, predNSS, predLinear)
+}
+
+
+YFR007Bid = nullFill!(curveData.FR007Bid, 0)
+YFR007Ask = nullFill!(curveData.FR007Ask, 0)
+YTbondBid = nullFill!(curveData.TbondBid, 0)
+YTbondAsk = nullFill!(curveData.TbondAsk, 0)
+
+xpred = [1\12, 1.1\12, 1.2\12, 1.3\12, 2.5\12, 2.6\12, 3\12, 3.5\12, 6\12, 7\12, 9\12, 1.0, 2.0, 3.0, 4.0, 5.00, 6.0, 7.0, 10.0]
+
+BidFR007Curve = curveFit(X, YFR007Bid, xpred )
+AskFR007Curve = curveFit(X, YFR007Ask, xpred )
+BidTBondCurve = curveFit(X, YTbondBid, xpred )
+AskTBondCurve = curveFit(X, YTbondAsk, xpred )
+
+predResTable = lj(lj(lj(BidFR007Curve, AskFR007Curve, 'tenor'),  BidTBondCurve, 'tenor'), AskTBondCurve, 'tenor')
+
+streamSubmit(predResTable, "predResTableStream", , , 100)
+
+// 定义曲线拟合引擎脚本
+def createCurveEngine(){
+    assetType = [0, 1]
+    // 指定传入表结构、资产类型、拟合算法
+    for(model in ("nss", "krogh", "piece")){
+        if(model == "nss"){
+            // nss模型：买和卖分别用不同的利率
+            fitMethod = [
+                <nss(timetoMaturity,bidyield1, "nss")>, 
+                <nss(timetoMaturity,askyield1, "nss")>
+            ]
+        }else if(model == "krogh"){
+            // 中债-赫尔米特模型：买和卖分别用不同的利率
+            fitMethod = [
+                <kroghInterpolateFit(timetoMaturity, bidyield1, timetoMaturity)>, 
+                <kroghInterpolateFit(timetoMaturity, askyield1, timetoMaturity)>
+            ]
+        }else{
+            // piecewiseLinFit模型：10段
+            fitMethod = [
+                <piecewiseLinFit(timetoMaturity, bidyield1, 10)>, 
+                <piecewiseLinFit(timetoMaturity, askyield1, 10)>
+            ]
+        }
+        colNames = `time`assetType`dataSource`clearRate`symbol`model
+        colTypes = [TIMESTAMP,INT,INT,SYMBOL,SYMBOL,BLOB]
+        // 指定模型输出表和预测结果输出表
+        modelOutput = streamTable(1:0, colNames, colTypes)
+        share(modelOutput, model+`curveModelOutputSt)
+        go;
+
+        colNames = `time`assetType`dataSource`clearRate`symbol`x`y
+        colTypes = [TIMESTAMP, INT, INT, SYMBOL, SYMBOL, DOUBLE, DOUBLE]
+        predictOutput = streamTable(1:0, colNames, colTypes)
+        share(predictOutput, model+`curveOutputSt)
+        go;
+
+        try{ dropStreamEngine(model+`curveTestEngine) } catch(ex) {print ex}
+
+        // 基于上述参数创建曲线拟合引擎
+        engine = createYieldCurveEngine(
+            name=model+`curveTestEngine, 
+            dummyTable=objByName(`inputSt),
+            assetType=assetType,
+            fitMethod=fitMethod,
+            keyColumn=`dir`dataSource`clearRate`symbol, 
+            modelOutput=objByName(model+`curveModelOutputSt),
+            frequency=1m, 
+            timeColumn=`sendingtime,
+            predictInputColumn=`timetoMaturity,
+            predictTimeColumn=`sendingtime,
+            predictOutput=objByName(model+`curveOutputSt),
+            fitAfterPredict=true
+        )
+    }
+}
+
+
+
+def createPriceEngine(securityReference){
+    for(model in ("nss", "krogh", "piece")){
+        try{ dropStreamEngine(model+`priceTestEngine) } catch(ex) {print ex}
+        outputTable = streamTable(
+            1:0, 
+            `tradeTime`type`symbol`result`predictY`predictX,
+            [TIMESTAMP, INT, SYMBOL, DOUBLE[], DOUBLE, DOUBLE]
+        )
+        share(outputTable, model+`priceOutputSt)
+        typeList=[0,1]
+        dt = 2024.11.06
+        par=100
+        methodList=[
+            <[
+                bondDirtyPrice(dt, maturity, coupon, y, frequency, basis), 
+                bondAccrInt(dt, maturity, coupon, frequency,par, basis), 
+                bondDuration(dt, maturity, coupon, y, frequency, basis), 
+                bondConvexity(dt, maturity, coupon, y, frequency, basis)
+            ]>,
+
+            <[
+                bondDirtyPrice(dt, maturity, coupon, y, frequency, basis), 
+                bondAccrInt(dt, maturity, coupon, frequency,par, basis), 
+                bondDuration(dt, maturity, coupon, y, frequency, basis), 
+                bondConvexity(dt, maturity, coupon, y, frequency, basis)
+            ]>
+        ]
+        priceEngine = createPricingEngine(
+            name=model+"priceTestEngine", 
+            dummyTable=objByName(model+`curveOutputSt), 
+            timeColumn=`time, 
+            typeColumn=`assetType, 
+            securityType=typeList, 
+            method=methodList, 
+            outputTable=objByName(model+`priceOutputSt), 
+            securityReference=securityReference, 
+            keyColumn=`symbol, 
+            extraMetrics=[<y>, <x>]
+        )
+        subscribeTable(
+            tableName=model+`curveOutputSt,
+            actionName=model+`priceAct,
+            handler=append!{priceEngine},
+            msgAsTable=true
+        )
+    }
+}
+
+
+
+// 4.4 债券估值定价
+clearAllStreamEnv()
+go;
+
+
+// 定义流表发布函数
+def streamSubmit(sourceData, streamAlias, dateColumn, timeColumn, replayRate){
+    share(
+        table = streamTable(
+            100000:0, 
+            sourceData.schema().colDefs.name, 
+            sourceData.schema().colDefs.typeString),
+        sharedName = streamAlias
+    )
+    go;
+    
+    submitJob(
+        streamAlias, 
+        streamAlias+"Table", 
+        replay,
+        sqlDS(<select * from sourceData>), 
+        objByName(streamAlias), 
+        dateColumn,
+        timeColumn,
+        replayRate,
+        true
+    )
+    print("Shared Success")
+}
+
+
+
+
+// 模拟数据生成
+num = 300
+dealtime = 2023.09.01 00:00:00+(1..num)
+dutyid = rand(`A + lpad(string(1..4),4,`0),num)
+bondid = string(rand(["230012", "230018", "230009"], num))
+dealtype  = take("债券", num)
+pos = rand(10, num)*100000
+costprice = rand(norm(99.00,3,400), num)
+portfolio = take(symbol(`利率债组合01`国债组合01`国债组合02), num)
+position = table(dealtime, dutyid, bondid, dealtype, pos, costprice, portfolio)
+trade = select *, string(SecurityID) as "bondid" from XBondTradeData
+
+// 导入债券信息表
+info = select * from bondInfoTable
+update info set symbols = substr(代码, 0, 6)
+info = select * from info where isDuplicated([symbols],FIRST)=false;
+
+// 持仓表格
+postables = ej(position, info, `bondid,`symbols)
+trade_pos_table = ej(postables, trade, `bondid,`bondid) 
+
+
+// 组合维度
+riskcontrolPorts = select 
+    dutyid as 受责人, 
+    bondid as 产品名称, 
+    dealtype as 产品大类, 
+    sum(pos) as 当前持仓, 
+    portfolio as 组合, 
+    avg(upToDatePrice* fiDuration(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)\ 面值) as Duration, 
+    avg(fiConvexity(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)) as Convexity, 
+    avg(upToDatePrice* fiDuration(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)\ 面值\(1+票面利率说明\100\2)*0.0001) as DV01, 
+    sum((upToDatePrice-costprice)*pos\100\(date(tradeDate)-date(dealtime))) as 日盈亏,  
+    sum(norm(0,0.5,1)[0]\(date(tradeDate)-date(dealtime))*(upToDatePrice-costprice)*pos*21\100) as 月盈亏, 
+    sum(norm(0,0.5,1)[0]\(date(tradeDate)-date(dealtime))*(upToDatePrice-costprice)*pos*252\20\100) as 年盈亏 
+    from trade_pos_table context by portfolio order by createTime desc limit 20
+        
+
+// 受责人划分
+riskcontrolDutyp = select 
+    createTime as 更新时间, 
+    dutyid as 受责人,
+    bondid as 产品名称, 
+    dealtype as 产品大类, 
+    sum(pos) as 当前持仓, 
+    portfolio as 组合, 
+    avg(upToDatePrice* fiDuration(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)\ 面值) as Duration, 
+    avg(fiConvexity(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)) as Convexity, 
+    avg(upToDatePrice* fiDuration(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)\ 面值\(1+票面利率说明\100\2)*0.0001) as DV01, 
+    sum((upToDatePrice-costprice)*pos\100\(date(tradeDate)-date(dealtime))) as 日盈亏,
+    sum(norm(0,0.5,1)[0]\(date(tradeDate)-date(dealtime))*(upToDatePrice-costprice)*pos*21\100) as 月盈亏, 
+    sum(norm(0,0.5,1)[0]\(date(tradeDate)-date(dealtime))*(upToDatePrice-costprice)*pos*252\20\100) as 年盈亏 
+    from trade_pos_table context by dutyid order by createTime desc limit 20
+
+
+
+// 产品维度
+riskcontrolproduct = select 
+    createTime as 更新时间, 
+    dutyid as 受责人,
+    bondid as 产品名称, 
+    dealtype as 产品大类, 
+    sum(pos) as 当前持仓, 
+    portfolio as 组合, 
+    avg(upToDatePrice* fiDuration(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)\ 面值) as Duration, 
+    avg(fiConvexity(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)) as Convexity, 
+    avg(upToDatePrice* fiDuration(date(dealtime), 到期日期, 票面利率说明\100, upToDateYield\100, 2)\ 面值\(1+票面利率说明\100\2)*0.0001) as DV01, 
+    sum((upToDatePrice-costprice)*pos\100\(date(tradeDate)-date(dealtime))) as 日盈亏,
+    sum(norm(0,0.5,1)[0]\(date(tradeDate)-date(dealtime))*(upToDatePrice-costprice)*pos*21\100) as 月盈亏, 
+    sum(norm(0,0.5,1)[0]\(date(tradeDate)-date(dealtime))*(upToDatePrice-costprice)*pos*252\20\100) as 年盈亏 
+    from trade_pos_table context by bondid order by createTime desc limit 20
+
+
+
+// 4.5 计算投资组合95% VaR值
+positionTotal = select sum(当前持仓) as 总持仓 from riskcontrolDutyp group by 组合
+positionPort01 = exec 总持仓 from positionTotal where 组合 = '利率债组合01'
+positionPort02 = exec 总持仓 from positionTotal where 组合 = '国债组合01'
+positionPort03 = exec 总持仓 from positionTotal where 组合 = '国债组合02'
+
+riskReturnPort01 = array(`Double).append!(exec 利率债组合01\100 from returnData)
+port01VaR = valueAtRisk(nullFill!(riskReturnPort01, 0.000001), "historical")*positionPort01
+
+riskReturnPort02 = array(`Double).append!(exec 国债组合01\100 from returnData)
+port02VaR =valueAtRisk(nullFill!(riskReturnPort02, 0.000001), "historical")*positionPort02
+
+riskReturnPort03 = array(`Double).append!(exec 国债组合02\100 from returnData)
+port03VaR =valueAtRisk(nullFill!(riskReturnPort03, 0.000001), "historical")*positionPort03
+
+portVaR = round(array(`Double, 0).append!([port01VaR[0], port02VaR[0], port03VaR[0]])\10000,4)
+portName = ['利率债组合01', '国债组合01', '国债组合02']
+
+table(portName as '组合', portVaR as '95% VaR')

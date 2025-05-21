@@ -1,0 +1,208 @@
+// 加载引擎插件
+try{loadPlugin("MatchingEngineSimulator")}catch(ex){print ex}
+try{loadPlugin("Backtest")}catch(ex){print ex}
+go
+use ta
+
+// 定义指标和回调函数
+@state
+defg RSI(close, timePeriod = 14){
+	 deltaClose = deltas(close)
+	 up = iif(nullCompare(>, deltaClose, 0), deltaClose, 0)
+	 down = iif(nullCompare(>, deltaClose, 0), 0, -deltaClose)
+	 upAvg = wilder(up, timePeriod)
+	 downAvg = wilder(down, timePeriod)
+	 return 100.0 * upAvg / (upAvg + downAvg)
+}
+@state
+def stddev(close, timePeriod = 5, nbdev = 1){
+	return sqrt(var(close, timePeriod, nbdev)) * nbdev
+}
+@state
+def bBands_(close, timePeriod = 5, nbdevUp = 2, nbdevDn = 2, maType = 0){
+	mid =sma(close, timePeriod)
+	md = stddev(close, timePeriod, 1)
+	return ((mid + nbdevUp * md), mid, (mid - nbdevDn * md))
+}
+def initialize(mutable context){
+	print("initialize")
+	context['Slippage'] = 0.00001
+	context["tp"] = 0.01
+	context["sl"] = 0.001
+	context["maxSpread"] = 0.9
+	d = dict(STRING,ANY)
+	d["rsi"] = <RSI(lastPrice, 11)>
+	d["bhigh"] = <bBands_(lastPrice, 20, 2, 2, 0)[0]>
+	d["bmid"] = <bBands_(lastPrice, 20, 2, 2, 0)[1]>
+	d["blow"] = <bBands_(lastPrice, 20, 2, 2, 0)[2]>
+	Backtest::subscribeIndicator(context["engine"], "snapshot_kline", d)
+}
+def beforeTrading(mutable context){
+	//print ("beforeTrading: "+context["tradeDate"])
+	context["opens"] = false
+}
+def onBar(mutable context, msg, indicator){
+	istock = msg.keys()[0]
+	msg_ = msg[istock]
+	
+	//time_=msg_.timestamp
+	askPrice0 = msg_.offerPrice[0]
+	bidPrice0 = msg_.bidPrice[0]
+	spread = askPrice0 - bidPrice0
+	
+	indicator_ = indicator[istock]
+	blow = indicator_.blow
+	bhigh = indicator_.bhigh
+	// step1、价差检查
+	if(spread > context["maxSpread"]){
+		return 
+	}
+	rsi_ = indicator_.rsi
+	if(isNull(rsi_)){return}
+	close = msg_.lastPrice
+	bmid = indicator_.bmid
+	open = msg_.open
+
+	symbolSource = msg_.symbolSource      
+	istock = msg_.symbol
+	position = Backtest::getPosition(context["engine"], istock)
+	longpos = position.longPosition
+	shortpos = position.shortPosition
+	if(rsi_ > 70. and askPrice0 > bhigh and close > open){
+	        if(longpos < 1){
+	            orderId = Backtest::submitOrder(context["engine"], (istock,symbolSource,
+	            context["barTime"], 5, round(askPrice0,5), 
+	            askPrice0 - context["sl"] + context['Slippage'], askPrice0 + context["tp"] + context['Slippage'], 
+	            2, 1, context['Slippage'], 0, context["barTime"] + 36000000), "openBuy", 5)
+	        	return
+    		}
+    	}
+	if(rsi_ < 30. and bidPrice0<blow and close < open){
+		symbolSource = msg_.symbolSource
+		if(shortpos < 1){
+		    orderId = Backtest::submitOrder(context["engine"], (istock,symbolSource,
+		    context["barTime"], 5, round(bidPrice0, 5), 
+		    bidPrice0 + context["sl"] - context['Slippage'], 
+		    bidPrice0 - context["tp"] - context['Slippage'], 2, 2, context['Slippage'], 0, 
+		    context["barTime"] + 36000000), "openSell", 5)
+			return
+		}
+	}
+}
+def onSnapshot(mutable context, msg, indicator){	
+}
+def onOrder( mutable context, orders){
+}
+def onTrade(mutable context, trades){}
+def afterTrading(mutable context){}
+def finalize(mutable context){}
+
+//执行策略回测
+//策略配置与引擎创建
+startDate = 2005.01.01
+endDate = 2024.12.31
+userConfig = dict(STRING,ANY)
+userConfig["startDate"] = startDate
+userConfig["endDate"] = endDate
+///策略类型///
+userConfig["strategyGroup"] = "futures"
+///以指定的频率通过逐笔数据合成快照
+userConfig["futuresType"] = "universal"
+//userConfig["exchange"] = "commodity"
+///以指定的频率合成bar
+userConfig["frequency"] = 3600000
+//userConfig["frequency"] = 0
+userConfig["cash"] = 10000000
+/////行情类型，1：快照 3：分钟 4:日频
+userConfig["dataType"] = 1
+userConfig["depth"] = 1
+userConfig["enableAlgoOrder"] = true
+userConfig["latency"] = 1
+//手续费,        
+userConfig["commission"] = 0.0
+//印花税,
+userConfig["tax"] = 0.0
+////tick的数据格式，table或dict
+userConfig["msgAsTable"] = true
+userConfig["callbackForSnapshot"] = 2
+userConfig["matchingMode"] = 3
+context = dict(STRING,ANY)
+context["opens"] = false
+context["Slippage"] = 0.00002
+context["tp"] = 0.01
+context["sl"] = 0.001
+context["orderId"] = 0
+context["maxSpread"] = 2.
+
+userConfig["context"] = context
+//0->onSnapshot
+//1->onSnapshot,onBar
+//2->onBar
+//策略参数设置
+userParam = dict(STRING,FLOAT)
+symbol = ["EURUSD6"]
+basicInfo = table(symbol as symbol, take(100., size(symbol)) as multiplier, take(0.2, size(symbol)) as marginRatio,
+                 take(0.01, size(symbol)) as tradeUnit, take(0.02, size(symbol)) as priceUnit, 
+                 take(0.03, size(symbol)) as priceTick, take(1.5, size(symbol)) as commission, take(1, size(symbol)) as deliveryCommissionMode)
+// ===================================================================================
+callbacks = dict(STRING,ANY)
+callbacks["initialize"] = initialize
+callbacks["beforeTrading"] = beforeTrading
+//callbacks["onSnapshot"] = onSnapshot 
+//callbacks["onTick"] = onTick 
+callbacks["onBar"] = onBar
+callbacks["onOrder"] = onOrder
+callbacks["onTrade"] = onTrade
+callbacks["afterTrading"] = afterTrading
+callbacks["finalize"] = finalize
+
+// 创建引擎
+strategyName = "ftxdemoStrategydemo333"
+try{Backtest::dropBacktestEngine(strategyName)}catch(ex){print ex}
+try{Backtest::dropBacktestEngine(strategyName + "1")}catch(ex){print ex}
+engine = Backtest::createBacktester(strategyName, userConfig, callbacks, false, basicInfo) // 非JIT模式
+engine1 = Backtest::createBacktester(strategyName + "1", userConfig, callbacks, true, basicInfo) // JIT模式
+go
+
+dates = date(2018.02M + 12*1..5)
+i = 0
+print('notJIT')
+for(idate in dates){
+	begt = yearBegin(idate)
+	if(i == 0){
+		begt = datetimeAdd(yearBegin(idate), -2, "d")
+	}
+	endt = yearEnd(idate)
+	backtestdata_ = select * from loadTable("dfs://ohlc_tick3", `tick2) where month(month(timestamp)) in distinct(month(begt..endt)) and timestamp.date() >= begt map
+	if(backtestdata_.size() == 0){continue}
+	timer Backtest::appendQuotationMsg(engine, backtestdata_)
+	i = i+1
+}
+
+dates = date(2018.02M + 12*1..5)
+i = 0
+print('JIT')
+for(idate in dates){
+	begt = yearBegin(idate)
+	if(i == 0){
+		begt = datetimeAdd(yearBegin(idate), -2, "d")
+	}
+	endt = yearEnd(idate)
+	backtestdata_ = select * from loadTable("dfs://ohlc_tick3", `tick2) where month(month(timestamp)) in distinct(month(begt..endt)) and timestamp.date() >= begt map
+	if(backtestdata_.size() == 0){continue}
+	timer Backtest::appendQuotationMsg(engine1, backtestdata_)
+	i = i+1
+}
+
+endmessageTable = select top 1* from backtestdata_ where timestamp=max(timestamp)
+update endmessageTable set symbol = "END"
+timer Backtest::appendQuotationMsg(engine, endmessageTable)
+timer Backtest::appendQuotationMsg(engine1, endmessageTable)
+
+DailyPosition = Backtest::getDailyPosition(long(engine))
+DailyTotalPortfolios = Backtest::getDailyTotalPortfolios(long(engine))
+contextTable = Backtest::getContextDict(long(engine))
+TradeDetails = select * from Backtest::getTradeDetails(long(engine)) where orderStatus in [0, 1]
+
+select count(*) from loadTable("dfs://ohlc_tick3", `tick2) where month(month(timestamp)) >= month(2019.01.01) and month(month(timestamp)) <= month(2023.12.01)
+//7984.431+8164.953+4858.96+4858.96+8889.397+7999.371

@@ -1,0 +1,128 @@
+//登陆账户
+login("admin", "123456")
+//创建数据库和分区表
+dbName = "dfs://stock"
+tbName = "factor"
+if(existsDatabase(dbName)){
+	dropDatabase(dbName)
+}
+db = database(dbName, VALUE, 2023.01.01..2023.01.30)
+colNames = `SecurityID`date`time`col1`col2`col3`col4`col5`col6`col7`col8`col9`col10`col11`col12`col13`col14`col15`col16`col17`col18`col19`col20`col21`col22`col23`col24`col25`col26`col27`col28`col29`col30`col31`col32`col33`col34`col35`col36`col37`col38`col39`col40`col41`col42`col43`col44`col45`col46`col47`col48`col49`col50
+colTypes = [SYMBOL, DATE, SECOND, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE]
+schema = table(1:0, colNames, colTypes)
+db.createPartitionedTable(table=schema, tableName=tbName, partitionColumns='date')
+//构建模拟数据
+n = 1000000
+SecurityID = rand(`000001`000002`000003`000004`000005`000006`000007`000008`000009`000010, n)
+date = rand(2015.01.01..2024.12.31, n)
+time = 09:30:00 + rand(331, n) * 60
+factor = rand(10.0, n:50)
+factor.rename!(`col1`col2`col3`col4`col5`col6`col7`col8`col9`col10`col11`col12`col13`col14`col15`col16`col17`col18`col19`col20`col21`col22`col23`col24`col25`col26`col27`col28`col29`col30`col31`col32`col33`col34`col35`col36`col37`col38`col39`col40`col41`col42`col43`col44`col45`col46`col47`col48`col49`col50)
+t = table(SecurityID, date, time, factor)
+//存入分区表
+loadTable("dfs://stock", "factor").append!(t)
+
+//创建测试用户
+login("admin", "123456")
+createUser("testUser1", "123456",, false)
+createUser("testUser2", "123456",, false)
+createGroup("testGroup1", `testUser1`testUser2)
+
+//设置全表访问接口
+login("admin", "123456")
+def query(startDate, endDate, cols="*", security=NULL) {
+	whereConditions = [<date between startDate:endDate>]
+	if (typestr(security) <> VOID) {
+		whereConditions.append!(<SecurityID in security>)
+	}
+	return eval(sql(select=sqlCol(cols), from=loadTable("dfs://stock", "factor"), where=whereConditions))
+}
+addFunctionView(query)
+grant("testGroup1", VIEW_EXEC, "query")
+
+//设置行级别访问接口
+login("admin", "123456")
+def queryRecentYear(startDate=NULL, endDate=NULL, cols="*", security=NULL) {
+	start = temporalAdd(date(now()), -1, "y")
+	end = date(now())
+	if (startDate == NULL) { date0 = start }
+	else if (startDate < start) { throw("Not granted to read data before " + start) }
+	else { date0 = startDate }
+	if (endDate == NULL) { date1 = end }
+	else if (endDate > end) { throw("Not granted to read data after " + end) }
+	else { date1 = endDate }
+	whereConditions = [<date between date0:date1>]
+	if (typestr(security) <> VOID) {
+		whereConditions.append!(<SecurityID in security>)
+	}
+	return eval(sql(select=sqlCol(cols), from=loadTable("dfs://stock", "factor"), where=whereConditions))
+}
+addFunctionView(queryRecentYear)
+grant("testGroup1", VIEW_EXEC, "queryRecentYear")
+
+//设置列级别访问接口
+login("admin", "123456")
+def queryFirst10Col(startDate, endDate, cols=NULL, security=NULL) {
+	grantedCols = loadTable("dfs://stock", "factor").schema()['colDefs']['name'][:10]
+	notGranted = not(cols in grantedCols)
+	if (typestr(cols) == VOID) { col = grantedCols }
+	else if (sum(notGranted) > 0) {	throw("Not granted to read columns " + toStdJson(distinct(cols[notGranted]))) }
+	else { col = cols }
+	whereConditions = [<date between startDate:endDate>]
+	if (typestr(security) <> VOID) {
+		whereConditions.append!(<SecurityID in security>)
+	}
+	return eval(sql(select=sqlCol(col), from=loadTable("dfs://stock", "factor"), where=whereConditions))
+}
+addFunctionView(queryFirst10Col)
+grant("testGroup1", VIEW_EXEC, "queryFirst10Col")
+
+//设置行列级别访问接口
+login("admin", "123456")
+def queryCond(startDate, endDate, cols=NULL, security=NULL) {
+	grantedCols = `SecurityID`date`time`col46`col47`col48`col49`col50
+	notGranted = not(cols in grantedCols)
+	if (typestr(cols) == VOID) { col = grantedCols }
+	else if (sum(notGranted) > 0) {	throw("Not granted to read columns " + toStdJson(distinct(cols[notGranted]))) }
+	else { col = cols }
+	if (startDate < 2020.01.01) {
+		throw("Not granted to read data before 2020")
+	}
+	if (startDate < temporalAdd(endDate, -1, "y")) {
+		throw("Time duration exceeds 1 year. Please change the dates.")
+	}
+	whereConditions = [<date between startDate:endDate>]
+	if (typestr(security) <> VOID) {
+		whereConditions.append!(<SecurityID in security>)
+	}
+	return eval(sql(select=sqlCol(col), from=loadTable("dfs://stock", "factor"), where=whereConditions))
+}
+addFunctionView(queryCond)
+grant("testGroup1", VIEW_EXEC, "queryCond")
+
+//在 DolphinDB server 中登录用户 testUser1 的账号
+login("testUser1", "123456")
+
+// 访问全表数据
+t = query(startDate=2015.01.01, endDate=2024.12.31)
+
+// 访问2024年2月指定证券、指定列的数据
+t = query(startDate=2024.02.01, endDate=2024.02.29, security="000001", cols=`SecurityID`date`time`col1`col2`col3`col4`col5`col6`col7`col8`col9`col10)
+
+// 访问近1年所有数据
+t = queryRecentYear()
+
+// 访问指定日期开始、指定列的数据
+t = queryRecentYear(startDate=2023.07.01, cols=`SecurityID`date`time`col2`col3)
+
+// 访问2023年指定证券、允许访问的所有列的数据
+t = queryFirst10Col(startDate=2023.01.01, endDate=2023.12.31, security=`000008`000009`000010)
+
+// 访问2022年12月指定列的数据
+t = queryFirst10Col(startDate=2022.12.01, endDate=2022.12.31, cols=`SecurityID`date`time`col4`col5`col6)
+
+// 访问2021年1月允许访问的所有列的数据
+t = queryCond(startDate=2021.01.01, endDate=2021.01.31)
+
+// 访问2021年指定列的数据
+t = queryCond(startDate=2021.01.01, endDate=2021.12.31, cols=`SecurityID`date`time`col47`col48`col49)

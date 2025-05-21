@@ -1,0 +1,64 @@
+use MockData
+drop database if exists "dfs://k_minute_level"
+
+create database "dfs://k_minute_level"
+partitioned by VALUE(2020.01.01..2021.01.01)
+engine='OLAP'
+
+create table "dfs://k_minute_level"."k_minute"(
+	securityid SYMBOL  
+	tradetime TIMESTAMP
+	open DOUBLE        
+	close DOUBLE       
+	high DOUBLE        
+	low DOUBLE
+	vol INT
+	val DOUBLE
+	vwap DOUBLE
+)
+partitioned by tradetime
+go
+
+dates = getMarketCalendar('XSHE', 2022.01.01, 2022.01.31)
+t = stockMinuteKLine(dates[0], dates[dates.size()-1], 10)
+
+loadTable("dfs://k_minute_level", "k_minute").append!(t)
+
+// 写入 2 天重复数据
+t1 = stockMinuteKLine(2022.01.04, 2022.01.05, 10)
+loadTable("dfs://k_minute_level", "k_minute").append!(t1)
+
+timer delete from loadTable("dfs://k_minute_level", "k_minute") where isDuplicated([securityid, tradetime], FIRST) = true map
+// print select count(*) from  loadTable("dfs://k_minute_level", "k_minute")
+
+
+// 写入 2 天重复数据
+loadTable("dfs://k_minute_level", "k_minute").append!(t1)
+
+timer{
+	tmp = select * from loadTable("dfs://k_minute_level", "k_minute") where isDuplicated([securityid, tradetime], FIRST) = false map
+	truncate("dfs://k_minute_level", "k_minute")
+	loadTable("dfs://k_minute_level", "k_minute").append!(tmp)
+}
+
+// print select count(*) from  loadTable("dfs://k_minute_level", "k_minute")
+
+
+
+// 写入 2 天重复数据
+loadTable("dfs://k_minute_level", "k_minute").append!(t1)
+
+db = database("dfs://k_minute_level")
+dates = getTabletsMeta("%k_minute_level/%").dfsPath.split("/")[2].temporalParse("yyyyMMdd")
+
+timer{
+
+	for(date in dates){
+		tmp = select * from loadTable("dfs://k_minute_level", "k_minute") where partition(tradetime, date), isDuplicated([securityid, tradetime], FIRST) = false
+		dropPartition(db, [date], tableName="k_minute")
+		loadTable("dfs://k_minute_level", "k_minute").append!(tmp)
+	}
+
+}
+
+// print select count(*) from  loadTable("dfs://k_minute_level", "k_minute")

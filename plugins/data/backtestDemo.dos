@@ -1,0 +1,88 @@
+@state
+def pctChg(lastPrice, prevClosePrice){
+	return lastPrice\prevClosePrice - 1
+}
+def initialize(mutable context){
+	//初始化回调函数
+	print("initialize")
+	//订阅快照行情的指标
+	d = dict(STRING,ANY)
+	d["pctChg"] = <pctChg(lastPrice, prevClosePrice)>
+	Backtest::subscribeIndicator(context["engine"], "snapshot", d) 
+	context["maxPos"] = 500
+}
+def beforeTrading(mutable context){
+	//每日盘前回调函数
+	//通过context["tradeDate"]可以获取当日；
+	print("beforeTrading: " + context["tradeDate"])
+	//通过backtest::setUniverse可以更换当日股票池
+	Backtest::setUniverse(context["engine"], ["000001.XSHE"])
+	context["open"] = dict(STRING,BOOL)
+}
+def onSnapshot(mutable context, msg, indicator){	
+    //查询目前该的持仓
+    pos = Backtest::getPosition(context["engine"], msg.symbol)
+    longPos = pos.longPosition
+    if (indicator.pctChg > 0.01 and longPos <= context.maxPos and
+    context["open"][msg.symbol] != true){
+		Backtest::submitOrder(context["engine"], 
+			(msg.symbol, context["tradeTime"], 5, msg.offerPrice[0], 100, 1), "buy")
+		context["open"][msg.symbol] = true
+    }
+}
+def onOrder(mutable context, msg){}
+def onTrade(mutable context, msg){}
+def afterTrading(mutable context){}
+def finalize(mutable context){}
+//配置参数
+config = {
+	startDate: 2022.04.11,//回测开始日期
+	endDate: 2022.04.11, //回测结束日期
+	strategyGroup: `stock,
+	frequency: 0,
+	cash: 100000000,  //策略初始资金
+	commission: 0.00015,
+	tax: 0.001,
+	dataType: 1,//回测行情，dataType = 1 表示快照行情
+	msgAsTable: false,
+	"context": {
+		maxPos:0,
+		open: {
+			A: true
+		} 
+	}
+}
+//创建回测引擎
+callbacks = {
+	initialize: initialize,
+	beforeTrading: beforeTrading,
+    onSnapshot: onSnapshot,
+    onOrder: onOrder,
+    onTrade: onTrade,
+	afterTrading: afterTrading,
+    finalize: finalize
+}
+name = "BackTester1"
+try{Backtest::dropBacktestEngine(name)}catch(ex){print ex}
+engine = Backtest::createBacktester(name, config, callbacks, false)
+
+
+//数据写入，执行策略回测。其中messageTable为符合引擎要求的数据，具体要求参见回测平台接口文档。
+colName=["symbol","symbolSource","timestamp","lastPrice","upLimitPrice","downLimitPrice","totalBidQty",
+	"totalOfferQty","bidPrice","bidQty","offerPrice","offerQty","signal","prevClosePrice"]
+colType= ["STRING","STRING","TIMESTAMP","DOUBLE","DOUBLE","DOUBLE","LONG",
+	"LONG","DOUBLE[]","LONG[]","DOUBLE[]","LONG[]","DOUBLE[]","DOUBLE"]
+messageTable=table(10000000:0, colName, colType)
+
+insert into messageTable values("000001.XSHE","XSHE",2022.04.11 10:10:00.000,7,15,5,10000,10000,arrayVector([10],[6.9, 6.8, 6.7, 6.6, 6.5, 6.4, 6.3, 6.2, 6.1,6.0]),arrayVector([10],[800,900,1000,1100,1200,1000,1000,1000,1000,1000]),arrayVector([10],[7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0]),arrayVector([10],[1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]),,6.5)
+insert into messageTable values("000001.XSHE","XSHE",2022.04.11 10:10:03.000,7.5,15,5,10000,10000,arrayVector([10],[7.4, 6.8, 6.7, 6.6, 6.5, 6.4, 6.3, 6.2, 6.1,6.0]),arrayVector([10],[800,900,1000,1100,1200,1000,1000,1000,1000,1000]),arrayVector([10],[7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5]),arrayVector([10],[1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]),,7)
+
+Backtest::appendQuotationMsg(engine, messageTable)
+
+
+//获取回测结果
+Backtest::getDailyPosition(engine)//获取每日持仓数据
+Backtest::getDailyTotalPortfolios(engine)//获取策略每日权益指标
+Backtest::getReturnSummary(engine)//获取策略的收益概述
+Backtest::getContextDict(engine)//获取策略的逻辑上下文
+Backtest::getTradeDetails(engine)//获取交易明细表

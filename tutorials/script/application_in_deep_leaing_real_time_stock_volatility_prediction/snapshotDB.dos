@@ -1,0 +1,37 @@
+/**
+File name: snapshotDB.dos
+Application: load a snapshot CSV file and append its contents to a database.
+Author: Yanyan Xu
+Company: DolphinDB Inc.
+DolphinDB server version: 3.00.2.3 2024.12.26 LINUX_ABI x86_64
+Storage engine: TSDB
+Last modification time: 2025.03.09
+*/
+
+// 创建数据库表
+def createSnapshotDbTable(dbName, tbName){
+	if(existsDatabase(dbName)){
+		dropDatabase(dbName)
+	}
+	dbTime = database(, VALUE, 2021.01.01..2021.12.31)
+	dbSymbol = database(, HASH, [SYMBOL, 20])
+	db = database(dbName, COMPO, [dbTime, dbSymbol], , 'TSDB')
+	name = ["DateTime","SecurityID","PreClosePx","OpenPx","HighPx","LowPx","LastPx","TotalVolumeTrade","TotalValueTrade","InstrumentStatus","BidPrice","BidOrderQty","BidNumOrders","BidOrders","OfferPrice","OfferOrderQty","OfferNumOrders","OfferOrders","NumTrades","IOPV","TotalBidQty","TotalOfferQty","WeightedAvgBidPx","WeightedAvgOfferPx","TotalBidNumber","TotalOfferNumber","BidTradeMaxDuration","OfferTradeMaxDuration","NumBidOrders","NumOfferOrders","WithdrawBuyNumber","WithdrawBuyAmount","WithdrawBuyMoney","WithdrawSellNumber","WithdrawSellAmount","WithdrawSellMoney","ETFBuyNumber","ETFBuyAmount","ETFBuyMoney","ETFSellNumber","ETFSellAmount","ETFSellMoney","AvgPx","ClosePx","MsgSeqNum","SendingTime","WarLowerPx","TradingPhaseCode","NumImageStatus"]
+	type = ["TIMESTAMP","SYMBOL","INT","INT","INT","INT","INT","LONG","LONG","SYMBOL","INT[]","LONG[]","INT[]","LONG[]","INT[]","LONG[]","INT[]","LONG[]","INT","DOUBLE","LONG","LONG","INT","INT","INT","INT","LONG","LONG","INT","INT","INT","LONG","LONG","INT","LONG","LONG","INT","LONG","LONG","INT","LONG","LONG","INT","INT","LONG","TIME","INT","SYMBOL","INT"]
+	tbTemp = table(1:0, name, type)
+	db = database(dbName)
+	createPartitionedTable(dbHandle=db, table=tbTemp, tableName=tbName, partitionColumns=`DateTime`SecurityID, compressMethods={DateTime:"delta"}, sortColumns = `SecurityID`DateTime, keepDuplicates=ALL)
+}
+// 加载csv文件写入数据库
+def loadCSVToDFS(csvFilePath, dbName, tbName){
+    name = ["DateTime","SecurityID","PreClosePx","OpenPx","HighPx","LowPx","LastPx","TotalVolumeTrade","TotalValueTrade","InstrumentStatus","BidPrice","BidOrderQty","BidNumOrders","BidOrders","OfferPrice","OfferOrderQty","OfferNumOrders","OfferOrders","NumTrades","IOPV","TotalBidQty","TotalOfferQty","WeightedAvgBidPx","WeightedAvgOfferPx","TotalBidNumber","TotalOfferNumber","BidTradeMaxDuration","OfferTradeMaxDuration","NumBidOrders","NumOfferOrders","WithdrawBuyNumber","WithdrawBuyAmount","WithdrawBuyMoney","WithdrawSellNumber","WithdrawSellAmount","WithdrawSellMoney","ETFBuyNumber","ETFBuyAmount","ETFBuyMoney","ETFSellNumber","ETFSellAmount","ETFSellMoney","AvgPx","ClosePx","MsgSeqNum","SendingTime","WarLowerPx","TradingPhaseCode","NumImageStatus"]
+    type = ["TIMESTAMP","SYMBOL","INT","INT","INT","INT","INT","LONG","LONG","SYMBOL","INT[]","LONG[]","INT[]","LONG[]","INT[]","LONG[]","INT[]","LONG[]","INT","DOUBLE","LONG","LONG","INT","INT","INT","INT","LONG","LONG","INT","INT","INT","LONG","LONG","INT","LONG","LONG","INT","LONG","LONG","INT","LONG","LONG","INT","INT","LONG","TIME","INT","SYMBOL","INT"]
+    testSnapshot = loadText(filename=csvFilePath, schema=table(name, type))
+    loadTable(dbName, tbName).append!(testSnapshot)
+}
+
+csvFilePath = "/home/lnfu/ytxie/Snapshot.csv"
+dbName = "dfs://l2StockSHDB"
+tbName = "snapshot"
+createSnapshotDbTable(dbName, tbName)
+loadCSVToDFS(csvFilePath, dbName, tbName)

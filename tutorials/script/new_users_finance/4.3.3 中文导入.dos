@@ -1,0 +1,10 @@
+dataPath = "/home/ffliu/data/tu/GPLIST_gbk.csv"
+print loadText(dataPath)
+
+schema = extractTextSchema(dataPath)
+update schema set name = toUTF8(name, "gbk")
+update schema set type = "SYMBOL" where name like "%代码%"
+
+t = loadText(dataPath, schema=schema)
+t = toUTF8(t, "gbk")
+print t

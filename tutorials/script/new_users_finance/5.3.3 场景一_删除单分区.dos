@@ -1,0 +1,36 @@
+use MockData
+drop database if exists "dfs://k_minute_level"
+
+create database "dfs://k_minute_level"
+partitioned by VALUE(2020.01.01..2021.01.01)
+engine='OLAP'
+
+create table "dfs://k_minute_level"."k_minute"(
+	securityid SYMBOL  
+	tradetime TIMESTAMP
+	open DOUBLE        
+	close DOUBLE       
+	high DOUBLE        
+	low DOUBLE
+	vol INT
+	val DOUBLE
+	vwap DOUBLE
+)
+partitioned by tradetime
+go
+
+dates = getMarketCalendar('XSHE', 2022.01.01, 2022.01.31)
+t = stockMinuteKLine(dates[0], dates[dates.size()-1], 10)
+
+loadTable("dfs://k_minute_level", "k_minute").append!(t)
+
+select count(*) from loadTable("dfs://k_minute_level", "k_minute") where tradetime = 2022.01.04 // 2420
+select count(*) from loadTable("dfs://k_minute_level", "k_minute") where tradetime = 2022.01.05 // 2420
+
+// delete 删除 2022.01.04 的数据
+timer delete from loadTable("dfs://k_minute_level", "k_minute") where date(tradetime) = 2022.01.04 // Time elapsed: 4.099 ms
+
+// dropPartition 删除 2022.01.05 的数据
+db = database("dfs://k_minute_level")
+timer dropPartition(db, [2022.01.05], tableName="k_minute")
+

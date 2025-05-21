@@ -1,0 +1,140 @@
+
+// case1 导入一年快照数据（每天一个文件）
+
+// 模拟历史数据
+// use MockData
+
+// dates = getMarketCalendar('XSHE', 2022.01.01, 2023.01.01)
+// def mockDataByDay(date){
+//   submitJob("mockCsv", "mock data by date", saveText, stockSnapshot(tradeDate=date, securityNumber=100), "/home/ffliu/data/tu/snapData/" + string(date) + ".csv")
+// }
+// each(mockDataByDay,  dates)
+// getRecentJobs(2000).jobId
+
+
+// 导入历史数据
+undef all
+go
+
+
+dataPath = "/home/ffliu/data/tu/snapData/"
+file_list = files(dataPath).filename
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+
+// select count(*) from loadTable(dbName, tbName) where TradeDate between 2022.11.30 and 2022.12.02 map
+// select [HINT_EXPLAIN] * from loadTable(dbName, tbName) where TradeDate between 2022.11.30 and 2022.12.02
+
+
+def loadDataByDay(dbName, tbName, schema, fileName){
+    loadTextEx(dbHandle=database(dbName), tableName=tbName, partitionColumns=["TradeDate", "SecurityID"], filename=fileName, schema=schema, sortColumns=[`SecurityID,`TradeTime])
+}
+def createDataLoadJob(dbName, tbName, schema, fileName){
+    submitJob("loadDataByFile", "load data to db", loadDataByDay, dbName, tbName, schema, fileName)
+}
+
+schema = select name, typeString as type from loadTable("dfs://stock_lv2_snapshot", "snapshot").schema().colDefs
+each(createDataLoadJob{dbName, tbName, schema}, dataPath + file_list)
+
+select count(*) from getRecentJobs(242) where endTime is null
+
+select count(*) from loadTable("dfs://stock_lv2_snapshot", "snapshot")
+
+exec sum(bytes) \ 1024 \ 1024 from objs(true)
+
+sum(getSessionMemoryStat().memSize) \ 1024 \ 1024
+
+
+
+
+
+// 创建一个新的分区方案的数据库表
+drop database if exists "dfs://stock_lv2_snapshot_1" 
+create database "dfs://stock_lv2_snapshot_1" partitioned by VALUE(2022.01M..2022.12M), HASH([SYMBOL, 10]), engine='TSDB'
+
+// 省略部分表字段代码
+create table "dfs://stock_lv2_snapshot_1"."snapshot"(
+    TradeDate DATE[comment="交易日期", compress="delta"]   
+    TradeTime TIME[comment="交易时间", compress="delta"]
+    MDStreamID SYMBOL
+    SecurityID SYMBOL
+    SecurityIDSource SYMBOL
+    TradingPhaseCode SYMBOL
+    ImageStatus INT
+    PreCloPrice DOUBLE
+    NumTrades LONG
+    TotalVolumeTrade LONG
+    TotalValueTrade DOUBLE
+    LastPrice DOUBLE
+    OpenPrice DOUBLE
+    HighPrice DOUBLE
+    LowPrice DOUBLE
+    ClosePrice DOUBLE
+    DifPrice1 DOUBLE
+    DifPrice2 DOUBLE
+    PE1 DOUBLE
+    PE2 DOUBLE
+    PreCloseIOPV DOUBLE
+    IOPV DOUBLE
+    TotalBidQty LONG
+    WeightedAvgBidPx DOUBLE
+    AltWAvgBidPri DOUBLE
+    TotalOfferQty LONG
+    WeightedAvgOfferPx DOUBLE
+    AltWAvgAskPri DOUBLE
+    UpLimitPx DOUBLE
+    DownLimitPx DOUBLE
+    OpenInt INT
+    OptPremiumRatio DOUBLE
+    OfferPrice DOUBLE[]
+    BidPrice DOUBLE[]
+    OfferOrderQty LONG[]
+    BidOrderQty LONG[]
+    BidNumOrders INT[]
+    OfferNumOrders INT[]
+    ETFBuyNumber INT
+    ETFBuyAmount LONG
+    ETFBuyMoney DOUBLE
+    ETFSellNumber INT
+    ETFSellAmount LONG
+    ETFSellMoney DOUBLE
+    YieldToMatu DOUBLE
+    TotWarExNum DOUBLE
+    WithdrawBuyNumber INT
+    WithdrawBuyAmount LONG
+    WithdrawBuyMoney DOUBLE
+    WithdrawSellNumber INT
+    WithdrawSellAmount LONG
+    WithdrawSellMoney DOUBLE
+    TotalBidNumber INT
+    TotalOfferNumber INT
+    MaxBidDur INT
+    MaxSellDur INT
+    BidNum INT
+    SellNum INT
+    LocalTime TIME
+    SeqNo INT
+    OfferOrders LONG[]
+    BidOrders LONG[]
+)
+partitioned by TradeDate, SecurityID,
+sortColumns=[`SecurityID,`TradeTime],
+keepDuplicates=ALL
+
+// 由于 repartitionDS 只能按照一个字段重新分区，这里选用了不会造成新库表写入分区冲突的 TradeDate 字段
+snapshot = loadTable("dfs://stock_lv2_snapshot", "snapshot")
+ds = repartitionDS(<select * from snapshot>,`TradeDate, VALUE, 2022.01.01..2022.01.31);
+
+
+// 定义 map 函数用于写入新的库表
+def writeDS(dst_dbPath, dst_tbName, data){
+    dstTb=loadTable(dst_dbPath, dst_tbName)
+    dstTb.tableInsert(data)
+    flushTSDBCache()
+}
+
+
+setMaxMemSize(8)
+setTSDBCacheEngineSize(1)
+// mr 迁移数据，如果内存不够大，建议串行迁移，即 parallel = false
+mr(ds, writeDS{"dfs://stock_lv2_snapshot_1", "snapshot"}, parallel=false)

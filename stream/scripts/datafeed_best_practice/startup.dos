@@ -1,0 +1,222 @@
+use ops
+
+
+/* 
+step1: 登录账户，以下为默认的管理员账号 
+*/
+login("admin", "123456")
+
+/* 加载插件 */
+// listRemotePlugins()
+// installPlugin("DataFeed")
+try{ loadPlugin("DataFeed") }catch(ex){print ex} 
+go
+
+/* 
+相关函数定义 
+*/
+// 打印运行日志
+def datafeedLog(funcName, msg, isError=false){
+    if(!isError) {
+        formattedMsg = stringFormat("<datafeed>::<" + funcName + ">:" + "%W", msg)
+        writeLog(formattedMsg)
+    }else{
+        formattedMsg = stringFormat("[ERROR]<datafeed>::<" + funcName + ">:" + "%W", msg)
+        writeLogLevel(ERROR, formattedMsg)
+    }
+    print(formattedMsg)
+}
+
+// 创建 datafeed 连接函数
+def datafeedConn(ips, userName, password, logpath, logLevel, config){
+    handle = NULL
+    // 如果不存在 logpath 的文件夹，则创建一个对应的文件夹
+    saveFilePath = concat(split(logpath, "/").removeTail!(1), "/")
+    try{
+        files(saveFilePath)
+    }catch(ex){
+        try{mkdir(saveFilePath)}catch(ex){print(ex)}
+    }
+    try {
+        handle = DataFeed::createHandle(ips, userName, password, logLevel, logpath, config)
+        datafeedLog(funcName="datafeedConn", msg="create connection successed", isError=false)
+    } catch (ex) {
+        datafeedLog(funcName="datafeedConn", msg=ex, isError=true)
+        datafeedLog(funcName="datafeedConn", msg="create connection failed", isError=true)
+    }
+    return handle
+}
+
+// 关闭 datafeed 连接函数
+def datafeedClose(){
+    datafeedLog(funcName="datafeedClose", msg="start to close datafeed connection.", isError=false)
+    try{
+        handle = DataFeed::getHandle()
+        DataFeed::close(handle)
+    }catch(ex){
+        datafeedLog(funcName="datafeedClose", msg=ex, isError=false)
+    }
+    datafeedLog(funcName="datafeedClose", msg="finish closing datafeed connection.", isError=false)
+}
+
+// 清理环境变量函数
+def datafeedCleanEnvironment(datafeedSubTBName, stdStreamTBName){
+    // 关闭 datafeed 插件订阅
+    datafeedClose()
+    // 清理原始数据环境
+    unsubscribeAll(tbName=datafeedSubTBName)
+    dropStreamTable(datafeedSubTBName, force=true)
+    // 清理标准化数据环境
+    unsubscribeAll(tbName=stdStreamTBName)
+    dropStreamTable(stdStreamTBName, force=true)
+}
+
+// 创建原始行情流表函数
+def datafeedSubToStreamTB(datafeedSubTBName, config, marketTBCapacity=2000000){
+    needReceiveTime = config["receiveTime"].nullFill(false)
+    needElapsedTime = config["OutputElapsed"].nullFill(false)
+    tb = DataFeed::getSchema(needReceiveTime, needElapsedTime)
+    enableTableShareAndPersistence(
+        table=streamTable(marketTBCapacity:0,tb.name, tb.typeString), 
+        tableName=datafeedSubTBName,
+        cacheSize=marketTBCapacity,
+        preCache=0)
+}
+
+// 创建标准化流表函数
+def datafeedStdTB(stdStreamTBName, stdDestDBName, stdDestTBName, marketTBCapacity){
+    colNames = loadTable(stdDestDBName, stdDestTBName).schema().colDefs.name
+    colTypes = loadTable(stdDestDBName, stdDestTBName).schema().colDefs.typeString
+    try{
+        tb = streamTable(marketTBCapacity:0,colNames, colTypes)
+        enableTableShareAndPersistence(table=tb, tableName=stdStreamTBName,cacheSize=marketTBCapacity,preCache=0)
+        setStreamTableFilterColumn(objByName(stdStreamTBName), `unified_code)
+    }catch(ex){
+        print(ex)
+    }
+}
+
+// 建立 datafeed 订阅函数
+def datafeedSub(handle, hostIp, streamTableName){
+    try{
+        DataFeed::subscribe(handle, hostIp, objByName(streamTableName))
+        datafeedLog(funcName="datafeedSub", msg=streamTable + " sub successed", isError=false)
+    }catch(ex){
+        datafeedLog(funcName="datafeedSub", msg=ex, isError=true)
+        datafeedLog(funcName="datafeedSub", msg=streamTable + " sub failed", isError=true)
+    }
+}
+
+
+// 标准化处理函数
+def datafeedHandler(msg, stdStreamTBName){
+    /*@test
+    msg = select top 100 * from datafeedDataStream
+     */
+    datafeedProcess = select 
+        TradingDay as trade_date,
+        InstrumentID as ticker,
+        InstrumentID + ".CFE" as unified_code,
+        SettlementGroupID as settlement_group_id,
+        SettlementID as settlement_id,
+        LastPrice as last_price,
+        PreSettlementPrice as pre_settlement_price,
+        PreClosePrice as pre_close_price,
+        PreOpenInterest	as pre_open_price,
+        OpenPrice as open_price,
+        HighPrice as high_price,
+        LowPrice as low_price,
+        Volume as volume,
+        Turnover as turnover,
+        OpenInterest as open_interest,
+        ClosePrice as close_price,
+        SettlementPrice as settlement_price,
+        UpperLimitPrice as upper_limit_price,
+        LowerLimitPrice as lower_limit_price,
+        PreDelta as pre_delta, 
+        CurrDelta as delta,
+        UpdateTime as update_time, 
+        UpdateMsec as update_ms,
+        BidPrice as bid_price, 
+        BidVolume as bid_volume,
+        AskPrice as ask_price, 
+        AskVolume as ask_volume, 
+        BandingUpperPrice as banding_upper_price,
+        BandingLowerPrice as banding_lower_price,
+        temporalAdd(concatDateTime(TradingDay, time(UpdateTime)), UpdateMsec, "ms") as data_time
+    from msg 
+
+    objByName(stdStreamTBName).append!(datafeedProcess)
+}
+
+// 主函数
+def main(){
+    datafeedLog(funcName="mainFuc", msg="start datafeed service. ", isError=false)
+    /**=================datafeed服务模块1-配置参数-开始======================**/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块1-配置参数开始执行.", isError=false)
+    // datafeed 连接配置
+    hostIp = "111.111.1.111"
+    ips = ["protocol://ipaddress:port"]
+    userName = "xxxx"
+    password = "xxxx"
+    logpath = "/home/DolphinDB/server/plugins/DataFeed/log.txt"
+    logLevel = 4
+    config = {
+        "receiveTime":true,
+        "OutputElapsed":true
+    }
+
+    // 原始数据入流表配置
+    marketTBCapacity=2000000 //行情数据的流表预分配大小，表示流数据表在内存中最多保留多少行
+    datafeedSubTBName = "datafeedDataStream"
+    
+    // 原始数据标准化后入库配置
+    stdStreamTBName = "datafeedStream"
+    stdDestDBName = "dfs://datafeed_data"
+    stdDestTBName = "datafeed_level2"
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块1-配置参数完成执行.", isError=false)
+    /**=================datafeed服务模块1-配置参数-结束======================**/
+
+
+    /**=================datafeed服务模块2-清理环境-开始======================**/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块2-清理环境开始执行.", isError=false)
+    datafeedCleanEnvironment(datafeedSubTBName, stdStreamTBName)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块2-清理环境完成执行.", isError=false)
+    /**=================datafeed服务模块2-清理环境-结束======================**/
+
+
+    /**=================datafeed服务模块3-原始行情订阅入库-开始======================**/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-原始行情订阅入库开始执行.", isError=false)
+    /*====================step1-建立 datafeed 连接============================*/  
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step1-建立datafeed连接开始执行.", isError=false)
+    handle = datafeedConn(ips, userName, password, logpath, logLevel, config)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step1-建立datafeed连接完成执行.", isError=false)
+    /*====================step2-创建原始行情流表============================*/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step2-创建原始行情流表开始执行.", isError=false)
+    datafeedSubToStreamTB(datafeedSubTBName, config, marketTBCapacity)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step2-创建原始行情流表完成执行.", isError=false)
+    /*====================step3-创建标准化流表============================*/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step3-创建标准化流表和分区内存表开始执行.", isError=false)
+    datafeedStdTB(stdStreamTBName, stdDestDBName, stdDestTBName, marketTBCapacity)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step3-创建标准化流表和分区内存表完成执行.", isError=false)
+    /*====================step4-订阅原始行情表标准化处理============================*/  
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step4-订阅原始行情表标准化处理开始执行.", isError=false)
+    subscribeTable(tableName=datafeedSubTBName, actionName=datafeedSubTBName+"Std", offset=-1, handler=datafeedHandler{, stdStreamTBName}, msgAsTable=true, batchSize=1000, throttle=0.001, hash=0, reconnect=true)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step4-订阅原始行情表标准化处理完成执行.", isError=false)    
+    /*====================step5-标准化流表数据落库============================*/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step5-标准化流表数据落库开始执行.", isError=false)
+    subscribeTable(tableName=stdStreamTBName, actionName=stdStreamTBName + "ToDfs", offset=-1, handler=loadTable(stdDestDBName, stdDestTBName), msgAsTable=true, batchSize=5000, throttle=1, hash=1, reconnect=true)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step5-标准化流表数据落库完成执行.", isError=false)
+    /*====================step6-建立datafeed订阅============================*/
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step6-建立datafeed订阅开始执行.", isError=false)
+    datafeedSub(handle, hostIp, datafeedSubTBName)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-step6-建立datafeed订阅完成执行.", isError=false)
+    datafeedLog(funcName="mainFuc", msg="datafeed服务模块3-原始行情订阅入库完成执行.", isError=false)
+    /**==================datafeed服务模块3-原始行情订阅入库库-结束=======================**/
+}
+
+
+/* 
+执行主函数，实现 datafeed 数据实时接入
+*/
+main()

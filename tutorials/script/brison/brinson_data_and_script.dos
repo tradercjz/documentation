@@ -1,0 +1,75 @@
+// 数据模拟
+def generateWeight(n) {
+    w = rand(10, n) + 1
+    weight = round(w \ w.sum(),4)
+    weight[0] = round(1-weight[1:].sum(),4)
+    return weight
+}
+def generateYields(x,y,z) {
+    return round((rand(4.0, x)-1.8).join(rand(0.2, y)-0.08).join(rand(0.02, z)-0.08),4)
+}
+def generateSymbolList(nsymbol){
+    return rand(600000..601000$STRING, nsymbol)
+}
+
+def createBrinsonDailyPosition(nday, nsymbol) {
+    dateList = take(take(2024.03.01..2010.03.01, nday),take(nsymbol, nday))
+    dailyPosition=table(dateList as date, take(generateSymbolList(nsymbol), nday*nsymbol) as symbol, rand(500.0, nday*nsymbol) as positionQty)
+    dailyPosition = select date, symbol, ratio(positionQty,sum(positionQty)) as weight from dailyPosition context by date
+    return dailyPosition
+}
+
+
+def createBrinsonMarketData(nday) {
+    assetN = `股票`股票`股票`股票`股票`股票`股票`股票`债券`现金
+    dateList = take(take(2024.03.01..2010.03.01, nday),take(1003, nday))
+    marketData = table(dateList as date, take((600000..600999$STRING).join(take('C000001',3)),nday*1003) as symbol, take(take(assetN, 1000).join(take('现金', 3)),nday*1003) as asset, take(take(`电力设备`机械设备`有色金属`其他, 1000).join(take(string(NULL),3)),nday*1003) as industry, generateYields(0,1003*nday,0) as returnPerPeriod)
+    return marketData
+}
+
+
+def createBrinsonBenchmark(nday) {
+    benchmarkPosition = select date, symbol, take(generateWeight(1003),1003*nday) as weight from createBrinsonMarketData(nday)
+    return benchmarkPosition
+}
+
+
+// 使用方法
+use dolphinBrinson
+
+
+nday = 365
+nsymbol = 100
+dailyPosition = createBrinsonDailyPosition(nday, nsymbol)
+marketData = createBrinsonMarketData(nday)
+benchmarkPosition = createBrinsonBenchmark(nday)
+industryBrinson = ['股票']
+
+dateList1 = 2024.01.31
+dateList = 2024.01.05 2024.02.05 2024.03.05
+
+// 单期 BHB 归因
+Brinson(dailyPosition, benchmarkPosition, marketData, dateList1, method = 'BHB', multiPeriod = false, industryBrinson = NULL, showAll = false)
+
+// 多期 BHB 归因 + 股票行业归因
+Brinson(dailyPosition, benchmarkPosition, marketData, dateList, method = 'BHB', multiPeriod = true, industryBrinson = `股票, showAll = true)
+Brinson(dailyPosition, benchmarkPosition, marketData, dateList, method = 'BF', multiPeriod = true, industryBrinson = `股票, showAll = true)
+
+// 测试
+
+// 组合内10个持仓
+nday = 365*12 // 天数
+for (nsymbol in [10, 100, 1000]) {
+    dailyPosition = createBrinsonDailyPosition(nday, nsymbol)
+    marketData = createBrinsonMarketData(nday)
+    benchmarkPosition = createBrinsonBenchmark(nday)
+    industryBrinson = ['股票']
+    dateList_single = [2024.01.31]
+    timer Brinson(dailyPosition, benchmarkPosition, marketData, dateList_single, method = 'BHB', multiPeriod = false, industryBrinson = NULL, showAll = false)
+    for (freq in `Q`M`D) {
+        dateList = temporalSeq(2014.01.01,2023.12.31,freq)
+        timer Brinson(dailyPosition, benchmarkPosition, marketData, dateList, method = 'BHB', multiPeriod = true, industryBrinson = `股票, showAll = false)
+    }
+    
+}
+

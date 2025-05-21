@@ -1,0 +1,84 @@
+// 变量定义
+dbName = "dfs://stock_lv2_snapshot"
+tbName = "snapshot"
+tbName1 = "snapshot_trade"
+
+// 清理环境
+try{
+    dropTable(database(dbName), tbName1)
+    unsubscribeTable(tableName="snap1", actionName="subAndWrt2db")
+    dropStreamTable("snap1")
+}catch(ex){print ex}
+
+
+// 创建一个表用于存储流表处理后的数据
+create table "dfs://stock_lv2_snapshot"."snapshot_trade"(
+    TradeDate DATE[comment="交易日期", compress="delta"]   
+    TradeTime TIME[comment="交易时间", compress="delta"]
+    SecurityID SYMBOL
+    OpenPrice DOUBLE
+    PreClosePrice DOUBLE
+    HighPrice DOUBLE
+    LowPrice DOUBLE
+    LastPrice DOUBLE
+    PreCloseIOPV DOUBLE
+    IOPV DOUBLE
+    UpLimitPx DOUBLE
+    DownLimitPx DOUBLE
+    DeltasHighPrice INT
+    DeltasLowPrice INT
+    DeltasVolume LONG
+    DeltasTurnover DOUBLE
+    DeltasTradesCount INT
+)
+partitioned by TradeDate, SecurityID,
+sortColumns=[`SecurityID,`TradeTime],
+keepDuplicates=ALL
+
+// 定义流表
+colName=loadTable(dbName, tbName).schema().colDefs.name
+colType=loadTable(dbName, tbName).schema().colDefs.typeString
+t = streamTable(100:0, colName, colType);
+enableTableShareAndPersistence(table=t, tableName="snap1", cacheSize=100000)
+go
+
+// 定义过滤字段
+setStreamTableFilterColumn(snap1, "TradingPhaseCode")
+
+// 定义流数据处理函数：订阅处理后写入分布式表
+def append2Table(dbName, tbName, mutable msg){
+    data = select TradeDate,
+                iif(TradeTime <=09:30:00.000, 09:30:00.000, TradeTime) as TradeTime,
+                SecurityID,
+                OpenPrice,
+                PreCloPrice,
+                HighPrice,
+                LowPrice,
+                LastPrice,
+                PreCloseIOPV,
+                IOPV,
+                UpLimitPx,
+                DownLimitPx,
+                iif(deltas(HighPrice)>0.000001, 1, 0) as DeltasHighPrice,
+                iif(abs(deltas(LowPrice))>0.000001, -1, 0) as DeltasLowPrice,
+                iif(deltas(TotalVolumeTrade)==NULL, TotalVolumeTrade, deltas(TotalVolumeTrade)) as DeltasVolume,
+                iif(deltas(TotalValueTrade)==NULL, TotalValueTrade, deltas(TotalValueTrade)) as DeltasTurnover,
+                iif(deltas(NumTrades)==NULL, NumTrades, deltas(NumTrades)) as DeltasTradesCount
+		    from msg
+		    where TradeTime >=09:25:00.000
+		    context by SecurityID
+    loadTable(dbName, tbName).tableInsert(data)
+}
+
+// 订阅流表
+subscribeTable(tableName="snap1", actionName="subAndWrt2db", offset=0, handler=append2Table{dbName, tbName1}, msgAsTable=true, batchSize=10000, filter=["TRADE"])
+
+// 历史数据回放
+beginDate = 2022.01.01 
+endDate = 2022.01.10 
+ds = replayDS(<select * from loadTable(dbName, tbName) where TradeDate between beginDate and endDate>, dateColumn="TradeDate", timeColumn="TradeTime")
+
+replay(inputTables=ds, outputTables="snap1", dateColumn="TradeDate", timeColumn="TradeTime", replayRate=100000, absoluteRate=true)
+
+// 查看实际入库的数据
+select count(*) from loadTable(dbName, tbName1) // 799,013

@@ -1,0 +1,40 @@
+/**
+part1: Define calculation function
+*/
+defg featureEngine(bidPrice, bidQty, offerPrice, offerQty){
+   bas = offerPrice[0] \ bidPrice[0] - 1
+   wap = (bidPrice[0] * offerQty[0] + offerPrice[0] * bidQty[0]) \ (bidQty[0] + offerQty[0])
+   di = (bidQty - offerQty) \ (bidQty + offerQty)
+   bidw = (1.0 \ (bidPrice - wap))
+   bidw = bidw \ (bidw.rowSum())
+   offerw = (1.0 \ (offerPrice - wap))
+   offerw = offerw \ (offerw.rowSum())
+   press = log((bidQty*bidw).rowSum()) - log((offerQty*offerw).rowSum())
+   rv = sqrt(sum2(log(wap) - log(prev(wap))))
+   return avg(bas), avg(di[0]), avg(di[1]), avg(di[2]), avg(di[3]), avg(di[4]), avg(di[5]), avg(di[6]), avg(di[7]), avg(di[8]), avg(di[9]), avg(press), rv
+}
+   
+/**
+part2: Define variables and assign values
+*/
+dbName = "dfs://l2TLDB"
+tableName = "snapshot"
+snapshot = loadTable(dbName, tableName)
+SecurityID1 = "501028"
+   
+   /**
+   part3: Execute SQL
+   */
+
+timer result = select featureEngine(BidPrice, BidOrderQty, OfferPrice, OfferOrderQty) as `BAS`DI0`DI1`DI2`DI3`DI4`DI5`DI6`DI7`DI8`DI9`Press`RV
+            from snapshot
+            where date(TradeTime) = 2023.02.16, SecurityID = SecurityID1, (time(TradeTime) between 09:30:00.000 : 11:29:59.999) || (time(TradeTime) between 13:00:00.000 : 14:56:59.999)
+            group by SecurityID, interval(TradeTime, 1m, "none" ) as TradeTime map
+
+
+timer result = select featureEngine(BidPrice, BidOrderQty, OfferPrice, OfferOrderQty) as `BAS`DI0`DI1`DI2`DI3`DI4`DI5`DI6`DI7`DI8`DI9`Press`RV
+            from snapshot
+            where date(TradeTime) = 2023.02.16 and (time(TradeTime) between 09:30:00.000 : 11:29:59.999) || (time(TradeTime) between 13:00:00.000 : 14:56:59.999)
+            group by SecurityID, interval(TradeTime, 1m, "none" ) as TradeTime map
+
+           

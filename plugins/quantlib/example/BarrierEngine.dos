@@ -1,0 +1,75 @@
+loadPlugin("path/PluginQuantLib.txt")
+go
+use QuantLib
+
+today = 2023.07.20
+getSettingsInstance().setEvaluationDate(today)
+
+// option specification
+// underlying ： "EURUSD"
+option_type = "Put"
+strike = 1.10
+barrier_type = "DownOut"
+barrier = 1.05
+payoff_amt = 1000000.0
+trade_dt = 2023.07.20
+settle_dt = 2023.07.22
+expiry_dt = 2023.07.24
+delivery_dt = 2023.07.27
+
+// market data
+spot = 1.12
+vol_atm = 12.48
+eur_depo = 0.72
+usd_depo = 3.85
+
+// simple quotes
+spot_quote = SimpleQuote(spot)
+vol_atm_quote = SimpleQuote(vol_atm / 100)
+eur_depo_quote = SimpleQuote(eur_depo / 100)
+usd_depo_quote = SimpleQuote(usd_depo / 100)
+
+// term structures
+// rates
+domesticTS = FlatForward(0, UnitedStates("Settlement"), QuoteHandle(eur_depo_quote), Actual360())
+foreignTS = FlatForward(0, UnitedStates("Settlement"),  QuoteHandle(usd_depo_quote), Actual360())
+// vol 
+expanded_volTS = BlackConstantVol(0, UnitedStates("Settlement"), QuoteHandle(vol_atm_quote), Actual360())
+
+payoff = PlainVanillaPayoff(option_type, strike)
+exercise = EuropeanExercise(expiry_dt)
+option = BarrierOption(barrier_type, barrier, 0.0, payoff, exercise)
+
+process = GarmanKohlagenProcess(QuoteHandle(spot_quote), YieldTermStructureHandle(foreignTS), YieldTermStructureHandle(domesticTS), BlackVolTermStructureHandle(expanded_volTS))
+
+// 1. test BinomialBarrierEngine
+Binomialengine = BinomialBarrierEngine(process, "crr", 200)
+option.setPricingEngine(Binomialengine)
+print("Premium is:", option.NPV()*payoff_amt/spot)
+
+//steps = 10
+//c++:       500.28194540182505
+//python:  500.28194540182506
+//
+//steps = 50
+//c++:       544.238164876628275
+//python:  544.231523395805
+//
+//steps = 100
+//c++:       542.434656271693938
+//python:  542.4298749270941
+//
+//steps = 200
+//c++:       540.389594090698437
+//python:  540.3877576005641
+
+
+// 2. test FdBlackScholesBarrierEngine
+fdBarrierEngine = FdBlackScholesBarrierEngine(process)
+option.setPricingEngine(fdBarrierEngine)
+print("Premium is:", option.NPV()*payoff_amt/spot) // 542.720473812442719
+
+// 3. test AnalyticBarrierEngine
+engine = AnalyticBarrierEngine(process)
+option.setPricingEngine(engine)
+print("Premium is:", option.NPV()*payoff_amt/spot) // 540.811728002836503

@@ -1,0 +1,440 @@
+/**
+ * ==================== 从 CTP 行情数据表里面获取数据 =========================
+ */
+ def getInfoFromCtp(instrumentID_, posReceiveTime, cpMode){
+    /*
+    * instrumentID_：标的代码
+    * posReceiveTime：数据接收时间
+    * cpMode：0表示期货，1和-1表示看涨看跌期权
+    */
+    /*
+    * 获取ExpireDate【到期日】,VolumeMultiple【合约乘数】,PreSettlementPrice【昨日结算价】,optionPrice【期权价】,futurePrice【期货价】,KPrice【执行价】
+    */
+    if(cpMode == 0){
+        // 从ctpInfo 表里面 获取 ，VolumeMultiple  字段:
+        option_info = 
+            select top 1 ExpireDate,VolumeMultiple 
+            from loadTable("dfs://option_info","data") 
+            where InstrumentID = instrumentID_ and insertTime <= posReceiveTime 
+            context by InstrumentID csort insertTime desc 
+        
+        // ExpireDate:
+        expireDate = option_info.ExpireDate[0]
+
+        // 合约乘数
+        volumeMultiple = option_info.VolumeMultiple[0] 
+
+        // 期货价格
+        futurePrice = 
+            exec top 1 LastPrice 
+            from ctp_market_data1 
+            where InstrumentID = instrumentID_ and ReceivedTime <= posReceiveTime  
+            context by InstrumentID csort TradingDay desc,UpdateTime desc ,UpdateMillisec desc 
+
+        if(futurePrice[0].isNull()){
+            futurePrice = 
+                exec LastPrice from (
+                select * 
+                from loadTable("dfs://ctp_market_data","ctp_market_data") 
+                where InstrumentID = instrumentID_ and ReceivedTime <= posReceiveTime  
+                context by InstrumentID limit -1 )
+        }
+        //昨日收盘价
+        preSettlementPrice = 
+            (exec PreClosePrice.nullFill(0) from (
+            select * 
+            from loadTable("dfs://ctp_market_data","ctp_market_data") 
+            where InstrumentID = instrumentID_ and ReceivedTime <= posReceiveTime  
+            context by InstrumentID limit -1 ))[0]
+        
+        optionPrice = 0
+        kPrice = 0
+    }else{
+        instrumentID_underlying = instrumentID_.regexReplace("-?(C|P|c|p)-?[0-9]+$","");
+        
+        // 从ctpInfo 表里面 获取 ，VolumeMultiple  字段:
+        option_info = 
+            select top 1 ExpireDate,VolumeMultiple 
+            from loadTable("dfs://option_info","data") 
+            where InstrumentID = instrumentID_ and insertTime <= posReceiveTime 
+            context by InstrumentID csort insertTime desc
+                
+        // ExpireDate:
+        expireDate = option_info.ExpireDate[0]
+        // 合约乘数
+        volumeMultiple = option_info.VolumeMultiple[0]
+                 
+        // 昨日收盘价 -- 期权合约，用昨日最后一笔的（bid + ask ）/2来计算逐日盈亏
+        preSettlementPrice = 
+                (exec  ((AskPrice1 + BidPrice1)\2).nullFill(0) 
+                from  loadTable("dfs://ctp_market_data","ctp_market_data") 
+                where InstrumentID = instrumentID_ and TradingDay = date(temporalAdd(date(ReceivedTime),-1,"CZCE")) and time(ReceivedTime)<= 15:00:00  
+                context by InstrumentID limit -1)[0]
+        
+        
+        // 期权价格
+        optionPrice = 
+            exec top 1  ((BidPrice1+AskPrice1)\2).nullFill(0)
+            from ctp_market_data1  
+            where InstrumentID = instrumentID_ and ReceivedTime <= posReceiveTime 
+            context by InstrumentID csort ReceivedTime desc
+        
+        if(optionPrice[0].isNull()){
+           optionPrice = 
+                exec  (BidPrice1+AskPrice1)\2 from (     
+                select  *
+                from loadTable("dfs://ctp_market_data","ctp_market_data")  
+                where InstrumentID = instrumentID_ and ReceivedTime <= posReceiveTime context by InstrumentID limit -1)
+        }
+        
+        
+        // 期货价格
+        futurePrice = 
+            exec top 1 LastPrice 
+            from ctp_market_data1 
+            where InstrumentID = instrumentID_underlying and ReceivedTime <= posReceiveTime  
+            context by InstrumentID csort TradingDay desc,UpdateTime desc ,UpdateMillisec desc
+        
+        if(futurePrice[0].isNull()){
+            futurePrice = 
+                exec LastPrice from (
+                select * 
+                from loadTable("dfs://ctp_market_data","ctp_market_data") 
+                where InstrumentID = instrumentID_underlying and ReceivedTime <= posReceiveTime  
+                context by InstrumentID limit -1 )
+        }
+        
+        kPrice = instrumentID_.regexReplace("^.{3,}(C|P|c|p)-?","").cast(INT) 
+    }
+    return expireDate, volumeMultiple, preSettlementPrice, optionPrice, futurePrice, kPrice
+}
+
+
+/**
+ * ==================== 从持仓信息表获取数据 =========================
+ */
+ def getInfoFromInvestorPositionTable(instrumentID_, posReceiveTime, posiDirection_){
+    /*
+    * instrumentID_：标的代码
+    * 插入时间
+    * 持仓多空方向
+    */
+    msg = 
+    select 
+        Commission,TradingDay, CloseProfit, PositionProfit,
+        PositionCost as PositionCost,
+        OpenCost as OpenCost,PreSettlementPrice,CloseProfitByDate,CloseProfitByTrade,
+        Position,PosiDirection,InstrumentID,YdPosition,TodayPosition,
+        // '1'=净仓, '2'=多仓, '3'=空仓
+        case 
+            when PosiDirection = '1' then '净仓'
+            when PosiDirection = '2' then '多仓'
+            when PosiDirection ='3' then '空仓'
+        end as Direction,OpenAmount
+    from InvestorPositionTable  
+    where InstrumentID = instrumentID_ and ReceivedTime = posReceiveTime  and PosiDirection = posiDirection_
+     
+     
+    result = 
+    select  
+        sum(Commission) as Commission,last(TradingDay) as TradingDay, sum(CloseProfit) as CloseProfit,
+        sum(PositionProfit) as PositionProfit,
+        sum(PositionCost)\sum(Position)\VolumeMultiple  as PositionCost,
+        sum(OpenCost)\sum(Position)\VolumeMultiple  as OpenCost,
+        last(PreSettlementPrice) as PreSettlementPrice,sum(CloseProfitByDate) as CloseProfitByDate,
+        sum(CloseProfitByTrade) as CloseProfitByTrade,sum(Position) as Position,
+        last(Direction) as Direction,sum(OpenAmount) as OpenAmount,sum(YdPosition) as YdPosition, 
+        sum(TodayPosition) as TodayPosition 
+    from msg 
+    group by InstrumentID,PosiDirection
+
+    return result
+}
+
+/**
+ * ==================== 计算逐笔持仓盈亏 =========================
+ */
+ def calFloatingProfitByTrade(posiDirection, volumeMultiple, position, futurePrice, openCost){
+    /*
+    * posiDirection:持仓多空方向
+    * volumeMultiple:合约乘数
+    * position:今日持仓
+    * futurePrice:期权价
+    * openCost:开仓成本
+    */  
+    floatingProfitByTrade = 
+        iif(posiDirection == '2',1,-1) * volumeMultiple * position * (futurePrice - openCost)
+    return floatingProfitByTrade
+}
+
+/**
+ * ==================== 计算逐日持仓盈亏 =========================
+ */
+ def calFloatingProfitByDate(symbol, ydPosition, todayPosition, posiDirection, volumeMultiple, position, optionPrice, openCost, preSettlementPrice){
+    /*
+    * symbol: 期权合约
+    * ydPosition:昨仓
+    * todayPosition:今仓
+    * posiDirection:持仓多空方向
+    * volumeMultiple:合约乘数
+    * position:今日持仓
+    * optionPrice:期权价
+    * openCost:开仓成本
+    * preSettlementPrice：昨结算价
+    */
+    if(ydPosition == 0){
+    //1）：当日开新持仓，没有历史持仓：买卖方向 * 合约乘数 * 持仓量 * （期权价 - 开仓成本）
+        floatingProfitByDate = 
+            iif(posiDirection == '2',1,-1) * volumeMultiple * position * (optionPrice - openCost)   
+      }else{
+             if(todayPosition == 0){
+            //2）：有历史持仓的前提下，当日没有开新仓 ：买卖方向 * 合约乘数 * 持仓量 * （期权价 - 昨结算价）
+                 floatingProfitByDate = 
+                    iif(posiDirection == '2',1,-1) * volumeMultiple * position *  (optionPrice - preSettlementPrice)
+             }else{
+            //3）：有历史持仓的前提下，当日有开新仓： (买卖方向 * 合约乘数 * 持仓量 * （持仓量 - 今日持仓）*（期权价 - 昨结算价)) 
+            // + (买卖方向 * 合约乘数 * 持仓量 * 今日持仓*（期权价 - 开仓价))
+                toDayFloatProfit = 
+                    exec (iif(Direction == '0',1,-1) * volumeMultiple * Position * (optionPrice-price)).sum() as toDayFloatProfit  
+                    from OpenPositionMessage  
+                    where InstrumentID = symbol and OffsetFlag = '0'  and TradingDay = date(now()) and Position > 0
+            
+                floatingProfitByDate = 
+                    (iif(posiDirection == '2',1,-1) * volumeMultiple *(position - todayPosition) * (optionPrice-preSettlementPrice))  + toDayFloatProfit.nullFill(0)
+             }
+     }
+     return floatingProfitByDate
+}
+
+/**
+ * ==================== 计算逐笔平仓盈亏 =========================
+ */
+ def calCloseingProfitByTrade(symbol, posiDirection, volumeMultiple){
+    /*
+    * symbol: 期权合约
+    * posiDirection:持仓多空方向
+    * volumeMultiple:合约乘数
+    */ 
+    CloseMsg = 
+        select 
+            //1）：逐日：平的不是今天的开仓：（成交价-昨收价） * 买卖方向 * 平仓量 * 合约乘数
+            ((OpenDate!=date(now())).cast(INT[])*(Price - PreClosePrice)* iif(posiDirection == '2',1,-1) * ClosedPosition * volumeMultiple) as CloseingProfitByDate1,
+            //2）：逐日：平的是今天的开仓：（成交价-开仓价） * 买卖方向 * 平仓量 * 合约乘数
+            ((OpenDate=date(now())).cast(INT[])*(Price - OpenPrice)* iif(posiDirection_ == '2',1,-1) * ClosedPosition * volumeMultiple) as CloseingProfitByDate2,
+            //3）：逐笔计算：（成交价-开仓价） * 买卖方向 * 平仓量 * 合约乘数 
+            (((Price - OpenPrice) * iif(posiDirection == '2',1,-1) * ClosedPosition * volumeMultiple)) as CloseingProfitByTrade
+        from (
+                select * from OpenPositionMessage  where InstrumentID= symbol and OffsetFlag != '0'  and Direction = iif(posiDirection =='2','1','0')
+        )
+
+    closeingProfitByDateSum = (exec CloseingProfitByDate1 + CloseingProfitByDate2 from CloseMsg).flatten().sum().nullFill(0)
+    closeingProfitByTradeSum= (exec CloseingProfitByTrade from CloseMsg).flatten().sum().nullFill(0)
+
+    return closeingProfitByDateSum, closeingProfitByTradeSum
+}
+
+
+/**
+ * ===================== black76+brentq方法（欧式期权)，计算隐含波动率========================
+ */
+// Black 76公式
+def black_76(F, K, T, r, sigma, option_type){
+    d1 = (log(F \ K) + (0.5 * pow(sigma , 2) ) * T) \ (sigma * sqrt(T))
+    d2 = d1 - sigma * sqrt(T)
+    if (option_type == 1){
+        return exp(-r * T) * (F * cdfNormal(0,1,d1) - K * cdfNormal(0,1,d2))
+    }else if( option_type == -1){
+        return exp(-r * T) * (K * cdfNormal(0,1,-d2) - F * cdfNormal(0,1,-d1))
+    }else{
+        return ("Option type must be 1 or -1.")
+    }
+}
+
+def loss_function(sigma, F, K, T, r, option_type, market_price){
+    return black_76(F, K, T, r, sigma, option_type) - market_price
+}
+
+/**
+ * @ Function name: 
+ * @ Brief: 
+ * @ Param: 
+ * sigma : /none
+ * F : 现货价，期货价格
+ * K : 执行价
+ * T : 剩余期限
+ * r : 无风险利率
+ * option_type : 期权类型 ，1或-1，代表C' or 'P'
+ * market_price : 期权价格
+ * @ Return: 
+ * @ Sample usage:
+ */
+def implied_volatility_Black76Brentq(F, K, T, r, option_type, market_price){
+	iv = double(NULL)
+	try{ 
+		iv = brentq(f=loss_function, a=1e-6, b=2, xtol=2e-12, rtol=1e-9, maxIter=100, funcDataParam=[F, K, T, r, option_type, market_price])[1]
+	}catch(ex){
+		writeLog("calculate error : " + ex)
+	}
+	return iv
+}
+
+/**
+ * ============================= 计算greeks==============================
+ */
+/** 计算 delta**/
+def calculateD1(etfTodayPrice, KPrice, r, dayRatio, HLMean){
+    skRatio = etfTodayPrice / KPrice
+    denominator = HLMean * sqrt(dayRatio)
+    result = (log(skRatio) + (r + 0.5 * pow(HLMean, 2)) * dayRatio) / denominator
+    return result
+}
+
+def cdfNormalMatrix(mean, stdev, X){
+    originalShape = X.shape()
+    X_vec = X.reshape()
+    result = cdfNormal(mean, stdev, X_vec)
+    return result.reshape(originalShape)
+}
+def calculateDelta(etfTodayPrice, KPrice, r, dayRatio, impvMatrix, CPMode){
+    delta = iif(
+                    impvMatrix <= 0,
+                    0,
+                    CPMode *cdfNormal(0, 1, CPMode * calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix))
+            )
+    return delta
+}
+
+/**计算gamma**/
+def normpdf(x){
+    return exp(-pow(x, 2)/2.0)/sqrt(2*pi)
+}
+
+
+
+def calculateGamma(etfTodayPrice, KPrice, r, dayRatio, impvMatrix){
+    gamma = iif(
+                    impvMatrix <= 0,
+                    0,
+                    (normpdf(calculateD1(etfTodayPrice,  KPrice, r, dayRatio, impvMatrix)) \ (etfTodayPrice * impvMatrix * sqrt(dayRatio)))
+            )        
+    return gamma
+}
+
+/**计算vega**/
+
+def calculateVega(etfTodayPrice, KPrice, r, dayRatio, impvMatrix){
+    vega = iif(
+                    impvMatrix <= 0,
+                    0,
+                    etfTodayPrice * normpdf(calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)) * sqrt(dayRatio)
+            )
+    return vega\100.0
+}
+
+/**计算theta**/
+
+def calculateTheta(etfTodayPrice, KPrice, r, dayRatio, impvMatrix, CPMode){
+    annualDays = 365
+    d1 = calculateD1(etfTodayPrice, KPrice, r, dayRatio, impvMatrix)
+    d2 = d1 - impvMatrix * sqrt(dayRatio)
+    theta = (-etfTodayPrice * normpdf(d1) * impvMatrix \ (2 * sqrt(dayRatio)) - CPMode * r * KPrice * exp(-r * dayRatio) *cdfNormal(0, 1, CPMode * d2))\annualDays
+    result = iif(impvMatrix<= 0, 0, theta)        
+    return result
+}
+/**
+ * ==================== 计算波动率和希腊字母 =========================
+ */
+ def calIvAndGreek(futurePrice, kPrice, cpMode, optionPrice, expireDate, posReceiveTime, volumeMultiple, posiDirection, r = 0.0116){
+    /*
+    * expireDate：到期日
+    * dayRatio：
+    * optionPrice：期权价
+    * futurePrice：期货价
+    * cpMode：0表示期货，1和-1表示看涨看跌期权
+    * kPrice：执行价
+    * expireDate:到期日
+    * posReceiveTime：接收时间
+    * r:无风险利率
+    */
+    if(cpMode == 0){
+        // 希腊字母计算：期货的delta =+-1， 其他为0
+        delta = 1.0 * volumeMultiple
+        delta_手 = (delta \ volumeMultiple).round(4)
+         
+        if(posiDirection == '3'){
+            delta = - delta
+            delta_手 = - delta_手
+        }
+        // 注意不要把 0.0 修改为 0
+        iv = 0.0
+        gamma = 0.0
+        gamma_手 = 0.0
+        vega = 0.0
+        theta = 0.0
+    }else{
+        dayRatio = ( timestamp(concatDateTime(expireDate, 15:00:00)) - timestamp(posReceiveTime)  ) \365.0\24\60\60\1000
+        iv = round(implied_volatility_Black76Brentq(futurePrice, kPrice, dayRatio, r, cpMode, optionPrice), 4)
+        delta  = round(calculateDelta(futurePrice, kPrice, r, dayRatio, iv, cpMode)* volumeMultiple, 4)
+        delta_手 = delta\volumeMultiple
+        gamma = round(calculateGamma(futurePrice, kPrice, r, dayRatio, iv)*volumeMultiple, 4)
+        gamma_手 = gamma\volumeMultiple
+        vega = round(calculateVega(futurePrice, kPrice, r, dayRatio, iv)*volumeMultiple, 4) 
+        theta = round(calculateTheta(futurePrice, kPrice, r, dayRatio, iv, cpMode)*volumeMultiple,4) 
+        
+        if(posiDirection == '3'){
+            delta = -delta
+            delta_手= -delta_手
+            gamma = -gamma
+            gamma_手=-gamma_手
+            vega = -vega
+            theta = -theta
+        }
+    }
+
+    return iv, delta, delta_手, gamma, gamma_手, vega, theta
+}
+
+/**
+ * ==================== 实时合成持仓信息表 =========================
+ */
+ def calGreeksByPos(instrumentID,posReceiveTime,posiDirection){
+    /*
+    * InstrumentID: 期权合约
+    * posiDirection:持仓多空方向
+    * volumeMultiple:合约乘数
+    */ 
+    instrumentID_ = instrumentID[0]
+    posReceiveTime_ = posReceiveTime[0]
+    posiDirection_ = posiDirection[0]
+    instrumentID_underlying = instrumentID_.regexReplace("-?(C|P|c|p)-?[0-9]+$","");
+    cpMode = iif(instrumentID_.regexReplace("^[a-zA-Z]{0,}","").regexReplace("^[0-9|-]{0,}","").regexReplace("[0-9|-]{0,}$","") in ["C","c"],1,iif(instrumentID_.regexReplace("^[a-zA-Z]{0,}","").regexReplace("^[0-9|-]{0,}","").regexReplace("[0-9|-]{0,}$","") in ["P",'p'], -1, 0)) //10ms
+    
+    // 数据 ETL
+
+    // 从持仓信息表获取数据
+    msg = getInfoFromInvestorPositionTable(instrumentID_, posReceiveTime_, posiDirection_)
+    
+    // 从ctp行情接口获取数据
+    // 获取ExpireDate【到期日】,VolumeMultiple【合约乘数】,PreSettlementPrice【昨日结算价】,optionPrice【期权价】,futurePrice【期货价】,KPrice【执行价】
+    expireDate,volumeMultiple,preSettlementPrice,optionPrice,futurePrice,kPrice = getInfoFromCtp(instrumentID_, posReceiveTime_, cpMode)
+        
+    // 指标计算
+
+    // 计算波动率和希腊字母
+    iv, delta, delta_手, gamma, gamma_手, vega, theta  = calIvAndGreek(futurePrice[0], kPrice[0], cpMode, optionPrice[0], expireDate[0], posReceiveTime_,volumeMultiple, posiDirection_)
+        
+    // 逐笔持仓盈亏
+    floatingProfitByTrade = calFloatingProfitByTrade(posiDirection_, volumeMultiple, msg.Position[0], optionPrice[0], msg.OpenCost[0])        
+    // 逐日持仓盈亏
+    floatingProfitByDate = calFloatingProfitByDate(instrumentID_, msg.YdPosition[0], msg.TodayPosition[0], posiDirection_, volumeMultiple, msg.Position[0], optionPrice[0], msg.OpenCost[0], preSettlementPrice)
+    // 平仓盈亏
+    closeingProfitByDateSum,closeingProfitByTradeSum = calCloseingProfitByTrade(instrumentID_, posiDirection_, volumeMultiple)
+    
+    return  msg.Commission[0].round(4),msg.CloseProfit[0],msg.PositionProfit[0],msg.PositionCost[0],msg.OpenCost[0],volumeMultiple,preSettlementPrice,optionPrice[0],msg.Position[0],floatingProfitByTrade,floatingProfitByDate,closeingProfitByDateSum,closeingProfitByTradeSum,msg.direction[0],iv[0], (delta_手*msg.Position[0])[0],(delta*msg.Position[0])[0],(gamma_手*msg.Position[0])[0],(gamma*msg.Position[0])[0],(vega*msg.Position[0])[0],(theta*msg.Position[0])[0]
+}
+
+// 横截面引擎
+calGreekCrossAggregator=createCrossSectionalEngine(name="calGreeks1", metrics=<[calGreeksByPos(InstrumentID[0], ReceivedTime[0],PosiDirection[0]) as `Commission`CloseProfit`PositionProfit`PositionCost`OpenCost`VolumeMultiple`PreSettlementPrice`SpotPrice`Position`FloatingProfitByTrade`FloatingProfitByDate`CloseProfitByDate`CloseingProfitByTrade`Direction`IV`Delta_手`Delta`Gamma_手`Gamma`Vega`Theta]>, dummyTable=InvestorPositionTable, outputTable=GreekTable, keyColumn=`PosiDirection`InstrumentID, triggeringPattern=`interval, useSystemTime=false,contextByColumn=`PosiDirection`InstrumentID, timeColumn=`ReceivedTime,triggeringInterval=2000)
+
+// 订阅
+subscribeTable(tableName="InvestorPositionTable", actionName="calGreeks", offset=-1, handler=append!{calGreekCrossAggregator}, msgAsTable=true)

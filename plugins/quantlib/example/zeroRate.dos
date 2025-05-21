@@ -1,0 +1,14 @@
+loadPlugin("path/PluginQuantLib.txt")
+go
+use QuantLib
+
+dates = [5000,100000];
+yields = [0.24,0.75];
+dayCounter = Actual360();
+calendar = UnitedStates("NYSE");
+linear = Linear();
+compounding = "Continuous";
+frequency = "Annual";
+curve = ZeroCurve(dates, yields, dayCounter, calendar, linear, compounding, frequency);
+date = 40000;
+curve.zeroRate(date,dayCounter,compounding,frequency).rate();

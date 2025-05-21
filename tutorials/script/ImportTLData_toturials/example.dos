@@ -1,0 +1,755 @@
+//导入模块
+clearCachedModules();
+go;
+use ImportTLData::loadTLEntrust
+use ImportTLData::loadTLSnapshot
+use ImportTLData::loadTLTrade
+use ImportTLData::loadTLEquity
+use ImportTLData::loadTLExtra
+use ImportTLData::loadTLETFBuySell
+use ImportTLData::loadTLFutureOption
+
+
+// 定义数据导入函数
+/* ---------------------------------------  股票 ---------------------------------------------------- */
+
+// 导入股票委托
+def loadEntrustStock(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tl"
+	tbname = "entrust"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLEntrustStock(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLEntrustStock(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入股票快照
+def loadSnapshotStock(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tl"
+	tbname = "snapshot"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLSnapshotStock(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch")
+	{
+		infoTb = loadTLSnapshotStock(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入股票成交
+def loadTradeStock(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tl"
+	tbname = "trade"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLTradeStock(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLTradeStock(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入指数数据
+def loadIndex(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlExtra"
+	tbname = "index"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLIndex(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLIndex(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入盘后数据
+def loadAfterTrade(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlExtra"
+	tbname = "afterTrade"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLAfterTrade(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLAfterTrade(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入深交所成交量统计指标数据
+def loadSZTradeStat(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlExtra"
+	tbname = "szTradeStat"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLSzTradeStat(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLSzTradeStat(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入ETF数据
+def loadETFBuySell(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlETF"
+	tbname = "etfSellBuy"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLETFBuySell(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLETFBuySell(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 equity 因子数据
+def loadEquityMf(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tl"
+	tbname = "equityMf"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLEquityMf(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLEquityMf(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 equity 价格 1-5 分钟线数据
+def loadEquity1_5Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlEquity1_5Min"
+	tbname = ["price1Min","price3Min","price5Min"]
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLEquity1_5Min(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLEquity1_5Min(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 equity 价格 15-60 分钟线数据
+def loadEquity15_60Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlEquity15_60Min"
+	tbname = ["price15Min","price30Min","price60Min"]
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLEquity15_60Min(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLEquity15_60Min(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 bond 价格 1-5 分钟线数据
+def loadBond1_5Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlBond1_5Min"
+	tbname = ["price1Min","price3Min","price5Min"]
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLBond1_5Min(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLBond1_5Min(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 bond 价格 15-60 分钟线数据
+def loadBond15_60Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlBond15_60Min"
+	tbname = ["price15Min","price30Min","price60Min"]
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLBond15_60Min(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLBond15_60Min(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 idx 价格 1-5 分钟线数据
+def loadIdx1_5Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlIdx1_5Min"
+	tbname = ["price1Min","price3Min","price5Min"]
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLIdx1_5Min(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLIdx1_5Min(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入 idx 价格 15-60 分钟线数据
+def loadIdx15_60Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlIdx15_60Min"
+	tbname = ["price15Min","price30Min","price60Min"]
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLIdx15_60Min(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLIdx15_60Min(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+/* ---------------------------------- 债券 ----------------------------------------- */
+// 导入债券委托
+def loadEntrustBond(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlBond"
+	tbname = "entrust"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLEntrustBond(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLEntrustBond(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入债券快照
+def loadSnapshotBond(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlBond"
+	tbname = "snapshot"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLSnapshotBond(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLSnapshotBond(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 导入债券成交
+def loadTradeBond(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlBond"
+	tbname = "trade"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLTradeBond(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLTradeBond(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+/* ---------------------------------- 可转债 ----------------------------------------- */
+// 可转债委托
+def loadEntrustCbond(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlCbond"
+	tbname = "entrust"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLEntrustCbond(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLEntrustCbond(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 可转债快照
+def loadSnapshotCbond(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlCbond"
+	tbname = "snapshot"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLSnapshotCbond(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLSnapshotCbond(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+// 可转债成交
+def loadTradeCbond(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlCbond"
+	tbname = "trade"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+	
+	// 增量导入
+	if(loadType == "daily"){
+		idate = today()
+		infoTb = loadTLTradeCbond(userName, userPassword, idate, idate, dbname, tbname, fileDir, loadType)
+	}
+	// 批量导入
+	else if (loadType == "batch"){
+		infoTb = loadTLTradeCbond(userName, userPassword, date(startDate), date(endDate), dbname, tbname, fileDir, loadType)
+	}
+	return infoTb
+}
+
+/* ---------------------------------- 期权期货 --------------------------------------- */
+// 导入期货tick数据
+def loadFutTick(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptTick"
+	tbname = "futureTick"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFutTick(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFutTick(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入期货组合行情
+def loadFutCmb(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptOthers"
+	tbname = "futureCmb"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFutCmb(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFutCmb(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return  infoTb
+}
+
+// 导入期货最优价十笔委托
+def loadFutOrderq(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptOthers"
+	tbname = "futureOrderq"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFutOrderq(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFutOrderq(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入期货成交量统计
+def loadFutTqs(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptOthers"
+	tbname = "futureTqs"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFutTqs(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFutTqs(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入期权tick行情
+def loadOptTick(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptTick"
+	tbname = "optionTick"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLOptTick(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLOptTick(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入期权最优价十笔委托
+def loadOptOrderq(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptOthers"
+	tbname = "optionOrderq"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLOptOrderq(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLOptOrderq(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入期权成交量统计
+def loadOptTqs(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutOptOthers"
+	tbname = "optionTqs"
+	fileDir = "/hdd/hdd3/customer/tlData/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLOptTqs(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLOptTqs(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入ccfx L1
+def loadFutL1(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutL1"
+	tbname = "ccfxL1"
+	fileDir = "/hdd/hdd3/customer/tlData/L1_data/future/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFutL1(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFutL1(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入ccfx 分钟线
+def loadFutMin1(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://level2_tlFutMins"
+	tbname = "min1"
+	fileDir = "/hdd/hdd3/customer/tlData/L1_data/future/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFutMin1(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFutMin1(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+// 导入期货1-60分钟线
+// 导入ccfx 分钟线
+def loadFut1Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://futureMin1_5"
+	tbname = "futureMin1"
+	fileDir = "/hdd/hdd8/ymchen/ddbs/tmp/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFut1Min(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFut1Min(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+def loadFut3Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://futureMin1_5"
+	tbname = "futureMin3"
+	fileDir = "/hdd/hdd8/ymchen/ddbs/tmp/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFut3Min(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFut3Min(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+def loadFut5Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://futureMin1_5"
+	tbname = "futureMin5"
+	fileDir = "/hdd/hdd8/ymchen/ddbs/tmp/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFut5Min(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFut5Min(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+def loadFut15Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://futureMin15_60"
+	tbname = "futureMin15"
+	fileDir = "/hdd/hdd8/ymchen/ddbs/tmp/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFut15Min(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFut15Min(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+def loadFut30Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://futureMin15_60"
+	tbname = "futureMin30"
+	fileDir = "/hdd/hdd8/ymchen/ddbs/tmp/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFut30Min(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFut30Min(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+def loadFut60Min(startDate, endDate, loadType){
+	// 设定参数
+	userName = "admin" 
+	userPassword = "123456"
+	dbname = "dfs://futureMin15_60"
+	tbname = "futureMin60"
+	fileDir = "/hdd/hdd8/ymchen/ddbs/tmp/"
+
+	// 调用函数进行数据导入
+	if (loadType == "daily"){
+		idate = today()
+		infoTb = loadTLFut60Min(userName, userPassword, idate, idate, dbname, tbname, fileDir,loadType)	
+	}
+	else if (loadType == "batch"){
+		infoTb = loadTLFut60Min(userName, userPassword, startDate, endDate, dbname, tbname, fileDir,loadType)	
+	}
+	return infoTb
+}
+
+/* -------------------- 后台任务 ------------------------------------------------------- */
+// 后台任务
+/*
+
+startDate = 2024.01.05
+endDate = 2024.01.05
+
+// 股票委托数据
+submitJob("loadEntrust" + temporalFormat(startDate,"yyyyMMdd") + "_" + temporalFormat(endDate,"yyyyMMdd"), "loadEntrust" + temporalFormat(startDate,"yyyyMMdd") + "_" + temporalFormat(endDate,"yyyyMMdd"), loadEntrustStock{startDate,endDate,"batch"})
+
+// 
+/* --------------------------------- 定时任务  -------------------------------------------------- 
+scheduleTime = 18:05m
+beginDate = 2023.01.01
+endDate = 2024.12.31
+frequency = "W"
+days = [4]
+
+// 股票委托数据
+scheduleJob("loadEntrust","loadEntrust",loadEntrustStock{NULL,NULL,"daily"},scheduleTime,beginDate,endDate,frequency,days)
+
+*/
+
+// 获取后台任务的状态
+// getRecentJobs()
+// getJobMessage("loadTLFutTickNew20240105_20240105")
+// 获取定时任务详情
+// getScheduledJobs()
+
+

@@ -1,0 +1,66 @@
+undef all
+go
+
+use MockData
+select * from defs() where name like "%mockData%"
+
+dates = getMarketCalendar('XSHE', 2022.01.01, 2022.01.31)
+t = stockMinuteKLine(dates[0], dates[dates.size()-1], 10)
+// 对时间戳进行一些处理
+t.replaceColumn!("TradeTime", t.tradetime.temporalFormat("HH:mm:ss.SSS dd/MM/yyyy"))
+saveText(t, "/home/ffliu/data/MinuteKLine_1.csv")
+
+
+dataPath = "/home/ffliu/data/MinuteKLine_1.csv"
+schema = extractTextSchema(dataPath)
+update schema set type = "TIMESTAMP" where name = "tradetime"
+kline=loadText(dataPath, schema=schema)
+print kline.schema().colDefs
+print select top 5 * from kline
+
+
+// 内存表
+
+schema = extractTextSchema(dataPath)
+update schema set type = "STRING" where name = "tradetime"
+kline=loadText(dataPath, schema=schema)
+kline.replaceColumn!("tradetime", kline.tradetime.temporalParse("HH:mm:ss.SSS dd/MM/yyyy"))
+
+print kline.schema().colDefs
+print select top 1 * from kline
+
+
+// 分布式表
+
+drop database if exists "dfs://k_minute_level"
+
+create database "dfs://k_minute_level"
+partitioned by VALUE(2020.01.01..2021.01.01)
+engine='OLAP'
+
+create table "dfs://k_minute_level"."k_minute"(
+	securityid SYMBOL  
+	tradetime TIMESTAMP
+	open DOUBLE        
+	close DOUBLE       
+	high DOUBLE        
+	low DOUBLE
+	vol INT
+	val DOUBLE
+	vwap DOUBLE
+)
+partitioned by tradetime
+go
+
+schema = extractTextSchema(dataPath)
+update schema set type = "STRING" where name = "tradetime"
+
+
+def transfunc(mutable msg){
+    msg.replaceColumn!("tradetime", msg.tradetime.temporalParse("HH:mm:ss.SSS dd/MM/yyyy"))
+    return msg
+}
+kline = loadTextEx(dbHandle=database("dfs://k_minute_level"), tableName="k_minute", partitionColumns="tradetime", filename=dataPath, schema=schema, transform=transfunc)
+
+print select top 1 * from loadTable("dfs://k_minute_level", "k_minute")
+
