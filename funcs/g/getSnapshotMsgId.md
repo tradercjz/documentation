@@ -6,7 +6,7 @@
 
 ## 参数
 
-**engine** 是流数据引擎，即 [createReactiveStateEngine](../c/createReactiveStateEngine.html) 等函数返回的抽象表对象。
+**engine** 是流数据引擎，即 [createReactiveStateEngine](../c/createReactiveStateEngine.md) 等函数返回的抽象表对象。
 
 ## 详情
 

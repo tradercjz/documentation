@@ -61,9 +61,9 @@
 
      注： 已存在数据库中超出范围限制的数据仍然可以正常读取使用。
 3. ANY DICTIONARY 是 DolphinDB 中表示 JSON 的数据类型。
-4. COMPRESS 类型目前只能通过 [compress](../funcs/c/compress.html) 函数生成。
+4. COMPRESS 类型目前只能通过 [compress](../funcs/c/compress.md) 函数生成。
 5. BLOB 类型不支持任何计算。
-6. DURATION 类型可以通过 [duration](../funcs/d/duration.html) 函数生成或直接使用整数数字加以下时间单位（区分大小写）： y, M, w, d, B, H, m, s, ms,
+6. DURATION 类型可以通过 [duration](../funcs/d/duration.md) 函数生成或直接使用整数数字加以下时间单位（区分大小写）： y, M, w, d, B, H, m, s, ms,
    us, ns。DURATION 数据的范围为-2 31 +1~2 31
    -1，如果数据溢出，则溢出的数据处理为空值。
 7. DOUBLE 和 FLOAT 类型精度遵循 IEEE 754 标准；该类型数据溢出时，会被处理为 NULL。
@@ -92,7 +92,7 @@
 
 ## 类型检查
 
-[typestr](../funcs/t/typestr.html) 和 [type](../funcs/t/type.html) 这两个函数用于检查数据类型。**typestr**
+[typestr](../funcs/t/typestr.md) 和 [type](../funcs/t/type.md) 这两个函数用于检查数据类型。**typestr**
 返回的是数据类型的名称（字符串常量）；**type** 返回的是数据类型 ID（整数）。
 
 ```
@@ -119,7 +119,7 @@ y;
 
 整型的数据范围在上面表格中已经列出。对于整数类型的数据，DolphinDB 使用允许最小值-1来表示其相应的 NULL
 值。例如，-128c 是一个 NULL 字符。对于 NULL 值，参考： [NULL
-值](data_mani/null_oper.html)。
+值](data_mani/null_oper.md)。
 
 ```
 x=-128c;

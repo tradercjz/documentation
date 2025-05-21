@@ -44,7 +44,7 @@ select * from loadTable(dbName, tableName) where stockID = "amazon"
 
 另一方面，为了避免加载大量数据至内存中，`DDBDataLoader` 采用分区粒度管理数据。也就是说，每组查询每次只加载一个分区到内存中。通常来说， DolphinDB 的一个分区的大小在 100MB 到 1GB 之间，因此这种设计可以很好地限制内存的使用量。另一方面，基于这种分区粒度的管理方式，使得 `DDBDataLoader` 实现的 shuffle 和传统的 dataloader 实现的 shuffle 会有一些区别。具体地说，传统的 shuffle 是将数据进行完全随机地打乱，但这样会引入大量的随机 IO，会使得效率偏低。而 `DDBDataLoader` 使用的 shuffle 方式，则是先随机地选取一个数据的分区并读取，随后在这个分区内部进行 shuffle。使用这种方式，可以最大化地减少随机的 IO，以提升整个训练过程的效率。
 
-另一组要说明的参数是 *repartitionCol* 和 *repartitionScheme* 。这组参数主要处理的是单个查询没办法直接拆成多个分区的情况。例如，一种常见的使用 DolphinDB 管理因子数据的方法是使用纵表来对因子数据进行管理（详见 [best\_practices\_for\_multi\_factor.md](best_practices_for_multi_factor.html)）。使用这种方法，则在获取可用的训练数据之前，需要先对所有的数据做一个 `pivot by` 将数据从纵表转化为宽表。然而，用户的数据量可能非常大，例如几百 G 甚至更多，在这种情况下，服务器的内存完全可能不够完成对所有数据的 `pivot by` 。针对这类情况，DDBDataLoader 提供了 *repartitionCol* 和*repartitionScheme* 参数这组参数，这组参数的作用是可以对全表的数据做进一步的切分，将全表数据按照 *repartitionCol* 和 *repartitionScheme* 拆成多个子表，然后对于每一个子表再做单独的 `pivot by`。换言之，假设原始的查询 SQL 为：
+另一组要说明的参数是 *repartitionCol* 和 *repartitionScheme* 。这组参数主要处理的是单个查询没办法直接拆成多个分区的情况。例如，一种常见的使用 DolphinDB 管理因子数据的方法是使用纵表来对因子数据进行管理（详见 [best\_practices\_for\_multi\_factor.md](best_practices_for_multi_factor.md)）。使用这种方法，则在获取可用的训练数据之前，需要先对所有的数据做一个 `pivot by` 将数据从纵表转化为宽表。然而，用户的数据量可能非常大，例如几百 G 甚至更多，在这种情况下，服务器的内存完全可能不够完成对所有数据的 `pivot by` 。针对这类情况，DDBDataLoader 提供了 *repartitionCol* 和*repartitionScheme* 参数这组参数，这组参数的作用是可以对全表的数据做进一步的切分，将全表数据按照 *repartitionCol* 和 *repartitionScheme* 拆成多个子表，然后对于每一个子表再做单独的 `pivot by`。换言之，假设原始的查询 SQL 为：
 
 ```
 select val from loadTable(dbName, tableName) pivot by datetime, stockID, factorName

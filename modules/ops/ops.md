@@ -8,7 +8,7 @@
 
 自 1.30.19 和 2.00.7 版本开始，DolphinDB 安装包的 server/modules 目录下已预装 ops.dos，无需用户下载。若在 server/modules 下没找到 ops.dos，通过此处获得 [ops.dos](src/ops.dos) 文件，并放至节点的 [home]/modules 目录下。其中 [home] 目录由系统配置参数 home 决定，可以通过 `getHomeDir()` 函数查看。
 
-更多 DolphinDB 模块的说明，请参阅 [DolphinDB 教程：模块](../../tutorials/module_tutorial.html)。
+更多 DolphinDB 模块的说明，请参阅 [DolphinDB 教程：模块](../../tutorials/module_tutorial.md)。
 
 ## 2. 使用说明
 
@@ -227,7 +227,7 @@ dropRecoveringPartitions(dbPath , tableName="")
 **参数**
 
 * dbPath: 字符串，表示数据库的路径，如 "dfs://demodb"。
-* tableName: 字符串，表示分布式表名，仅当指定分区粒度 chunkGranularity 为 TABLE 时指定。关于 chunkGranularity 的说明参见：[database](https://www.dolphindb.cn/cn/help/FunctionsandCommands/FunctionReferences/d/database.html)。
+* tableName: 字符串，表示分布式表名，仅当指定分区粒度 chunkGranularity 为 TABLE 时指定。关于 chunkGranularity 的说明参见：[database](https://www.dolphindb.cn/cn/help/FunctionsandCommands/FunctionReferences/d/database.md)。
 
 **详情**
 
@@ -376,7 +376,7 @@ gatherClusterPerf(monitoringPeriod=60, scrapeInterval=15, dir="/tmp")
 
 **详情**
 
-根据指定的监控时间和抓取间隔获取集群中各个节点的性能监控信息，并将结果保存至指定目录的 statis.csv 文件。输出内容说明见 [getClusterPerf](https://dolphindb.cn/cn/help/200/FunctionsandCommands/FunctionReferences/g/getClusterPerf.html)。
+根据指定的监控时间和抓取间隔获取集群中各个节点的性能监控信息，并将结果保存至指定目录的 statis.csv 文件。输出内容说明见 [getClusterPerf](https://dolphindb.cn/cn/help/200/FunctionsandCommands/FunctionReferences/g/getClusterPerf.md)。
 
 **例子**
 
@@ -430,7 +430,7 @@ getDifferentData(t1, t2)
 
 **详情**
 
-使用 [eqObj](../../funcs/e/eqObj.html) 比较两张内存表的每一行是否相同。比较的两张表的长度必须相同。
+使用 [eqObj](../../funcs/e/eqObj.md) 比较两张内存表的每一行是否相同。比较的两张表的长度必须相同。
 
 **例子**
 
@@ -477,7 +477,7 @@ checkChunkReplicas(dbName, tableName, targetChunkId)
 
 * dbName: 字符串，表示数据库的路径，如 "dfs://demodb"。
 * tableName: 字符串，表示分布式表名。
-* targetChunkId: 字符串，表示要检查的 chunk 的 ID，可通过 [getTabletsMeta()](../../funcs/g/getTabletsMeta.html) 查看。
+* targetChunkId: 字符串，表示要检查的 chunk 的 ID，可通过 [getTabletsMeta()](../../funcs/g/getTabletsMeta.md) 查看。
 
 **返回值**
 

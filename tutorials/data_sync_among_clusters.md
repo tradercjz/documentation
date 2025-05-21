@@ -40,7 +40,7 @@ backupDir = "/hdd/hdd1/backDir"
 backup(backupDir,<select col1,col2,col3 from loadTable("dfs://db1","mt")>)
 ```
 
-更多相关语句请参考 [DolphinDB 元编程教程](meta_programming.html)。
+更多相关语句请参考 [DolphinDB 元编程教程](meta_programming.md)。
 
 ### 1.2. 离线数据同步
 
@@ -71,7 +71,7 @@ shell(cmd)
 restore(backupDir=restoreDir,dbPath="dfs://db1",tableName="mt",partition="%",force=true,outputTable=loadTable("dfs://db1","mt"))
 ```
 
-通过参数 *partition* 可以指定待恢复的分区。详细参考教程[数据备份与恢复](restore-backup.html)。
+通过参数 *partition* 可以指定待恢复的分区。详细参考教程[数据备份与恢复](restore-backup.md)。
 
 ### 1.4. 具体实例
 

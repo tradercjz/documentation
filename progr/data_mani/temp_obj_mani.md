@@ -73,7 +73,7 @@ time和nanotime类型的时间序列对象，表示这些对象的内部整数�
 
 ## 用时间单位调整时间变量值
 
-[temporalAdd](../../funcs/t/temporalAdd.html)
+[temporalAdd](../../funcs/t/temporalAdd.md)
 函数以不同的时间单位调整时间变量的值。
 
 ```
@@ -92,7 +92,7 @@ temporalAdd(13:30m,-15,"m");
 
 ## 合并日期与时间
 
-[concatDateTime](../../funcs/c/concatDateTime.html) 函数可以合并日期和时间。
+[concatDateTime](../../funcs/c/concatDateTime.md) 函数可以合并日期和时间。
 
 ```
 concatDateTime(2019.06.15,13:25:10);
@@ -106,16 +106,16 @@ concatDateTime(2019.06.15 2019.06.16 2019.06.17,[13:25:10, 13:25:12, 13:25:13]);
 
 ## 与 DateOffset 相关的函数
 
-* [yearBegin](../../funcs/y/yearBegin.html)
+* [yearBegin](../../funcs/y/yearBegin.md)
   ：获取当年的第一天
-* [yearEnd](../../funcs/y/yearEnd.html)
+* [yearEnd](../../funcs/y/yearEnd.md)
   ：获取当年的最后一天
-* [businessYearBegin](../../funcs/b/businessYearBegin.html) ：获取当年的第一个工作日
-* [businessYearEnd](../../funcs/b/businessYearEnd.html) ：获取当年的最后一个工作日
-* [isYearStart](../../funcs/i/isYearStart.html) ：判断当天是否为年初第一天
-* [isYearEnd](../../funcs/i/isYearEnd.html)
+* [businessYearBegin](../../funcs/b/businessYearBegin.md) ：获取当年的第一个工作日
+* [businessYearEnd](../../funcs/b/businessYearEnd.md) ：获取当年的最后一个工作日
+* [isYearStart](../../funcs/i/isYearStart.md) ：判断当天是否为年初第一天
+* [isYearEnd](../../funcs/i/isYearEnd.md)
   ：判断当天是否为年末最后一天
-* [isLeapYear](../../funcs/i/isLeapYear.html) ：判断当年是否为闰年
+* [isLeapYear](../../funcs/i/isLeapYear.md) ：判断当年是否为闰年
 
 ```
 yearBegin(2011.06.02);
@@ -147,16 +147,16 @@ isLeapYear(2012.06.25);
 true
 ```
 
-* [monthBegin](../../funcs/m/monthBegin.html) ：获取当月的第一天
-* [monthEnd](../../funcs/m/monthEnd.html)
+* [monthBegin](../../funcs/m/monthBegin.md) ：获取当月的第一天
+* [monthEnd](../../funcs/m/monthEnd.md)
   ：获取当月的最后一天
-* [businessMonthBegin](../../funcs/b/businessMonthBegin.html) ：获取当月的第一个工作日
-* [businessMonthEnd](../../funcs/b/businessMonthEnd.html) ：获取当月的最后一个工作日
-* [semiMonthBegin](../../funcs/s/semiMonthBegin.html) ：获取当月开始的第15（或其他）天
-* [semiMonthEnd](../../funcs/s/semiMonthEnd.html) ：获取当月结束的第15（或其他）天
-* [isMonthStart](../../funcs/i/isMonthStart.html) ：判断当天是否为月初的第一天
-* [isMonthEnd](../../funcs/i/isMonthEnd.html) ：判断当天是否为月末的最后一天
-* [daysInMonth](../../funcs/d/daysInMonth.html) ：获取当月的天数
+* [businessMonthBegin](../../funcs/b/businessMonthBegin.md) ：获取当月的第一个工作日
+* [businessMonthEnd](../../funcs/b/businessMonthEnd.md) ：获取当月的最后一个工作日
+* [semiMonthBegin](../../funcs/s/semiMonthBegin.md) ：获取当月开始的第15（或其他）天
+* [semiMonthEnd](../../funcs/s/semiMonthEnd.md) ：获取当月结束的第15（或其他）天
+* [isMonthStart](../../funcs/i/isMonthStart.md) ：判断当天是否为月初的第一天
+* [isMonthEnd](../../funcs/i/isMonthEnd.md) ：判断当天是否为月末的最后一天
+* [daysInMonth](../../funcs/d/daysInMonth.md) ：获取当月的天数
 
 ```
 monthBegin(2016.12.06);
@@ -196,12 +196,12 @@ daysInMonth(2012.12.02);
 31
 ```
 
-* [quarterBegin](../../funcs/q/quarterBegin.html) ：获取当前季度的第一天
-* [quarterEnd](../../funcs/q/quarterEnd.html) ：获取当前季度的最后一天
-* [businessQuarterBegin](../../funcs/b/businessQuarterBegin.html) ：获取当前季度的第一个工作日
-* [businessQuarterEnd](../../funcs/b/businessQuarterEnd.html) ：获取当前季度的最后一个工作日
-* [isQuarterStart](../../funcs/i/isQuarterStart.html) ：判断当天是否为季度的第一天
-* [isQuarterEnd](../../funcs/i/isQuarterEnd.html) ：判断当天是否为季度的最后一天
+* [quarterBegin](../../funcs/q/quarterBegin.md) ：获取当前季度的第一天
+* [quarterEnd](../../funcs/q/quarterEnd.md) ：获取当前季度的最后一天
+* [businessQuarterBegin](../../funcs/b/businessQuarterBegin.md) ：获取当前季度的第一个工作日
+* [businessQuarterEnd](../../funcs/b/businessQuarterEnd.md) ：获取当前季度的最后一个工作日
+* [isQuarterStart](../../funcs/i/isQuarterStart.md) ：判断当天是否为季度的第一天
+* [isQuarterEnd](../../funcs/i/isQuarterEnd.md) ：判断当天是否为季度的最后一天
 
 ```
 quarterBegin(2012.06.12);
@@ -229,12 +229,12 @@ isQuarterEnd(2011.12.31);
 true
 ```
 
-* [weekEnd](../../funcs/w/weekEnd.html)
+* [weekEnd](../../funcs/w/weekEnd.md)
   ：获取当前星期或下一个星期的星期几（默认为星期一）
-* [weekBegin](../../funcs/w/weekBegin.html)
+* [weekBegin](../../funcs/w/weekBegin.md)
   ：获取当前星期或上一个星期的星期几（默认为星期一）
-* [lastWeekOfMonth](../../funcs/l/lastWeekOfMonth.html) ：获取当月或上一个月最后一周的星期几（默认为星期一）
-* [weekOfMonth](../../funcs/w/weekOfMonth.html) ：获取当月或上一个月第几周的星期几（默认为第一周的星期一）
+* [lastWeekOfMonth](../../funcs/l/lastWeekOfMonth.md) ：获取当月或上一个月最后一周的星期几（默认为星期一）
+* [weekOfMonth](../../funcs/w/weekOfMonth.md) ：获取当月或上一个月第几周的星期几（默认为第一周的星期一）
 
 ```
 week(2019.11.24);
@@ -254,9 +254,9 @@ weekOfMonth(2019.11.01);
 2019.10.07
 ```
 
-* [fy5253](../../funcs/f/fy5253.html)
+* [fy5253](../../funcs/f/fy5253.md)
   ：获取当前财年开始的第一天
-* [fy5253Quarter](../../funcs/f/fy5253Quarter.html) ：获取当前财季开始的第一天
+* [fy5253Quarter](../../funcs/f/fy5253Quarter.md) ：获取当前财季开始的第一天
 
 ```
 fy5253(2016.11.01);

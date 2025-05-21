@@ -8,7 +8,7 @@
 
 ## 详情
 
-创建流计算窗口连接引擎。参考：[createWindowJoinEngine](../c/createWindowJoinEngine.html) 。
+创建流计算窗口连接引擎。参考：[createWindowJoinEngine](../c/createWindowJoinEngine.md) 。
 
 **返回值**：一个 DStream 对象。
 
@@ -18,7 +18,7 @@
 
 **window** 必选参数，表示滑动窗口区间的整型或 DURATION 数据对，其中左右边界都包含在内。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个表达式、系统内置或用户自定义函数。
 * *metrics* 内支持调用具有多个返回值的函数，且必须指定列名，例如 <func(price) as

@@ -121,7 +121,7 @@ bottomNetValue 字段获取分别获取策略净值和初始仓位的净值。�
 ### 2.2 行情数据
 
 在进行融资融券策略回测时，
-行情数据结构与股票保持一致。由于本案例中使用的为日频的行情类型，因此这里只说明分钟和日频时行情的具体格式。快照行情的数据格式详见相应[股票](../plugins/backtest/stock.html)的行情数据说明文档。
+行情数据结构与股票保持一致。由于本案例中使用的为日频的行情类型，因此这里只说明分钟和日频时行情的具体格式。快照行情的数据格式详见相应[股票](../plugins/backtest/stock.md)的行情数据说明文档。
 
 **表 4：股票分钟和日频行情字段说明**
 
@@ -142,7 +142,7 @@ bottomNetValue 字段获取分别获取策略净值和初始仓位的净值。�
 
 ### 2.3 融资融券相关接口说明
 
-回测引擎提供了相应的接口供用户创建策略引擎、提交订单、获取持仓和可用现金等。下面将进行融资融券的不同部分接口说明，其它相关更具体的接口说明详见 [Backtest](../plugins/backtest.html) 的接口相关模块。
+回测引擎提供了相应的接口供用户创建策略引擎、提交订单、获取持仓和可用现金等。下面将进行融资融券的不同部分接口说明，其它相关更具体的接口说明详见 [Backtest](../plugins/backtest.md) 的接口相关模块。
 
 首先，融资融券策略回测引擎目前使用老接口
 `Backtest::createBacktestEngine`创建引擎，后续的版本中我们将支持使用新接口
@@ -466,7 +466,7 @@ for( istock in buyList){
 **设置配置项**
 
 融资融券策略回测，除了需要设置策略回测的开始和结束时间、策略类型和行情类型之外、还必须融资融券授信额度、维保比例、融资利率和融券利率。多头集中度限制和空头集中度限制用户可以根据实际需求进行相应的设置。如下列出了部分配置参数，完整的配置参数列表请参阅
-[回测插件接口说明文档](../plugins/backtest.html)。
+[回测插件接口说明文档](../plugins/backtest.md)。
 
 ```
 // step 2：策略配置与引擎创建
@@ -502,7 +502,7 @@ engine = Backtest::createBacktestEngine(strategyName, config, securityReference,
 
 **执行回测引擎**
 
-通过以下方式执行回测。其中`dayData`为行情数据，具体的行情字段说明参考[股票](../plugins/backtest/stock.html)。
+通过以下方式执行回测。其中`dayData`为行情数据，具体的行情字段说明参考[股票](../plugins/backtest/stock.md)。
 
 ```
 //开始执行策略回测
@@ -514,7 +514,7 @@ dayData 也按时间和因子值进行排序处理再回放给回测引擎。
 
 **获取回测结果**
 
-回测运行结束之后，可以通过相应的接口获取每日持仓、每日权益、收益概述、成交明细和策略中用户自定义的逻辑上下文。回测插件提供的完整回测结果接口可以参阅[回测插件的接口说明文档](../plugins/backtest.html)。
+回测运行结束之后，可以通过相应的接口获取每日持仓、每日权益、收益概述、成交明细和策略中用户自定义的逻辑上下文。回测插件提供的完整回测结果接口可以参阅[回测插件的接口说明文档](../plugins/backtest.md)。
 
 通过 `Backtest::getTradeDetails(engine)` 接口获取成交明细表如下。其中
 orderInfo 不为空时表示拒单，orderInfo 列详细说明了的拒单理由。
@@ -567,7 +567,7 @@ config["setLastDayPosition"] = setLastDayPosition
 config["cash"] = config["cash"] -  config["cash"] *0.95*(1 + config["commission"])
 ```
 
-在策略实现中我们通过 [ta 模块](../modules/ta/ta.html)的
+在策略实现中我们通过 [ta 模块](../modules/ta/ta.md)的
 `rsi` 和 `bBand`函数实现 RSI 和布林带指标。
 
 ```
@@ -595,7 +595,7 @@ Backtest::subscribeIndicator(engine, quote, indicatorDict)
 
 * *engine* 该回测引擎实列
 * *quote* 字符串，表示指标计算依赖的行情源。目前支持 "snapshot*”* 快照行情源、
-  "trade"成交行情源、”ohlc“ 分钟和日频等，具体详见`Backtest::subscribeIndicator`[回测引擎的接口说明文档](../plugins/backtest.html)中的的接口说明。
+  "trade"成交行情源、”ohlc“ 分钟和日频等，具体详见`Backtest::subscribeIndicator`[回测引擎的接口说明文档](../plugins/backtest.md)中的的接口说明。
 * *indicatorDict* 是字典类型，key 为相应的指标名称，value 为指标元代码表达式。
 
 ```

@@ -6,7 +6,7 @@
 
 ## 参数
 
-**model** 是用于预测的模型，一般是字典，由 [randomForestClassifier](../r/randomForestClassifier.html), [randomForestRegressor](../r/randomForestRegressor.html) 等机器学习函数生成。
+**model** 是用于预测的模型，一般是字典，由 [randomForestClassifier](../r/randomForestClassifier.md), [randomForestRegressor](../r/randomForestRegressor.md) 等机器学习函数生成。
 
 **X** 是用于预测的表，表的结构必须和用于训练 *model* 的表相同。
 

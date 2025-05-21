@@ -28,5 +28,5 @@ getReactiveMetrics("narrowtest1")
 | --- | --- |
 | factor1 | cumsum(qty) |
 
-相关函数：[createNarrowReactiveStateEngine](../c/createnarrowreactivestateengine.html)，[addReactiveMetrics](../a/addreactivemetrics.html)
+相关函数：[createNarrowReactiveStateEngine](../c/createnarrowreactivestateengine.md)，[addReactiveMetrics](../a/addreactivemetrics.md)
 

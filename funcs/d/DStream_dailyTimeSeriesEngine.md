@@ -11,7 +11,7 @@
 
 ## 详情
 
-创建流计算日级时间序列引擎。参考：[createDailyTimeSeriesEngine](../c/createDailyTimeSeriesEngine.html)。
+创建流计算日级时间序列引擎。参考：[createDailyTimeSeriesEngine](../c/createDailyTimeSeriesEngine.md)。
 
 **返回值**：一个 DStream 对象。
 
@@ -27,7 +27,7 @@
 * 若 *useSystemTime* 为 false，则 *windowSize* 和
   *step* 的单位与 *timeColumn* 的时间精度一致。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个系统内置或用户自定义的聚合函数（使用 defg 关键字定义），如
   <[sum(volume), avg(price)]>；可以对聚合结果使用表达式，如
@@ -55,7 +55,7 @@
 时，必须指定该参数。 该参数用于指定订阅的流数据表中时间列的名称。
 
 注： 字符串向量必须是 date 和 time
-组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与 [concatDateTime(date, time)](../c/concatDateTime.html)
+组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与 [concatDateTime(date, time)](../c/concatDateTime.md)
 的类型一致。
 
 **useSystemTime** 可选参数，布尔值，表示是否使用数据注入引擎时的系统时间作为时间列进行计算。
@@ -143,7 +143,7 @@ false，且不能指定 *updateTime*。强制触发计算及输出规则如下�
 注：
 
 * 若需指定该参数，必须指定 *forceTriggerTime*，且不能指定 *fill*。
-* 可以通过调用 [getStreamEngineStat](../c/../g/getStreamEngineStat.html) 函数查看 TimeSeriesEngine 引擎状态的
+* 可以通过调用 [getStreamEngineStat](../c/../g/getStreamEngineStat.md) 函数查看 TimeSeriesEngine 引擎状态的
   numGroups 列，来对比响应式状态引擎清理前后分组数的变化。
 
 **closed** 字符串，用于确定滑动窗口边界的开闭情况。可选值为 'left' 或 'right'，默认值为

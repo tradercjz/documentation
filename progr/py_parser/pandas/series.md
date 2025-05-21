@@ -154,7 +154,7 @@ Series(data=None, index=None, lazy=False)
 | --- | --- |
 | **asfreq** | 不支持参数 *method*, *how*, *normalize*, *fill\_value* |
 | **asof** | 不支持参数 *subset* |
-| **shift** | 不支持参数 *axis*, 参数 *freq* 仅支持 [asfreq](../../../funcs/a/asFreq.html) 中列出的规则 |
+| **shift** | 不支持参数 *axis*, 参数 *freq* 仅支持 [asfreq](../../../funcs/a/asFreq.md) 中列出的规则 |
 | **resample** | 不支持参数 *on*, *loffset*, *base*, *group\_keys* |
 | **at\_time** | 不支持参数 *asof*, *axis* |
 | **between\_time** | 不支持参数 *include\_start*, *include\_end*, *axis* |

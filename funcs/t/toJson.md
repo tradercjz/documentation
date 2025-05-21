@@ -45,5 +45,5 @@ size(fromJson(y))
 300000
 ```
 
-相关函数：[fromJson](../f/fromJson.html)
+相关函数：[fromJson](../f/fromJson.md)
 

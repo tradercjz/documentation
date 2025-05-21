@@ -5,7 +5,7 @@
 `mskewTopN(X, S, window, top, [biased=true], [ascending=true],
 [tiesMethod='latest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 参数
 
@@ -80,5 +80,5 @@ select time,symbol,BSFlag,mskewTopN(price, qty, 8, 5) as mskewTop5Price from t c
 | 2023.07.03T09:30:00.250 | B | 1 | 0.8565 |
 | 2023.07.03T09:30:00.390 | B | 1 | 1.3966 |
 
-相关函数：[mskew](mskew.html)
+相关函数：[mskew](mskew.md)
 

@@ -50,5 +50,5 @@ g1.write(y)    //实际写入了471个字节
 g1.close()
 ```
 
-相关函数：[split](../s/split.html)
+相关函数：[split](../s/split.md)
 

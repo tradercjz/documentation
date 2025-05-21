@@ -12,7 +12,7 @@ colTypes)`
 
 ## 参数
 
-在 [keyedStreamTable](../k/keyedStreamTable.html) 的基础上，增加了 *timeColumn* 参数。
+在 [keyedStreamTable](../k/keyedStreamTable.md) 的基础上，增加了 *timeColumn* 参数。
 
 **timeColumn** 字符串标量或长度为 2 的向量，分别用于指定 1 个或 2 个时间列。当仅指定 1 个时间列时，该列可以为整型或时间类型；当指定 2
 个时间列时，第 1 列必须是 DATE 类型，第 2 列则是 TIME, SECOND 或 NANOTIME 类型。通过这两列，可以共同确定唯一的时间值。

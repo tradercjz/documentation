@@ -1,6 +1,6 @@
 # parseInt
 
-是 [parseInteger](parseInteger.html) 的别名。
+是 [parseInteger](parseInteger.md) 的别名。
 
 Copyright
 

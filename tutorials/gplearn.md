@@ -46,7 +46,7 @@ DolphinDB 的 Shark GPLearn 功能要求显卡的计算能力达到 6.0 或以�
 
 ## 2. 快速上手
 
-支持 Shark GPLearn 的 DolphinDB 部署在一台支持 GPU 的服务器上。部署流程请参考[单节点部署](standalone_server.html) 与 [集群部署](single_machine_cluster_deploy.html)。
+支持 Shark GPLearn 的 DolphinDB 部署在一台支持 GPU 的服务器上。部署流程请参考[单节点部署](standalone_server.md) 与 [集群部署](single_machine_cluster_deploy.md)。
 
 1. 准备训练数据：
 
@@ -100,16 +100,16 @@ DolphinDB 的 Shark GPLearn 功能要求显卡的计算能力达到 6.0 或以�
 
 在以上的操作步骤中使用了以下函数：
 
-* [createGPLearnEngine](../funcs/c/creategplearnengine.html)：创建一个 GPLearn 引擎用于训练和预测。
-* [gpFit](../funcs/g/gpfit.html)：查看训练生成的公式。函数返回一个表：
+* [createGPLearnEngine](../funcs/c/creategplearnengine.md)：创建一个 GPLearn 引擎用于训练和预测。
+* [gpFit](../funcs/g/gpfit.md)：查看训练生成的公式。函数返回一个表：
   + 第一列为 program 列，STRING 类型，用于存储得到的公式；
   + 第二列为 fitness 列，DOUBLE 类型，存储公式的适应度；
   + 当 programCorr 为 true 时，第三列为 programCorr 列，是DOUBLE
     类型的数组向量，存储公式之间的相关性。
-* [gpPredict](../funcs/g/gppredict.html)：采用上次训练得到的适应度函数较小的前 programNum 个公式用于预测。如果指定
+* [gpPredict](../funcs/g/gppredict.md)：采用上次训练得到的适应度函数较小的前 programNum 个公式用于预测。如果指定
   groupCol，计算时还会依据 groupCol 分组。函数返回一个表，共 programNum 列，列名为 gpFit 训练得到的公式。
-* [setGpFitnessFunc](../funcs/s/setgpfitnessfunc.html)：重置 GPLearn 引擎的适应度函数。
-* [addGpFunction](../funcs/a/addgpfunction.html)：在现有训练函数的基础上增加用户自定义函数，用于初始化公式树和进化时使用。支持的算子详见附录。
+* [setGpFitnessFunc](../funcs/s/setgpfitnessfunc.md)：重置 GPLearn 引擎的适应度函数。
+* [addGpFunction](../funcs/a/addgpfunction.md)：在现有训练函数的基础上增加用户自定义函数，用于初始化公式树和进化时使用。支持的算子详见附录。
 
 ## 附录
 

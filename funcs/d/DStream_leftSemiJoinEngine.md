@@ -7,7 +7,7 @@
 
 ## 详情
 
-创建流计算左半等值连接引擎。参考：[createLeftSemiJoinEngine](../c/createLeftSemiJoinEngine.html)。
+创建流计算左半等值连接引擎。参考：[createLeftSemiJoinEngine](../c/createLeftSemiJoinEngine.md)。
 
 **返回值**：一个 DStream 对象。
 
@@ -15,10 +15,10 @@
 
 **rightStream** DStream 对象，表示输入的右表数据源。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../c/../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../c/../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个表达式、系统内置或用户自定义函数、一个常量标量/向量。当指定为常量向量时，对应的输出列必须设置为数组向量类型，例子参见
-  [createReactiveStateEngine](../c/createReactiveStateEngine.html) 中的例4。
+  [createReactiveStateEngine](../c/createReactiveStateEngine.md) 中的例4。
 * **metrics** 内支持调用具有多个返回值的函数，且必须指定列名，例如 <func(price) as
   `col1`col2>。
 

@@ -372,7 +372,7 @@ reduce 阶段通常是对子查询返回的结果做收尾处理，通常是对 
   + `optimizedColumns` 若
     `inplaceOptimization` 为 true，则该字段将显示进行了 inplace Optimization
     的列名。
-* `fill`： [interval](interval.html)
+* `fill`： [interval](interval.md)
   插值填充过程的标签。
 
 ```
@@ -691,5 +691,5 @@ select [HINT_EXPLAIN] * from ej(pt1,pt2,`p1,`p2)
                   t4)
   ```
 
-通过打印 SQL 执行过程，分析 SQL 语句执行中每一部分的耗时，可以帮助我们优化 SQL 语句，提升执行效率。具体的优化场景可以参考 [DolphinDB SQL执行计划教程](../../tutorials/DolphinDB_Explain.html)
+通过打印 SQL 执行过程，分析 SQL 语句执行中每一部分的耗时，可以帮助我们优化 SQL 语句，提升执行效率。具体的优化场景可以参考 [DolphinDB SQL执行计划教程](../../tutorials/DolphinDB_Explain.md)
 

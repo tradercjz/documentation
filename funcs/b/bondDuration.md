@@ -55,5 +55,5 @@ bondDuration(settlement=2023.01.01, maturity=2030.12.31, coupon=0.05, yield=0.06
 
 返回：6.737695071685634
 
-相关函数：[bondAccrInt](bondaccrint.html)、[bondConvexity](bondconvexity.html)、[bondDirtyPrice](bondDirtyPrice.html)、[bondCalculator](bondCalculator.html)、[bondYield](bondyield.html)
+相关函数：[bondAccrInt](bondaccrint.md)、[bondConvexity](bondconvexity.md)、[bondDirtyPrice](bondDirtyPrice.md)、[bondCalculator](bondCalculator.md)、[bondYield](bondyield.md)
 

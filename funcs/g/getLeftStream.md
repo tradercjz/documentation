@@ -63,5 +63,5 @@ select * from output order by timestamp,sym
 | 2022.01.17T00:00:00.000 | AMZN | 210.4329 | 61.5008 |
 | 2022.01.18T00:00:00.000 | IBM | 88.7772 | 8.1367 |
 
-相关函数：[getRightStream](getRightStream.html)。
+相关函数：[getRightStream](getRightStream.md)。
 

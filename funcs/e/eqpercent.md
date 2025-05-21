@@ -57,5 +57,5 @@ eqPercent(2012.06M, 2)
 //传入不支持其类型的X，返回eqObj(X, Y)的结果值。
 ```
 
-相关函数：[eqObj](eqObj.html)
+相关函数：[eqObj](eqObj.md)
 

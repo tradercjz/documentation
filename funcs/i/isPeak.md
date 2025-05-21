@@ -65,5 +65,5 @@ isPeak(t)
 | 02 | false |
 | 00 | false |
 
-相关函数：[isValley](isValley.html)
+相关函数：[isValley](isValley.md)
 

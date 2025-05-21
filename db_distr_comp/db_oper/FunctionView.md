@@ -16,7 +16,7 @@ def myFunc(){
 }
 ```
 
-再通过 [addFunctionView](../../funcs/a/addFunctionView.html)
+再通过 [addFunctionView](../../funcs/a/addFunctionView.md)
 函数将自定义函数封装为函数视图。
 
 ```
@@ -30,7 +30,7 @@ getFunctionViews()
 
 ### 删除
 
-通过 [dropFunctionView](../../funcs/d/dropFunctionView.html)
+通过 [dropFunctionView](../../funcs/d/dropFunctionView.md)
 函数可以删除已有的函数视图。
 
 ```
@@ -84,7 +84,7 @@ dropFunctionView(name="dir1::myModule",isNamespace=true)
 
 ## 获取函数视图
 
-管理员用户执行 [getFunctionViews](../../funcs/g/getFunctionViews.html)
+管理员用户执行 [getFunctionViews](../../funcs/g/getFunctionViews.md)
 函数可以获取当前系统的所有用户创建的函数视图，拥有 VIEW\_OWNER 权限的用户执行该函数只返回该用户创建的函数视图。
 
 注： 如果 DolphinDB 集群重启，之前定义的函数视图仍然可以使用。但是 DolphinDB 不允许直接修改函数视图中的语句，如果要修改函数视图，需要先使用

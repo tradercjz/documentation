@@ -20,12 +20,12 @@
 
 恢复备份的数据到数据库。返回包含数据库名称和表名称的表，每一行为完成恢复的数据库及表名称。
 
-该函数与 [migrate](../m/migrate.html)
+该函数与 [migrate](../m/migrate.md)
 类似，都可恢复整个数据库下的所有表，区别见表相关内容。
 
 注：
 
-* 该函数仅支持恢复以拷贝文件方式（即 [backup](../b/backup.html) 时指定
+* 该函数仅支持恢复以拷贝文件方式（即 [backup](../b/backup.md) 时指定
   *dbPath* 参数）进行的备份。
 * 恢复时需要确保备份数据与待恢复数据库的引擎类型（engine）一致，且 *partitionScheme*（VALUE 除外）也保持一致。
   当采用 VALUE 分区时，须保证备份数据中的分区方案是待恢复数据库的分区方案的子集。例如：备份文件的分区方案是
@@ -63,5 +63,5 @@ restoreDB(backupDir, dbName)
 | dfs://compoDB2 | pt1 |
 | dfs://compoDB2 | pt2 |
 
-相关函数：[restore](restore.html), [restoreTable](restoreTable.html), [migrate](../m/migrate.html), [backup](../b/backup.html), [backupDB](../b/backupDB.html), [backupTable](../b/backupTable.html)
+相关函数：[restore](restore.md), [restoreTable](restoreTable.md), [migrate](../m/migrate.md), [backup](../b/backup.md), [backupDB](../b/backupDB.md), [backupTable](../b/backupTable.md)
 

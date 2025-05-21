@@ -71,5 +71,5 @@ conn =  xdb("localhost",8848,`admin,`123456);
 结果为
 51.5。
 
-相关函数：[remoteRun](remoteRun.html)
+相关函数：[remoteRun](remoteRun.md)
 

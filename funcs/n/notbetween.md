@@ -71,5 +71,5 @@ select * from trades where qty notBetween 1300:6800
 | 2019.03.31 | C | 51.29 | 8,800 |
 | 2019.04.09 | C | 51.29 | 8,800 |
 
-相关函数：[between](../b/between.html)
+相关函数：[between](../b/between.md)
 

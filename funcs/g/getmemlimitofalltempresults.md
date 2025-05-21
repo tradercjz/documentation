@@ -19,5 +19,5 @@ getMemLimitOfAllTempResults ()
 // output: 3.0
 ```
 
-相关函数：[setMemLimitOfAllTempResults](../s/setmemlimitofalltempresults.html)
+相关函数：[setMemLimitOfAllTempResults](../s/setmemlimitofalltempresults.md)
 

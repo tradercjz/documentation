@@ -37,7 +37,7 @@ datanodeRestartInterval 的时间，集群会自动重启该节点。
 | 配置参数 | 解释 | 配置节点 |
 | --- | --- | --- |
 | datanodeRestartInterval=0 | 表示不会自动启动数据/计算节点，为一个非负 INT 类型，单位为秒。默认值为 0。配置该参数可以实现以下功能：  * 控制节点启动后自动启动数据/计算节点（需要启动 agent）； * 数据/计算节点离线的时间超过设置时长（t）后自动重启该节点（需要启动 agent）。   注： 若 server 的版本号小于 2.00.9.4，则该参数必须设置为 100+t，其中100是系统预定义值。 | 控制节点 |
-| datanodeRestartLevel=CRASH | 指定触发控制节点自动重启数据节点/计算节点的条件。包含如下可选值（区分大小写）：  * CRASH（默认值）：当节点不是通过 [stopDataNode](../../funcs/s/stopDataNode.html) 命令关闭，且超过 *datanodeRestartInterval*时间没有发送心跳给控制节点时，控制节点将会自动启动该节点。 * OFFLINE：节点不在线，且超过 *datanodeRestartInterval*   的时间没有发送心跳给控制节点时，控制节点将自动启动该节点。 | 控制节点 |
+| datanodeRestartLevel=CRASH | 指定触发控制节点自动重启数据节点/计算节点的条件。包含如下可选值（区分大小写）：  * CRASH（默认值）：当节点不是通过 [stopDataNode](../../funcs/s/stopDataNode.md) 命令关闭，且超过 *datanodeRestartInterval*时间没有发送心跳给控制节点时，控制节点将会自动启动该节点。 * OFFLINE：节点不在线，且超过 *datanodeRestartInterval*   的时间没有发送心跳给控制节点时，控制节点将自动启动该节点。 | 控制节点 |
 
 ## 存算分离
 
@@ -73,7 +73,7 @@ datanodeRestartInterval 的时间，集群会自动重启该节点。
 | isMasterOfMaster | 布尔值，表示该节点是否为 MoM 节点。 | 单节点或控制节点 |
 | momHeartbeatHandler | 字符串，表示回调函数的函数视图名称。当多集群的管理者（Master of Master，简称 MoM）收到成员集群的 Master 汇报的心跳信息时，将心跳信息作为参数调用回调函数。若指定多个函数视图名称，名称之间以逗号分隔。回调函数将按照从左到右的顺序依次执行。 | MoM 节点 |
 | masterOfMasterSite | 字符串，格式为host:port，表示 MoM 节点的 IP 地址和端口号。 | 成员集群的控制节点 |
-| clusterName | 字符串，表示当前集群的名称。命名规则见[变量](../../progr/objs/var.html)。 | MoM 节点/成员集群的控制节点 |
+| clusterName | 字符串，表示当前集群的名称。命名规则见[变量](../../progr/objs/var.md)。 | MoM 节点/成员集群的控制节点 |
 
 ## 高可用
 
@@ -130,7 +130,7 @@ server 启动后，系统将会自动产生运行时信息，可以通过命令�
 | --- | --- |
 | logFile=DolphinDBlog | 日志文件的路径和名称。日志文件包含服务器配置的详细内容，警告和错误信息。该参数只能在命令行中指定。 |
 
-单个日志文件大小存在上限，由 [StandaloneMode](standalone.html) 章节提到的配置参数 maxLogSize 决定。超过该值后，DolphinDB
+单个日志文件大小存在上限，由 [StandaloneMode](standalone.md) 章节提到的配置参数 maxLogSize 决定。超过该值后，DolphinDB
 将自动生成一个前缀为时间戳（精确到秒）的新的日志文件，以此类推。当旧的系统日志占用大量系统资源时，可通过配置 logRetentionTime
 定时删除。
 
@@ -139,7 +139,7 @@ server 启动后，系统将会自动产生运行时信息，可以通过命令�
 | logRetentionTime=30 | 设置系统日志的保留时间。超过指定保留时间的日志将被删除。默认值为 30，单位是“天”，类型为浮点型，如：0.5 表示 12 小时。若设置为 0，表示不进行清理。 | 控制节点、代理节点、数据节点 |
 
 为了更快定位问题，DolphinDB 支持输出指定等级的日志。可通过配置项 logLevel
-在启动前配置，或通过函数 [setLogLevel](../../funcs/s/setLogLevel.html)
+在启动前配置，或通过函数 [setLogLevel](../../funcs/s/setLogLevel.md)
 在线修改。
 
 | 配置参数 | 解释 |
@@ -255,7 +255,7 @@ DolphinDB 采用多线程技术，有以下几种常见的线程类型：
 | urgentWorkerNum=1 | 紧急工作线程的数量。默认值是 1。 |
 | enableMultiThreadMerge | 布尔值，表示是否允许在执行 SELECT 查询的分区任务后按列多线程合并结果表。默认值为 false，表示禁用多线程合并。该配置参数对具有大量分区数量和分区查询结果的场景会有明显提升效果。注意：该参数设置为 true 后，须保证分区查询结果的列数不小于 2、且总行数 \* 总列数大于 5000 万，满足该条件才会进行多线程合并；否则不生效。 |
 
-参考线程教程：[线程模型](../../tutorials/threading_model.html)
+参考线程教程：[线程模型](../../tutorials/threading_model.md)
 
 下述配置参数应用于编程时，可能影响计算规则或者计算性能：
 
@@ -274,7 +274,7 @@ DolphinDB 采用多线程技术，有以下几种常见的线程类型：
 * 当使用内存超过常规内存时，DolphinDB 会进入“小对象分配”状态，避免一次性申请过多内存导致溢出。会对每次分配的内存大小进行限制，通过
   *maxBlockSizeForReservedMemory* 控制。
 * 当小对象内存区用满后，系统会停止为常规任务分配内存。此时，紧急内存区会为一些紧急任务分配内存，例如存储引擎的刷盘操作，或分布式写入事务提交时的关键步骤等。
-* 当紧急内存区也用满，即 *maxMemSize* 完全用满后，DolphinDB 将停止为所有任务分配内存，仅允许管理员取消任务（详见[系统卡死](../../omc/omc_server_hang_guidelines.html)）。
+* 当紧急内存区也用满，即 *maxMemSize* 完全用满后，DolphinDB 将停止为所有任务分配内存，仅允许管理员取消任务（详见[系统卡死](../../omc/omc_server_hang_guidelines.md)）。
 
 配置参数详情如下：
 
@@ -305,7 +305,7 @@ IOTDB相关内存参数：
 | IOTDBStaticTableDir | 用于配置静态表目录路径。默认值为 Home 目录下的 IOTDBStaticTable 目录。 |
 | IOTDBStaticTableCacheSize | 浮点数，用于管理静态表缓存最大值，默认为maxMamSIze 的 5%。 |
 
-此外 DolphinDB 还提供了配置项，用来调整内存释放的速度。该参数等价于设置了 [TCMalloc](https://gperftools.github.io/gperftools/tcmalloc.html) 的 tcmalloc\_release\_rate。
+此外 DolphinDB 还提供了配置项，用来调整内存释放的速度。该参数等价于设置了 [TCMalloc](https://gperftools.github.io/gperftools/tcmalloc.md) 的 tcmalloc\_release\_rate。
 
 | 配置参数 | 解释 |
 | --- | --- |
@@ -358,8 +358,8 @@ volumes，并将其配置在多个磁盘上。此外，用户可以通过配置�
 | --- | --- |
 | maxFileHandles=1024 | 一个进程维护的文件描述符上限。 |
 
-2.00.9 版本开始支持自定义交易日历。以下函数 [temporalAdd](../../funcs/t/temporalAdd.html), [resample](../../funcs/r/resample.html), [asFreq](../../funcs/a/asFreq.html),
-[transFreq](../../funcs/t/transFreq.html) 中指定交易日历。
+2.00.9 版本开始支持自定义交易日历。以下函数 [temporalAdd](../../funcs/t/temporalAdd.md), [resample](../../funcs/r/resample.md), [asFreq](../../funcs/a/asFreq.md),
+[transFreq](../../funcs/t/transFreq.md) 中指定交易日历。
 
 | 配置参数 | 解释 |
 | --- | --- |
@@ -405,8 +405,8 @@ controllerSite。
 | controllerSite | 代理节点的控制节点的局域网信息，必须与 controller.cfg 中某个控制节点的 localSite 相同。代理节点启动时，会使用该参数与控制节点通讯。 |
 
 localSite 中的 host:port 为节点的 ip 和端口号，alias
-将作为节点的别名。设置别名可以便于脚本编程中快速定位到指定节点，并与之建立通信连接，如 [subscribeTable](../../funcs/s/subscribeTable.html) 函数中指定 server
-参数为远端节点的别名，即可订阅远端节点发布的流数据表。用户可在线调用 [getNodeAlias](../../funcs/g/getNodeAlias.html) 获取当前节点的别名，或 [getControllerAlias](../../funcs/g/getControllerAlias.html)
+将作为节点的别名。设置别名可以便于脚本编程中快速定位到指定节点，并与之建立通信连接，如 [subscribeTable](../../funcs/s/subscribeTable.md) 函数中指定 server
+参数为远端节点的别名，即可订阅远端节点发布的流数据表。用户可在线调用 [getNodeAlias](../../funcs/g/getNodeAlias.md) 获取当前节点的别名，或 [getControllerAlias](../../funcs/g/getControllerAlias.md)
 获取控制节点的别名。
 
 节点的属性通过配置项 mode 声明，目前的可选值为
@@ -552,9 +552,9 @@ dfsSyncRecoveryChunkRowSize 配置的值时，开始第二阶段的同步恢复�
 
 数据再均衡（rebalance）分为节点内数据均衡和节点间数据均衡。
 
-节点内数据均衡主要指某个节点配置了多个磁盘卷，增加新的磁盘卷后，需要把数据重新分配，以提高 I/O 效率。对应函数 [rebalanceChunksWithinDataNode](../../funcs/r/rebalanceChunksWithinDataNode.html)。
+节点内数据均衡主要指某个节点配置了多个磁盘卷，增加新的磁盘卷后，需要把数据重新分配，以提高 I/O 效率。对应函数 [rebalanceChunksWithinDataNode](../../funcs/r/rebalanceChunksWithinDataNode.md)。
 
-节点间数据均衡指由于集群数据在各个节点上分配不均，可通过再均衡重新分配，提高分布式计算的效率。对应函数 [rebalanceChunksAmongDataNodes](../../funcs/r/rebalanceChunksAmongDataNodes.html)。
+节点间数据均衡指由于集群数据在各个节点上分配不均，可通过再均衡重新分配，提高分布式计算的效率。对应函数 [rebalanceChunksAmongDataNodes](../../funcs/r/rebalanceChunksAmongDataNodes.md)。
 
 在均衡的工作并发度可通过配置项 dfsRebalanceConcurrency 指定。
 
@@ -606,7 +606,7 @@ clusterReplicationSlaveNum 和 clusterReplicationMode 为必选参数。
 
 ## 作业
 
-参考教程： [作业管理](../../tutorials/job_management_tutorial.html) 。
+参考教程： [作业管理](../../tutorials/job_management_tutorial.md) 。
 
 DolphinDB
 中有两类作业形式，同步作业和异步作业。绝大部分脚本提交的任务都称为同步作业。异步作业主要指批处理作业、定时作业。
@@ -623,7 +623,7 @@ web worker 数量（使用 web 客户端时，通过配置项 webWorkerNum 设�
 
 ### 异步作业
 
-批处理作业指使用 [submitJob](../../funcs/s/submitJob.html) 或 [submitJobEx](../../funcs/s/submitJobEx.html) 函数创建的作业任务。在系统中，批处理作业工作线程数的上限是由配置参数 maxBatchJobWorker
+批处理作业指使用 [submitJob](../../funcs/s/submitJob.md) 或 [submitJobEx](../../funcs/s/submitJobEx.md) 函数创建的作业任务。在系统中，批处理作业工作线程数的上限是由配置参数 maxBatchJobWorker
 设置的。如果批处理作业的数量超过了限制，新的批处理作业将会进入队列等待，队列深度由配置参数 maxCachedBatchJobNum
 设置。批处理作业工作线程在闲置超过60秒后会自动销毁。
 
@@ -641,7 +641,7 @@ web worker 数量（使用 web 客户端时，通过配置项 webWorkerNum 设�
 
 ## 流数据
 
-参考教程：[流数据教程](../../tutorials/streaming_tutorial.html)。
+参考教程：[流数据教程](../../tutorials/streaming_tutorial.md)。
 
 DolphinDB 提供了流数据持久化的功能，其作用主要为：
 
@@ -691,7 +691,7 @@ maxPubConnections，由于该参数默认为 0，因此若启用流数据必须�
 
 ### 高可用
 
-参考教程： [DolphinDB教程：流数据高可用](../../tutorials/haStreaming.html)
+参考教程： [DolphinDB教程：流数据高可用](../../tutorials/haStreaming.md)
 
 流数据高可用和集群高可用一样采用 raft
 机制，不同的是集群高可用是控制节点的高可用，而流数据高可用为数据节点的高可用。流数据高可用分为发布端、订阅端、流数据计算引擎高可用三种，其高可用的
@@ -700,11 +700,11 @@ raft 组都通过 streamingRaftGroups 参数进行配置。
 * 发布端高可用（高可用流数据表）：开启发布端高可用后，高可用流数据表自动在 raft
   组内的节点进行同步。订阅端只需向 leader 节点订阅高可用流数据即可。若发布端 raft 组 leader
   宕机，系统也可以迅速重新选举出新的 leader，供订阅端继续订阅。
-* 订阅端高可用：需在订阅函数 [subscribeTable](../../funcs/s/subscribeTable.html) 中设置
+* 订阅端高可用：需在订阅函数 [subscribeTable](../../funcs/s/subscribeTable.md) 中设置
   reconnect=true，并指定 raftGroup。若订阅端 raft 组 leader 宕机，系统也可以迅速重新选举出新的
   leader，继续从发布端订阅数据。
 * 流数据计算引擎高可用：通过配置引擎创建函数的参数 snapshot 和 raftGroup
-  实现高可用。参考流计算引擎详情页：[流计算引擎](../../funcs/themes/streamingEngine.html)。
+  实现高可用。参考流计算引擎详情页：[流计算引擎](../../funcs/themes/streamingEngine.md)。
 
 注： 启用高可用流数据表，必须开启发布节点的流数据表持久化。
 
@@ -758,7 +758,7 @@ raft 组都通过 streamingRaftGroups 参数进行配置。
 | removeSpecialCharInColumnName=false | 是否规范化包含特殊符号的列名，默认值是 false，表示自动产生的数据表的列名允许包含特殊符号，即列名可以以非字母和中文开头，且可以包含下划线之外的符号。如果要跟以前版本兼容，可以将该变量配置为 true。 |
 
 每个持久化的 mvcc 表都有一个 log 文件。对 mvcc 表的增、删、改操作会先写入
-log，直至操作次数达到一定数量，才会创建 mvcc 表检测点（checkpoint）， 将数据写入 mvcc 表，并清空 log。通过 [loadMvccTable](../../funcs/l/loadMvccTable.html) 加载 mvcc 表时，需要回放 log
+log，直至操作次数达到一定数量，才会创建 mvcc 表检测点（checkpoint）， 将数据写入 mvcc 表，并清空 log。通过 [loadMvccTable](../../funcs/l/loadMvccTable.md) 加载 mvcc 表时，需要回放 log
 文件。若 log 的数据量过大，可能导致回放耗时过长，甚至出现 OOM。 为解决此类问题，DolphinDB 提供以下配置项，用于控制 log 中的数据量。
 
 | 配置参数 | 解释 |
@@ -906,13 +906,13 @@ dict
 
 ## 分级存储
 
-详情参考：[TieredStorage](../db/tiered_storage.html)
+详情参考：[TieredStorage](../db/tiered_storage.md)
 
 要开启分级存储，首先需要配置冷数据存储的磁盘路径。
 
 | 配置参数 | 解释 |
 | --- | --- |
-| coldVolumes= [file://home/mypath/hdd](file://home/mypath/hdd), s3://bucket1/data | 用于配置冷数据的存储目录。通过函数 [moveHotDataToColdVolume](../../funcs/m/moveHotDataToColdVolume.html) 和 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 开启分级存储后，过期的冷数据将从 volumes 迁移至 coldVolumes。 |
+| coldVolumes= [file://home/mypath/hdd](file://home/mypath/hdd), s3://bucket1/data | 用于配置冷数据的存储目录。通过函数 [moveHotDataToColdVolume](../../funcs/m/moveHotDataToColdVolume.md) 和 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.md) 开启分级存储后，过期的冷数据将从 volumes 迁移至 coldVolumes。 |
 
 若需要将过期数据存储在云端，DolphinDB 提供了 AWS S3 的相关配置：
 
@@ -962,8 +962,8 @@ Web）、Implicit（隐式授权模式，支持 Web）、Client Credentials（�
 
 ## 性能监控与资源跟踪
 
-通过下述参数开启系统性能监控后，可以通过 [getCompletedQueries](../../funcs/g/getCompletedQueries.html), [getRunningQueries](../../funcs/g/getRunningQueries.html)
-函数，获取查询的性能和状态信息；或者通过 [getSystemCpuUsage](../../funcs/g/getSystemCpuUsage.html), [getSystemLoadAvg](../../funcs/g/getSystemLoadAvg.html) 获取系统的性能信息。
+通过下述参数开启系统性能监控后，可以通过 [getCompletedQueries](../../funcs/g/getCompletedQueries.md), [getRunningQueries](../../funcs/g/getRunningQueries.md)
+函数，获取查询的性能和状态信息；或者通过 [getSystemCpuUsage](../../funcs/g/getSystemCpuUsage.md), [getSystemLoadAvg](../../funcs/g/getSystemLoadAvg.md) 获取系统的性能信息。
 
 | 配置参数 | 解释 |
 | --- | --- |
@@ -1069,7 +1069,7 @@ JOIN 操作时，连接列中的 NULL 与 NULL 被视为匹配成功，这不符
 | 配置参数 | 解释 |
 | --- | --- |
 | removeSpecialCharInColumnName=false | 是否规范化包含特殊符号的列名，默认值是 false，表示自动产生的数据表的列名允许包含特殊符号，即列名可以以非字母和中文开头，且可以包含下划线之外的符号。如果要跟以前版本兼容，可以将该变量配置为 true。 |
-| appendTupleAsAWhole=true | 通过 [append!](../../funcs/a/append%21.html) 追加或通过 [join!](../../funcs/j/join%21.html) 合并元组，是否将元组作为一个整体。默认值为 true，表示将元组作为整体追加或合并。设为 false 时，将元组的每个元素逐一追加或合并。 |
+| appendTupleAsAWhole=true | 通过 [append!](../../funcs/a/append%21.md) 追加或通过 [join!](../../funcs/j/join%21.md) 合并元组，是否将元组作为一个整体。默认值为 true，表示将元组作为整体追加或合并。设为 false 时，将元组的每个元素逐一追加或合并。 |
 
 2.00.10.4 以下版本，系统默认将小数常量解析为 DOUBLE 类型。对于 2.00.10.4 及以上版本，可通过配置项
 *parseDecimalAsFloatingNumber* 设置系统解析小数常量类型的默认行为。

@@ -1,6 +1,6 @@
 # replace!
 
-是 [replace](replace.html) 的别名。
+是 [replace](replace.md) 的别名。
 
 Copyright
 

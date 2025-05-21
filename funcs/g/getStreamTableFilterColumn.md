@@ -10,7 +10,7 @@
 
 ## 详情
 
-返回由函数 [setStreamTableFilterColumn](../s/setStreamTableFilterColumn.html) 指定的流数据表中过滤列的名称。
+返回由函数 [setStreamTableFilterColumn](../s/setStreamTableFilterColumn.md) 指定的流数据表中过滤列的名称。
 
 ## 例子
 

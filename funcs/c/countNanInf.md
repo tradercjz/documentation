@@ -15,5 +15,5 @@
 聚合函数，用于统计 *X* 中 NaN 或 Inf 值的数量。若 *includeNull* 设为 true，NULL 值也会被统计，默认为
 false。
 
-相关函数：[isNanInf](../i/isNanInf.html)
+相关函数：[isNanInf](../i/isNanInf.md)
 

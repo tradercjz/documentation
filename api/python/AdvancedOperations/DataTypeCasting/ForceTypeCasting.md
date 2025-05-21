@@ -30,7 +30,7 @@ print(s.run("schema(df_wrong)")['colDefs'])
 2    cblob     STRING       18    NaN
 ```
 
-参考[PROTOCOL\_DDB](PROTOCOL_DDB.html) 可知，如果直接上传 `df`，此时 `cint` 列的 dtype 为 int64，仍会作为 LONG 类型上传；而由于 SYMBOL、BLOB 没有对应的类型，故直接上传的 str 型数据会被视作 STRING 类型。
+参考[PROTOCOL\_DDB](PROTOCOL_DDB.md) 可知，如果直接上传 `df`，此时 `cint` 列的 dtype 为 int64，仍会作为 LONG 类型上传；而由于 SYMBOL、BLOB 没有对应的类型，故直接上传的 str 型数据会被视作 STRING 类型。
 
 导入 dolphindb.settings，为待上传的 pandas.DataFrame 添加属性，其字典键为需要指定类型的列名。
 

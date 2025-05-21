@@ -16,15 +16,15 @@ Amazon EKS 是一项托管服务，可让用户在 AWS 上轻松运行 Kubernete
 
 * 能进行外网通信
 * 安装 [helm3](https://helm.sh/zh/docs/intro/install/) ，用于安装DolphinDB MGR
-* 安装 K8s 命令行工具 [kubectl](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html)
-* 安装 AWS 的命令行工具 [awscli](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/getting-started-install.html)
+* 安装 K8s 命令行工具 [kubectl](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.md)
+* 安装 AWS 的命令行工具 [awscli](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/getting-started-install.md)
 * 按照 [AWS 文档](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config)，配置 AWS Command Line Interface (AWS CLI)：
 
 配置时 配置时 `default output format` 不需要配置，直接输入 Enter 即可。
 
 要验证 AWS CLI 的配置是否正确，请运行 `aws configure list` 命令。如果输出显示了 `access_key` 和 `secret_key` 的值，则说明配置正确。否则，需要重新配置 AWS CLI。
 
-* 安装创建 EKS 集群的命令行工具 [eksctl](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/eksctl.html)
+* 安装创建 EKS 集群的命令行工具 [eksctl](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/eksctl.md)
 * 从[此处](https://www.dolphindb.com/downloads/dolphindb_lic.zip)下载并解压 DolphinDB 社区版 License 证书，得到 dolphindb.lic。
 
 **注意**：
@@ -325,7 +325,7 @@ http://$nodeIP:$NodePort/dolphindb-cloud
    $IP:30403
    ```
 
-   也可以通过 DolphinDB GUI 来访问此节点。DolphinDB GUI 的安装及使用请参阅 [GUI 客户端](../db_distr_comp/gui.html)。
+   也可以通过 DolphinDB GUI 来访问此节点。DolphinDB GUI 的安装及使用请参阅 [GUI 客户端](../db_distr_comp/gui.md)。
 2. 运行命令
    连接节点成功之后，输入语句测试节点是否可用：
 
@@ -337,7 +337,7 @@ http://$nodeIP:$NodePort/dolphindb-cloud
 
    ![版本](images/dolphindb-mgr-aws-byol-v2/version.png)
 
-关于如何在 K8s 上部署 DolphinDB 的更多介绍，请参见 [基于K8s的DolphinDB 部署教程](k8s_deployment.html)
+关于如何在 K8s 上部署 DolphinDB 的更多介绍，请参见 [基于K8s的DolphinDB 部署教程](k8s_deployment.md)
 
 ## 清理环境
 

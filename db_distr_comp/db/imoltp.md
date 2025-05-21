@@ -193,8 +193,8 @@ IMOLTP 引擎支持在 3.00.0 及更高版本的单节点模式下使用。
 
 ### 创建数据库
 
-IMOLTP 内存数据库支持通过 [database](../../funcs/d/database.html) 函数和
-[CREATE DATABASE](../../progr/sql/create.html)
+IMOLTP 内存数据库支持通过 [database](../../funcs/d/database.md) 函数和
+[CREATE DATABASE](../../progr/sql/create.md)
 语句两种方式创建。
 
 创建数据库时，部分参数须满足以下要求：
@@ -218,7 +218,7 @@ engine="IMOLTP"
 
 ### 创建数据表
 
-IMOLTP 内存数据表支持通过 [createIMOLTPTable](../../funcs/c/createIMOLTPTable.html) 函数创建。语法如下：
+IMOLTP 内存数据表支持通过 [createIMOLTPTable](../../funcs/c/createIMOLTPTable.md) 函数创建。语法如下：
 
 ```
 createIMOLTPTable(dbHandle, table, tableName, primaryKey, [secondaryKey], [uniqueFlag])
@@ -323,7 +323,7 @@ IMOLTP 引擎支持两种事务管理方式：默认事务和手动封装事务�
 
 **手动封装事务**
 
-使用 [transaction](../../progr/statements/transaction.html)
+使用 [transaction](../../progr/statements/transaction.md)
 语句块封装的所有操作被视作一个事务，所有操作要么全部成功，要么全部失败。在语句块中：
 
 * 当前版本仅支持 DML 语句，不支持 DDL 语句。

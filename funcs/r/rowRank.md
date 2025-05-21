@@ -7,11 +7,11 @@
 
 ## 详情
 
-逐行计算 *X* 的元素排名或组排名，排名方式请参照 [rank](rank.html)，返回一个和 *X* 维度相同的矩阵。
+逐行计算 *X* 的元素排名或组排名，排名方式请参照 [rank](rank.md)，返回一个和 *X* 维度相同的矩阵。
 
 ## 参数
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)。
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)。
 
 **ascending** 是一个布尔值，表示排序方向。true 表示升序，false 表示降序。默认值为 true。它是一个可选参数。
 

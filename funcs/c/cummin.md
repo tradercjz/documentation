@@ -4,7 +4,7 @@
 
 `cummin(X)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ cummin(m);
 | 5 | 2 |
 | 1 | 2 |
 
-相关函数：[cummax](cummax.html), [min](../m/min.html)
+相关函数：[cummax](cummax.md), [min](../m/min.md)
 

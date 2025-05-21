@@ -69,5 +69,5 @@ ruleEngineTest->
 */
 ```
 
-相关函数：[createRuleEngine](../c/createRuleEngine.html), [updateRule](../u/updateRule.html), [deleteRule](../d/deleteRule.html)
+相关函数：[createRuleEngine](../c/createRuleEngine.md), [updateRule](../u/updateRule.md), [deleteRule](../d/deleteRule.md)
 

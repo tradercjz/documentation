@@ -2,10 +2,10 @@
 
 提示： 本教程涉及以下 DolphinDB 概念，读者可以按需进行查询和扩展阅读：
 
-* [编程语言](https://docs.dolphindb.cn/zh/progr/progr_intro.html)
-* [复杂事件处理（CEP）引擎官方文档](https://docs.dolphindb.cn/zh/stream/cep_intro.html)
-* [响应式状态引擎](https://docs.dolphindb.cn/zh/stream/reactive_state_engine.html)
-* [流数据表](https://docs.dolphindb.cn/zh/stream/str_table.html)
+* [编程语言](https://docs.dolphindb.cn/zh/progr/progr_intro.md)
+* [复杂事件处理（CEP）引擎官方文档](https://docs.dolphindb.cn/zh/stream/cep_intro.md)
+* [响应式状态引擎](https://docs.dolphindb.cn/zh/stream/reactive_state_engine.md)
+* [流数据表](https://docs.dolphindb.cn/zh/stream/str_table.md)
 * [CEP 引擎白皮书](https://dolphindb.cn/whitepaper/cep)
 
 高频交易（High-Frequency Trading, HFT）作为现代金融市场中的重要组成部分，以其高速、自动化和复杂的算法交易策略而著称。高频交易策略通过分析大量实时变化的市场数据，利用市场的微小价格波动迅速做出交易决策，从而在极短的时间内获取利润。这样的需求对数据基础设施提出了极高的要求，而DolphinDB 作为一款高性能分布式时序数据库，可以凭借其高效的计算能力和丰富的功能模块辅助高频策略的投研。
@@ -63,7 +63,7 @@
 
 在这个初级案例中，我们将对代码进行详细的解释，以帮助用户理解代码逻辑。而在后续的案例中，会减少一些不必要的代码解释。
 
-CEP 引擎的处理对象为事件，因此要先定义引擎内需要的事件。此处定义了一个名为 StockTick 的[事件类](https://docs.dolphindb.cn/zh/progr/oop.html)，这个类包含股票的名称（name）和价格（price）两个属性，用来代表市场上股票的价格变动信息。
+CEP 引擎的处理对象为事件，因此要先定义引擎内需要的事件。此处定义了一个名为 StockTick 的[事件类](https://docs.dolphindb.cn/zh/progr/oop.md)，这个类包含股票的名称（name）和价格（price）两个属性，用来代表市场上股票的价格变动信息。
 
 ```
 //定义一个事件类，表示每个tick的股票行情事件
@@ -112,7 +112,7 @@ class SimpleShareSearch {
 * `newTick :: StockTick`：定义一个属性 newTick，类型为 StockTick，用于存储最新接收到的 StockTick 事件。
 * `def SimpleShareSearch()`：类的构造函数。
 * `def onload()`：**监视器必须包含的方法**，当 CEP 引擎被创建时将会实例化监视器，这将调用 onload 方法对监视器进行初始化。在本例中启动了一个事件监听器 。
-* `addEventListener(handler=processTick, eventType="StockTick", times="all")`：该事件监听器在 `onload`中注册，在创建引擎时立刻开始监听所有类型为 StockTick 的事件，并对所有 StockTick 事件使用`processTick`方法处理。times 参数的默认设置为 "all"，表示监听并响应每一次匹配的事件。如果 times=1，事件监听器将在找到一个对应事件后终止 。更为详细的参数设置规则可以参考[相应文档](https://docs.dolphindb.cn/zh/stream/cep_engine.html)。
+* `addEventListener(handler=processTick, eventType="StockTick", times="all")`：该事件监听器在 `onload`中注册，在创建引擎时立刻开始监听所有类型为 StockTick 的事件，并对所有 StockTick 事件使用`processTick`方法处理。times 参数的默认设置为 "all"，表示监听并响应每一次匹配的事件。如果 times=1，事件监听器将在找到一个对应事件后终止 。更为详细的参数设置规则可以参考[相应文档](https://docs.dolphindb.cn/zh/stream/cep_engine.md)。
 * `def processTick(stockTickEvent)`：定义事件处理方法，接收一个 StockTick 类型的事件作为参数。类的成员方法需要至少先声明或者定义之后才能被调用，因此需要先声明`processTick`方法以防止`onload`中的`addEventListener`函数调用报错。在收到 StockTick 事件之后执行`processTick`，将在日志中记录 StockTick 相关信息。
 * `newTick = stockTickEvent`：更新监视器中的属性 newTick 为最新接收到的事件。在本例中，这一操作并不是必选的，仅仅为了展示监视器中可以存储运行过程中的变量这一功能。例如，基于此功能可以扩展本例为同时打印出上一条行情与最新的行情。
 
@@ -190,7 +190,7 @@ getStreamEngine(`simpleMonitor).appendEvent(stockTick2)
 
 **比案例 I 更进一步之处**
 
-* **在 CEP 引擎内使用了[响应式状态引擎](https://docs.dolphindb.cn/zh/stream/reactive_state_engine.html)（Reactive State Engine, RSE）计算因子。** 响应式状态引擎支持实时数据的高性能增量计算。在本例中的 CEP 引擎内部，使用了响应式状态引擎及其内置的状态函数对两个因子值进行计算。
+* **在 CEP 引擎内使用了[响应式状态引擎](https://docs.dolphindb.cn/zh/stream/reactive_state_engine.md)（Reactive State Engine, RSE）计算因子。** 响应式状态引擎支持实时数据的高性能增量计算。在本例中的 CEP 引擎内部，使用了响应式状态引擎及其内置的状态函数对两个因子值进行计算。
 * **向外部系统发送事件。** 在策略执行的过程中，当满足某些具体的条件时，CEP 引擎内部需要将特定事件（本例中为下单和撤单事件）通过 `emitEvent` 接口发送到 CEP 引擎外部。
 * **使用了超时计时器。** 在 `addEventListener` 函数中有关于事件监听器触发方式和触发次数的可选参数设置。通过这些可选参数可以实现不同的监听触发效果，如事件匹配、计时器、定时器等。本例在每次下单后开启一个新的计时器，若计时超时则触发对应操作。
 

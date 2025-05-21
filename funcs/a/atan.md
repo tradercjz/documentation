@@ -20,5 +20,5 @@ atan 0.000000 1.557408 -2.185040;
 [0,1,-1.141593]
 ```
 
-相关函数：[asin](asin.html), [acos](acos.html), [sin](../s/sin.html), [cos](../c/cos.html), [tan](../t/tan.html), [asinh](asinh.html), [acosh](acosh.html), [atanh](atanh.html), [sinh](../s/sinh.html), [cosh](../c/cosh.html), [tanh](../t/tanh.html)
+相关函数：[asin](asin.md), [acos](acos.md), [sin](../s/sin.md), [cos](../c/cos.md), [tan](../t/tan.md), [asinh](asinh.md), [acosh](acosh.md), [atanh](atanh.md), [sinh](../s/sinh.md), [cosh](../c/cosh.md), [tanh](../t/tanh.md)
 

@@ -22,7 +22,7 @@
   MINUTE 类型，则窗口右边界的时间精度是分；如果 *timeCutPoints* 是 SECOND
   类型，则窗口右边界的时间精度是秒。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个系统内置或用户自定义的聚合函数（使用 defg 关键字定义），如
   <[sum(volume), avg(price)]>；可以对聚合结果使用表达式，如

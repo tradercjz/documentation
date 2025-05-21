@@ -28,7 +28,7 @@ true。
 
 ## 详情
 
-将 DolphinDB 变量或 SQL 读取的数据存为磁盘上的文本文件。与 [saveTable](saveTable.html) 命令相比，`saveText` 需要更多的磁盘空间且耗时更久。
+将 DolphinDB 变量或 SQL 读取的数据存为磁盘上的文本文件。与 [saveTable](saveTable.md) 命令相比，`saveText` 需要更多的磁盘空间且耗时更久。
 
 ## 例子
 

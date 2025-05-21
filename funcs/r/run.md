@@ -21,7 +21,7 @@
 如果设置 *newSession* = false，程序文件在当前 session 中运行。如果设置
 *newSession* = true，程序文件在新开的 session 中运行。运行结束，关闭该 session。
 
-**注意**：该命令必须要用户登录后才能执行。非管理员用户执行该命令须满足以下条件：（1）获得 [SCRIPT\_EXEC 权限](../g/grant.html)；（2）配置项 [*strictPermissionMode*](../../db_distr_comp/cfg/function_configuration.html) 为 false（即默认值）。
+**注意**：该命令必须要用户登录后才能执行。非管理员用户执行该命令须满足以下条件：（1）获得 [SCRIPT\_EXEC 权限](../g/grant.md)；（2）配置项 [*strictPermissionMode*](../../db_distr_comp/cfg/function_configuration.md) 为 false（即默认值）。
 
 ## 例子
 

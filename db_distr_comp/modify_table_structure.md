@@ -13,7 +13,7 @@ pt.append!(t)
 
 ## 增加列
 
-[addColumn](../funcs/a/addColumn.html) 函数支持为内存表或分布式表增加列。
+[addColumn](../funcs/a/addColumn.md) 函数支持为内存表或分布式表增加列。
 
 例如，为表 t 和 pt 增加一列 "new"
 
@@ -22,7 +22,7 @@ addColumn(t,`new,DOUBLE)
 addColumn(pt,`new,DOUBLE)
 ```
 
-`UPDATE` 语句和 [update!](../funcs/u/update_.html)
+`UPDATE` 语句和 [update!](../funcs/u/update_.md)
 函数支持为内存表增加列。
 
 例如，为表 t 增加列 "new\_1"
@@ -50,7 +50,7 @@ t[`new_2] = string(NULL)
 
 ## 删除列
 
-[dropColumns!](../funcs/d/dropColumns_.html) 函数可以删除内存表或分布式表（仅支持 OLAP
+[dropColumns!](../funcs/d/dropColumns_.md) 函数可以删除内存表或分布式表（仅支持 OLAP
 存储引擎）的列 val：
 
 ```
@@ -62,7 +62,7 @@ dropColumns!(pt,`val)
 
 ## 修改列顺序
 
-[reorderColumns](../funcs/r/reorderColumns_.html)
+[reorderColumns](../funcs/r/reorderColumns_.md)
 函数可以修改非分区、非共享内存表的列顺序。
 
 ```
@@ -79,7 +79,7 @@ reorderColumns!(t,`date`val)
 
 ## 修改列名
 
-[rename!](../funcs/r/rename_.html) 函数可以为内存表和分布式表（仅支持 OLAP
+[rename!](../funcs/r/rename_.md) 函数可以为内存表和分布式表（仅支持 OLAP
 存储引擎）修改列名。
 
 例如，将 “sym” 改名为 “sym\_new”
@@ -90,7 +90,7 @@ rename!(t,`sym,`sym_new)
 
 ## 修改列类型
 
-通过 [replaceColumn!](../funcs/r/replaceColumn_.html)
+通过 [replaceColumn!](../funcs/r/replaceColumn_.md)
 函数可以为非共享内存表和分布式表（仅支持 OLAP 存储引擎）修改列的数据类型。
 
 对于
@@ -108,15 +108,15 @@ replaceColumn!(pt,"val",newType)
 
 ## 修改表名
 
-[renameTable](../funcs/r/renameTable.html) 函数可以修改分布式表的表名。修改后请执行
-[loadTable](../funcs/l/loadTable.html) 重新加载表的元数据对象：
+[renameTable](../funcs/r/renameTable.md) 函数可以修改分布式表的表名。修改后请执行
+[loadTable](../funcs/l/loadTable.md) 重新加载表的元数据对象：
 
 ```
 renameTable(db,"pt","pt_new")
 pt = loadTable(db,"pt_new")
 ```
 
-注： 执行函数 [rename!](../funcs/r/rename_.html)、[dropColumns!](../funcs/d/dropColumns_.html) 和
-[replaceColumn!](../funcs/r/replaceColumn_.html) 前，可以先执行 [flushOLAPCache](../funcs/f/flushOLAPCache.html)
+注： 执行函数 [rename!](../funcs/r/rename_.md)、[dropColumns!](../funcs/d/dropColumns_.md) 和
+[replaceColumn!](../funcs/r/replaceColumn_.md) 前，可以先执行 [flushOLAPCache](../funcs/f/flushOLAPCache.md)
 函数手动刷盘，减少等待时间避免超时。
 

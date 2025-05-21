@@ -685,7 +685,7 @@ sh upgrade.sh
 
 * 离线升级
 
-  下载升级所需版本的安装包，官方下载地址：[http://www.dolphindb.cn/downloads.html](https://gitee.com/link?target=http%3A%2F%2Fwww.dolphindb.cn%2Fdownloads.html)
+  下载升级所需版本的安装包，官方下载地址：[http://www.dolphindb.cn/downloads.html](https://gitee.com/link?target=http%3A%2F%2Fwww.dolphindb.cn%2Fdownloads.md)
 
   将下载好的安装包上传至 **P1,** **P2** 和 **P3** 的 */DolphinDB/server/clusterDemo* 目录下，以更新至 2.00.9.1 版本为例：
 

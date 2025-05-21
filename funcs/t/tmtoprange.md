@@ -4,7 +4,7 @@
 
 `tmTopRange(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 

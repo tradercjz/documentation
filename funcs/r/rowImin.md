@@ -4,7 +4,7 @@
 
 `rowImin(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 

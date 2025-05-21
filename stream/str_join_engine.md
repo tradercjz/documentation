@@ -66,7 +66,7 @@ join 类似，差异将在后续小节中详细说明。本章首先概述 Dolph
 `createAsofJoinEngine` 创建流计算引擎，之后通过函数
 `subscribeTable` 分别订阅 2
 个流数据表并将数据实时注入流计算引擎的左、右表。之后当数据不断写入两个流数据表时，输出结果表 *output*
-中的记录数会相应地增加。流数据订阅功能更详细的介绍见： [流数据功能应用](../tutorials/streaming_tutorial.html) 。
+中的记录数会相应地增加。流数据订阅功能更详细的介绍见： [流数据功能应用](../tutorials/streaming_tutorial.md) 。
 
 ```
 // create table
@@ -111,11 +111,11 @@ trade.append!(t1)
 
 | 连接引擎 | 连接列 | 关联机制 | 类似的 SQL join | 结果表行数 | 应用场景 |
 | --- | --- | --- | --- | --- | --- |
-| AsofJoinEngine | matchingColumn | 左表每到来一条记录，匹配右表连接列一致且时间戳最近的一条记录。 | asof join | 小于或等于左表行数 | [计算个股交易成本](../tutorials/streaming-real-time-correlation-processing.html) |
-| WindowJoinEngine | matchingColumn | 左表每到来一条记录，匹配右表中连接列一致，且在由左表时间戳确定的窗口范围内的数据。 | window join | 小于或等于左表行数 | [将行情快照和逐笔成交数据融合](../tutorials/streaming-real-time-correlation-processing.html) |
-| EquiJoinEngine | matchingColumn+timeColumn | 左（右）表每到来一条记录，匹配右（左）表连接列一致的最新的一条记录。 | equi join | 等于左右表能完全等值匹配的行数（在左右表中的连接列均唯一的前提下） | [拼接不同数据源的实时分钟指标](../tutorials/streaming-real-time-correlation-processing.html) |
-| LookupJoinEngine | matchingColumn | 左表每到来一条记录，匹配右表连接列一致的记录。 | left join/equi join | 默认情况下等于左表的行数 | [将实时行情与历史日频指标关联](../tutorials/streaming-real-time-correlation-processing.html) |
-| LeftSemiJoinEngine | matchingColumn | 对于左表的每一条记录，匹配右表连接列一致的第一条或最后一条记录。 | equi join | 小于或等于左表行数 | [对逐笔成交数据补充原始委托信息](../tutorials/streaming-real-time-correlation-processing.html)、[关联股票和指数行情并计算相关性](../tutorials/streaming-real-time-correlation-processing.html)。 |
+| AsofJoinEngine | matchingColumn | 左表每到来一条记录，匹配右表连接列一致且时间戳最近的一条记录。 | asof join | 小于或等于左表行数 | [计算个股交易成本](../tutorials/streaming-real-time-correlation-processing.md) |
+| WindowJoinEngine | matchingColumn | 左表每到来一条记录，匹配右表中连接列一致，且在由左表时间戳确定的窗口范围内的数据。 | window join | 小于或等于左表行数 | [将行情快照和逐笔成交数据融合](../tutorials/streaming-real-time-correlation-processing.md) |
+| EquiJoinEngine | matchingColumn+timeColumn | 左（右）表每到来一条记录，匹配右（左）表连接列一致的最新的一条记录。 | equi join | 等于左右表能完全等值匹配的行数（在左右表中的连接列均唯一的前提下） | [拼接不同数据源的实时分钟指标](../tutorials/streaming-real-time-correlation-processing.md) |
+| LookupJoinEngine | matchingColumn | 左表每到来一条记录，匹配右表连接列一致的记录。 | left join/equi join | 默认情况下等于左表的行数 | [将实时行情与历史日频指标关联](../tutorials/streaming-real-time-correlation-processing.md) |
+| LeftSemiJoinEngine | matchingColumn | 对于左表的每一条记录，匹配右表连接列一致的第一条或最后一条记录。 | equi join | 小于或等于左表行数 | [对逐笔成交数据补充原始委托信息](../tutorials/streaming-real-time-correlation-processing.md)、[关联股票和指数行情并计算相关性](../tutorials/streaming-real-time-correlation-processing.md)。 |
 | SnapshotJoinEngine | matchingColumn | 左（右）表每到来一条记录，匹配右（左）表连接列一致的全部或最新的一条记录。 | left join | 大于等于左表与右表行数之和 | 风控场景：实时连接账户资产表和资产市价表以计算杠杆率，净值等指标衡量风险。 |
 
 ## 总结

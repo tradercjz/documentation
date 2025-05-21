@@ -47,7 +47,7 @@
 
      用户自定义函数或者 row 系列函数不支持的逻辑可以通过
      `byRow` 高阶函数实现。
-   * 若指标中的某一层嵌套逻辑涉及到时序聚合窗口的计算，必须在指标中以 [rolling](../ho_funcs/rolling.html) 作为标识进行改写。如：窗口为 3，
+   * 若指标中的某一层嵌套逻辑涉及到时序聚合窗口的计算，必须在指标中以 [rolling](../ho_funcs/rolling.md) 作为标识进行改写。如：窗口为 3，
      步长为 3，窗口内进行求和计算，计算列为 price，空值以前值填充，则可以写为 rolling(sum, price, 3, 3,
      'ffill')。形式如下：
 
@@ -84,7 +84,7 @@
 "test"，则流水线内部对应的引擎名称为 "test0", "test1", "test2"... 其中，数字代表 *metrics*
 分解出的流数据引擎的级联顺序。
 
-**metrics** 以元代码的形式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的形式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.md)。
 
 * metrics 可以是系统内置或用户自定义的函数，如 <[sum(qty),
   avg(price)]>；可以对计算结果使用表达式，如
@@ -153,7 +153,7 @@
 * 时序聚合引擎/响应式状态引擎：是一个字符串标量或向量。请注意，若为字符串向量，必须是 date 和 time
   组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与
   [concatDateTime(date,
-  time)](../c/concatDateTime.html) 的类型一致。
+  time)](../c/concatDateTime.md) 的类型一致。
 * 横截面引擎：是一个字符串，仅支持 TIMESTAMP 类型。
 
 **useSystemTime** 表示是否使用系统时间作为时间戳。
@@ -194,15 +194,15 @@ follower 节点创建该引擎。每次保存的 snapshot 也会同步到 follow
 
 各引擎特有的参数如下：
 
-* 响应式状态引擎 [createReactiveStateEngine](../c/createReactiveStateEngine.html): *filter*, *keepOrder*,
+* 响应式状态引擎 [createReactiveStateEngine](../c/createReactiveStateEngine.md): *filter*, *keepOrder*,
   *keyPurgeFilter*, *keyPurgeFreqInSecond*
-* 横截面引擎参数 [createCrossSectionalEngine](../c/createCrossSectionalEngine.html): *triggeringPattern*,
+* 横截面引擎参数 [createCrossSectionalEngine](../c/createCrossSectionalEngine.md): *triggeringPattern*,
   *triggeringInterval*, *lastBatchOnly*,
   *contextByColumn*
-* 时间序列聚合引擎 [createTimeSeriesEngine](../c/createTimeSeriesEngine.html): *updateTime*,
+* 时间序列聚合引擎 [createTimeSeriesEngine](../c/createTimeSeriesEngine.md): *updateTime*,
   *useWindowStartTime*, *roundTime*, *forceTriggerTime*,
   closed, fill, garbageSize, keyPurgeFreqInSec
-* 日级时间序列聚合引擎 [createDailyTimeSeriesEngine](../c/createDailyTimeSeriesEngine.html): *sessionBegin*,
+* 日级时间序列聚合引擎 [createDailyTimeSeriesEngine](../c/createDailyTimeSeriesEngine.md): *sessionBegin*,
   *sessionEnd*, *mergeSessionEnd*, closed, fill, garbageSize,
   forceTriggerSessionEndTime, keyPurgeFreqInSec
 

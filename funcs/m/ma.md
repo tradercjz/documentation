@@ -4,12 +4,12 @@
 
 `ma(X, window, maType)`
 
-TA-lib 系列函数其他通用参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.html)
+TA-lib 系列函数其他通用参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.md)
 
 ## 参数
 
-**maType** 计算平均线的方法。是一个0-8范围内的整数。各个整数分别表示：0= [sma](../s/sma.html) , 1= [ema](../e/ema.html) , 2= [wma](../w/wma.html) , 3=
-[dema](../d/dema.html) , 4= [tema](../t/tema.html) , 5= [trima](../t/trima.html) , 6= [kama](../k/kama.html) , 7=(mama), 8= [t3](../t/t3.html) 。
+**maType** 计算平均线的方法。是一个0-8范围内的整数。各个整数分别表示：0= [sma](../s/sma.md) , 1= [ema](../e/ema.md) , 2= [wma](../w/wma.md) , 3=
+[dema](../d/dema.md) , 4= [tema](../t/tema.md) , 5= [trima](../t/trima.md) , 6= [kama](../k/kama.md) , 7=(mama), 8= [t3](../t/t3.md) 。
 
 ## 详情
 

@@ -6,7 +6,7 @@
 
 ## 参数
 
-* **traceId** 字符串，表示记录 SQL Trace 信息的 id。通过函数 [getTraces](getTraces.html) 获取。
+* **traceId** 字符串，表示记录 SQL Trace 信息的 id。通过函数 [getTraces](getTraces.md) 获取。
 * **isTreeView** 布尔值，表示是否以树状结构显示跟踪信息，默认为 true。
 
 ## 详情

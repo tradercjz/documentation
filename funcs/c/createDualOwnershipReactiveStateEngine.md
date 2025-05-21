@@ -17,7 +17,7 @@ Dual Ownership Reactive State Engine
 
 ## 参数
 
-`createDualOwnershipReactiveStateEngine` 与 [createReactiveStateEngine](createReactiveStateEngine.html)
+`createDualOwnershipReactiveStateEngine` 与 [createReactiveStateEngine](createReactiveStateEngine.md)
 参数基本一致，这里仅介绍有区别的参数：
 
 对 *keyColumn1* 分组后的数据按照 *metrics1* 进行计算，分组数据的清条件则由参数

@@ -170,7 +170,7 @@ col1 col2 col3
 
 此外，通过 SQL 语句也可以生成矩阵：
 
-`exec` + `pivot by`： SQL 语句中，可以通过 exec 语句搭配 pivot by 子句，将表数据转换成一个矩阵形式的面板数据。更多使用场景可以参考[面板数据处理教程](panel_data.html)。
+`exec` + `pivot by`： SQL 语句中，可以通过 exec 语句搭配 pivot by 子句，将表数据转换成一个矩阵形式的面板数据。更多使用场景可以参考[面板数据处理教程](panel_data.md)。
 
 ```
 >sym = `C`MS`MS`MS`IBM`IBM`C`C`C$SYMBOL

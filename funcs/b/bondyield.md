@@ -82,5 +82,5 @@ bondYield(settlement, maturity, coupon, price, redemption, frequency, basis, met
 // Output:[0.065000006880755,0.064999847412109,0.065000006880759,0.064999999976412,0.065000004967984]
 ```
 
-相关函数：[bondAccrInt](bondaccrint.html)、[bondConvexity](bondconvexity.html)、[bondDirtyPrice](bondDirtyPrice.html)、[bondDuration](bondDuration.html)、[bondCalculator](bondCalculator.html)
+相关函数：[bondAccrInt](bondaccrint.md)、[bondConvexity](bondconvexity.md)、[bondDirtyPrice](bondDirtyPrice.md)、[bondDuration](bondDuration.md)、[bondCalculator](bondCalculator.md)
 

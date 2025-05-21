@@ -26,5 +26,5 @@ contextSum2(1 2 3, true false true);
 14
 ```
 
-相关函数：[contextCount](contextCount.html), [contextSum](contextSum.html)
+相关函数：[contextCount](contextCount.md), [contextSum](contextSum.md)
 

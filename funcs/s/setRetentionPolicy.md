@@ -24,7 +24,7 @@ coldVolumes（该配置项需在配置文件中预先指定）。若不指定该
 
 ## 详情
 
-设置数据保留策略以及 [TieredStorage](../../db_distr_comp/db/tiered_storage.html) 策略。若用户只通过该函数配置分级存储策略，建议将参数 *retentionHours*
+设置数据保留策略以及 [TieredStorage](../../db_distr_comp/db/tiered_storage.md) 策略。若用户只通过该函数配置分级存储策略，建议将参数 *retentionHours*
 指定为一个尽可能大的值。
 
 分级存储和数据保留策略都以分区为单位进行，因此 *retentionHours* 和
@@ -36,11 +36,11 @@ coldVolumes（该配置项需在配置文件中预先指定）。若不指定该
 *coldVolumes*。若 *coldVolumes* 配置了多个路径，则数据将随机分布在各个存储路径下 。
 
 对于保留时间外的数据，只会删除 [当前时间 - *retentionHours* - 10 天, 当前时间 -
-*retentionHours*) 范围的数据。若需要删除之前的数据，可以调用 [dropPartition](../d/dropPartition.html) 函数实现。
+*retentionHours*) 范围的数据。若需要删除之前的数据，可以调用 [dropPartition](../d/dropPartition.md) 函数实现。
 
 注： 该函数只能对分布式数据库使用。
 
-可以通过 [schema](schema.html) 函数查看数据库的数据保留时间。
+可以通过 [schema](schema.md) 函数查看数据库的数据保留时间。
 
 ## 例子
 

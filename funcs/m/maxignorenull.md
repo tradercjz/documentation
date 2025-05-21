@@ -59,5 +59,5 @@ reduce(maxIgnoreNull, [n1,n2,n3])
 | 11 | 5 |
 | 12 | 10 |
 
-相关函数：[max](max.html), [minIgnoreNull](minignorenull.html)
+相关函数：[max](max.md), [minIgnoreNull](minignorenull.md)
 

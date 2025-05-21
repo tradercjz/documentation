@@ -13,7 +13,7 @@
 * 如果 *obj* 是向量，线性填充两个非空元素之间的 NULL值。
 * 如果 *obj* 是表，对于表中的每一列，线性填充两个非空元素之间的 NULL 值。
 
-`lfill` 不会改变向量的值，[lfill!](lfill_.html) 会改变向量的值。
+`lfill` 不会改变向量的值，[lfill!](lfill_.md) 会改变向量的值。
 
 ## 例子
 
@@ -41,5 +41,5 @@ select * from lfill(t);
 | 5 | 2.4 |
 | 6 | 2.6 |
 
-相关函数：[bfill](../b/bfill.html), [bfill!](../b/bfill_.html), [lfill!](lfill_.html)
+相关函数：[bfill](../b/bfill.md), [bfill!](../b/bfill_.md), [lfill!](lfill_.md)
 

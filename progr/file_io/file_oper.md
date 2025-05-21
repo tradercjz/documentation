@@ -8,7 +8,7 @@
 
 ## 列出文件清单
 
-可以使用 [files](../../funcs/f/files.html)
+可以使用 [files](../../funcs/f/files.md)
 函数来列出一个文件夹下的文件和子文件夹目录。它返回以下信息：
 
 * 文件名
@@ -52,7 +52,7 @@ select * from files("C:/DolphinDB") where filename like "DolphinDB%";
 ## 打开/关闭文件
 
 使用file函数以指定模式打开文件。打开模式有6种："r", "r+", "w", "w+", "a", "a+"（详情参考
-[file](../../funcs/f/file.html) 函数） [close](../../funcs/c/close.html) 命令用来关闭打开的文件。
+[file](../../funcs/f/file.md) 函数） [close](../../funcs/c/close.md) 命令用来关闭打开的文件。
 
 ```
 fout=file("C:/DolphinDB/test.txt","w");
@@ -80,7 +80,7 @@ Hello World!
 
 ## 在一个文件中移动读写游标
 
-当系统从一个文件读数据或向一个文件写数据时，内部文件读写游标会向前移动。用户可以通过 [seek](../../funcs/s/seek.html) 函数手动操作这个游标。除了接受一个文件句柄参数，seek
+当系统从一个文件读数据或向一个文件写数据时，内部文件读写游标会向前移动。用户可以通过 [seek](../../funcs/s/seek.md) 函数手动操作这个游标。除了接受一个文件句柄参数，seek
 函数还可以接受其他两个参数：偏移量和起始位置。偏移量可以是正负值，起始位置必须是以下之一：HEAD，CURRENT，或TAIL。如果操作成功，seek
 函数返回内部游标的最终位置。
 

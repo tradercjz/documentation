@@ -21,7 +21,7 @@ args...)`
 
 ## 详情
 
-把批处理作业提交到本地节点并且返回作业的ID。`submitJobEx` 与 [submitJob](submitJob.html) 的唯一区别在于 `submitJobEx`
+把批处理作业提交到本地节点并且返回作业的ID。`submitJobEx` 与 [submitJob](submitJob.md) 的唯一区别在于 `submitJobEx`
 中可以指定参数 *priority* 与 *parallelism*。
 
 ## 例子

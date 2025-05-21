@@ -162,7 +162,7 @@ select * from t1 where price>avg(price);
 | 09:32:47 | IBM | 6800 | 174.97 |
 | 09:35:26 | IBM | 5400 | 175.23 |
 
-要计算每个股票的平均价格，可以使用 [c/contextby](../../funcs/ho_funcs/contextby.html)。下面的例子查询每个股票的价格大于平均价格的记录。
+要计算每个股票的平均价格，可以使用 [c/contextby](../../funcs/ho_funcs/contextby.md)。下面的例子查询每个股票的价格大于平均价格的记录。
 
 ```
 select * from t1 where price>contextby(avg, price, sym) order by sym, price;
@@ -175,7 +175,7 @@ select * from t1 where price>contextby(avg, price, sym) order by sym, price;
 | 09:35:26 | IBM | 5400 | 175.23 |
 | 09:36:59 | MS | 3200 | 30.02 |
 
-要随机抽取分区作为样本，只需在where子句中使用 [sample](sample.html) 函数即可。
+要随机抽取分区作为样本，只需在where子句中使用 [sample](sample.md) 函数即可。
 
 ```
 n=1000000

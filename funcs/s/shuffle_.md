@@ -1,6 +1,6 @@
 # shuffle!
 
-是 [shuffle](shuffle.html) 的别名。
+是 [shuffle](shuffle.md) 的别名。
 
 `shuffle!` 是 `shuffle` 的原地计算的版本。
 

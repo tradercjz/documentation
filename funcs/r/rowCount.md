@@ -4,7 +4,7 @@
 
 `rowCount(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -40,5 +40,5 @@ select sym,rowCount(price1,price2) as count from t;
 | IBM | 1 |
 | C | 2 |
 
-相关函数：[rowSize](rowSize.html), [count](../c/count.html)
+相关函数：[rowSize](rowSize.md), [count](../c/count.md)
 

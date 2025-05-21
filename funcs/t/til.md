@@ -45,5 +45,5 @@ date        val
 2022.01.10  1.9294
 ```
 
-相关函数：[take](take.html), [rand](../r/rand.html)
+相关函数：[take](take.md), [rand](../r/rand.md)
 

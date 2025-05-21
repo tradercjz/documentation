@@ -1,8 +1,8 @@
 # nullFill!
 
-是 [nullFill](nullFill.html) 的别名。
+是 [nullFill](nullFill.md) 的别名。
 
-`nullFill!` 是 [nullFill](nullFill.html) 函数原地修改版本，它会改变输入对象的值。
+`nullFill!` 是 [nullFill](nullFill.md) 函数原地修改版本，它会改变输入对象的值。
 
 Copyright
 

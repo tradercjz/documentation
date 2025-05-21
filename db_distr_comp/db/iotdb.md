@@ -403,9 +403,9 @@ limit -1
 
 相关文档：
 
-* [create](../../progr/sql/create.html)
-* [createPartitionedTable](../../funcs/c/createPartitionedTable.html)
-* [schema](../../funcs/s/schema.html)
-* [getSessionMemoryStat](../../funcs/g/getSessionMemoryStat.html)
-* [参数配置](../cfg/function_configuration.html)
+* [create](../../progr/sql/create.md)
+* [createPartitionedTable](../../funcs/c/createPartitionedTable.md)
+* [schema](../../funcs/s/schema.md)
+* [getSessionMemoryStat](../../funcs/g/getSessionMemoryStat.md)
+* [参数配置](../cfg/function_configuration.md)
 

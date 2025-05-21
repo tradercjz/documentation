@@ -68,5 +68,5 @@ ewmCov(X=t1,other=b,com=0.5);
 | 09:30:00.001 | DELL | 25.2308 | 29.5346 |
 | 09:30:00.001 | DELL | 9.405 | 10.0012 |
 
-相关函数：[ewmCorr](ewmCorr.html), [ewmMean](ewmMean.html), [ewmStd](ewmStd.html), [ewmVar](ewmVar.html)
+相关函数：[ewmCorr](ewmCorr.md), [ewmMean](ewmMean.md), [ewmStd](ewmStd.md), [ewmVar](ewmVar.md)
 

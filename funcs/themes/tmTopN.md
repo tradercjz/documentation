@@ -30,21 +30,21 @@ tmTopN 系列函数如下：
 
 单目：
 
-* [tmsumTopN](../t/tmsumTopN.html)
-* [tmavgTopN](../t/tmavgTopN.html)
-* [tmstdTopN](../t/tmstdTopN.html)
-* [tmstdpTopN](../t/tmstdpTopN.html)
-* [tmvarTopN](../t/tmvarTopN.html)
-* [tmvarpTopN](../t/tmvarpTopN.html)
-* [tmskewTopN](../t/tmskewTopN.html)
-* [tmkurtosisTopN](../t/tmkurtosisTopN.html)
+* [tmsumTopN](../t/tmsumTopN.md)
+* [tmavgTopN](../t/tmavgTopN.md)
+* [tmstdTopN](../t/tmstdTopN.md)
+* [tmstdpTopN](../t/tmstdpTopN.md)
+* [tmvarTopN](../t/tmvarTopN.md)
+* [tmvarpTopN](../t/tmvarpTopN.md)
+* [tmskewTopN](../t/tmskewTopN.md)
+* [tmkurtosisTopN](../t/tmkurtosisTopN.md)
 
 双目：
 
-* [tmbetaTopN](../t/tmbetaTopN.html)
-* [tmcorrTopN](../t/tmcorrTopN.html)
-* [tmcovarTopN](../t/tmcovarTopN.html)
-* [tmwsumTopN](../t/tmwsumTopN.html)
+* [tmbetaTopN](../t/tmbetaTopN.md)
+* [tmcorrTopN](../t/tmcorrTopN.md)
+* [tmcovarTopN](../t/tmcovarTopN.md)
+* [tmwsumTopN](../t/tmwsumTopN.md)
 
 ## 窗口确定规则
 
@@ -59,7 +59,7 @@ window 长度以时间衡量。window 可以是正整数类型或者 DURATION �
 
 ![](../../images/tmTopN_1.png)
 
-上图的对应代码，这里以 [tmsumTopN](../t/tmsumTopN.html)
+上图的对应代码，这里以 [tmsumTopN](../t/tmsumTopN.md)
 为例：
 
 ```

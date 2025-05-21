@@ -4,7 +4,7 @@
 
 `mmad(X, window, [useMedian=false], [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -65,5 +65,5 @@ mmad(x, 2)
 | 2.5 | 2.5 |
 | 2.5 | 2.5 |
 
-相关函数： [mad](mad.html)
+相关函数： [mad](mad.md)
 

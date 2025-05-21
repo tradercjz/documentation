@@ -4,7 +4,7 @@
 
 `rowStdp(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -40,5 +40,5 @@ select sym,rowStdp(price1,price2) as stdp from t;
 | IBM | 10.635 |
 | C | 74.37 |
 
-相关函数：[rowStd](rowStd.html), [std](../s/std.html)
+相关函数：[rowStd](rowStd.md), [std](../s/std.md)
 

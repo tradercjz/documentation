@@ -18,7 +18,7 @@
 **注：**
 
 * 若 OLAP 引擎未开启 Cache Engine，该函数对 OLAP 的事务写入无限制。
-* 若当前节点被在线修改了 Cache Engine 容量（[setOLAPCacheEngineSize](setOLAPCacheEngineSize.html)/[setTSDBCacheEngineSize](setTSDBCacheEngineSize.html)），则该函数不可设置超过当前 Cache Engine 容量。
+* 若当前节点被在线修改了 Cache Engine 容量（[setOLAPCacheEngineSize](setOLAPCacheEngineSize.md)/[setTSDBCacheEngineSize](setTSDBCacheEngineSize.md)），则该函数不可设置超过当前 Cache Engine 容量。
 * 此命令修改的配置值在系统重启后将失效。若需要永久限制写入事务的上限，请通过配置文件中的 *maxTransactionRatio* 调整事务大小占
   Cache Engine 的最大比例。
 

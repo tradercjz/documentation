@@ -1,10 +1,10 @@
 # PROTOCOL\_PICKLE
 
-[Pickle 协议](https://python.readthedocs.io/en/latest/library/pickle.html)是一种对 Python 对象进行序列化和反序列化的方式，允许使用者将复杂的 Python 对象转换为可以存储或传输的字节流，再将该字节流转换为原始的 Python 对象。DolphinDB 中提供了基于 Python Pickle 协议特化的反序列化方案 PROTOCOL\_PICKLE，该协议仅限在 DolphinDB Python API 中进行使用，其支持的**数据形式**和**数据类型**相对较少。
+[Pickle 协议](https://python.readthedocs.io/en/latest/library/pickle.md)是一种对 Python 对象进行序列化和反序列化的方式，允许使用者将复杂的 Python 对象转换为可以存储或传输的字节流，再将该字节流转换为原始的 Python 对象。DolphinDB 中提供了基于 Python Pickle 协议特化的反序列化方案 PROTOCOL\_PICKLE，该协议仅限在 DolphinDB Python API 中进行使用，其支持的**数据形式**和**数据类型**相对较少。
 
-**注1：** [数据形式](../../../../progr/data_forms.html)指 DolphinDB 类型系统中的 DATAFORM，通常包含 Scalar、Vector、Table 等，表示数据结构的形式。
+**注1：** [数据形式](../../../../progr/data_forms.md)指 DolphinDB 类型系统中的 DATAFORM，通常包含 Scalar、Vector、Table 等，表示数据结构的形式。
 
-**注2：** [数据类型](../../../../progr/data_types.html)指 DolphinDB 类型系统中的 DATATYPE，通常包含 INT、DOUBLE、DATETIME 等，表示数据的具体类型。
+**注2：** [数据类型](../../../../progr/data_types.md)指 DolphinDB 类型系统中的 DATATYPE，通常包含 INT、DOUBLE、DATETIME 等，表示数据的具体类型。
 
 **注3：** 以下简称 Python 库 NumPy 为 **np**，pandas 为 **pd**。
 
@@ -100,7 +100,7 @@ datetime64[ns]
 
 指定使用 PROTOCOL\_PICKLE 协议，在执行 run 方法时，若指定额外参数 `pickleTableToList=True`，则下载 Table 型数据将得到一个 list 数据，且 list 的每个元素都是 np.ndarray。如果下载 Table 型数据的数据列为 Array Vector 列，须确保每个元素的长度一致，其对应数据类型为二维 np.ndarray。
 
-本节详细的类型转换规则和 [PROTOCOL\_DDB 中 第5小节](PROTOCOL_DDB.html)一致。
+本节详细的类型转换规则和 [PROTOCOL\_DDB 中 第5小节](PROTOCOL_DDB.md)一致。
 开启附加参数 pickleTableToList 后，如果执行脚本的返回值数据形式为 Table，则对应的 Python 对象为 list 而非 pd.DataFrame。其中，list 中的每一元素（np.ndarray）都表示 Table 中的一列。
 
 和 PROTOCOL\_DDB 协议的附加参数稍有不同，PROTOCOL\_DDB 协议的附加参数会作为flag的一部分发送至服务端。

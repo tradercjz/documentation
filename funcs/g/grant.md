@@ -20,7 +20,7 @@
 * 管理 IMOLTP 引擎库表权限时，*objs* 必须为 "oltp://database/table@nodeAlias" 或
   "oltp://database@nodeAlias"。
 
-*accessType* 和 *objs* 的取值请参照 [用户权限管理](../../tutorials/ACL_and_Security.html) 权限类型表。
+*accessType* 和 *objs* 的取值请参照 [用户权限管理](../../tutorials/ACL_and_Security.md) 权限类型表。
 
 ## 详情
 
@@ -29,7 +29,7 @@
 * 授予某个用户或某个用户组权限。当 *accessType* = DB\_OWNER 时，还支持约束某个用户只能创建指定前缀的数据库。
 * 约束某个用户查询返回结果的内存上限（指定 *accessType* =
   QUERY\_RESULT\_MEM\_LIMIT）和发送的批量子查询占用的内存上限（指定 *accessType* =
-  TASK\_GROUP\_MEM\_LIMIT）。其功能等效于 [setMemLimitOfQueryResult](../s/setMemLimitOfQueryResult.html) 函数和 [setMemLimitOfTaskGroupResult](../s/setMemLimitOfTaskGroupResult.html) 函数，区别在于 `grant`
+  TASK\_GROUP\_MEM\_LIMIT）。其功能等效于 [setMemLimitOfQueryResult](../s/setMemLimitOfQueryResult.md) 函数和 [setMemLimitOfTaskGroupResult](../s/setMemLimitOfTaskGroupResult.md) 函数，区别在于 `grant`
   只对指定用户生效（暂不支持用户组），`setMemLimitOfQueryResult` 函数和
   `setMemLimitOfTaskGroupResult` 函数对所有用户生效。
 

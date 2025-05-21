@@ -32,7 +32,7 @@ DolphinDB 作为集成了高容量高速度流数据分析系统和强大编程�
 ### 2.1. 安装部署
 
 1. 下载官网社区最新版，建议 2.00.10 及以上版本。下载链接：[DolphinDB 下载](https://www.dolphindb.cn/product#downloads)
-2. Windows 操作系统下的解压路径不能包含空格，避免安装到 Program Files 路径下。详细步骤可以参考官网教程：[单节点部署与升级](https://docs.dolphindb.cn/zh/tutorials/standalone_server.html)
+2. Windows 操作系统下的解压路径不能包含空格，避免安装到 Program Files 路径下。详细步骤可以参考官网教程：[单节点部署与升级](https://docs.dolphindb.cn/zh/tutorials/standalone_server.md)
 3. 本次测试使用免费的社区版，[企业版 license](https://dolphindb.cn/product#downloads) 可申请免费试用。
 
 安装及测试过程中，有任何问题，可添加小助手微信（dolphindb1）咨询。
@@ -47,7 +47,7 @@ DolphinDB 作为集成了高容量高速度流数据分析系统和强大编程�
 
 在此处，我们采用时间分区和哈希分区组合的方式进行数据切分和建模。
 
-具体而言，当设备产生的数据量在每小时、每天、每月、每年等时间间隔内持续稳定在 100MB 到 1GB 的最佳实践范围内时，我们仅使用时间值作为分区依据进行数据建模。如果时间分区的大小超过 1GB，则可以根据哈希值来建立第二级哈希分区。哈希分区将字符串或数字等数据类型转换成哈希值，并将相同哈希值的数据分配到同一分区内，以实现数据切分。简单来说，如果我们希望将第一级分区切分成 10 份，则第二级分区可以设置为哈希 5 分区。分区教程可见：[DolphinDB 分区教程](https://docs.dolphindb.cn/zh/tutorials/database.html)
+具体而言，当设备产生的数据量在每小时、每天、每月、每年等时间间隔内持续稳定在 100MB 到 1GB 的最佳实践范围内时，我们仅使用时间值作为分区依据进行数据建模。如果时间分区的大小超过 1GB，则可以根据哈希值来建立第二级哈希分区。哈希分区将字符串或数字等数据类型转换成哈希值，并将相同哈希值的数据分配到同一分区内，以实现数据切分。简单来说，如果我们希望将第一级分区切分成 10 份，则第二级分区可以设置为哈希 5 分区。分区教程可见：[DolphinDB 分区教程](https://docs.dolphindb.cn/zh/tutorials/database.md)
 
 在本案例中，每秒会生成 50 条记录，即每小时将生成 180,000 条记录。因此，每小时的数据量大小为 3.35GB。对于每天产生的数据，我们会首先进行小时分区切分，然后对于每个小时的数据，会基于设备 id 的哈希值再进行切分。最终，可以通过时间戳和设备 id 进行分区索引。
 
@@ -84,7 +84,7 @@ pt=createPartitionedTable(dbHandle=db,table=t,tableName=tablename,partitionColum
 
 **第三步：数据接入**
 
-DolphinDB 支持对接消息中间件和标准协议实时接入试验平台数据，以用于实时监控预警等场景。也支持批量导入文件，在试验完成后导入数据进行分析，用于不需要实时监控的场景，以减轻系统压力。详情见[DolphinDB 数据导入概述](https://docs.dolphindb.cn/zh/tutorials/import_data.html)及[DolphinDB 插件消息中间件](https://docs.dolphindb.cn/zh/plugins/plg_intro.html)。
+DolphinDB 支持对接消息中间件和标准协议实时接入试验平台数据，以用于实时监控预警等场景。也支持批量导入文件，在试验完成后导入数据进行分析，用于不需要实时监控的场景，以减轻系统压力。详情见[DolphinDB 数据导入概述](https://docs.dolphindb.cn/zh/tutorials/import_data.md)及[DolphinDB 插件消息中间件](https://docs.dolphindb.cn/zh/plugins/plg_intro.md)。
 
 在本教程中，我们使用自定义函数模拟设备 d001 实时生成一小时数据，共 180,000 条数据，将生成的数据实时写入 DolphinDB 数据库中，并通过数据回放，展示实时流计算功能。详细的实现过程请参考文章末尾的完整示例代码。
 
@@ -92,7 +92,7 @@ DolphinDB 支持对接消息中间件和标准协议实时接入试验平台数�
 
 DolphinDB 作为集成了高容量高速度流数据分析系统和强大编程语言的一站式解决方案，旨在为用户提供快速存储、检索、分析和计算庞大的结构化数据服务。在以下内容中，我们将介绍 DolphinDB 在 SQL 查询、数据分析、数据导出和备份、数据导入和备份恢复、关系模型、数据回放、波形录制、存储过程、状态保持计算、时间序列聚合引擎和磁盘查询等方面所提供的丰富功能。
 
-以下各节中的代码仅展示了实现各项功能的核心语句，详细的实现过程请参考文章末尾的完整示例代码。有关 DolphinDB 的详细文档，请参阅 [DolphinDB 文档中心](https://docs.dolphindb.cn/zh/index.html)。
+以下各节中的代码仅展示了实现各项功能的核心语句，详细的实现过程请参考文章末尾的完整示例代码。有关 DolphinDB 的详细文档，请参阅 [DolphinDB 文档中心](https://docs.dolphindb.cn/zh/index.md)。
 
 #### 2.3.1. SQL 查询
 
@@ -412,7 +412,7 @@ plot(t.v1,t.ts,title.min_ts[0]+"  ~  "+title.max_ts[0])ame="collect", diskUsage=
 
 ## 4. 总结
 
-以上为 DolphinDB 在工业试验平台的简单应用，可见 DolphinDB 特别适用于对速度要求极高的低延时或实时性任务，例如基于海量历史数据的交互式查询与计算、实时数据处理与监控等。当然上述内容仅仅是一个简单的 DolphinDB 使用案例，DolphinDB 除了上述简单的存储、分析之外，还能支持更加复杂的数据处理和业务逻辑限于篇幅，本文不作过多介绍。感兴趣的用户可查阅 [DolphinDB 教程](https://docs.dolphindb.cn/zh/tutorials/about_tutorials.html) 进行更加深入的了解。
+以上为 DolphinDB 在工业试验平台的简单应用，可见 DolphinDB 特别适用于对速度要求极高的低延时或实时性任务，例如基于海量历史数据的交互式查询与计算、实时数据处理与监控等。当然上述内容仅仅是一个简单的 DolphinDB 使用案例，DolphinDB 除了上述简单的存储、分析之外，还能支持更加复杂的数据处理和业务逻辑限于篇幅，本文不作过多介绍。感兴趣的用户可查阅 [DolphinDB 教程](https://docs.dolphindb.cn/zh/tutorials/about_tutorials.md) 进行更加深入的了解。
 
 **附录**
 

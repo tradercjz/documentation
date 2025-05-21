@@ -17,7 +17,7 @@
 
 此函数只能由管理员在控制节点执行，将备份文件中保存的用户、用户权限和函数视图恢复到当前集群。
 
-备份文件由函数 [backupSettings](../b/backupsettings.html)
+备份文件由函数 [backupSettings](../b/backupsettings.md)
 生成，与之搭配可以在数据库迁移时实现用户、用户权限及函数视图的迁移。
 
 函数返回一个向量，依次列出已成功恢复的用户名和函数视图名称。
@@ -35,5 +35,5 @@ restoreSettings(fileName="/home/ddb/backup/permission.back", overwrite=false)
 restoreSettings(fileName="/home/ddb/backup/permission.back", overwrite=true)
 ```
 
-相关函数： [backupSettings](../b/backupsettings.html)
+相关函数： [backupSettings](../b/backupsettings.md)
 

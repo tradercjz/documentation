@@ -246,7 +246,7 @@ TSDBCacheEngineSize。
    File，将其尾部的索引信息加载到内存中（索引信息采用惰性缓存策略，即不会在节点启动时被立即加载进内存，而是在第一次查询命中该分区时才被加载进内存）。查询命中的分区的索引信息一旦被加载到内存后，会一直缓存在内存中（除非因内存不够被置换），后续查询若涉及该分区则不会重复此步骤，而是直接从内存中读取索引信息。
 
    注： 内存中存放索引的区域大小由配置项
-   *TSDBLevelFileIndexCacheSize* 决定，用户可以通过函数 [getLevelFileIndexCacheStats](../../funcs/g/getLevelFileIndexCacheStats.html)
+   *TSDBLevelFileIndexCacheSize* 决定，用户可以通过函数 [getLevelFileIndexCacheStats](../../funcs/g/getLevelFileIndexCacheStats.md)
    在线查询内存中的索引占用。若加载的索引大小超过了该值，内部会通过一些缓存淘汰算法进行置换，用户可配置
    *TSDBLevelFileIndexCacheInvalidPercent* 来调整缓存淘汰算法的阈值。
 3. **查找内存中的数据：**先搜索 TSDB Cache Engine中的数据。若数据在 write buffer 中，则采用顺序扫描的方式查找；若在
@@ -294,10 +294,10 @@ TSDB 引擎的更新效率取决于 keepDuplicates 参数配置的去重机制�
 
 针对不同的数据更新需求，DolphinDB 提供 3 种更新表的方法：
 
-* [update](../../progr/sql/update.html)：标准 SQL 的update语法
-* [sqlUpdate](../../funcs/s/sqlUpdate.html)：动态生成 SQL update
+* [update](../../progr/sql/update.md)：标准 SQL 的update语法
+* [sqlUpdate](../../funcs/s/sqlUpdate.md)：动态生成 SQL update
   语句的元代码。
-* [upsert!](../../funcs/u/upsert_.html)：用于更新键值内存表、索引内存表或分布式表。进行更新时，若新数据的主键值已存在，则更新该主键值的数据；否则添加数据。
+* [upsert!](../../funcs/u/upsert_.md)：用于更新键值内存表、索引内存表或分布式表。进行更新时，若新数据的主键值已存在，则更新该主键值的数据；否则添加数据。
 
 注：
 
@@ -467,9 +467,9 @@ partitionColumns=["myPartitionFunc(id_date)"])
 * **根据字段选择恰当的压缩算法（*compressMethods***）：
 
   + 对重复较高的字符串，使用 SYMBOL 类型存储。需要注意单个分区下 SYMBOL 字段的唯一值数不能超过
-    221(2097152) 个，否则会抛异常，见 [S00003](../../error_codes/S00003.html)。
+    221(2097152) 个，否则会抛异常，见 [S00003](../../error_codes/S00003.md)。
   + 对时序数据或顺序数据（整型）可以使用 delta （即 delta-of-delta
-    encoding）算法存储。压缩性能测试参考[物联网应用范例](../../tutorials/iot_examples.html)。
+    encoding）算法存储。压缩性能测试参考[物联网应用范例](../../tutorials/iot_examples.md)。
   + 其余类型的数据采用 lz4 压缩算法**。**
 * **合理设置排序字段（*sortColumns*）：**
 
@@ -479,7 +479,7 @@ partitionColumns=["myPartitionFunc(id_date)"])
     通常金融场景下会以 SecurityID+时间戳的组合、物联网场景下会以 deviceID+时间戳的组合来作为
     sortColumns。
 
-    在 [Level File 文件](tsdb.html) 中提及，Level File
+    在 [Level File 文件](tsdb.md) 中提及，Level File
     的每个 sortKey 都对应存储了许多索引信息，因此在数据量固定的情况下，如果 sortKey
     的数量过多，元数据也会变多。极端场景下，数据库可能会膨胀 50 倍！因此不推荐把主键或唯一约束设置为
     *sortColumns*。
@@ -508,7 +508,7 @@ partitionColumns=["myPartitionFunc(id_date)"])
 
   + 降维是对每个 sortKey 的字段进行的，因此有几个 sortKey 字段就需要指定几个降维函数。
   + 常用的降维函数是 hashBucket，即进行哈希映射。
-  + 降维后可以通过 [getTSDBSortKeyEntry](../../funcs/g/getTSDBSortKeyEntry.html) 查询每个分区的 sortKey 信息。
+  + 降维后可以通过 [getTSDBSortKeyEntry](../../funcs/g/getTSDBSortKeyEntry.md) 查询每个分区的 sortKey 信息。
 * **数据去重（*keepDuplicates*）：**
 
   + 对同一个时间点产生多条数据，可以根据业务需求进行去重设置，此时可以设置

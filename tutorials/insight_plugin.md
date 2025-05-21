@@ -23,7 +23,7 @@ INSIGHT 插件最核心的功能是实现了 INSIGHT C++ SDK 中的行情回调�
 
 ### 2.1. 安装插件
 
-节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等[DolphinDB 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.html)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 INSIGHT 插件文件，插件文件包括插件描述文件及插件的二进制文件。
+节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等[DolphinDB 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.md)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 INSIGHT 插件文件，插件文件包括插件描述文件及插件的二进制文件。
 
 ```
 login("admin", "123456")
@@ -40,7 +40,7 @@ installPlugin("insight")
 
 ### 2.2. 加载插件
 
-在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.html)中执行 `loadPlugin` 函数加载插件。以下示例中使用了相对路径，也可以试用 2.1 中返回的绝对路径 */path\_to\_dolphindb\_server/server/plugins/insight/PluginInsight.txt*。
+在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.md)中执行 `loadPlugin` 函数加载插件。以下示例中使用了相对路径，也可以试用 2.1 中返回的绝对路径 */path\_to\_dolphindb\_server/server/plugins/insight/PluginInsight.txt*。
 
 ```
 loadPlugin("./plugins/insight/PluginInsight.txt")
@@ -131,12 +131,12 @@ enableTableShareAndPersistence(table=streamTable(cacheSize:0, transactionColName
 enableTableShareAndPersistence(table=streamTable(cacheSize:0, orderColName, orderColType), tableName=`orderTable, cacheSize=cacheSize)
 ```
 
-* 为保证 `enableTableShareAndPersistence` 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数 *persistenceDir* ，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.html)。
+* 为保证 `enableTableShareAndPersistence` 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数 *persistenceDir* ，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.md)。
 * 代码第二行的 `cacheSize` 变量控制了在建表时预分配内存的大小、以及流数据表可占用的最大内存，其单位是行，设置较大的 `cacheSize` 可以降低出现峰值时延的频率。具体大小可以根据实际的可使用的内存大小决定。具体优化原理可参考 [DolphinDB 流计算时延统计与性能优化](https://docs.dolphindb.cn/zh/tutorials/streaming_timer.html#%E5%86%85%E7%BD%AE%E7%8A%B6%E6%80%81%E5%87%BD%E6%95%B0%E4%B8%8E%E5%A2%9E%E9%87%8F%E8%AE%A1%E7%AE%97)。
 
 #### 3.2.3. 创建分布式数据库
 
-为将行情数据存入分布式数据库，需要根据之前得到的行情数据表结构来创建分布式库表，分区规则参考自[存储金融数据的分区方案最佳实践](https://docs.dolphindb.cn/zh/tutorials/best_practices_for_partitioned_storage.html)。
+为将行情数据存入分布式数据库，需要根据之前得到的行情数据表结构来创建分布式库表，分区规则参考自[存储金融数据的分区方案最佳实践](https://docs.dolphindb.cn/zh/tutorials/best_practices_for_partitioned_storage.md)。
 
 ```
 dbName = "dfs://Stock_TB"
@@ -165,7 +165,7 @@ subscribeTable(tableName="transactionTable", actionName="transactionTableInsert"
 subscribeTable(tableName="orderTable", actionName="orderTableInsert", offset=-1, handler=tableInsert{Order}, msgAsTable=true, batchSize=20000, throttle=1, reconnect=true)
 ```
 
-* 通过调整 [subscribeTable](https://docs.dolphindb.cn/zh/funcs/s/subscribeTable.html) 函数中的 *batchSize* 和 *throttle* 参数可以控制写入分布式数据库的频率。
+* 通过调整 [subscribeTable](https://docs.dolphindb.cn/zh/funcs/s/subscribeTable.md) 函数中的 *batchSize* 和 *throttle* 参数可以控制写入分布式数据库的频率。
   + *batchSize*=20000 表示当未处理消息的数量达到 20000 时，handler 才会处理消息。
   + *throttle*=1 表示继上次 handler 处理消息之后，若未处理消息的数量还没有达到 20000，但是时间间隔 1s 后也会处理消息。
   + 因此，达到 *batchSize* 设置的条件或者达到 *throttle* 设置的条件，才会向分布式数据库写入一次。
@@ -248,8 +248,8 @@ startup=/DolphinDB/server/startup.dos`
 
 ## 5. 附录
 
-* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](https://docs.dolphindb.cn/zh/tutorials/Startup.html)。
-* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](https://docs.dolphindb.cn/zh/tutorials/streaming_auto_sub.html)。
+* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](https://docs.dolphindb.cn/zh/tutorials/Startup.md)。
+* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](https://docs.dolphindb.cn/zh/tutorials/streaming_auto_sub.md)。
 * *startup.dos* 启动脚本（账户信息需要根据用户实际情况进行修改）。
 
 ```

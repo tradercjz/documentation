@@ -4,7 +4,7 @@
 
 `tmvar(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -59,5 +59,5 @@ select *, tmvar(t, x, 1w) from m
 | 2021.01.07 | 2 | 6.333 |
 | 2021.01.08 | 4 | 5.5833 |
 
-相关函数：[mvar](../m/mvar.html), [var](../v/var.html)
+相关函数：[mvar](../m/mvar.md), [var](../v/var.md)
 

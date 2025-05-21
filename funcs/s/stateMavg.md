@@ -53,5 +53,5 @@ select * from outputTable
 | B | 09:00:09 | 5.6543 |
 | A | 09:00:10 | 7.1111 |
 
-相关函数：[conditionalIterate](../c/conditionalIterate.html), [stateIterate](stateIterate.html)
+相关函数：[conditionalIterate](../c/conditionalIterate.md), [stateIterate](stateIterate.md)
 

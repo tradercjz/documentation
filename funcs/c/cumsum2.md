@@ -4,7 +4,7 @@
 
 `cumsum2(X)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -28,5 +28,5 @@ m;
 | 5 | 41 |
 | 14 | 77 |
 
-相关函数：[sum2](../s/sum2.html)
+相关函数：[sum2](../s/sum2.md)
 

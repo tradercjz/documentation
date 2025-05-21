@@ -1,7 +1,7 @@
 # 日期和时间的调整及格式
 
-[temporalParse](../../funcs/t/temporalParse.html)
-函数能够把字符串转换成 DolphinDB 中的时序类型数据，[temporalFormat](../../funcs/t/temporalFormat.html) 函数能够把 DolphinDB 中的时序对象转换成指定格式的字符串。
+[temporalParse](../../funcs/t/temporalParse.md)
+函数能够把字符串转换成 DolphinDB 中的时序类型数据，[temporalFormat](../../funcs/t/temporalFormat.md) 函数能够把 DolphinDB 中的时序对象转换成指定格式的字符串。
 
 下表是 DolphinDB 时序对象的格式：
 

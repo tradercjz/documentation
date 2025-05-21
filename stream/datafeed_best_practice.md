@@ -10,7 +10,7 @@ DolphinDB server 2.00.10 或更高版本上。插件仅支持 Linux 系统。
 ## 1. DolphinDB DataFeed 行情插件介绍
 
 关于 DataFeed 插件的接口介绍详见 [Datafeed
-文档说明](../plugins/datafeed.html)。注意，DataFeed 插件基于中金所官方提供的 DataFeed 2.0 组播版本的 SDK 实现。由于 2.0 版本的接口设计和
+文档说明](../plugins/datafeed.md)。注意，DataFeed 插件基于中金所官方提供的 DataFeed 2.0 组播版本的 SDK 实现。由于 2.0 版本的接口设计和
 1.0 版本具有较大差别，若您的订阅账号为 DataFeed 1.0 组播版本，本文提到的 2.00.10 版本插件将无法支持，建议您联系 DolphinDB
 技术支持以获取进一步帮助。
 
@@ -24,7 +24,7 @@ DolphinDB server 2.00.10 或更高版本上。插件仅支持 Linux 系统。
 login("admin", "123456")
 ```
 
-节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](../db_distr_comp/clients.html)中执行 `installPlugin` 函数，则可以下载到与当前 server
+节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](../db_distr_comp/clients.md)中执行 `installPlugin` 函数，则可以下载到与当前 server
 版本适配的 DataFeed 插件文件，插件文件包括插件描述文件及插件的二进制文件。
 
 ```
@@ -173,7 +173,7 @@ handle = DataFeed::createHandle(ips, userName, password, logLevel, logpath)
 
 **创建持久化原始行情流数据表**
 
-首先调用 [DataFeed::getSchema](../plugins/datafeed.html#getschema) 函数获取 DataFeed 原始行情数据表的表结构，再调用 [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.html) 函数将流数据表共享，创建持久化流数据表。
+首先调用 [DataFeed::getSchema](../plugins/datafeed.html#getschema) 函数获取 DataFeed 原始行情数据表的表结构，再调用 [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.md) 函数将流数据表共享，创建持久化流数据表。
 
 ```
 needReceiveTime = config["receiveTime"].nullFill(false)
@@ -188,15 +188,15 @@ enableTableShareAndPersistence(
 
 * 为保证 `enableTableShareAndPersistence`
   函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolohindb.cfg*，集群：*cluster.cfg*）指定配置参数
-  *persistenceDir* ，配置参考 [功能配置](../db_distr_comp/cfg/function_configuration.html)。
+  *persistenceDir* ，配置参考 [功能配置](../db_distr_comp/cfg/function_configuration.md)。
 * 函数中的 *cacheSize* 参数指定了在建表时预分配内存的大小以及流数据表可占用的最大内存，其单位是行，设置较大的
   `cacheSize` 可以降低出现峰值时延的频率。此处引用了配置好的参数
   *marketTBCapacity*,具体大小可以根据实际的可使用的内存大小决定。具体优化原理可参考 [DolphinDB
-  流计算时延统计与性能优化](../tutorials/streaming_timer.html)。
+  流计算时延统计与性能优化](../tutorials/streaming_timer.md)。
 
 **创建分布式数据库**
 
-为将行情数据存入分布式数据库，需要提前创建存储 DataFeed 行情数据的分布式库表。本例选用了按天值分区和按标的代码哈希分区，具体分区规则参考自[《基于 DolphinDB 存储金融数据的分区方案最佳实践》](../tutorials/best_practices_for_partitioned_storage.html)。
+为将行情数据存入分布式数据库，需要提前创建存储 DataFeed 行情数据的分布式库表。本例选用了按天值分区和按标的代码哈希分区，具体分区规则参考自[《基于 DolphinDB 存储金融数据的分区方案最佳实践》](../tutorials/best_practices_for_partitioned_storage.md)。
 
 ```
 if(existsDatabase("dfs://datafeed_data")){
@@ -266,7 +266,7 @@ setStreamTableFilterColumn(objByName(stdStreamTBName), `unified_code)
 
 ### 3.5 订阅流数据表将增量数据实时写入分布式数据库
 
-首先订阅 3.4 节中的持久化原始行情流数据表进行数据预处理，再订阅持久化标准化行情流数据表，将增量数据实时写入分布式数据库。调用 [subscribeTable](../funcs/s/subscribeTable.html)
+首先订阅 3.4 节中的持久化原始行情流数据表进行数据预处理，再订阅持久化标准化行情流数据表，将增量数据实时写入分布式数据库。调用 [subscribeTable](../funcs/s/subscribeTable.md)
 函数从客户端节点订阅本地或远程服务器的流数据表。
 
 ```
@@ -380,7 +380,7 @@ startup=/DolphinDB/server/startup.dos
 
 ## 5. 启动关闭 DataFeed
 
-为了处理每日收盘后接收到的测试数据，用户可以调用 [scheduleJob](../tutorials/scheduledJob.html) 函数设定 DataFeed 连接和关闭的定时任务，参考代码如下：
+为了处理每日收盘后接收到的测试数据，用户可以调用 [scheduleJob](../tutorials/scheduledJob.md) 函数设定 DataFeed 连接和关闭的定时任务，参考代码如下：
 
 ```
 // 由于 scheduleJob 中的 jobFunc 必须是没有参数的函数，所以首先定义关闭 DataFeed 连接函数
@@ -429,7 +429,7 @@ dolphindb.cfg 中配置 *preloadModules* 参数。对集群，在 controller.cfg
 
 ## 附录
 
-* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](../tutorials/Startup.html)。
-* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](../tutorials/streaming_auto_sub.html)。
+* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](../tutorials/Startup.md)。
+* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](../tutorials/streaming_auto_sub.md)。
 * *[startup.dos](scripts/datafeed_best_practice/startup.dos)* 启动脚本（账户信息需要根据用户实际情况进行修改） 。
 

@@ -4,8 +4,8 @@
 对空值进行了优化处理。本章中，我们会解释如何表示、初始化和处理空值。我们还会讨论空值在普通向量函数、聚合函数以及高阶函数中的使用方法。
 
 DolphinDB 内有两种类型的空值：VOID 类型空值和其它类型的空值（如int(), double(),
-string(NULL)等）。通常，在赋值语句或表达式中使用无返回值的函数时，将会得到一个 VOID 类型的空值。通过函数 [isVoid](../../funcs/i/isVoid.html) 判断是否为 VOID 类型的空值， 通过函数 [isNull](../../funcs/i/isNull.html) 和 [isValid](../../funcs/i/isValid.html) 可以检查所有空值，包括 VOID
-和有类型的空值。对于不关心空值类型的用户，建议使用 [isNull](../../funcs/i/isNull.html) 或 [isValid](../../funcs/i/isValid.html) 进行条件判断。
+string(NULL)等）。通常，在赋值语句或表达式中使用无返回值的函数时，将会得到一个 VOID 类型的空值。通过函数 [isVoid](../../funcs/i/isVoid.md) 判断是否为 VOID 类型的空值， 通过函数 [isNull](../../funcs/i/isNull.md) 和 [isValid](../../funcs/i/isValid.md) 可以检查所有空值，包括 VOID
+和有类型的空值。对于不关心空值类型的用户，建议使用 [isNull](../../funcs/i/isNull.md) 或 [isValid](../../funcs/i/isValid.md) 进行条件判断。
 
 从 版本开始，支持全部小写形式的 null。
 

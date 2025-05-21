@@ -6,7 +6,7 @@
 
 ## 详情
 
-创建流计算响应式无状态引擎。参考：[createReactiveStatelessEngine](../c/createReactiveStatelessEngine.html)。
+创建流计算响应式无状态引擎。参考：[createReactiveStatelessEngine](../c/createReactiveStatelessEngine.md)。
 
 **返回值**：一个 DStream 对象。
 

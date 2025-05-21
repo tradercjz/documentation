@@ -77,5 +77,5 @@ percentile(m, 75);
 [4,4]
 ```
 
-相关函数：[quantile](../q/quantile.html)
+相关函数：[quantile](../q/quantile.md)
 

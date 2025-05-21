@@ -4,7 +4,7 @@
 
 `tmmax(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -57,5 +57,5 @@ select *, tmmax(t, x, 1w) from m
 | 2021.01.07 | 2 | 4 |
 | 2021.01.08 | 4 | 4 |
 
-相关函数：[mmax](../m/mmax.html), [max](../m/max.html)
+相关函数：[mmax](../m/mmax.md), [max](../m/max.md)
 

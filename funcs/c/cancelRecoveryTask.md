@@ -6,7 +6,7 @@
 
 ## 参数
 
-**taskId** 是一个字符串标量或向量，表示副本恢复任务的 ID，可以通过 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.html) 获得。
+**taskId** 是一个字符串标量或向量，表示副本恢复任务的 ID，可以通过 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.md) 获得。
 
 ## 详情
 

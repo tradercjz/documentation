@@ -6,24 +6,24 @@ DolphinDB 中数据表有以下几类：
 
 * 内存表
 
-  + 普通内存表（[table](../../funcs/t/table.html)），最基础的表结构，常用于临时数据存储。
-  + 索引内存表（[indexedTable](../../funcs/i/indexedTable.html)），适用于存取键值对数据的场景，范围查询性能更优。
-  + 键值内存表（[keyedTable](../../funcs/k/keyedTable.html)），适用于存取键值对数据的场景，单点查性性能更优。
-  + 流数据表（[streamTable](../../funcs/s/streamTable.html), [haStreamTable](../../funcs/h/haStreamTable.html)），用于流数据的实时接收和存储。
-  + mvcc 内存表（[mvccTable](../../funcs/m/mvccTable.html)），适用于频繁查询，但写入、更新、删除频率不高的场景。
-  + 分区内存表（[createPartitionedTable](../../funcs/c/createPartitionedTable.html)），各分区可并行计算，适用于数据量较大且对性能有要求的场景。
-  + 缓存表（[cachedTable](../../funcs/c/cachedTable.html)），提供了缓存并定时更新数据的功能，适用于同步实时性要求不高的数据。
-  + 内存在线事务处理表（[createIMOLTPTable](../../funcs/c/createIMOLTPTable.html)），通过主键和索引加速查询，适用于对响应时间有严格要求的低延时场景。
+  + 普通内存表（[table](../../funcs/t/table.md)），最基础的表结构，常用于临时数据存储。
+  + 索引内存表（[indexedTable](../../funcs/i/indexedTable.md)），适用于存取键值对数据的场景，范围查询性能更优。
+  + 键值内存表（[keyedTable](../../funcs/k/keyedTable.md)），适用于存取键值对数据的场景，单点查性性能更优。
+  + 流数据表（[streamTable](../../funcs/s/streamTable.md), [haStreamTable](../../funcs/h/haStreamTable.md)），用于流数据的实时接收和存储。
+  + mvcc 内存表（[mvccTable](../../funcs/m/mvccTable.md)），适用于频繁查询，但写入、更新、删除频率不高的场景。
+  + 分区内存表（[createPartitionedTable](../../funcs/c/createPartitionedTable.md)），各分区可并行计算，适用于数据量较大且对性能有要求的场景。
+  + 缓存表（[cachedTable](../../funcs/c/cachedTable.md)），提供了缓存并定时更新数据的功能，适用于同步实时性要求不高的数据。
+  + 内存在线事务处理表（[createIMOLTPTable](../../funcs/c/createIMOLTPTable.md)），通过主键和索引加速查询，适用于对响应时间有严格要求的低延时场景。
 * 分布式表
 
-  + 分布式分区表（[createPartitionedTable](../../funcs/c/createPartitionedTable.html)），最常见的分布式表结构，多用于大规模数据存储和高并发请求的场景。
-  + 维度表（[createDimensionTable](../../funcs/c/createdimensiontable.html)），在分布式数据库中没有分区的表，适用于存储不频繁更新的小数据集。
+  + 分布式分区表（[createPartitionedTable](../../funcs/c/createPartitionedTable.md)），最常见的分布式表结构，多用于大规模数据存储和高并发请求的场景。
+  + 维度表（[createDimensionTable](../../funcs/c/createdimensiontable.md)），在分布式数据库中没有分区的表，适用于存储不频繁更新的小数据集。
 
 ## 创建表
 
 本节介绍内存表的创建。创建内存表时，列名必须由中文或英文字母、数字或下划线 (\_)，且必须以中文或英文字母开头。
 
-2.00.2 版本开始，由 [pivot by](../sql/pivotBy.html), [addColumn](../../funcs/a/addColumn.html)
+2.00.2 版本开始，由 [pivot by](../sql/pivotBy.md), [addColumn](../../funcs/a/addColumn.md)
 操作产生的列名，支持包含特殊字符，或以数字开头。
 
 请注意：
@@ -289,9 +289,9 @@ select * from t
 
 ## 删除表
 
-* 通过函数 [dropTable](../../funcs/d/dropTable.html) 和 [truncate](../../funcs/t/truncate.html) 可以一次性删除所有分布式表数据。
-* 通过 [delete](../sql/delete.html)
+* 通过函数 [dropTable](../../funcs/d/dropTable.md) 和 [truncate](../../funcs/t/truncate.md) 可以一次性删除所有分布式表数据。
+* 通过 [delete](../sql/delete.md)
   语句可以删除指定条件的表（内存表或分布式表）数据。
 
-详情参考 [DropDatabaseandTable](../../db_distr_comp/db_oper/drop_db_tb.html) 页面的说明。
+详情参考 [DropDatabaseandTable](../../db_distr_comp/db_oper/drop_db_tb.md) 页面的说明。
 

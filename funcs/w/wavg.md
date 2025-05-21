@@ -27,5 +27,5 @@ wavg(1 NULL 1, 1 1 1);
 1
 ```
 
-相关函数：[wsum](wsum.html)
+相关函数：[wsum](wsum.md)
 

@@ -35,7 +35,7 @@ use example::ch9
 use CATALOG catalog1
 ```
 
-相关信息：[module](module.html)
+相关信息：[module](module.md)
 
 Copyright
 

@@ -4,7 +4,7 @@
 
 `msum(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -68,5 +68,5 @@ msum(m, 1w)
 | 2020.04.11 | 13 | 19 |
 | 2020.04.12 | 19 | 21 |
 
-相关函数：[sum](../s/sum.html)
+相关函数：[sum](../s/sum.md)
 

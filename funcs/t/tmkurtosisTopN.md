@@ -5,7 +5,7 @@
 `tmkurtosisTopN(T, X, S, window, top, [biased=true], [ascending=true],
 [tiesMethod='latest'])`
 
-参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.html)
+参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.md)
 
 ## 参数
 
@@ -50,5 +50,5 @@ select tmkurtosisTopN(time,val,id,6,4) as topN from t
 | 1 |
 | 2.1852 |
 
-相关函数：[tmkurtosis](tmkurtosis.html)
+相关函数：[tmkurtosis](tmkurtosis.md)
 

@@ -68,5 +68,5 @@ select * from t where sym not in `a`c
 | b | 3.3 |
 | b | 3 |
 
-相关函数: [and](../../funcs/a/and.html), [or](../../funcs/o/or.html)
+相关函数: [and](../../funcs/a/and.md), [or](../../funcs/o/or.md)
 

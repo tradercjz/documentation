@@ -164,5 +164,5 @@ t = queryFirst10Col(startDate=2023.01.01, endDate=2023.12.31, cols=`SecurityID`d
 * C++ 示例代码：[main.cpp](script/ID/main.cpp)
 * Java 示例代码：[Main.java](script/ID/Main.java)
 * C# 示例代码：[Program.cs](script/ID/Program.cs)
-* JavaScript 示例代码：[example.html](script/ID/example.html)
+* JavaScript 示例代码：[example.html](script/ID/example.md)
 

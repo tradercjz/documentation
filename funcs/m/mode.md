@@ -53,5 +53,5 @@ mode m;
 [2,6]
 ```
 
-相关的中心趋势函数：[mean](mean.html) 和 [med](med.html)
+相关的中心趋势函数：[mean](mean.md) 和 [med](med.md)
 

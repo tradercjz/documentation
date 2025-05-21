@@ -4,7 +4,7 @@
 
 `rowSize(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -45,5 +45,5 @@ select sym,rowSize(price1,price2) as size from t;
 | IBM | 2 |
 | C | 2 |
 
-相关函数：[rowCount](rowCount.html), [size](../s/size.html)
+相关函数：[rowCount](rowCount.md), [size](../s/size.md)
 

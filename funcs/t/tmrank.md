@@ -5,7 +5,7 @@
 `tmrank(T, X, ascending, window, [ignoreNA=true], [tiesMethod='min'],
 [percent=false])`
 
-部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 参数
 
@@ -45,5 +45,5 @@ tmrank(index, data, ascending=true, window=2d)
 [0,,1,2,3,,1,,4,1]
 ```
 
-相关函数：[mrank](../m/mrank.html), [rank](../r/rank.html)
+相关函数：[mrank](../m/mrank.md), [rank](../r/rank.md)
 

@@ -5,7 +5,7 @@
 
 ## 1. 数据库缓存类型
 
-在 DolphinDB 中，使用 [getSessionMemoryStat](../funcs/g/getSessionMemoryStat.html) 可获取当前节点的内存占用状态。
+在 DolphinDB 中，使用 [getSessionMemoryStat](../funcs/g/getSessionMemoryStat.md) 可获取当前节点的内存占用状态。
 
 ![](images/clear_cache/1-1.png)
 
@@ -47,8 +47,8 @@ exec memSize from getSessionMemoryStat() where userId="__******__"
 
 * 从 2.00.11 和 1.30.23 版本开始，维度表引入了自动回收机制，当内存使用超过系统配置参数 warningMemSize
   设定的阈值时，系统会根据 LRU（Least Recently Used）策略尝试释放部分维度表缓存。
-* 调用 [clearCachedDatabase](../funcs/c/clearCachedDatabase.html) 手动释放维度表的缓存。
-* 从 2.00.11 和1.30.23 版本开始，[clearAllCache](../funcs/c/clearAllCache.html) 函数也会清理维度表缓存。
+* 调用 [clearCachedDatabase](../funcs/c/clearCachedDatabase.md) 手动释放维度表的缓存。
+* 从 2.00.11 和1.30.23 版本开始，[clearAllCache](../funcs/c/clearAllCache.md) 函数也会清理维度表缓存。
 
 例1，例2，例3脚本中所用数据库表由以下脚本生成
 
@@ -132,7 +132,7 @@ exec memSize from pnodeRun(getSessionMemoryStat) where userId="__DimensionalTabl
 
 内存表等本地对象默认在其他会话中不可见。通过 `share` 函数共享后，表可在其他会话中访问。
 
-释放共享表变量可使用 [undef](../funcs/u/undef.html) 函数，并通过指定
+释放共享表变量可使用 [undef](../funcs/u/undef.md) 函数，并通过指定
 *objType*=SHARED 来释放共享变量占用的内存。
 
 例4. 释放指定共享表变量
@@ -226,9 +226,9 @@ OLAP 引擎 Cache Engine 有两种自动回收机制：
 
 OLAP 引擎 Cache Engine 的内存占用支持手动清理：
 
-* 可使用 [flushOLAPCache](../funcs/f/flushOLAPCache.html)
+* 可使用 [flushOLAPCache](../funcs/f/flushOLAPCache.md)
   函数将缓冲区内已完成的事务强制写入数据库，从而释放 Cache Engine 的内存。
-* 需要注意，`flushOLAPCache` 函数为异步操作，调用后内存不会立即释放。可通过 [getOLAPCacheEngineSize](../funcs/g/getOLAPCacheEngineSize.html) 函数监控 Cache Engine 的内存状态。
+* 需要注意，`flushOLAPCache` 函数为异步操作，调用后内存不会立即释放。可通过 [getOLAPCacheEngineSize](../funcs/g/getOLAPCacheEngineSize.md) 函数监控 Cache Engine 的内存状态。
 
 例7. 使用 `flushOLAPCache` 清理 OLAP 引擎 Cache Engine 的内存占用
 
@@ -273,7 +273,7 @@ OLAPCachedSymbolBase。
 TSDB 引擎的 Cache Engine 会对缓存数据进行排序。当 Cache Engine 写满一半或经过 10
 分钟，系统会自动将缓存数据刷入磁盘。刷盘期间，Cache Engine 仍可继续写入，直至完全写满。
 
-TSDB 引擎 Cache Engine 的内存占用可通过 [flushTSDBCache](../funcs/f/flushTSDBCache.html) 函数进行手动清理。该函数会将缓冲区中已完成的事务强制写入数据库，以释放内存资源。
+TSDB 引擎 Cache Engine 的内存占用可通过 [flushTSDBCache](../funcs/f/flushTSDBCache.md) 函数进行手动清理。该函数会将缓冲区中已完成的事务强制写入数据库，以释放内存资源。
 
 例8. 使用 `flushTSDBCache`清理 TSDB 引擎 Cache Engine 的内存占用
 
@@ -426,7 +426,7 @@ exec memSize from pnodeRun(getSessionMemoryStat) where userId="__TSDBCachedSymbo
 * 定期（每隔 30 秒）踢出最近未使用的分区。
 * 其对应的数据不在 Cache Engine 中，也不在正在进行的事务中。
 
-此外，静态表缓存可用 [clearAllIOTDBStaticTableCache](../funcs/c/clearalliotdbstatictablecache.html) 函数手动清理。
+此外，静态表缓存可用 [clearAllIOTDBStaticTableCache](../funcs/c/clearalliotdbstatictablecache.md) 函数手动清理。
 
 例12. 使用 clearAllIOTDBStaticTableCache 清理静态表缓存
 
@@ -481,7 +481,7 @@ exec memSize from pnodeRun(getSessionMemoryStat) where userId="__IOTDBStaticTabl
 * 定期（每隔 30 秒）踢出最近未使用的分区。
 * 其对应的数据不在 Cache Engine 中，也不在正在进行的事务中。
 
-此外，最新值缓存表缓存可用 [clearAllIOTDBLatestKeyCache](../funcs/c/clearalliotdblatestkeycache.html) 函数手动清理（注：如果某个分区在Cache
+此外，最新值缓存表缓存可用 [clearAllIOTDBLatestKeyCache](../funcs/c/clearalliotdblatestkeycache.md) 函数手动清理（注：如果某个分区在Cache
 Engine有数据，则该分区的最新值缓存表不会从内存缓存中清除)。
 
 例13. 使用 `clearAllIOTDBLatestKeyCache` 清理最新值缓存表缓存

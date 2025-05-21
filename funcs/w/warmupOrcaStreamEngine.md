@@ -18,7 +18,7 @@
 
 目前仅支持响应式状态引擎，时间序列聚合引擎和日级时间序列引擎。
 
-与现有 [warmupStreamEngine](warmupStreamEngine.html)
+与现有 [warmupStreamEngine](warmupStreamEngine.md)
 不同，`warmupOrcaStreamEngine` 支持在集群任意节点上调用，其本质是在引擎所在节点上远程执行
 `warmupStreamEngine`。
 

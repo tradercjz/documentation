@@ -92,5 +92,5 @@ x ** 2;
 Use * rather than ** for scalar and matrix multiplication.
 ```
 
-相关函数：[rowDot](../r/rowDot.html)
+相关函数：[rowDot](../r/rowDot.md)
 

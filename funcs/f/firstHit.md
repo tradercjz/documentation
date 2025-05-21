@@ -20,7 +20,7 @@
 
 若 *X* 中无元素满足条件，则返回空值。
 
-通过 `firstHit` 查找时，NULL 值会被忽略。如需查找第一个非 NULL 值， 可以调用函数 [firstNot](firstNot.html)。
+通过 `firstHit` 查找时，NULL 值会被忽略。如需查找第一个非 NULL 值， 可以调用函数 [firstNot](firstNot.md)。
 
 ## 例子
 
@@ -39,5 +39,5 @@ firstHit(>, X, 10.0)
 
 输出返回：NULL
 
-相关函数：[ifirstHit](../i/ifirstHit.html)
+相关函数：[ifirstHit](../i/ifirstHit.md)
 

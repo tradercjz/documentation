@@ -10,7 +10,7 @@
 
 ## 详情
 
-用于在线更新 license。先手动替换 license 文件，然后执行该函数在线更新 license，而无需重启节点。用户可通过 [getLicenseExpiration](../g/getLicenseExpiration.html) 获得当前 license 的过期时间，以判断 license
+用于在线更新 license。先手动替换 license 文件，然后执行该函数在线更新 license，而无需重启节点。用户可通过 [getLicenseExpiration](../g/getLicenseExpiration.md) 获得当前 license 的过期时间，以判断 license
 是否生效。
 
 该函数只在执行该函数的节点生效。因此在集群环境下，需要在所有节点上运行该函数。

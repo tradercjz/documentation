@@ -28,5 +28,5 @@ contextSum(1 2 NULL, 1 NULL 3)
 1
 ```
 
-相关函数：[contextCount](contextCount.html), [contextSum2](contextSum2.html)
+相关函数：[contextCount](contextCount.md), [contextSum2](contextSum2.md)
 

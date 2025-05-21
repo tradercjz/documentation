@@ -35,5 +35,5 @@ oauthLogin("authorization
               code",{"code":"9d823075cb151201925a"})
 ```
 
-相关信息：[单点登录](../../tutorials/oauth.html)
+相关信息：[单点登录](../../tutorials/oauth.md)
 

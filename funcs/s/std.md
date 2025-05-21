@@ -46,5 +46,5 @@ std(m);
 [3.162277660168379,4.743416490252569]
 ```
 
-相关函数：[std](std.html), [cumstd](../c/cumstd.html)
+相关函数：[std](std.md), [cumstd](../c/cumstd.md)
 

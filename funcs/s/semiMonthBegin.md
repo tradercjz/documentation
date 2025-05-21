@@ -93,5 +93,5 @@ select avg(price),sum(qty) from t1 group by semiMonthBegin(date);
 | 2016.06.01 | 50.805 | 11300 |
 | 2016.06.15 | 52.38 | 4500 |
 
-相关函数： [monthBegin](../m/monthBegin.html), [monthEnd](../m/monthEnd.html), [semiMonthEnd](semiMonthEnd.html)
+相关函数： [monthBegin](../m/monthBegin.md), [monthEnd](../m/monthEnd.md), [semiMonthEnd](semiMonthEnd.md)
 

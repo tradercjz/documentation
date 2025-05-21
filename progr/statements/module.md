@@ -12,7 +12,7 @@ module example::ch9
 
 我们使用.dos作为模块文件的后缀，是"dolphin script"的缩写。
 
-相关语句：[use](use.html)
+相关语句：[use](use.md)
 
 Copyright
 

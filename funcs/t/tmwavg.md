@@ -4,7 +4,7 @@
 
 `tmwavg(T, X, Y, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -71,5 +71,5 @@ select *, tmwavg(t, y, x, 1w) from m
 | 2021.01.13 | 9 | 0.9 | 0.6667 |
 | 2021.01.14 | 10 | 1 | 0.7571 |
 
-相关函数：[wavg](../w/wavg.html), [mwavg](../m/mwavg.html)
+相关函数：[wavg](../w/wavg.md), [mwavg](../m/mwavg.md)
 

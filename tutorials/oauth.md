@@ -25,7 +25,7 @@ GitHub 创建 OAuth 应用的说明可参考官方文档 [创建 OAuth 应用 - 
 
 ## 步骤二：DolphinDB 中配置相关参数
 
-DolphinDB 中提供了 OAuth 功能的相关配置参数，详细说明可参阅 [参数配置-单点登录](../db_distr_comp/cfg/function_configuration.html)。用户可使用两种配置方式：在 DolphinDB server 的配置文件中指定配置项；或在 Web
+DolphinDB 中提供了 OAuth 功能的相关配置参数，详细说明可参阅 [参数配置-单点登录](../db_distr_comp/cfg/function_configuration.md)。用户可使用两种配置方式：在 DolphinDB server 的配置文件中指定配置项；或在 Web
 的配置管理界面新增配置参数。
 
 注意：如果要在集群使用 OAuth 功能，则必须在所有节点的 *controller.cfg*, *cluster.cfg* 文件中都添加 OAuth

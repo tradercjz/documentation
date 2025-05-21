@@ -55,7 +55,7 @@ DolphinDB 最优化求解函数主要有 linprog，quadprog，qclp，socp，用�
 
 ### 1.1 `linprog`（线性规划）函数
 
-[linprog](../funcs/l/linprog.html) 完整名称为 Linear
+[linprog](../funcs/l/linprog.md) 完整名称为 Linear
 Programming，即线性规划，用于求解线性目标函数在线性约束条件下的极值。
 
 数学模型
@@ -71,7 +71,7 @@ Programming，即线性规划，用于求解线性目标函数在线性约束条
 
 ### 1.2 `quadprog`（二次规划）函数
 
-[quadprog](../funcs/q/quadprog.html) 即 Quadratic
+[quadprog](../funcs/q/quadprog.md) 即 Quadratic
 Programming，用于求解二次目标函数在线性约束条件下的极值。
 
 数学模型
@@ -81,7 +81,7 @@ Programming，用于求解二次目标函数在线性约束条件下的极值。
 
 ### 1.3 `qclp`（二次约束线性规划）函数
 
-[qclp](../funcs/q/qclp.html) 全称为 Quadratically Constrained
+[qclp](../funcs/q/qclp.md) 全称为 Quadratically Constrained
 Linear Programming，即二次约束线性规划，该函数用于求解线性目标函数在包含二次约束条件下的极值。
 
 数学模型
@@ -91,7 +91,7 @@ Linear Programming，即二次约束线性规划，该函数用于求解线性�
 
 ### 1.4 `socp`（二阶锥规划）函数
 
-[socp](../funcs/s/socp.html) 函数 用于求解二阶锥规划（SOCP, Second Order
+[socp](../funcs/s/socp.md) 函数 用于求解二阶锥规划（SOCP, Second Order
 Cone Programming）问题，其数学模型具有更强的一般性，有很广泛的适用场景。socp 和 python 里的 cvxpy 库中的 ecos
 求解方法是同种算法。
 

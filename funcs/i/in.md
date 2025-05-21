@@ -96,5 +96,5 @@ select * from kt where name in [`Tom, `Cindy];
 | Tom | 1 | 30 | IT |
 | Cindy | 3 | 32 | HR |
 
-相关函数：[find](../f/find.html), [binsrch](../b/binsrch.html)。
+相关函数：[find](../f/find.md), [binsrch](../b/binsrch.md)。
 

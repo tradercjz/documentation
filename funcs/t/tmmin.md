@@ -4,7 +4,7 @@
 
 `tmmin(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -57,5 +57,5 @@ select *, tmmin(t, x, 1w) from m
 | 2021.01.07 | 2 | -1 |
 | 2021.01.08 | 4 | -1 |
 
-相关函数：[mmin](../m/mmin.html), [min](../m/min.html)
+相关函数：[mmin](../m/mmin.md), [min](../m/min.md)
 

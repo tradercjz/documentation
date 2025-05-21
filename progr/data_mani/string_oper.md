@@ -1,6 +1,6 @@
 # 字符串操作
 
-(1) [strReplace](../../funcs/s/strReplace.html) 函数和 [regexReplace](../../funcs/r/regexReplace.html) 函数都能够替换字符串中的一部分。两者的区别在于，*regexReplace*
+(1) [strReplace](../../funcs/s/strReplace.md) 函数和 [regexReplace](../../funcs/r/regexReplace.md) 函数都能够替换字符串中的一部分。两者的区别在于，*regexReplace*
 函数可以用正则表达式表示替换内容，并且能够指定开始搜索的位置。
 
 ```
@@ -17,7 +17,7 @@ regexReplace("this computer is faster than that computer", "\\b(comp)([^ ]*)", "
 this desktop is faster than that desktop
 ```
 
-(2) [left](../../funcs/l/left.html) 函数和 [right](../../funcs/r/right.html) 函数能够分别截取左边和右边指定长度的字符串。[substr](../../funcs/s/substr.html) 和 [substru](../../funcs/s/substru.html) 函数能够指定开始截取的位置和长度。
+(2) [left](../../funcs/l/left.md) 函数和 [right](../../funcs/r/right.md) 函数能够分别截取左边和右边指定长度的字符串。[substr](../../funcs/s/substr.md) 和 [substru](../../funcs/s/substru.md) 函数能够指定开始截取的位置和长度。
 
 ```
 left("Hello World", 5);
@@ -33,7 +33,7 @@ substr("This is a test", 5, 2);
 is
 ```
 
-(3) [ltrim](../../funcs/l/ltrim.html) 函数和 [rtrim](../../funcs/r/rtrim.html) 函数能够分别去除字符串左边和右边的空格，[trim](../../funcs/t/trim.html) 函数能够去除字符串首尾的空格。[strip](../../funcs/s/strip.html) 函数不仅能够去除字符串首尾的空格，还能去除字符串首位的制表符、换行符和回车符。
+(3) [ltrim](../../funcs/l/ltrim.md) 函数和 [rtrim](../../funcs/r/rtrim.md) 函数能够分别去除字符串左边和右边的空格，[trim](../../funcs/t/trim.md) 函数能够去除字符串首尾的空格。[strip](../../funcs/s/strip.md) 函数不仅能够去除字符串首尾的空格，还能去除字符串首位的制表符、换行符和回车符。
 
 ```
 ltrim("     Hello World   ");
@@ -53,7 +53,7 @@ strip("   \t  Hello World   ");
 Hello World
 ```
 
-(4) [lpad](../../funcs/l/lpad.html) 函数和 [rpad](../../funcs/r/rpad.html) 函数能够分别在字符串左侧和右侧填充指定字符串。
+(4) [lpad](../../funcs/l/lpad.md) 函数和 [rpad](../../funcs/r/rpad.md) 函数能够分别在字符串左侧和右侧填充指定字符串。
 
 ```
 lpad("Hello",7);
@@ -69,7 +69,7 @@ rpad("Hello",7,"0");
 Hello00
 ```
 
-(5) [repeat](../../funcs/r/repeat.html) 函数能够返回字符串重复多次后的结果。
+(5) [repeat](../../funcs/r/repeat.md) 函数能够返回字符串重复多次后的结果。
 
 ```
 repeat("ABC",3);
@@ -81,7 +81,7 @@ repeat(`ABC`DE,3);
 ["ABCABCABC","DEDEDE"]
 ```
 
-(6) [lower](../../funcs/l/lower.html) 函数能够把字符串中的字母转换成小写形式，[upper](../../funcs/u/upper.html) 函数能够把字符串中的字母转换成大写形式。
+(6) [lower](../../funcs/l/lower.md) 函数能够把字符串中的字母转换成小写形式，[upper](../../funcs/u/upper.md) 函数能够把字符串中的字母转换成大写形式。
 
 ```
 lower `Chloe;
@@ -93,7 +93,7 @@ upper 'Christmas';
 CHRISTMAS
 ```
 
-(7) [concat](../../funcs/c/concat.html) 函数可以连接两个字符串。
+(7) [concat](../../funcs/c/concat.md) 函数可以连接两个字符串。
 
 ```
 concat (`hello, `world);
@@ -111,7 +111,7 @@ var1+", "+var2+"!";
 Hello, World!
 ```
 
-(8) [split](../../funcs/s/split.html) 函数可以分割字符串。
+(8) [split](../../funcs/s/split.md) 函数可以分割字符串。
 
 ```
 split("xyz 1 ABCD 3241.32"," ");
@@ -123,7 +123,7 @@ split("XOM|2018.02.15|76.21", "|");
 ["XOM","2018.02.15","76.21"]
 ```
 
-(9) [strlen](../../funcs/s/strlen.html) 函数能够计算字符串的长度。
+(9) [strlen](../../funcs/s/strlen.md) 函数能够计算字符串的长度。
 
 ```
 strlen("Hello World!");
@@ -135,7 +135,7 @@ strlen(`XOM`MSFT`F`GM);
 [3,4,1,2]
 ```
 
-[wc](../../funcs/w/wc.html) 函数能够计算字符串中的单词数。
+[wc](../../funcs/w/wc.md) 函数能够计算字符串中的单词数。
 
 ```
 wc(`apple);
@@ -151,7 +151,7 @@ wc("This is a 7th generation iphone!" "I wonder what the 8th generation looks li
 [6,8]
 ```
 
-[regexCount](../../funcs/r/regexCount.html) 函数能够计算一个子字符串在字符串中出现的次数。子字符串可以用正则表达式表示。
+[regexCount](../../funcs/r/regexCount.md) 函数能够计算一个子字符串在字符串中出现的次数。子字符串可以用正则表达式表示。
 
 ```
 regexCount("FB IBM FB IBM AMZN IBM", `IBM);
@@ -167,7 +167,7 @@ regexCount("this subject has a submarine as subsequence", "\\b(sub)([^ ]*)");
 3
 ```
 
-(10) [startsWith](../../funcs/s/startsWith.html) 函数和 [endsWith](../../funcs/e/endsWith.html) 函数能够检查字符串是否以某个字符串开头和结尾。
+(10) [startsWith](../../funcs/s/startsWith.md) 函数和 [endsWith](../../funcs/e/endsWith.md) 函数能够检查字符串是否以某个字符串开头和结尾。
 
 ```
 startsWith('ABCDEF!', "ABC");
@@ -187,7 +187,7 @@ endsWith('ABCDEF!', "E!");
 0
 ```
 
-(11) [convertEncode](../../funcs/c/convertEncode.html) 函数能够转换字符串编码，[fromUTF8](../../funcs/f/fromUTF8.html) 函数能够将UTF-8编码的字符串转换成其他编码，[toUTF8](../../funcs/t/toUTF8.html) 函数能够将其他编码的字符串转换成UTF-8编码。
+(11) [convertEncode](../../funcs/c/convertEncode.md) 函数能够转换字符串编码，[fromUTF8](../../funcs/f/fromUTF8.md) 函数能够将UTF-8编码的字符串转换成其他编码，[toUTF8](../../funcs/t/toUTF8.md) 函数能够将其他编码的字符串转换成UTF-8编码。
 
 ```
 convertEncode(["hello","DolphinDB"],"gbk","utf-8");
@@ -203,7 +203,7 @@ toUTF8(["hello","DolphinDB"],"gbk");
 ["hello","DolphinDB"]
 ```
 
-(12) [charAt](../../funcs/c/charAt.html) 函数可以获取字符串中指定位置的字符。
+(12) [charAt](../../funcs/c/charAt.md) 函数可以获取字符串中指定位置的字符。
 
 ```
 s=charAt("abc",2);
@@ -220,7 +220,7 @@ charAt(["hello","world"],[3,4]);
 ['l','d']
 ```
 
-(13) [isAlpha](../../funcs/i/isAlpha.html) 函数可以判断字符串是否全为字母，[isUpper](../../funcs/i/isUpper.html) 函数可以判断字符串中的字母是否全为大写，[isLower](../../funcs/i/isLower.html) 函数可以判断字符串中的字母是否全为小写，[isTitle](../../funcs/i/isTitle.html) 函数可以判断字符串中每个单词是否为首字母大写，其他字母小写。
+(13) [isAlpha](../../funcs/i/isAlpha.md) 函数可以判断字符串是否全为字母，[isUpper](../../funcs/i/isUpper.md) 函数可以判断字符串中的字母是否全为大写，[isLower](../../funcs/i/isLower.md) 函数可以判断字符串中的字母是否全为小写，[isTitle](../../funcs/i/isTitle.md) 函数可以判断字符串中每个单词是否为首字母大写，其他字母小写。
 
 ```
 isAlpha(["hello","hello world","1And1",string()]);
@@ -240,7 +240,7 @@ isTitle("Hello World");
 true
 ```
 
-(14) [isNumeric](../../funcs/i/isNumeric.html), [isDigit](../../funcs/i/isDigit.html) 可以判断字符串是否全部为数字，[isAlNum](../../funcs/i/isAlNum.html) 函数可以判断字符串是否全部为字母或数字。
+(14) [isNumeric](../../funcs/i/isNumeric.md), [isDigit](../../funcs/i/isDigit.md) 可以判断字符串是否全部为数字，[isAlNum](../../funcs/i/isAlNum.md) 函数可以判断字符串是否全部为字母或数字。
 
 ```
 isNumeric("123456");
@@ -256,7 +256,7 @@ isAlNum("123456abc");
 true
 ```
 
-(15) [isSpace](../../funcs/i/isSpace.html) 可以判断字符串是否由空格类字符（包括空格、回车符、换行符、跳格符）组成。
+(15) [isSpace](../../funcs/i/isSpace.md) 可以判断字符串是否由空格类字符（包括空格、回车符、换行符、跳格符）组成。
 
 ```
 isSpace(" \t ");

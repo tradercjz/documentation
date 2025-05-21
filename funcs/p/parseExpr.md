@@ -8,7 +8,7 @@
 
 **X** 是一个字符串标量或向量。
 
-**varDict** 为可选参数，是一个字典。如果指定了该参数，使用 [eval](../e/eval.html) 函数解析时，表达式中的变量会被解析成字典的 key，其值即为字典中该 key 所对应的 value。
+**varDict** 为可选参数，是一个字典。如果指定了该参数，使用 [eval](../e/eval.md) 函数解析时，表达式中的变量会被解析成字典的 key，其值即为字典中该 key 所对应的 value。
 
 **modules** 为可选参数，是字符串或字符串数组，表示需要加载的模块名称。
 
@@ -17,7 +17,7 @@
 
 ## 详情
 
-把字符串转换为元代码。使用 [eval](../e/eval.html) 函数可以执行
+把字符串转换为元代码。使用 [eval](../e/eval.md) 函数可以执行
 `parseExpr` 函数生成的元代码。
 
 ## 例子
@@ -81,7 +81,7 @@ myfunc()
 myfunc() => myfunc: return ::evaluate(parseExpr("select * from t3 where id in 1..5")) => Can't find the object with name t3
 ```
 
-解决此问题可以使用 [sql](../s/sql.html) 函数动态生成 SQL
+解决此问题可以使用 [sql](../s/sql.md) 函数动态生成 SQL
 语句，如下所示：
 
 ```
@@ -132,5 +132,5 @@ parseExpr("test::add(1,2)+2", modules="test", overloadedOperators={"+": def(a, b
 1
 ```
 
-相关函数：[expr](../e/expr.html), [eval](../e/eval.html)
+相关函数：[expr](../e/expr.md), [eval](../e/eval.md)
 

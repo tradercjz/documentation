@@ -12,7 +12,7 @@
 
 ## 详情
 
-用指定的参数调用一个函数。同 [call](call.html) 类似，可以用在 [each/peach](each.html) 或 [loop](loop.html)/[ploop](ploop.html) 函数中，来调用一批函数。区别在于，*call*
+用指定的参数调用一个函数。同 [call](call.md) 类似，可以用在 [each/peach](each.md) 或 [loop](loop.md)/[ploop](ploop.md) 函数中，来调用一批函数。区别在于，*call*
 函数的args参数个数不确定，由func传入的函数决定。 而 *unifiedCall*
 的args只有一个，通过tuple来给func函数传入多个参数。
 

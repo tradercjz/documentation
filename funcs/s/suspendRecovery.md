@@ -17,5 +17,5 @@
 
 启用高可用集群时，需要在 raft 组内每个节点执行该命令。
 
-相关命令： [resumeRecovery](../r/resumeRecovery.html)
+相关命令： [resumeRecovery](../r/resumeRecovery.md)
 

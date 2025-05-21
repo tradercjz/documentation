@@ -27,7 +27,7 @@ createEquiJoinEngine 函数的语法如下：
 createEquiJoinEngine(name, leftTable, rightTable, outputTable, metrics, matchingColumn, timeColumn, [garbageSize=5000], [maxDelayedTime])
 ```
 
-其参数的详细含义可以参考：[createEquiJoinEngine](../funcs/c/createEquiJoinEngine.html)。
+其参数的详细含义可以参考：[createEquiJoinEngine](../funcs/c/createEquiJoinEngine.md)。
 
 注： 如果您使用的 DolphinDB 版本早于 1.30.21/2.00.9，请将脚本中的
 `createEquiJoinEngine` 替换为 `createEqualJoinEngine`。自

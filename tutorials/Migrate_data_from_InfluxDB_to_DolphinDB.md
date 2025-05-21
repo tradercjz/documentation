@@ -20,7 +20,7 @@ DolphinDB 支持用户通过 DataX 插件实现数据的读写，但考虑到，
 
 在物联网监控场景中，数据有来源多、维度高、数据量大的特点。用户常见的需求是，在采集传感器数据时，实时写入、聚合数据，并做异常检测、预警等分析操作。这对数据库系统的吞吐量和实时分析能力提出了很高的要求。
 
-在这方面，DolphinDB 有着丰富的实践案例，可以参考 [DolphinDB 物联网范例](iot_examples.html)，[DolphinDB 在工业物联网的应用](iot_demo.html)，[DolphinDB 流计算在物联网的应用：实时检测传感器状态变化](ddb_str_app_iot.html) 等。
+在这方面，DolphinDB 有着丰富的实践案例，可以参考 [DolphinDB 物联网范例](iot_examples.md)，[DolphinDB 在工业物联网的应用](iot_demo.md)，[DolphinDB 流计算在物联网的应用：实时检测传感器状态变化](ddb_str_app_iot.md) 等。
 
 我们以物联网设备传感器的数据为例，来说明如何将 InfluxDB 的数据迁移到 DolphinDB。
 
@@ -43,7 +43,7 @@ sample.data(set: "machineProduction")
 
 ### 在 DolphinDB 创建表
 
-针对上面的测试数据，我们需要在 DolphinDB 里创建对应的库表，用于存储迁移过来的数据。对于实际的数据，需要综合考虑被迁移数据的字段，类型，数据量，在 DolphinDB 是否需要分区，分区方案，使用 OLAP 还是 TSDB 引擎等情况，去设计建库建表方案。一些数据存储库表设计实践，可以参考 [分区数据库](database.html)
+针对上面的测试数据，我们需要在 DolphinDB 里创建对应的库表，用于存储迁移过来的数据。对于实际的数据，需要综合考虑被迁移数据的字段，类型，数据量，在 DolphinDB 是否需要分区，分区方案，使用 OLAP 还是 TSDB 引擎等情况，去设计建库建表方案。一些数据存储库表设计实践，可以参考 [分区数据库](database.md)
 
 本例建表文件 [createTable.dos](script/Migrate_data_from_InfluxDB_to_DolphinDB/createTable.dos) 内容如下:
 

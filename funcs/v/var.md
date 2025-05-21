@@ -48,5 +48,5 @@ var(m);
 [10,22.5]
 ```
 
-相关函数： [covar](../c/covar.html) 和 [corr](../c/corr.html)
+相关函数： [covar](../c/covar.md) 和 [corr](../c/corr.md)
 

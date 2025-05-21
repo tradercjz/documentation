@@ -80,5 +80,5 @@ predict(model, t)
 loadModel("C:/DolphinDB/data/classifierModel.bin")
 ```
 
-相关函数：[adaBoostRegressor](../a/adaBoostRegressor.html), [adaBoostClassifier](../a/adaBoostClassifier.html), [randomForestRegressor](randomForestRegressor.html)
+相关函数：[adaBoostRegressor](../a/adaBoostRegressor.md), [adaBoostClassifier](../a/adaBoostClassifier.md), [randomForestRegressor](randomForestRegressor.md)
 

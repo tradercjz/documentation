@@ -272,7 +272,7 @@ Java API 通过 `System.out.println(date)`将写入的时间打印到了前台�
 
 观察发现，Java 控制台打印的时间和数据入库时间不符，出现了时间错乱的现象，原因有以下两点：
 
-1. Date 对象实例化是通过 `System.currentTimeMillis()` 返回的 Unix 时间戳实现的。关于 Date 的构造函数的更多信息，见 [Java官方文档](https://docs.oracle.com/javase/8/docs/api/java/util/Date.html)。
+1. Date 对象实例化是通过 `System.currentTimeMillis()` 返回的 Unix 时间戳实现的。关于 Date 的构造函数的更多信息，见 [Java官方文档](https://docs.oracle.com/javase/8/docs/api/java/util/Date.md)。
 
 ```
 /**
@@ -393,7 +393,7 @@ mysql> select * from testTable;
 
 ### 3.2. MySQL 时间类型导入 DolphinDB
 
-本节通过 DolphinDB 的 MySQL 插件，将 MySQL 中的数据快速导入 DolphinDB。MySQL 插件会自动完成数据类型转换。MySQL时间类型与DolphinDB时间类型转换关系如下表。关于插件更多使用介绍，请参考：[MySQL插件使用说明](../plugins/mysql/mysql.html)。
+本节通过 DolphinDB 的 MySQL 插件，将 MySQL 中的数据快速导入 DolphinDB。MySQL 插件会自动完成数据类型转换。MySQL时间类型与DolphinDB时间类型转换关系如下表。关于插件更多使用介绍，请参考：[MySQL插件使用说明](../plugins/mysql/mysql.md)。
 
 | MySQL类型 | DolphinDB类型 |
 | --- | --- |
@@ -474,7 +474,7 @@ mysql> select * from taqTs limit 5;
 
 ## 4. CSV 文件的时间处理
 
-DolphinDB 提供内置函数 [loadText](../funcs/l/loadText.html) 和 [loadTextEx](../funcs/l/loadTextEx.html) 函数，实现将 csv 数据加载到 DolphinDB 的内存表和分布式表中。本节以 [loadText](../funcs/l/loadText.html) 函数为例，对于日期列或时间列，如果 DolphinDB 识别的数据类型不符合预期，不仅需要在 schema 的 type 列指定时间类型，还需要在 format 列中指定数据文件中日期或时间的格式（用字符串表示），如 "MM/dd/yyyy"。如何表示日期和时间格式请参考[日期和时间的调整及格式](../progr/data_mani/format_temp_obj.html)。如何加载文本数据请参考 [DolphinDB文本数据加载教程](import_csv.html)。
+DolphinDB 提供内置函数 [loadText](../funcs/l/loadText.md) 和 [loadTextEx](../funcs/l/loadTextEx.md) 函数，实现将 csv 数据加载到 DolphinDB 的内存表和分布式表中。本节以 [loadText](../funcs/l/loadText.md) 函数为例，对于日期列或时间列，如果 DolphinDB 识别的数据类型不符合预期，不仅需要在 schema 的 type 列指定时间类型，还需要在 format 列中指定数据文件中日期或时间的格式（用字符串表示），如 "MM/dd/yyyy"。如何表示日期和时间格式请参考[日期和时间的调整及格式](../progr/data_mani/format_temp_obj.md)。如何加载文本数据请参考 [DolphinDB文本数据加载教程](import_csv.md)。
 
 加载数据文件，查看数据，具体代码如下：
 
@@ -527,7 +527,7 @@ DolphinDB 存储时间值时没有时区信息。相反，它提供各种时区�
 * **如何实现有无时区的存储**
 
   + 对于不需要时区信息的存储，用户将原始时间（DATE , TIME , TIMESTAMP 类型均可）的数据直接存入 DolphinDB 即可。DolphinDB 将按原时间输出，不会增加时区转换。
-  + 对于需要时区信息的存储，用户在写入数据库时可以通过 DolphinDB 内置时区转换函数 [gmtime](../funcs/g/gmtime.html) 将本地时间转换成 UTC 时间进行存储，之后客户端查询时可以通过 DolphinDB 内置时区转换函数 [localtime](../funcs/l/localtime.html) 和 [convertTZ](../funcs/c/convertTZ.html) 将 UTC 时间转换成本地时间和其它时区的时间。
+  + 对于需要时区信息的存储，用户在写入数据库时可以通过 DolphinDB 内置时区转换函数 [gmtime](../funcs/g/gmtime.md) 将本地时间转换成 UTC 时间进行存储，之后客户端查询时可以通过 DolphinDB 内置时区转换函数 [localtime](../funcs/l/localtime.md) 和 [convertTZ](../funcs/c/convertTZ.md) 将 UTC 时间转换成本地时间和其它时区的时间。
 * 储存没有时区信息的时间值。
 
 直接将时间值（日期、时间或TIMESTAMP类型）保存到 DolphinDB。数据将按照最初保存的方式返回，没有任何时区转换。

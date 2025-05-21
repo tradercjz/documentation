@@ -10,7 +10,7 @@ getEnableNullSafeJoin()
 
 ## 详情
 
-返回在线修改后的 *enableNullSafeJoin* 的配置值。配置详情请参考文档 [DolphinDB-功能配置](../../db_distr_comp/cfg/function_configuration.html)。
+返回在线修改后的 *enableNullSafeJoin* 的配置值。配置详情请参考文档 [DolphinDB-功能配置](../../db_distr_comp/cfg/function_configuration.md)。
 
 **返回值** BOOL 类型标量
 

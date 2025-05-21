@@ -8,7 +8,7 @@
 
 ## 详情
 
-把 DolphinDB 时序类型的数据转换成指定格式的字符串。详情请参考： [日期和时间的调整及格式](../../progr/data_mani/format_temp_obj.html)。
+把 DolphinDB 时序类型的数据转换成指定格式的字符串。详情请参考： [日期和时间的调整及格式](../../progr/data_mani/format_temp_obj.md)。
 
 ## 参数
 

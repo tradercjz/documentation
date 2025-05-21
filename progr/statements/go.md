@@ -9,7 +9,7 @@
 DolphinDB 对提交执行的代码首先进行语法解析，代码全部解析成功后才开始执行。`go`
 语句的作用是对代码分段进行解析和执行，即先解析并执行 go 语句之前的代码，然后再解析并执行其后的代码。
 
-解析时，一个变量或函数必须被显式定义，后续才可引用。[share](../../funcs/s/share.html), [enableTableShareAndPersistence](../../funcs/e/enableTableShareAndPersistence.html), [loadPlugin](../../funcs/l/loadPlugin.html)，[run](../../funcs/r/run.html) 等函数在执行过程中会动态注册一些变量或函数，但是解析这些函数的过程中，
+解析时，一个变量或函数必须被显式定义，后续才可引用。[share](../../funcs/s/share.md), [enableTableShareAndPersistence](../../funcs/e/enableTableShareAndPersistence.md), [loadPlugin](../../funcs/l/loadPlugin.md)，[run](../../funcs/r/run.md) 等函数在执行过程中会动态注册一些变量或函数，但是解析这些函数的过程中，
 并不会注册新的变量或函数。因此，`share` 等函数之后的代码若需要引用这些函数动态注册的变量或函数，必须使用 go
 语句，否则解析后续代码时会抛出未定义变量或函数等异常。
 

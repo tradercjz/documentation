@@ -743,7 +743,7 @@ res = select orderId, symbol, direction, sendTime, orderPrice, orderQty, tradeTi
 
 ## 参考
 
-[命名函数](../../progr/named_func.html)
+[命名函数](../../progr/named_func.md)
 
-[模拟撮合教程](../../tutorials/matching_engine_simulator.html)
+[模拟撮合教程](../../tutorials/matching_engine_simulator.md)
 

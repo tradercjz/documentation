@@ -30,7 +30,7 @@ window join 引擎在创建时通过参数 *useSystemTime* 指定以下两种规
 createWindowJoinEngine(name, leftTable, rightTable, outputTable, window, metrics, matchingColumn, [timeColumn], [useSystemTime=false], [garbageSize = 5000], [maxDelayedTime], [nullFill], [outputElapsedMicroseconds=false], [sortByTime])
 ```
 
-其参数的详细含义可以参考：[createWindowJoinEngine](../funcs/c/createWindowJoinEngine.html) 函数。
+其参数的详细含义可以参考：[createWindowJoinEngine](../funcs/c/createWindowJoinEngine.md) 函数。
 
 ## 应用例子 1-行情快照与逐笔成交数据融合
 

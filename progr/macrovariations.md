@@ -170,5 +170,5 @@ alias = [`y1, `x11]
 <select sum:V(_$$name) as _$$alias from t>.eval()
 ```
 
-关于 SQL 编程的更多应用案例，参考教程：[基于 SQL 的元编程](../tutorials/macro_var_based_metaprogramming.html)
+关于 SQL 编程的更多应用案例，参考教程：[基于 SQL 的元编程](../tutorials/macro_var_based_metaprogramming.md)
 

@@ -8,7 +8,7 @@
 
 应用函数/运算符到给定对象的一个滚动窗口上。*tmoving* 高阶函数返回一个向量，长度与输入参数的长度相同。
 
-内置函数 [tmsum](../t/tmsum.html), [tmcount](../t/tmcount.html) 和 [tmavg](../t/tmavg.html) 为各自的计算场景进行了优化，因此比 *tmoving* 高阶函数有更好的性能。
+内置函数 [tmsum](../t/tmsum.md), [tmcount](../t/tmcount.md) 和 [tmavg](../t/tmavg.md) 为各自的计算场景进行了优化，因此比 *tmoving* 高阶函数有更好的性能。
 
 ## 参数
 
@@ -16,7 +16,7 @@
 * **T** 是一个递增的整型或时间类型的向量，且不能包含NULL值。
 * **funcArgs**
   是函数func的参数。可为向量、字典或表。如果有多个参数，则用元组表示，并且每个参数的长度（向量/字典的元素个数或表的行数）必须相同。
-* **window** 是一个正整数或一个 [duration](../d/duration.html)，表示滚动窗口的区间大小。 对于 *T*
+* **window** 是一个正整数或一个 [duration](../d/duration.md)，表示滚动窗口的区间大小。 对于 *T*
   中每个元素Ti，确定一个区间为[Ti - window + 1,
   Ti]的移动窗口，所有包含在这个区间的数据均属于该窗口。
 * **excludedPeriod** 是　TIME、NANOTIME、MINUTE 和 SECOND
@@ -27,7 +27,7 @@
   + *T* 中不能包含 *excludedPeriod* 区间内的时间，且数据类型必须是 TIMESTAMP,
     NANOTIMESTAMP, TIME 或 NANOTIME。
 
-其他相关的 tm 系列函数的参数说明和窗口计算规则请参考: [tmFunctions](../themes/tmFunctions.html)
+其他相关的 tm 系列函数的参数说明和窗口计算规则请参考: [tmFunctions](../themes/tmFunctions.md)
 
 ## 例子
 

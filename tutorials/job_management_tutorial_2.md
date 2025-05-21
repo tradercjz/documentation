@@ -75,7 +75,7 @@ pnodeRun(cancelAllConsoleJob)
 * 通过 `scheduleJob` 函数提交的**定时作业**。
 * 流数据作业。
 
-对于定时作业和流数据作业，可分别参阅 [定时作业教程](scheduledJob.html) 和 [流数据教程](streaming_tutorial.html) 了解详情。下面详细讲述批处理作业。
+对于定时作业和流数据作业，可分别参阅 [定时作业教程](scheduledJob.md) 和 [流数据教程](streaming_tutorial.md) 了解详情。下面详细讲述批处理作业。
 
 ### 批处理作业的创建
 

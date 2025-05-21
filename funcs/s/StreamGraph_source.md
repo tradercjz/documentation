@@ -9,7 +9,7 @@
 
 ## 详情
 
-创建一个持久化共享流数据表。详情参考 [enableTableShareAndPersistence](../e/enableTableShareAndPersistence.html)。
+创建一个持久化共享流数据表。详情参考 [enableTableShareAndPersistence](../e/enableTableShareAndPersistence.md)。
 
 **返回值**：一个 DStream 对象。
 

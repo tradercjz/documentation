@@ -1,6 +1,6 @@
 # like/LIKE
 
-like/LIKE 用于测试列中的值是否与指定模式匹配。其功能与 [like](../../funcs/l/like.html) 函数相同。
+like/LIKE 用于测试列中的值是否与指定模式匹配。其功能与 [like](../../funcs/l/like.md) 函数相同。
 
 ## 语法
 

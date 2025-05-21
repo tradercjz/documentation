@@ -24,5 +24,5 @@ getTableAccessByCluster("catalog1.schema1.dt@MoMSender")
 | --- | --- | --- | --- | --- | --- |
 | admin | user | ALLOW | ALLOW | ALLOW | ALLOW |
 
-相关函数：[getTableAccess](gettableaccess.html)
+相关函数：[getTableAccess](gettableaccess.md)
 

@@ -36,6 +36,6 @@ def f(a){return a+1}
 undef(`f, DEF);
 ```
 
-[undef](../../funcs/u/undef.html)
+[undef](../../funcs/u/undef.md)
 函数是在代码运行阶段释放一个变量，而不是在代码解析阶段释放。
 

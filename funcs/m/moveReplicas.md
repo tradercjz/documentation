@@ -22,7 +22,7 @@
 
 该命令只能由管理员在控制节点上执行。
 
-通过 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.html) 函数可以查看任务状态。
+通过 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.md) 函数可以查看任务状态。
 
 ## 例子
 

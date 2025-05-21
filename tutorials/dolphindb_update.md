@@ -423,10 +423,10 @@ OLAP 存储引擎的更新性能与需要更新的列数和操作系统是否支
 
 实际应用中使用哪种引擎需要考虑更多的应用场景和实际的性能，更多详细信息可见：
 
-* [TSDB 存储引擎](../db_distr_comp/db/tsdb.html)
-* [OLAP 存储引擎](../db_distr_comp/db/olap.html)
+* [TSDB 存储引擎](../db_distr_comp/db/tsdb.md)
+* [OLAP 存储引擎](../db_distr_comp/db/olap.md)
 
-有关上述各章节提到的函数，参考：[函数章节](../funcs/funcs_intro.html)
+有关上述各章节提到的函数，参考：[函数章节](../funcs/funcs_intro.md)
 
 ## 8. 附件
 

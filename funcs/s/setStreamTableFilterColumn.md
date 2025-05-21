@@ -12,7 +12,7 @@
 
 ## 详情
 
-指定流数据表的过滤列。该函数需要配合 [subscribeTable](subscribeTable.html) 函数的 *filter* 参数一起使用。*filter*
+指定流数据表的过滤列。该函数需要配合 [subscribeTable](subscribeTable.md) 函数的 *filter* 参数一起使用。*filter*
 是一个向量，*streamTable* 的 *columnName* 列在 *filter* 中的数据才会发布到订阅端，不在
 *filter* 中的数据不会发布。一个流数据表只能指定一个过滤列。
 

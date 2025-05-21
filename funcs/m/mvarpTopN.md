@@ -5,7 +5,7 @@
 `mvarpTopN(X, S, window, top, [ascending=true],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 详情
 
@@ -54,5 +54,5 @@ mvarpTopN(X, S, 3, 2)
 | 0.25 | 0.25 |
 | 1 | 0.25 |
 
-相关函数：[mvarp](mvarp.html)
+相关函数：[mvarp](mvarp.md)
 

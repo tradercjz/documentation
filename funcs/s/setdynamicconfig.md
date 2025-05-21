@@ -16,7 +16,7 @@
 
 注： 此命令修改的配置值在系统重启后将失效。若需永久生效，请更新对应的配置文件。
 
-如下为支持修改的配置项（详情请参考文档 [DolphinDB-功能配置](../../db_distr_comp/cfg/function_configuration.html)）：
+如下为支持修改的配置项（详情请参考文档 [DolphinDB-功能配置](../../db_distr_comp/cfg/function_configuration.md)）：
 
 *enableMultiThreadMerge*, enableNullSafeJoin, *logLevel*,
 *maxBlockSizeForReservedMemory*, *maxConnections*,

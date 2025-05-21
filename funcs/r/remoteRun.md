@@ -54,7 +54,7 @@ remoteRun(conn, "x=rand(1.0,10000000); y=x pow 2; avg y");
   ```
 
   当我们创建到远程节点的连接时，远程节点将为此连接创建一个新的会话。此新会话与远程节点上的其他会话完全隔离。这对于开发来说很方便，因为开发人员不必担心名称冲突。
-  然而，有时候我们也希望在同一节点上的多个会话之间共享数据。这时我们可以使用函数 [share](../../progr/statements/share.html) 来共享对象。目前只能在
+  然而，有时候我们也希望在同一节点上的多个会话之间共享数据。这时我们可以使用函数 [share](../../progr/statements/share.md) 来共享对象。目前只能在
   DolphinDB 中共享表。 在本地节点上，我们创建 EarningsDates
   表，然后用脚本将其传输到远程节点。在执行完毕后，结果被返回到本地节点。
 
@@ -89,5 +89,5 @@ remoteRun(conn, "x=rand(1.0,10000000); y=x pow 2; avg y");
   | 2006.10.25 | AAPL | 81.68 |
   | 2006.10.26 | AAPL | 82.19 |
 
-相关函数：[remoteRunCompatible](remoteruncompatible.html)
+相关函数：[remoteRunCompatible](remoteruncompatible.md)
 

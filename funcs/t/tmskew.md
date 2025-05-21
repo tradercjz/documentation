@@ -4,7 +4,7 @@
 
 `tmskew(T, X, window, [biased=true])`
 
-部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 参数
 
@@ -30,5 +30,5 @@ tmskew(index, data, 2d)
 [,,0,-0.3818,-0.4347,-0.4347,-0.37,-0.37,-0.5653,-0.4363]
 ```
 
-相关函数：[mskew](../m/mskew.html), [skew](../s/skew.html)
+相关函数：[mskew](../m/mskew.md), [skew](../s/skew.md)
 

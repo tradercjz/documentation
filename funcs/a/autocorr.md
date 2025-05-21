@@ -34,5 +34,5 @@ autocorr(x, 2)
 0.661018
 ```
 
-相关函数： [acf](acf.html)
+相关函数： [acf](acf.md)
 

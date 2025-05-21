@@ -1,6 +1,6 @@
 # 实时检测传感器状态变化
 
-工业物联网领域，能否对从传感器采集到的包括湿度、温度、压力、液位、流速等多方面的海量数据进行快速的实时处理，对各种工业智能制造应用至关重要。DolphinDB 提供了流数据表 (stream table) 和流计算引擎用于实时数据处理，助力智能制造。 [DolphinDB 流计算引擎实现传感器数据异常检测](iot_anomaly_detection.html)一文介绍了怎么用内置的异常检测引擎 (Anomaly Detection Engine) 和自定义计算引擎实现异常检测的需求。目前 DolphinDB 内置了更多的计算引擎，本文将介绍如何用响应式状态引擎和会话窗口引擎实现传感器状态变化的实时监测。
+工业物联网领域，能否对从传感器采集到的包括湿度、温度、压力、液位、流速等多方面的海量数据进行快速的实时处理，对各种工业智能制造应用至关重要。DolphinDB 提供了流数据表 (stream table) 和流计算引擎用于实时数据处理，助力智能制造。 [DolphinDB 流计算引擎实现传感器数据异常检测](iot_anomaly_detection.md)一文介绍了怎么用内置的异常检测引擎 (Anomaly Detection Engine) 和自定义计算引擎实现异常检测的需求。目前 DolphinDB 内置了更多的计算引擎，本文将介绍如何用响应式状态引擎和会话窗口引擎实现传感器状态变化的实时监测。
 
 ## 1. 应用需求
 
@@ -120,12 +120,12 @@ subscribeTable(tableName="inputSt", actionName="monitor", offset=0,
    * 首先，必须指定消息的 offset。
    * 其次，handler 必须使用 `appendMsg` 函数。`appendMsg` 函数接受两个参数，*msgBody* 和 *msgId*。
    * 再次，参数 *handlerNeedMsgId* 必须指定为 true。
-   * 更详细的说明请参阅 [流数据教程](streaming_tutorial.html) 或会话窗口引擎、响应式状态引擎的说明。
-2. 若设备极多，数据采集频率很高，可能需要处理大量消息。这时可在 DolphinDB 消息订阅函数`subscribeTable`中指定可选参数 *filter* 与 *hash*，让多个订阅客户端并行处理消息。相关详细说明请参阅 [流数据教程](streaming_tutorial.html) 或`subscribeTable`和`setStreamTableFilterColumn`的说明。
+   * 更详细的说明请参阅 [流数据教程](streaming_tutorial.md) 或会话窗口引擎、响应式状态引擎的说明。
+2. 若设备极多，数据采集频率很高，可能需要处理大量消息。这时可在 DolphinDB 消息订阅函数`subscribeTable`中指定可选参数 *filter* 与 *hash*，让多个订阅客户端并行处理消息。相关详细说明请参阅 [流数据教程](streaming_tutorial.md) 或`subscribeTable`和`setStreamTableFilterColumn`的说明。
 
 ### 4.5. 从 MQTT 服务器接收数据
 
-DolphinDB 提供了 [MQTT](../plugins/mqtt/mqtt.html) 插件用于订阅 MQTT 服务器的数据。DolphinDB server 2.00.8 linux 64 JIT 版本已包含 MQTT 插件在 server/plugins/mqtt 目录下，不用下载插件即可直接加载使用。用户可以使用 `mqtt::subscribe` 从 MQTT 服务器订阅数据，在订阅时需要数据格式解析函数，目前插件提供了 json 和 csv 格式的解析函数，本例使用 `mqtt::createJsonParser` 解析 json 格式数据。示例代码如下：
+DolphinDB 提供了 [MQTT](../plugins/mqtt/mqtt.md) 插件用于订阅 MQTT 服务器的数据。DolphinDB server 2.00.8 linux 64 JIT 版本已包含 MQTT 插件在 server/plugins/mqtt 目录下，不用下载插件即可直接加载使用。用户可以使用 `mqtt::subscribe` 从 MQTT 服务器订阅数据，在订阅时需要数据格式解析函数，目前插件提供了 json 和 csv 格式的解析函数，本例使用 `mqtt::createJsonParser` 解析 json 格式数据。示例代码如下：
 
 ```
 loadPlugin(getHomeDir()+"/plugins/mqtt/PluginMQTTClient.txt")// 也可用 preloadModules=plugins::mqtt 自动加载

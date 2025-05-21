@@ -133,7 +133,7 @@ preloadModules=plugins::odbc
 
 ## 4. 编写启动脚本
 
-编写启动脚本时，可以使用 [`module`](module_tutorial.html) 来声明和使用可重用模块，可以自定义函数，也可以使用分布式的功能。
+编写启动脚本时，可以使用 [`module`](module_tutorial.md) 来声明和使用可重用模块，可以自定义函数，也可以使用分布式的功能。
 
 若需要调试启动脚本，可以在脚本中用 print 与 writeLog 等函数打印日志。系统会把启动脚本运行情况输出到节点日志。
 

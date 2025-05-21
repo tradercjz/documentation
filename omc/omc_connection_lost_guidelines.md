@@ -68,7 +68,7 @@ pnodeRun(setMaxConnections{5000})
 ```
 
 1. 关闭非活跃连接
-   根据 *lastActiveTime* 判断是否是当前活跃 session，并通过 `closeSessions` 函数清理空闲会话以回收连接。为了更便捷地执行这一操作，可以借助 [ops](https://docs.dolphindb.cn/zh/modules/ops/ops.html) 模块：
+   根据 *lastActiveTime* 判断是否是当前活跃 session，并通过 `closeSessions` 函数清理空闲会话以回收连接。为了更便捷地执行这一操作，可以借助 [ops](https://docs.dolphindb.cn/zh/modules/ops/ops.md) 模块：
 
    ```
    use ops
@@ -77,7 +77,7 @@ pnodeRun(setMaxConnections{5000})
 
 ## 3. 其他情况
 
-除了网络故障和连接数不足，系统卡死也可能导致无法连接服务器。详情请参阅[系统卡死](omc_server_hang_guidelines.html)。
+除了网络故障和连接数不足，系统卡死也可能导致无法连接服务器。详情请参阅[系统卡死](omc_server_hang_guidelines.md)。
 
 参考上述步骤仍无法解决问题的，请重启无法连接的 DolphinDB 节点。
 

@@ -14,9 +14,9 @@
 
 把指定格式应用到给定对象。返回结果是字符串标量或向量。
 
-根据输入对象的数据类型，`format` 函数调用 [decimalFormat](../d/decimalFormat.html) 或 [temporalFormat](../t/temporalFormat.html)。
+根据输入对象的数据类型，`format` 函数调用 [decimalFormat](../d/decimalFormat.md) 或 [temporalFormat](../t/temporalFormat.md)。
 
-有关从数字向指定格式字符串的转换，参考（表中的备注列，请参考 [decimalFormat](../d/decimalFormat.html)）：
+有关从数字向指定格式字符串的转换，参考（表中的备注列，请参考 [decimalFormat](../d/decimalFormat.md)）：
 
 | 标志 | 含义 | 备注 |
 | --- | --- | --- |

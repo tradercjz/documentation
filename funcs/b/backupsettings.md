@@ -19,7 +19,7 @@
 
 函数返回一个向量，依次列出已成功备份的用户名和函数视图名称。
 
-与函数 [restoreSettings](../r/restoresettings.html)
+与函数 [restoreSettings](../r/restoresettings.md)
 搭配使用，可以在数据库迁移时实现用户、用户权限及函数视图的迁移。
 
 ## 例子
@@ -35,5 +35,5 @@ backupSettings(fileName="/home/ddb/backup/permission.back", userPermission=false
 backupSettings(fileName="/home/ddb/backup/permission.back", userPermission=false, functionView=false)
 ```
 
-相关函数：[restoreSettings](../r/restoresettings.html)
+相关函数：[restoreSettings](../r/restoresettings.md)
 

@@ -6,7 +6,7 @@
 
 ## 参数
 
-**model** 需要保存的模型，一般是字典，由 [randomForestClassifier](../r/randomForestClassifier.html), [randomForestRegressor](../r/randomForestRegressor.html) 等机器学习函数生成。
+**model** 需要保存的模型，一般是字典，由 [randomForestClassifier](../r/randomForestClassifier.md), [randomForestRegressor](../r/randomForestRegressor.md) 等机器学习函数生成。
 
 **location** 字符串，表示服务器端输出文件的绝对路径或相对路径。
 

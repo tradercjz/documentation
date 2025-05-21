@@ -185,7 +185,7 @@ conn.connect(host, port, "admin","123456", initScript, True, ["192.168.1.2:9921"
 宕机，系统会选举出新的 Leader 继续发布数据，客户端会自动切换订阅到新 Leader 上的高可用流数据表。
 
 同时针对高可用流数据表，`subscribeTable`提供了持久化保存最新一条已经处理过的订阅数据的偏移量的功能，以避免在重订阅时部分未处理的数据丢失，通过设置参数
-*persistOffset* = true 可开启该功能。偏移量可以通过 [getTopicProcessedOffset](../funcs/g/getTopicProcessedOffset.html) 函数获取。
+*persistOffset* = true 可开启该功能。偏移量可以通过 [getTopicProcessedOffset](../funcs/g/getTopicProcessedOffset.md) 函数获取。
 
 下面的例子在 Raft 组2上创建了一个高可用流数据表
 *haDevSt*。然后在集群中的某个节点上执行`subscribeTable`，向 Leader 节点订阅

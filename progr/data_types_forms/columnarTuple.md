@@ -8,8 +8,8 @@
 
 ## 创建列式元组
 
-* 通过函数 [setColumnarTuple!](../../funcs/s/setColumnarTuple_.html) 可以将一个普通元组转换成列式元组。
-* 通过函数 [isColumnarTuple](../../funcs/i/isColumnarTuple.html) 可以判断一个元组是否为列式元组。
+* 通过函数 [setColumnarTuple!](../../funcs/s/setColumnarTuple_.md) 可以将一个普通元组转换成列式元组。
+* 通过函数 [isColumnarTuple](../../funcs/i/isColumnarTuple.md) 可以判断一个元组是否为列式元组。
 
   ```
   tp = [[1.3,2.5,2.3], [4.1,5.3], 6.3]

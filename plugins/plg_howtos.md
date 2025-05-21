@@ -38,7 +38,7 @@ function name in lib, function name in DolphinDB, function type, minParamCount, 
 
 DolphinDB 官方开发并发布了多种插件，用户可通过[插件市场](https://marketplace.dolphindb.cn/)直接下载安装。可通过如下步骤下载并安装插件：
 
-(1) 在 DolphinDB 客户端中使用 [listRemotePlugins](https://docs.dolphindb.cn/zh/funcs/l/listRemotePlugins.html) 命令查看插件仓库中的插件信息。
+(1) 在 DolphinDB 客户端中使用 [listRemotePlugins](https://docs.dolphindb.cn/zh/funcs/l/listRemotePlugins.md) 命令查看插件仓库中的插件信息。
 
 ```
 login("admin", "123456")
@@ -47,7 +47,7 @@ listRemotePlugins()
 
 注意：如果仅展示当前操作系统和 server 版本支持的插件。若无预期插件，您可以通过我们的 [GitHub 仓库](https://github.com/dolphindb/DolphinDBPlugin/tree/master)（选择对应版本分支）下载源代码自行编译。编译方法参考[第5章编译](#5-%E7%BC%96%E8%AF%91%E6%8F%92%E4%BB%B6)。
 
-(2) 使用 [installPlugin](https://docs.dolphindb.cn/zh/funcs/i/installPlugin.html) 命令安装插件。
+(2) 使用 [installPlugin](https://docs.dolphindb.cn/zh/funcs/i/installPlugin.md) 命令安装插件。
 
 ```
 installPlugin("mysql")

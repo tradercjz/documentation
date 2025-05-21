@@ -77,5 +77,5 @@ dropAggregator(`test)
   1.7, 1392], 240) = 334872；
 * 若之后继续有数据注入，其计算过程以此类推。
 
-相关函数：[genericTStateIterate](genericTStateIterate.html)
+相关函数：[genericTStateIterate](genericTStateIterate.md)
 

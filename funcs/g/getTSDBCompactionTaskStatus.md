@@ -43,5 +43,5 @@ getTSDBCompactionTaskStatus()
 | /home/DolphinDB/DolphinDB\_Linux64\_V2.00.9/server/clusterDemo/data/node1/storage | 2 | d36ac640-3428-069b-4382-0b9608b94d17 | pt\_2 | 0\_00000005,0\_00000009, | true | 2023.06.22T12:47:32.010 | 2023.06.22T12:47:32.527 | 2023.06.22T12:47:32.616 |  |
 | /home/DolphinDB/DolphinDB\_Linux64\_V2.00.9/server/clusterDemo/data/node1/storage | 2 | e0e00bc2-b81e-6eb9-4d01-7bb17fb39595 | pt\_2 | 0\_00000016,0\_00000021, | true | 2023.06.22T12:47:33.058 | 2023.06.22T12:47:33.058 | 2023.06.22T12:47:33.151 |  |
 
-相关函数：[triggerTSDBCompaction](../t/triggerTSDBCompaction.html)
+相关函数：[triggerTSDBCompaction](../t/triggerTSDBCompaction.md)
 

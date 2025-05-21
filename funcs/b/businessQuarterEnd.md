@@ -74,5 +74,5 @@ select avg(price),sum(qty) from t1 group by businessQuarterEnd(date, , 2010.06.0
 | 2013.06.28 | 50.54 | 3800 |
 | 2013.12.31 | 51.835 | 13300 |
 
-相关函数：[businessQuarterBegin](businessQuarterBegin.html), [quarterBegin](../q/quarterBegin.html), [quarterEnd](../q/quarterEnd.html)
+相关函数：[businessQuarterBegin](businessQuarterBegin.md), [quarterBegin](../q/quarterBegin.md), [quarterEnd](../q/quarterEnd.md)
 

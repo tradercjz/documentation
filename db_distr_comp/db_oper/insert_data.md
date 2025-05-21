@@ -13,7 +13,7 @@ DolphinDB 提供了三种方法，向分布式表和内存表插入数据：
 
 ### INSERT INTO 语句
 
-通过 [INSERT INTO](../../progr/sql/insertInto.html) 语句的
+通过 [INSERT INTO](../../progr/sql/insertInto.md) 语句的
 `VALUES` 子句可以插入数据。此方法默认仅支持内存表，不适用于分布式表。要对分布式表中使用此方法，可以启用配置项
 enableInsertStatementForDFSTable，详细信息请参考 [数据库与数据表](../cfg/function_configuration.html#topic_idq_flk_gcc)。
 
@@ -59,7 +59,7 @@ INSERT INTO t (id,val) VALUES (1,7.6)
 
 ### append! 函数
 
-[append!](../../funcs/a/append%21.html)函数可将一个与原表结构相同的表整体追加到原表中。
+[append!](../../funcs/a/append%21.md)函数可将一个与原表结构相同的表整体追加到原表中。
 
 ```
 t = table(1:0,`id`sym`val,[INT,SYMBOL,DOUBLE])
@@ -73,7 +73,7 @@ append!(t,tmp)
 
 ### tableInsert 函数
 
-[tableInsert](../../funcs/t/tableInsert.html)
+[tableInsert](../../funcs/t/tableInsert.md)
 可用于将表、元组、字典，或多个向量或元组加入原表中。
 
 不同于 `append!` 的是，`tableInsert` 会返回此次插入成功的条数。
@@ -207,7 +207,7 @@ submitJob("writeData3", "writeData3", tableInsert, pt, t3)
 ### 插入现有分区以外的数据
 
 对于 VALUE 分区或含有 COMPO 分区的 VALUE 层级，可通过设置配置参数
-*newValuePartitionPolicy=add*，实现自动创建对应分区并写入数据。更多细节请参考[增加分区](add_partitions.html)。
+*newValuePartitionPolicy=add*，实现自动创建对应分区并写入数据。更多细节请参考[增加分区](add_partitions.md)。
 
 ## 常见问题解答
 

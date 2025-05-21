@@ -13,10 +13,10 @@
 
 * 如果指定了 *batchSize*，当未处理消息数量达到 *batchSize* 或距离上次
   *handler* 被触发已过去 *throttle* 秒，*handler* 将会被触发。
-* 如果订阅的表被重定义了，为了保证订阅能够正常使用，需要使用 [unsubscribeTable](../u/unsubscribeTable.html)
+* 如果订阅的表被重定义了，为了保证订阅能够正常使用，需要使用 [unsubscribeTable](../u/unsubscribeTable.md)
   命令取消订阅，然后重新创建订阅。
 * 在高可用订阅流数据写入分布式表的场景下，订阅节点构成的 raft 组发生 leader
-  切换或集群重启时，可能导致之前登录的用户退出。由于 guest 用户无权限写入分布式表，写入会被中断（可以通过 [getCurrentSessionAndUser](../g/getCurrentSessionAndUser.html) 函数查看当前的用户）。若配置 *userId* 和
+  切换或集群重启时，可能导致之前登录的用户退出。由于 guest 用户无权限写入分布式表，写入会被中断（可以通过 [getCurrentSessionAndUser](../g/getCurrentSessionAndUser.md) 函数查看当前的用户）。若配置 *userId* 和
   *password* 参数，用户退出后系统会自动尝试重新登录，以保证订阅数据成功写入分布式表。需要注意的是，从 2.00.10.10 开始，用户可以通过配置项
   *enhancedSecurityVerification* 控制在登录时是否约束密码重试的次数。若不设置
   *enhancedSecurityVerification*，则不约束；若设置
@@ -47,7 +47,7 @@ socket 缓冲区的设置方法如下：
 建立新的订阅任务。
 
 注： 为流数据 join 引擎订阅数据时，*handler* 参数需要为
-`appendForJoin`、[getLeftStream](../g/getLeftStream.html) 或 [getRightStream](../g/getRightStream.html) 函数。
+`appendForJoin`、[getLeftStream](../g/getLeftStream.md) 或 [getRightStream](../g/getRightStream.md) 函数。
 
 ## 参数
 
@@ -111,7 +111,7 @@ socket 缓冲区的设置方法如下：
 
 **filter**用来指定过滤条件。主要分以下两种用法：
 
-* 若配合 [setStreamTableFilterColumn](setStreamTableFilterColumn.html) 函数一起使用来指定流数据表的过滤列，则流数据表过滤列在 *filter*
+* 若配合 [setStreamTableFilterColumn](setStreamTableFilterColumn.md) 函数一起使用来指定流数据表的过滤列，则流数据表过滤列在 *filter*
   中的数据才会发布到订阅端，不在 *filter* 中的数据不会发布。*filter* 不支持过滤 BOOL
   类型数据。*filter* 参数可以使用以下三种方法指定。
   + 值过滤：一个向量。
@@ -125,7 +125,7 @@ socket 缓冲区的设置方法如下：
   + 字符串：传入表示函数名称的字符串，或者是一个 lambda 表达式的字符串。
 
 **persistOffset**
-是一个布尔值，表示是否持久化保存最新一条已经处理的订阅数据的偏移量。持久化保存的偏移量用于重订阅，可通过 [getTopicProcessedOffset](../g/getTopicProcessedOffset.html)
+是一个布尔值，表示是否持久化保存最新一条已经处理的订阅数据的偏移量。持久化保存的偏移量用于重订阅，可通过 [getTopicProcessedOffset](../g/getTopicProcessedOffset.md)
 函数获取。默认值为 false。
 
 注：
@@ -141,7 +141,7 @@ socket 缓冲区的设置方法如下：
 **handlerNeedMsgId** 是一个布尔值，默认值为 false。
 
 * 若设为 true，*handler* 必须支持两个参数：一个是 msgBody（传入的消息），一个是
-  msgId（消息的偏移量）。如：以部分应用的形式固定 [appendMsg](../a/appendMsg.html)
+  msgId（消息的偏移量）。如：以部分应用的形式固定 [appendMsg](../a/appendMsg.md)
   的 *engine* 参数后，将其作为二元应用传入 *handler*。
 * 若设为 false，*handler* 仅支持一个参数：msgBody。调用 *handler* 时，只传入消息本身。
 

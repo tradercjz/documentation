@@ -43,5 +43,5 @@ decodeShortGenomeSeq(c)
 [,"TCGATTCGATTCGATTCGATTCGAT"]
 ```
 
-相关函数：[encodeShortGenomeSeq](../e/encodeShortGenomeSeq.html), [genShortGenomeSeq](../g/genShortGenomeSeq.html)
+相关函数：[encodeShortGenomeSeq](../e/encodeShortGenomeSeq.md), [genShortGenomeSeq](../g/genShortGenomeSeq.md)
 

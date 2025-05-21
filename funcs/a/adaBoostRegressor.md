@@ -82,6 +82,6 @@ saveModel(model, "C:/DolphinDB/data/regressionModel.bin")
 loadModel("C:/DolphinDB/data/regressionModel.bin");
 ```
 
-相关函数：[adaBoostClassifier](adaBoostClassifier.html),
-[randomForestClassifier](../r/randomForestClassifier.html), [randomForestRegressor](../r/randomForestRegressor.html)
+相关函数：[adaBoostClassifier](adaBoostClassifier.md),
+[randomForestClassifier](../r/randomForestClassifier.md), [randomForestRegressor](../r/randomForestRegressor.md)
 

@@ -71,5 +71,5 @@ select id, value from t where id=2 or id=3;
 | 2 | 5 |
 | 3 | 6 |
 
-相关函数：[and](../a/and.html), [not](../n/not.html)
+相关函数：[and](../a/and.md), [not](../n/not.md)
 

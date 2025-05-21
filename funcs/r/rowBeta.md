@@ -4,7 +4,7 @@
 
 `rowBeta(Y, X)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -34,5 +34,5 @@ rowBeta(x, y)
 [0.6783, 1 , -0.3202, 1]
 ```
 
-相关函数：[beta](../b/beta.html)
+相关函数：[beta](../b/beta.md)
 

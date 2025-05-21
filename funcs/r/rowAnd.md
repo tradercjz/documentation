@@ -4,7 +4,7 @@
 
 `rowAnd(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -34,5 +34,5 @@ select *  from t where rowAnd(price1>30, price2>50);
 | AAPL | 49.6 | 175.23 |
 | IBM | 30.02 | 51.29 |
 
-相关函数：[and](../a/and.html)
+相关函数：[and](../a/and.md)
 

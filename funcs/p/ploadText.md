@@ -7,7 +7,7 @@
 
 ## 参数
 
-参数与 [loadText](../l/loadText.html) 相同。
+参数与 [loadText](../l/loadText.md) 相同。
 
 ## 详情
 
@@ -18,7 +18,7 @@
 
 * `ploadText`
   返回的分区表数据均匀分配到各个分区，且每个分区中的数据量介于8MB与16MB之间。
-* 与 [loadText](../l/loadText.html)
+* 与 [loadText](../l/loadText.md)
   函数相比，进行并行加载时，`ploadText` 速度更快。
 * 从 2.00.10 版本开始，`loadText`
   支持加载一条记录中包含多个换行符的数据文件。
@@ -47,5 +47,5 @@ typestr(tt2);
 SEGMENTED IN-MEMORY TABLE
 ```
 
-更多例子请参考 [loadText](../l/loadText.html)。
+更多例子请参考 [loadText](../l/loadText.md)。
 

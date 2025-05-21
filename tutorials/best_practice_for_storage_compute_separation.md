@@ -41,7 +41,7 @@ CPU 、内存等资源配额。在 Ad hoc
 
 ### 2.1 参数配置
 
-本节列举了存算分离相关的配置项，帮助用户在之后的部署中合理设置参数。具体参数解释请参考 [功能配置](../db_distr_comp/cfg/function_configuration.html)。
+本节列举了存算分离相关的配置项，帮助用户在之后的部署中合理设置参数。具体参数解释请参考 [功能配置](../db_distr_comp/cfg/function_configuration.md)。
 
 #### 2.1.1 控制节点配置项
 

@@ -45,7 +45,7 @@
 
 该函数与 `accumulate`
 的功能相同，唯一区别是返回值不同。`reduce` 返回最后一个结果，而 `accumulate`
-输出所有中间结果。关于函数功能描述，参见  [accumulate](accumulate.html)。
+输出所有中间结果。关于函数功能描述，参见  [accumulate](accumulate.md)。
 
 `reduce` 等同于以下伪代码的执行过程：
 

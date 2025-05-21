@@ -292,8 +292,8 @@ seqColumn 的顺序处理数据。实时数据接入的大致流程如下:
 
 * 方案一：使用行情数据源插件。目前，amdQuote、INSIGHT 插件已经支持将委托和成交接收到同一张表中，并且内置实现了枚举值转换。通过 amd
   插件/insight 插件可以直接接收到 Orderbook 引擎期望的输入数据。
-  + amd 插件： [amdQuote（LINUX）](../plugins/amdquote/amdquote.html)
-  + insight 插件：[INSIGHT](../plugins/insight/insight.html)
+  + amd 插件： [amdQuote（LINUX）](../plugins/amdquote/amdquote.md)
+  + insight 插件：[INSIGHT](../plugins/insight/insight.md)
   + 其余行情插件也将陆续支持此功能，最新进展见官网文档。如有需求也可以联系
     DolphinDB 小助手进一步咨询。
 * 方案二：使用 DolphinDB API 编写外部程序，推荐使用 `MultithreadedTableWriter`

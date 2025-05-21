@@ -4,7 +4,7 @@
 
 `tmsum2(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -28,5 +28,5 @@ tmsum2(index, data, 1d)
 [1,1,10,26,51,51,60,60,85,94]
 ```
 
-相关函数：[msum2](../m/msum2.html), [sum2](../s/sum2.html)
+相关函数：[msum2](../m/msum2.md), [sum2](../s/sum2.md)
 

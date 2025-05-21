@@ -38,7 +38,7 @@ replayDS(sqlObj, [dateColumn], [timeColumn],[timeRepartitionSchema])
 * sqlObj：SQL 查询元代码，表示回放的数据，如<select \* from loadTable("dfs://source", "source")>。SQL查询的表对象是DFS表，且至少有一个分区列为DATE类型。
 * dateColumn：日期列。若不指定，默认第一列为日期列。`replayDS`函数默认日期列是数据源的一个分区列，并根据分区信息将原始SQL查询拆分为多个查询。
 
-关于 `replay`、`replayDS` 函数的详细介绍可参考 [replay用户手册](../funcs/r/replay.html)、[replayDS用户手册](../funcs/r/replayDS.html)。
+关于 `replay`、`replayDS` 函数的详细介绍可参考 [replay用户手册](../funcs/r/replay.md)、[replayDS用户手册](../funcs/r/replayDS.md)。
 
 ### 2.2 1 对 1 单表回放
 

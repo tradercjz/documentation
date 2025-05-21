@@ -25,5 +25,5 @@ isQuarterEnd([2012.06.30,2012.07.01]);
 [true,false]
 ```
 
-相关函数：[isQuarterStart](isQuarterStart.html)
+相关函数：[isQuarterStart](isQuarterStart.md)
 

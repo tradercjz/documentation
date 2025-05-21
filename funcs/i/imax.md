@@ -53,5 +53,5 @@ imax(m);
 [2,0]
 ```
 
-相关函数：[imaxLast](imaxlast.html)
+相关函数：[imaxLast](imaxlast.md)
 

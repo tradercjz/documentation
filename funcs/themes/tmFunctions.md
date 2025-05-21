@@ -6,13 +6,13 @@
 
 ## tm 系列函数介绍
 
-tm 系列函数对应的高阶函数 [tmoving](../ho_funcs/tmoving.html)：
+tm 系列函数对应的高阶函数 [tmoving](../ho_funcs/tmoving.md)：
 
 ```
 tmoving(func, T, funcArgs, window)
 ```
 
-注： tm 系列函数为各自的计算场景进行了优化，因此比 [tmoving](../ho_funcs/tmoving.html) 高阶函数有更好的性能。
+注： tm 系列函数为各自的计算场景进行了优化，因此比 [tmoving](../ho_funcs/tmoving.md) 高阶函数有更好的性能。
 
 内置的 tm 系列函数的通用参数模板如下：
 
@@ -33,35 +33,35 @@ tm 系列函数如下：
 
 单目：
 
-* [tmsum](../t/tmsum.html)
-* [tmsum2](../t/tmsum2.html)
-* [tmavg](../t/tmavg.html)
-* [tmprod](../t/tmprod.html)
-* [tmmax](../t/tmmax.html)
-* [tmmin](../t/tmmin.html)
-* [tmmed](../t/tmmed.html)
-* [tmfirst](../t/tmfirst.html)
-* [tmlast](../t/tmlast.html)
-* [tmrank](../t/tmrank.html)
-* [tmcount](../t/tmcount.html)
-* [tmpercentile](../t/tmpercentile.html)
-* [tmstd](../t/tmstd.html)
-* [tmstdp](../t/tmstdp.html)
-* [tmkurtosis](../t/tmkurtosis.html)
-* [tmskew](../t/tmskew.html)
-* [tmvar](../t/tmvar.html)
-* [tmvarp](../t/tmvarp.html)
-* [tmTopRange](../t/tmtoprange.html)
-* [tmLowRange](../t/tmlowrange.html)
+* [tmsum](../t/tmsum.md)
+* [tmsum2](../t/tmsum2.md)
+* [tmavg](../t/tmavg.md)
+* [tmprod](../t/tmprod.md)
+* [tmmax](../t/tmmax.md)
+* [tmmin](../t/tmmin.md)
+* [tmmed](../t/tmmed.md)
+* [tmfirst](../t/tmfirst.md)
+* [tmlast](../t/tmlast.md)
+* [tmrank](../t/tmrank.md)
+* [tmcount](../t/tmcount.md)
+* [tmpercentile](../t/tmpercentile.md)
+* [tmstd](../t/tmstd.md)
+* [tmstdp](../t/tmstdp.md)
+* [tmkurtosis](../t/tmkurtosis.md)
+* [tmskew](../t/tmskew.md)
+* [tmvar](../t/tmvar.md)
+* [tmvarp](../t/tmvarp.md)
+* [tmTopRange](../t/tmtoprange.md)
+* [tmLowRange](../t/tmlowrange.md)
 
 双目：
 
-* [tmbeta](../t/tmbeta.html)
-* [tmcorr](../t/tmcorr.html)
-* [tmcovar](../t/tmcovar.html)
+* [tmbeta](../t/tmbeta.md)
+* [tmcorr](../t/tmcorr.md)
+* [tmcovar](../t/tmcovar.md)
 
-* [tmwavg](../t/tmwavg.html)
-* [tmwsum](../t/tmwsum.html)
+* [tmwavg](../t/tmwavg.md)
+* [tmwsum](../t/tmwsum.md)
 
 ## 窗口确定规则
 
@@ -80,7 +80,7 @@ tm 系列函数的
 ![](../../images/tmfunc_1.png)
 
 上图的对应代码，这里以
-[tmsum](../t/tmsum.html)
+[tmsum](../t/tmsum.md)
 为例：
 
 ```

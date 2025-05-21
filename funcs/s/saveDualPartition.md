@@ -25,7 +25,7 @@ partitionColumn2, [compression=false])`
 
 在共享表前，将一张表保存为组合分区。该命令必须要用户登录后才能执行。
 
-它通常与 [share](../../progr/statements/share.html)
+它通常与 [share](../../progr/statements/share.md)
 一起使用。如果分区和表已经存在，该函数会把新数据追加到已有表格。
 
 ## 例子

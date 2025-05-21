@@ -4,7 +4,7 @@
 
 `mmax(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -66,5 +66,5 @@ m.mmax(1w)
 | 2020.09.12 | 9 | 10 |
 | 2020.09.13 | 9 | 10 |
 
-相关函数：[max](max.html)
+相关函数：[max](max.md)
 

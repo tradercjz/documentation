@@ -1,6 +1,6 @@
 # 量化金融范例
 
-建议使用DolphinDB GUI编写DolphinDB脚本。请在DolphinDB官网下载[DolphinDB GUI](https://www.dolphindb.cn/downloads.html)。关于如何使用DolphinDB GUI，请参考[DolphinDB GUI 客户端](../db_distr_comp/gui.html)。
+建议使用DolphinDB GUI编写DolphinDB脚本。请在DolphinDB官网下载[DolphinDB GUI](https://www.dolphindb.cn/downloads.md)。关于如何使用DolphinDB GUI，请参考[DolphinDB GUI 客户端](../db_distr_comp/gui.md)。
 
 创建或访问分布式数据库和表需要用户权限。本教程使用默认用户名"admin"登录（默认密码是"123456"），后续例子中不再显示登录相关代码。与其他数据库不同，DolphinDB将数据库、编程语言与分布式计算三者融为一体。这种设计使得DolphinDB可以一站式轻量化的解决大数据问题。但是，在引用数据库和表时，不能直接使用数据库或表名称（因为与脚本中的变量名可能会冲突），必须使用`loadTable`函数加载数据表。下面的例子中，我们首先登录。然后加载数据库 dfs://futures 的一个表 quotes，并把这个表对象赋值给变量 quotes，之后就可以用变量 quotes 来访问这个数据表。
 
@@ -114,7 +114,7 @@ K线数据或相关的signal数据都是基于高精度的行情数据降低时�
 
 中国股票市场每3秒更新一条 level 2 的行情数据，一般包括股票代码、日期、时间、交易量、交易价格、交易次数、买方与卖方的10档报价与量等常用信息，以及其它信息等数据。本例中所用数据为上海证券交易所A股股票2020年6月的 level 2 数据，每天的数据是一个约2.5GB的CSV文件，共68列数据。所有数据文件均存于同一个文件夹下。若其中一半的列为常用数据，遵循每个表每个分区中的常用数据压缩前为100MB左右的原则，可将数据库设计为复合分区。按天（date列）进行值分区，并按照股票代码（symbol列）分为10个HASH分区。
 
-建库以及导入数据的脚本如下。使用`loadTextEx`导入分布式数据库，其详情请参阅[文本数据加载教程](import_csv.html)。若您已有高频数据，可使用以下脚本建库，但请注意数据中列名与本例中列名一致。
+建库以及导入数据的脚本如下。使用`loadTextEx`导入分布式数据库，其详情请参阅[文本数据加载教程](import_csv.md)。若您已有高频数据，可使用以下脚本建库，但请注意数据中列名与本例中列名一致。
 
 ```
 dbDate = database("", VALUE, 2020.01.01..2020.12.31)
@@ -133,7 +133,7 @@ def importTxtFiles(dataDir, db){
 importTxtFiles(dataDir, db);
 ```
 
-选择合适的数据库分区机制，对确保数据库最优性能非常重要。具体细节请参阅[分区数据库教程](database.html)。
+选择合适的数据库分区机制，对确保数据库最优性能非常重要。具体细节请参阅[分区数据库教程](database.md)。
 
 ### 3.2. 从二进制文件导入
 
@@ -424,7 +424,7 @@ ds = sqlDS(<select symbol, date, time, last, curVol from quotes>)
 mr(ds,saveMinuteBar,+)
 ```
 
-有关K线计算的更多场景及范例，例如指定K线窗口的起始时刻、重叠K线窗口、使用交易量划分K线窗口等等，请参考[K线计算教程](OHLC.html)。
+有关K线计算的更多场景及范例，例如指定K线窗口的起始时刻、重叠K线窗口、使用交易量划分K线窗口等等，请参考[K线计算教程](OHLC.md)。
 
 ### 4.5. asof join 及 window join
 
@@ -544,7 +544,7 @@ t = odf[(odf["bidVolume1"]>5*odf["askVolume1"]) & (odf["askVolume1"]>1000000)].c
 print(t)
 ```
 
-更多信息与范例，请参考 [Python API 教程](https://docs.dolphindb.cn/zh/pydoc/py.html) 与 [orca教程](https://github.com/dolphindb/Orca/tree/master/tutorial_cn)。
+更多信息与范例，请参考 [Python API 教程](https://docs.dolphindb.cn/zh/pydoc/py.md) 与 [orca教程](https://github.com/dolphindb/Orca/tree/master/tutorial_cn)。
 
 ## 5. 实时行情处理
 
@@ -574,7 +574,7 @@ s.run("tableInsert{level2}",data)
 
 * 使用数据回放功能将历史数据以指定速率写入流表
 
-使用`replay`函数，可将历史数据以一定的速率注入到流数据表中，实现数据回放。结合流数据处理引擎或自定义函数使用，可实现基于历史数据的高频策略回测。具体回放函数的使用可参考[数据回放教程](data_replay.html)。
+使用`replay`函数，可将历史数据以一定的速率注入到流数据表中，实现数据回放。结合流数据处理引擎或自定义函数使用，可实现基于历史数据的高频策略回测。具体回放函数的使用可参考[数据回放教程](data_replay.md)。
 
 在本例中的后续示例中，会使用历史数据回放来代替实时数据。即使在未实现三方数据源接口的情况下，也可以快速体验DolphinDB实时数据处理的功能。
 

@@ -25,5 +25,5 @@ x.upper();
 THL
 ```
 
-相关函数： [lower](../l/lower.html)
+相关函数： [lower](../l/lower.md)
 

@@ -36,5 +36,5 @@ timestamp SECOND     10
 */
 ```
 
-相关函数：[schema](../s/schema.html)
+相关函数：[schema](../s/schema.md)
 

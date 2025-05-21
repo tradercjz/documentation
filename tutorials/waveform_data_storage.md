@@ -123,7 +123,7 @@ DolphinDB 解决方案架构图如下：
 
 ### 7.1. 加载插件
 
-转到 MiniSeed 教程 [dolphindb/DolphinDBPlugin](../plugins/mseed/mseed.html)，在 bin 目录下，找到需要的插件版本并下载。通过以下方式加载插件：
+转到 MiniSeed 教程 [dolphindb/DolphinDBPlugin](../plugins/mseed/mseed.md)，在 bin 目录下，找到需要的插件版本并下载。通过以下方式加载插件：
 
 ```
  loadPlugin("./plugins/mseed/PluginMseed.txt");
@@ -639,9 +639,9 @@ DolphinDB 在地震行业的运用远远不止波形数据的存储与查询。�
 * 《大数据架构下的地震波形数据分析应用浅析》
 * 《数字地震台网综合处理系统通用架构研究与设计》
 * 《地震台网智慧服务平台的开发与应用》
-* [DolphinDB 流数据教程](streaming_tutorial.html)
-* [DolphinDB 分布式存储教程](database.html)
-* [DolphinDB-grafana-datasource 插件教程](../tools/grafana.html)
+* [DolphinDB 流数据教程](streaming_tutorial.md)
+* [DolphinDB 分布式存储教程](database.md)
+* [DolphinDB-grafana-datasource 插件教程](../tools/grafana.md)
 
 ### 12.2. 脚本运行顺序说明
 

@@ -20,10 +20,10 @@ true，则返回一个 tuple，其第一个元素为 *X* 重采样后的向量�
 
 **Y** 同 *X* 等长的数值型向量。
 
-**resampleRule** 一个字符串，可选值请参考 [resample](../r/resample.html) 的
+**resampleRule** 一个字符串，可选值请参考 [resample](../r/resample.md) 的
 *rule* 参数。
 
-**closed** 和 **origin** 同 [resample](../r/resample.html) 的
+**closed** 和 **origin** 同 [resample](../r/resample.md) 的
 *closed* 和 *origin* 参数。
 
 **outputX** 布尔类型，表示是否输出 *X* 按照 *resampleRule*, *closed*,

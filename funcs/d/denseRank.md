@@ -24,7 +24,7 @@
 
 若 *X* 是矩阵，在每列内进行上述计算，返回一个与 *X* 维度相同的矩阵。
 
-注： `denseRanke` 和 [rank](../r/rank.html)
+注： `denseRanke` 和 [rank](../r/rank.md)
 的区别在于，多个元素相等时，前者采用密集排名方式，而后者采用跳跃排名方式。
 
 ## 例子
@@ -67,5 +67,5 @@ select id,val, denseRank(val) from t context by id
 | C | 0 | 1 |
 | C | -1 | 0 |
 
-相关函数：[rowDenseRank](../r/rowDenseRank.html)
+相关函数：[rowDenseRank](../r/rowDenseRank.md)
 

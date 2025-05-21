@@ -13,5 +13,5 @@
 获取 group ID 对应的 raft 组当前有效的 election tick，即通过 `setRaftElectionTick`
 设置的 *tickCount* 或配置项 *raftElectionTick* 的设置值。
 
-相关函数： [setRaftElectionTick](../s/setRaftElectionTick.html), [getControllerElectionTick](getControllerElectionTick.html)
+相关函数： [setRaftElectionTick](../s/setRaftElectionTick.md), [getControllerElectionTick](getControllerElectionTick.md)
 

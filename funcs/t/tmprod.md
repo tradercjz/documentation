@@ -4,7 +4,7 @@
 
 `tmprod(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -59,5 +59,5 @@ select *, tmprod(t, x, 1w) from m
 | 2021.01.07 | 2 | -2 |
 | 2021.01.08 | 4 | 8 |
 
-相关函数：[mprod](../m/mprod.html), [prod](../p/prod.html)
+相关函数：[mprod](../m/mprod.md), [prod](../p/prod.md)
 

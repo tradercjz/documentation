@@ -18,7 +18,7 @@
 | OpenPx | 开始价 | TotalValueTrade | 成交总金额 | OfferOrderQty[10] | 申卖十量 |
 | HighPx | 最高价 | InstrumentStatus | 交易状态 | …… | …… |
 
-2021 年某市所有股票快照测试数据已经提前导入至 DolphinDB 数据库中，一共约 17 亿条数据，导入方法见 [国内股票行情数据导入实例](stockdata_csv_import_demo.html)。
+2021 年某市所有股票快照测试数据已经提前导入至 DolphinDB 数据库中，一共约 17 亿条数据，导入方法见 [国内股票行情数据导入实例](stockdata_csv_import_demo.md)。
 
 ## 2. 特征工程
 
@@ -216,13 +216,13 @@ return concatMatrix([result, result150, result300, result450])
 
 ## 5. 模型构建
 
-DolphinDB 支持一系列常用的机器学习算法，例如 最小二乘回归、随机森林、K - 平均等，使用户能够方便地完成[回归、分类、聚类等任务](https://www.dolphindb.cn/cn/help/200/FunctionsandCommands/FunctionStatistics/index.html)。除了内置的经典的机器学习函数，DolphinDB 还支持许多第三方库，因此我们也可以调用 DolphinDB 提供的第三方库插件来进行模型训练。
+DolphinDB 支持一系列常用的机器学习算法，例如 最小二乘回归、随机森林、K - 平均等，使用户能够方便地完成[回归、分类、聚类等任务](https://www.dolphindb.cn/cn/help/200/FunctionsandCommands/FunctionStatistics/index.md)。除了内置的经典的机器学习函数，DolphinDB 还支持许多第三方库，因此我们也可以调用 DolphinDB 提供的第三方库插件来进行模型训练。
 
 XGBOOST（Extreme Gradient Boosting）是一种 Tree Boosting 的可扩展机器学习系统，它在 Gradient Boosting 框架下实现机器学习算法，提供了并行树提升（也称为 GBDT，GBM），可以快速准确地解决许多数据科学的问题。
 
-本教程参考 [机器学习教程：使用 DolphinDB 插件进行机器学习](machine_learning.html)，选取 XGBOOST 进行训练。
+本教程参考 [机器学习教程：使用 DolphinDB 插件进行机器学习](machine_learning.md)，选取 XGBOOST 进行训练。
 
-**注意**：安装 XGBOOST 参考：[XGBOOST 插件安装教程](../plugins/xgboost/xgboost.html)
+**注意**：安装 XGBOOST 参考：[XGBOOST 插件安装教程](../plugins/xgboost/xgboost.md)
 
 模型评价指标：根均方百分比误差（Root Mean Square Percentage Error, RMSPE）
 
@@ -447,6 +447,6 @@ model = xgboost::loadModel(modelSavePath)
 * OS：64 位 CentOS Linux 7 (Core)
 * 磁盘：SSD 盘，最大读写速率为 520MB/s
 * server 版本：2.00.6（企业版）
-* server 部署模式：[单节点部署教程](standalone_server.html)
+* server 部署模式：[单节点部署教程](standalone_server.md)
 * 配置文件：[dolphindb.cfg](script/machine_learning_volatility/200tsdb/dolphindb.cfg) (volumes, persistenceDir, TSDBRedoLogDir 需要根据实际环境磁盘路径修改)
 

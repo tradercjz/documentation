@@ -7,7 +7,7 @@
 ## 参数
 
 row 系列函数通用参数说明和计算规则请参考：[行计算系列（row
-系列）](../themes/rowFunctions.html)
+系列）](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -39,5 +39,5 @@ price
 
 ```
 
-相关函数：[rowImax](rowImax.html)
+相关函数：[rowImax](rowImax.md)
 

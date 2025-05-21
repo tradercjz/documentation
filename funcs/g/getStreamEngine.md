@@ -10,7 +10,7 @@
 
 ## 详情
 
-返回流数据引擎的句柄，可以作为 [subscribeTable](../s/subscribeTable.html) 函数的 *handler* 参数。
+返回流数据引擎的句柄，可以作为 [subscribeTable](../s/subscribeTable.md) 函数的 *handler* 参数。
 
 ## 例子
 

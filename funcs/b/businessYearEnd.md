@@ -79,6 +79,6 @@ select avg(price),sum(qty) from t1 group by businessYearEnd(date, 4, 2010.04.01,
 | 2020.04.30 | 50.805 | 11300 |
 | 2022.04.29 | 52.38 | 4500 |
 
-相关函数：[businessYearBegin](businessYearBegin.html),
-[yearBegin](../y/yearBegin.html), [yearEnd](../y/yearEnd.html)
+相关函数：[businessYearBegin](businessYearBegin.md),
+[yearBegin](../y/yearBegin.md), [yearEnd](../y/yearEnd.md)
 

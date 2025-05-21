@@ -10,7 +10,7 @@
 
 ## 详情
 
-返回 *X* 的列名的向量。参见相关函数：[rowNames](../r/rowNames.html)。
+返回 *X* 的列名的向量。参见相关函数：[rowNames](../r/rowNames.md)。
 
 ## 例子
 

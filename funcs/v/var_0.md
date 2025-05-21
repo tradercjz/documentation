@@ -33,5 +33,5 @@ valueAtRisk(returns, 'historical', 0.9);
 //output:0.009764216712
 ```
 
-**相关函数**：[condValueAtRisk](../c/cvar.html)
+**相关函数**：[condValueAtRisk](../c/cvar.md)
 

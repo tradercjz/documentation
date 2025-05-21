@@ -49,5 +49,5 @@ t
 | 2012.06.14 | 09:36:51 | MSFT | 50.76 | 5600 |
 | 2012.06.15 | 09:36:59 | MSFT | 50.76 |  |
 
-如果只需要填充表中的某些列，需要使用 [update](../../progr/sql/update.html) 语句和 [bfill](bfill.html) 函数。具体请参考 [bfill](bfill.html) 的例子。
+如果只需要填充表中的某些列，需要使用 [update](../../progr/sql/update.md) 语句和 [bfill](bfill.md) 函数。具体请参考 [bfill](bfill.md) 的例子。
 

@@ -8,7 +8,7 @@
 
 ## 详情
 
-创建流计算响应式状态引擎。参考：[createReactiveStateEngine](../c/createReactiveStateEngine.html)。
+创建流计算响应式状态引擎。参考：[createReactiveStateEngine](../c/createReactiveStateEngine.md)。
 
 **返回值**：一个 DStream 对象。
 
@@ -16,7 +16,7 @@
 
 **metrics**
 以元代码的形式表示计算公式，可以是一个或多个表达式、系统内置或用户自定义函数、一个常量标量/向量。当指定为常量向量时，对应的输出列应该设置为数组向量类型。有关元代码的详情可参考
-[Metaprogramming](../c/../../progr/objs/meta_progr.html)。若需使用用户自定义函数，请注意以下事项：
+[Metaprogramming](../c/../../progr/objs/meta_progr.md)。若需使用用户自定义函数，请注意以下事项：
 
 1. 需在定义前添加声明 "@state"。状态函数只能包含赋值语句和 return 语句。
 

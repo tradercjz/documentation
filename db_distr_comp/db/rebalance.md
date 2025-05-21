@@ -20,7 +20,7 @@ I/O。为提升 DolphinDB 集群服务能力，DolphinDB 提供了水平扩缩�
 
 ## 数据再平衡方法
 
-DolphinDB 提供 [rebalanceChunksWithinDataNode](../../funcs/r/rebalanceChunksWithinDataNode.html) 和 [rebalanceChunksAmongDataNodes](../../funcs/r/rebalanceChunksAmongDataNodes.html) 函数进行数据再平衡。
+DolphinDB 提供 [rebalanceChunksWithinDataNode](../../funcs/r/rebalanceChunksWithinDataNode.md) 和 [rebalanceChunksAmongDataNodes](../../funcs/r/rebalanceChunksAmongDataNodes.md) 函数进行数据再平衡。
 
 * `rebalanceChunksWithinDataNode`：通过该函数对节点内数据进行再平衡。
 * `rebalanceChunksAmongDataNodes`：
@@ -50,5 +50,5 @@ DolphinDB 提供 [rebalanceChunksWithinDataNode](../../funcs/r/rebalanceChunksWi
 
 因此，建议在没有执行写入或查询任务时执行数据再平衡操作，以避免潜在的失败。
 
-有关数据再平衡的更多操作详情，请参考[数据迁移与平衡](../../tutorials/Data_Move_Rebalance.html) 和运维手册中的《数据迁移与平衡》。
+有关数据再平衡的更多操作详情，请参考[数据迁移与平衡](../../tutorials/Data_Move_Rebalance.md) 和运维手册中的《数据迁移与平衡》。
 

@@ -51,5 +51,5 @@ dropStreamEngine("reactive_ccnt")
 dropStreamEngine("reactive_prev")
 ```
 
-相关函数：[dynamicGroupCumsum](dynamicGroupCumsum.html)
+相关函数：[dynamicGroupCumsum](dynamicGroupCumsum.md)
 

@@ -22,7 +22,7 @@
 使用相同的分区类型和分区方案对多个表重新划分数据源。该函数会返回一个元组，包含一组数据源。
 
 如果没有指定 *column*, *partitionType* 和
-*partitionScheme*，该函数将根据各表原来的分区类型和分区方案划分数据源。相当于 *query* 中的每个元代码应用到 [sqlDS](../s/sqlDS.html) 函数，再将结果合并。
+*partitionScheme*，该函数将根据各表原来的分区类型和分区方案划分数据源。相当于 *query* 中的每个元代码应用到 [sqlDS](../s/sqlDS.md) 函数，再将结果合并。
 
 ## 例子
 
@@ -75,5 +75,5 @@ ds=multiTableRepartitionDS([<select * from pt1>,<select date,sym,price from pt2>
 (DataSource< select [4] * from pt1 where date >= 2019.06.01,date < 2019.06.03 >,DataSource< select [4] * from pt1 where date >= 2019.06.03,date < 2019.06.05 >,DataSource< select [4] date,sym,price from pt2 where date >= 2019.06.01,date < 2019.06.03 >,DataSource< select [4] date,sym,price from pt2 where date >= 2019.06.03,date < 2019.06.05 >)
 ```
 
-相关函数：[repartitionDS](../r/repartitionDS.html)
+相关函数：[repartitionDS](../r/repartitionDS.md)
 

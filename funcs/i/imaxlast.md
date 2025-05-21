@@ -36,5 +36,5 @@ c1       c2
 0	2
 ```
 
-相关函数：[imax](imax.html)
+相关函数：[imax](imax.md)
 

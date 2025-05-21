@@ -73,7 +73,7 @@ scheduleJob(`kJob, "7 Minutes", computeK, 15:00m, 2020.01.01, 2021.12.31, 'W', [
 
 其中，参数 *onComplete* 是一个有 4 个参数的回调函数，当定时作业执行完毕（包括有异常的情况）后，会执行该函数。
 
-以下脚本运行前需安装 [HttpClient 插件](../plugins/httpClient/httpclient.html)。
+以下脚本运行前需安装 [HttpClient 插件](../plugins/httpClient/httpclient.md)。
 
 ```
 def sendEmail(jobId, jobDesc, success, result){

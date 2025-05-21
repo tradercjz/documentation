@@ -4,7 +4,7 @@
 
 `rowVar(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -41,5 +41,5 @@ select sym,rowVar(price1,price2) as var from t;
 | IBM | 226.20645 |
 | C | 11061.7938 |
 
-相关函数：[rowVarp](rowVarp.html), [varp](../v/varp.html)
+相关函数：[rowVarp](rowVarp.md), [varp](../v/varp.md)
 

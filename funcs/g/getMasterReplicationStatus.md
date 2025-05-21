@@ -47,5 +47,5 @@ getMasterReplicationStatus();
 | 3 | 3 | 3 | APPEND | 2022.11.08T10:50:35.584920262 | db://test\_dropPartition\_value | pt | 127.0.0.1 | 8002 | true |
 | 4 | 4 | 4 | DROP\_PARTITION | 2022.11.08T10:50:35.632575800 |  | pt | 127.0.0.1 | 8002 | false |
 
-相关函数：[getSlaveReplicationStatus](getSlaveReplicationStatus.html)
+相关函数：[getSlaveReplicationStatus](getSlaveReplicationStatus.md)
 

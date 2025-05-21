@@ -1,6 +1,6 @@
 # asfreq
 
-是 [asFreq](asFreq.html) 的别名。
+是 [asFreq](asFreq.md) 的别名。
 
 Copyright
 

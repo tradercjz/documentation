@@ -41,10 +41,10 @@
 
   DolphinDB 是一款高性能的时序数据处理框架，用于计算高频因子以及因子存储等。
 
-  本教程将 DolphinDB 作为因子计算的主要工具，并结合自身所特有的函数视图功能实现预定义的因子函数在 Python 中调用 DolphinDB 的 [Python API](https://docs.dolphindb.cn/zh/pydoc/py.html) 。
+  本教程将 DolphinDB 作为因子计算的主要工具，并结合自身所特有的函数视图功能实现预定义的因子函数在 Python 中调用 DolphinDB 的 [Python API](https://docs.dolphindb.cn/zh/pydoc/py.md) 。
 * **教程与下载、安装：**
 
-  有关 DolphinDB 的安装指南可以参考 [DolphinDB安装使用指南](dolphindb_user_guide.html)。其中 Python api 的调用可以参考 Python API for DolphinDB。
+  有关 DolphinDB 的安装指南可以参考 [DolphinDB安装使用指南](dolphindb_user_guide.md)。其中 Python api 的调用可以参考 Python API for DolphinDB。
 
 ### 1.4. Celery 概述
 
@@ -66,7 +66,7 @@
 
 **注意**：
 
-* 本教程所介绍的是测试环境的部署，因此所部署的 DolphinDB 服务为单节点版，具体部署教程可以参考 [DolphinDB 单节点部署教程](standalone_server.html)；
+* 本教程所介绍的是测试环境的部署，因此所部署的 DolphinDB 服务为单节点版，具体部署教程可以参考 [DolphinDB 单节点部署教程](standalone_server.md)；
 * 本教程所使用的 Celery 版本为4.3.0.
 * **硬件环境：**
 
@@ -200,7 +200,7 @@
 
   ```
 
-  注：本教程涉及到的数据同步仅为历史数据的全量同步，在实际过程中如果有增量同步等的需要，在 `writer` 配置中要增加 `saveFunctionName`  和 `saveFunctionDef` 两个配置，具体用法可以参考[基于 DataX 的 DolphinDB 数据导入工具](datax_writer.html)。
+  注：本教程涉及到的数据同步仅为历史数据的全量同步，在实际过程中如果有增量同步等的需要，在 `writer` 配置中要增加 `saveFunctionName`  和 `saveFunctionDef` 两个配置，具体用法可以参考[基于 DataX 的 DolphinDB 数据导入工具](datax_writer.md)。
 * **执行数据导入命令：**
 
   进入 dataX 的 `bin` 目录下，分别执行如下命令向 DolphinDB 的 `tick_close` 数据表中导入数据：
@@ -350,7 +350,7 @@
         return s.run("get_alpha1", security_id, begin_date, end_time)
     ```
 
-    注：这里我们使用了 Python 中的数据类型的参数进行传递，其中的 Python 和 DolphinDB 的数据类型的对应关系和使用 DolphinDB 中的数据类型的传参可以参考 [Python API for DolphinDB](https://docs.dolphindb.cn/zh/pydoc/QuickStart/Demo.html)。
+    注：这里我们使用了 Python 中的数据类型的参数进行传递，其中的 Python 和 DolphinDB 的数据类型的对应关系和使用 DolphinDB 中的数据类型的传参可以参考 [Python API for DolphinDB](https://docs.dolphindb.cn/zh/pydoc/QuickStart/Demo.md)。
   + `app.py`：该文件用来与 DolphinDB 建立 `session` 封装调用因子函数，并声明封装的函数为一个可以被 Celery 框架异步调度的任务。
 
     如下是代码实现。这里我们使用了循环语句并调用 Celery 中的 `delay()` 函数向 Celery 框架发送两个任务调用请求，同时在每次循环中打印出任务 `id`：

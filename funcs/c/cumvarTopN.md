@@ -5,7 +5,7 @@
 `cumvarTopN(X, S, top, [ascending=true],
 [tiesMethod='latest'])`
 
-部分通用参数说明和窗口计算规则请参考：[cumTopN 系列](../themes/cumTopN.html)
+部分通用参数说明和窗口计算规则请参考：[cumTopN 系列](../themes/cumTopN.md)
 
 ## 详情
 

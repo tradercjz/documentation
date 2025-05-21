@@ -6,7 +6,7 @@
 
 | 配置参数 | 解释 |
 | --- | --- |
-| home=/home/DolphinDB/server | DolphinDB 的主目录。该参数只能在命令行中指定。本章节中的 <HomeDir> 表示该参数的值。单节点模式下，通过 [getHomeDir](../../funcs/g/getHomeDir.html) 函数可以获取 <HomeDir> 。集群模式下，home 在启动控制节点或代理节点时指定。数据节点/计算节点的 home 目录默认为代理节点 <HomeDir>下的 <nodeAlias> 目录。 |
+| home=/home/DolphinDB/server | DolphinDB 的主目录。该参数只能在命令行中指定。本章节中的 <HomeDir> 表示该参数的值。单节点模式下，通过 [getHomeDir](../../funcs/g/getHomeDir.md) 函数可以获取 <HomeDir> 。集群模式下，home 在启动控制节点或代理节点时指定。数据节点/计算节点的 home 目录默认为代理节点 <HomeDir>下的 <nodeAlias> 目录。 |
 
 初始状态下，解压后的 DolphinDB
 主目录下包含几个依赖的文件夹：modules（依赖模块及用户自定义模块）、plugins（插件）、tzdb（时区数据库）、web（web

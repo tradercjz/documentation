@@ -49,7 +49,7 @@ true，流数据写入内存即为写入成功，持久化到磁盘的操作将�
 
 将流数据输出至持久化共享流数据表、DFS 表或函数。
 
-有关持久化流数据表的更多信息，请参阅 [enableTableShareAndPersistence](../e/enableTableShareAndPersistence.html) 手册。
+有关持久化流数据表的更多信息，请参阅 [enableTableShareAndPersistence](../e/enableTableShareAndPersistence.md) 手册。
 
 **返回值**：DStream 对象。
 

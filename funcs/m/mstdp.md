@@ -4,7 +4,7 @@
 
 `mstdp(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -86,5 +86,5 @@ mstdp(m,1w)
 | 2020.04.11 | 2.8674 | 0.5 |
 | 2020.04.12 | 2.586 | 3.559 |
 
-相关函数：[mstd](mstd.html)
+相关函数：[mstd](mstd.md)
 

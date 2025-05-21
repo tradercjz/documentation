@@ -46,5 +46,5 @@ bondAccrInt(settlement=2024.01.01, maturity=2030.12.31, coupon=0.1, frequency=2,
 //output:0.277778
 ```
 
-相关函数：[bondDirtyPrice](bondDirtyPrice.html)、[bondConvexity](bondconvexity.html)、[bondCalculator](bondCalculator.html)、[bondDuration](bondDuration.html)、[bondYield](bondyield.html)
+相关函数：[bondDirtyPrice](bondDirtyPrice.md)、[bondConvexity](bondconvexity.md)、[bondCalculator](bondCalculator.md)、[bondDuration](bondDuration.md)、[bondYield](bondyield.md)
 

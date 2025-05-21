@@ -178,20 +178,20 @@ loadData 文件夹下定义了数据转换和导入的规则。
 
 * loadOneDayData 文件夹下的文件用于指定对一天的通联数据的处理和导入规则。
   + loadOneDaySnapshot.dos：指定通联提供的快照行情数据的处理和导入规则。
-    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.html) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.html) 函数写入到数据库中。
+    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.md) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.md) 函数写入到数据库中。
     - 当 *isNeedOrderQueue=true* 时，会读取对应的最优报价 50 档委托队列的数据文件，用左连接的方式将其关联到快照行情数据中（关联列："SecurityID", "TradeTime", "ImageStatus"）；当 \*isNeedOrderQueue=false \*时，会直接将对应的列置空。
-    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.html) 函数写入数据，写入时根据 "TradeDate", "TradeTime", "SecurityID", "ImageStatus" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.html) 函数写入数据，此时不会进行去重操作。
+    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.md) 函数写入数据，写入时根据 "TradeDate", "TradeTime", "SecurityID", "ImageStatus" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.md) 函数写入数据，此时不会进行去重操作。
   + loadOneDayEntrust.dos：指定通联提供的逐笔委托数据的处理和导入规则。
-    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.html) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.html) 函数写入到数据库中。
-    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.html) 函数写入数据，写入时根据 "TradeDate", "SecurityID", "ChannelNo", "ApplSeqNum" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.html) 函数写入数据，此时不会进行去重操作。
+    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.md) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.md) 函数写入到数据库中。
+    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.md) 函数写入数据，写入时根据 "TradeDate", "SecurityID", "ChannelNo", "ApplSeqNum" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.md) 函数写入数据，此时不会进行去重操作。
   + loadOneDayTrade.dos：指定通联提供的逐笔成交数据的处理和导入规则。
-    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.html) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.html) 函数写入到数据库中。
-    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.html) 函数写入数据，写入时根据 "TradeDate", "SecurityID", "ChannelNo", "ApplSeqNum" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.html) 函数写入数据，此时不会进行去重操作。
+    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.md) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.md) 函数写入到数据库中。
+    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.md) 函数写入数据，写入时根据 "TradeDate", "SecurityID", "ChannelNo", "ApplSeqNum" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.md) 函数写入数据，此时不会进行去重操作。
   + loadOneDayTradeEntrust.dos：指定通联提供的上交所逐笔数据的处理和导入规则。（仅针对 mdl\_4\_24\_0.csv 文件）
-    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.html) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.html) 函数写入到数据库中。
+    - 会用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.md) 函数将文件划分为 512 MB 大小的数据源，再通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.md) 函数写入到数据库中。
     - 会将 mdl\_4\_24\_0.csv 文件中 Type="T" 的数据写入逐笔成交的分布式库里。
     - 会将 mdl\_4\_24\_0.csv 文件中 Type!="T" 的数据写入逐笔委托的分布式库里。（包含 Type="A" 新增委托、Type="D" 删除委托、Type="S" 产品状态的数据）
-    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.html) 函数写入数据，写入时根据 "TradeDate", "SecurityID", "ChannelNo", "ApplSeqNum" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.html) 函数写入数据，此时不会进行去重操作。
+    - 当 *isDataDuplicated=true* 时，会通过 [upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.md) 函数写入数据，写入时根据 "TradeDate", "SecurityID", "ChannelNo", "ApplSeqNum" 字段进行去重；当 *isDataDuplicated=false* 时，会通过 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.md) 函数写入数据，此时不会进行去重操作。
 * loadOneDayData.dos：用于指定导入一天对应交易所数据的导入规则。
 * loadData.dos：用于指定导入若干天的通联数据的导入规则。
 
@@ -204,8 +204,8 @@ loadData 文件夹下定义了数据转换和导入的规则。
 ![](images/Module_easyTLDataImport/4_1.png)
 
 * **第二步**：将模块同步到 DolphinDB 的 *server/modules* 的目录下。
-  + [VS Code 插件](https://docs.dolphindb.cn/zh/db_distr_comp/vscode.html)：连接对应的节点 ——> 右键 DolphinDBModules 文件夹 ——> 选择 DolphinDB: Upload Module
-  + [GUI 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/gui.html)：连接对应的节点 ——> 右键 DolphinDBModules 文件夹 ——> 选择 Synchronize module to server
+  + [VS Code 插件](https://docs.dolphindb.cn/zh/db_distr_comp/vscode.md)：连接对应的节点 ——> 右键 DolphinDBModules 文件夹 ——> 选择 DolphinDB: Upload Module
+  + [GUI 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/gui.md)：连接对应的节点 ——> 右键 DolphinDBModules 文件夹 ——> 选择 Synchronize module to server
 
 ![](images/Module_easyTLDataImport/4_2.png)
 
@@ -247,7 +247,7 @@ getTLJobStatus(jobid)             // 函数名发生变更，1.0 版本中为 ge
 
 ![](images/Module_easyTLDataImport/5_1.png)
 
-* *jobid* 为 `autoLoadTongLianData` 函数的返回值，对应 [getRecentJobs()](https://docs.dolphindb.cn/zh/funcs/g/getRecentJobs.html) 结果里的 jobDesc 字段值。
+* *jobid* 为 `autoLoadTongLianData` 函数的返回值，对应 [getRecentJobs()](https://docs.dolphindb.cn/zh/funcs/g/getRecentJobs.md) 结果里的 jobDesc 字段值。
 * 通过函数里的参数 *parallel* 可以设置提交的后台任务的个数。
 * 通过配置文件里的参数 *maxBatchJobWorker* 可以设置处理后台任务的最大工作线程数。
 * 返回的结果表里，startTime 不是空值表示任务已经开始执行；endTime 不是空值表示任务已经结束执行。
@@ -260,7 +260,7 @@ getTLJobDetails(jobid)          // 函数名发生变更，1.0 版本中为 getJ
 
 ![](images/Module_easyTLDataImport/5_2.png)
 
-* *jobid* 为 `autoLoadTongLianData` 函数的返回值，对应 [getRecentJobs()](https://docs.dolphindb.cn/zh/funcs/g/getRecentJobs.html) 结果里的 jobDesc 字段值。
+* *jobid* 为 `autoLoadTongLianData` 函数的返回值，对应 [getRecentJobs()](https://docs.dolphindb.cn/zh/funcs/g/getRecentJobs.md) 结果里的 jobDesc 字段值。
 * 通过输出的信息，可以了解哪些日期的任务已经执行完毕，哪些日期的任务正在执行。
 
 **（3）使用以下代码可以查询导入子任务状态：**
@@ -303,9 +303,9 @@ select * from TLDataImportStatusTable
 
 （2）对委托队列的内存表进行格式处理，生成 OfferOrders 和 BidOrders 列分别存储卖方和买方的委托队列。
 
-（3）用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.html) 函数将快照数据的文件划分为 512 MB 大小的数据源。
+（3）用 [textChunkDS](https://docs.dolphindb.cn/zh/funcs/t/textChunkDS.md) 函数将快照数据的文件划分为 512 MB 大小的数据源。
 
-（4）通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.html) 函数对快照数据源和全量的委托队列数据进行左连接，连接列为 "TradeTime", "SecurityID", "ImageStatus"。并将关联后的结果写入对应的数据库。
+（4）通过 [mr](https://docs.dolphindb.cn/zh/funcs/m/mr.md) 函数对快照数据源和全量的委托队列数据进行左连接，连接列为 "TradeTime", "SecurityID", "ImageStatus"。并将关联后的结果写入对应的数据库。
 
 因为需要将委托队列的数据全量读到内存并进行关联操作，所以这种方式会使用更多的内存。
 

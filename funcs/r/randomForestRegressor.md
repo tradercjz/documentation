@@ -78,5 +78,5 @@ saveModel(model, "C:/DolphinDB/Data/regressionModel.bin")
 loadModel("C:/DolphinDB/Data/regressionModel.bin")
 ```
 
-相关函数：[adaBoostClassifier](../a/adaBoostClassifier.html),[randomForestClassifier](randomForestClassifier.html)
+相关函数：[adaBoostClassifier](../a/adaBoostClassifier.md),[randomForestClassifier](randomForestClassifier.md)
 

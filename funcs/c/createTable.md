@@ -1,6 +1,6 @@
 # createTable
 
-是 [createDimensionTable](createdimensiontable.html) 的别名。
+是 [createDimensionTable](createdimensiontable.md) 的别名。
 
 Copyright
 

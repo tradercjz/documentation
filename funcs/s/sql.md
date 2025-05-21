@@ -8,7 +8,7 @@
 
 ## 参数
 
-**select** 是表示选取的列的元代码。每列由函数 [sqlCol](sqlCol.html) 或 [sqlColAlias](sqlColAlias.html) 生成。若选择多列，使用元组表示。
+**select** 是表示选取的列的元代码。每列由函数 [sqlCol](sqlCol.md) 或 [sqlColAlias](sqlColAlias.md) 生成。若选择多列，使用元组表示。
 
 **from** 选取数据的表对象或表名称。
 
@@ -45,7 +45,7 @@ by 查询时采用哈希算法，HINT\_SNAPSHOT 表示从快照引擎中查询�
 
 ## 详情
 
-动态生成 SQL 语句。使用函数 [eval](../e/eval.html) 执行生成的 SQL
+动态生成 SQL 语句。使用函数 [eval](../e/eval.md) 执行生成的 SQL
 语句。
 
 ## 例子

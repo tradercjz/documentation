@@ -283,5 +283,5 @@
 | talib.LINEARREG\_SLOPE / talib.LINEARREG\_INTERCEPT | linearTimeTrend |
 | talib.TRANGE | trueRange |
 
-以上仅列出 DolphinDB 的内置的 TA-lib 函数。有关 TA-lib 指标函数的更多详细信息，参考 [DolphinDB 的 ta-lib 模块](../modules/ta/ta.html)。
+以上仅列出 DolphinDB 的内置的 TA-lib 函数。有关 TA-lib 指标函数的更多详细信息，参考 [DolphinDB 的 ta-lib 模块](../modules/ta/ta.md)。
 

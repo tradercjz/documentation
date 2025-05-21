@@ -4,7 +4,7 @@
 
 `rowWsum(X, Y)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -35,5 +35,5 @@ rowWsum(x, y)
 [0.63, -6.3 , 184.21]
 ```
 
-相关函数：[wsum](../w/wsum.html)
+相关函数：[wsum](../w/wsum.md)
 

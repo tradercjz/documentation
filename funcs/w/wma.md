@@ -4,7 +4,7 @@
 
 `wma(X, window)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.md)
 
 ## 详情
 
@@ -37,5 +37,5 @@ wma(x,3);
 | 11.9 | 16.1667 |
 | 11.45 | 12.5 |
 
-相关函数：[sma](../s/sma.html), [trima](../t/trima.html)
+相关函数：[sma](../s/sma.md), [trima](../t/trima.md)
 

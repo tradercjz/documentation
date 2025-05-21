@@ -48,5 +48,5 @@ seasonalEsd(data, 12);
 | 70 | 21.141346 |
 | 20 | 19.174165 |
 
-相关函数：[stl](stl.html), [esd](../e/esd.html)
+相关函数：[stl](stl.md), [esd](../e/esd.md)
 

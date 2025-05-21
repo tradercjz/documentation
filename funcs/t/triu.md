@@ -59,5 +59,5 @@ triu(m,-1);
 | 2 | 5 | 8 |
 | 0 | 6 | 9 |
 
-相关函数： [tril](tril.html)
+相关函数： [tril](tril.md)
 

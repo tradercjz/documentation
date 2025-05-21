@@ -2,9 +2,9 @@
 
 DolphinDB中的字符串使用UTF-8编码方式。DolphinDB也提供了与正则表达式相关的字符串函数：
 
-* [regexFind](../../funcs/r/regexFind.html)
-* [regexReplace](../../funcs/r/regexReplace.html)
-* [regexCount](../../funcs/r/regexCount.html).
+* [regexFind](../../funcs/r/regexFind.md)
+* [regexReplace](../../funcs/r/regexReplace.md)
+* [regexCount](../../funcs/r/regexCount.md).
 
 Copyright
 

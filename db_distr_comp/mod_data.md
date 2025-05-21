@@ -42,7 +42,7 @@ dt.tableInsert(t)
 
 ## SQL 语句
 
-[UPDATE](../progr/sql/update.html) 语句用于修改内存表或分布式表的数据。
+[UPDATE](../progr/sql/update.md) 语句用于修改内存表或分布式表的数据。
 
 例如，将表 t 中 2023.10.01 的数据 val 值更新为 101，将表 pt 中 2023.10.2 的数据 val 值更新为102 ：
 
@@ -58,7 +58,7 @@ UPDATE pt SET val=102 WHERE date=2023.10.02
 
 ## upsert!
 
-[upsert!](../funcs/u/upsert_.html) 函数可用于更新键值内存表、索引内存表和分布式表数据。
+[upsert!](../funcs/u/upsert_.md) 函数可用于更新键值内存表、索引内存表和分布式表数据。
 
 下例中，使用表 t1 中的数据更新键值内存表、索引内存表。若 t1 表中 date 列的值在待更新的表中已存在，则更新该主键值的数据；否则添加数据：
 
@@ -77,12 +77,12 @@ upsert!(obj=pt, newData=t1, keyColNames=`sym)
 upsert!(obj=dt, newData=t1, keyColNames=`sym)
 ```
 
-注： [upsert!](../funcs/u/upsert_.html)
+注： [upsert!](../funcs/u/upsert_.md)
 在更新分布式表时，如果在参数 *keyColNames* 指定的列上存在重复值，仅会更新第一个值所在行，其余行不会更新。
 
 ## update!
 
-[update!](../funcs/u/update_.html) 函数可用于更新内存表数据。
+[update!](../funcs/u/update_.md) 函数可用于更新内存表数据。
 
 通过指定表中已有的列，将该列数据更新。以下脚本将表 t 中时间为 2023年10月03日，sym 为 ”A001“ 对应的 val 改为原值加 2：
 

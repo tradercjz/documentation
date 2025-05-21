@@ -18,7 +18,7 @@ Alphalens 是 Quantopian 用 Python 开发的一个因子分析（评价）工�
 * 计算分析层：基于 DolphinDB 脚本语言实现的 Alphalens 模块，能够提供专业的因子分析框架。对数据进行数据清洗、投资组合评估等复杂业务逻辑的计算处理。
 * 可视化交互层：基于 Python 的 Jupyter Notebook，通过交互式的数据可视化工具展现分析结果。
 
-在执行效率上，对于大量因子的单因子分析，可以通过 DolphinDB 内置的 [peach](https://docs.dolphindb.cn/zh/funcs/ho_funcs/peach.html) 函数并发调用 Alphalens 分析模块，同时借助高效执行的向量化引擎进行具体计算，从而在保证准确性的同时充分利用 DolphinDB 分布式计算框架，获得卓越的执行性能。
+在执行效率上，对于大量因子的单因子分析，可以通过 DolphinDB 内置的 [peach](https://docs.dolphindb.cn/zh/funcs/ho_funcs/peach.md) 函数并发调用 Alphalens 分析模块，同时借助高效执行的向量化引擎进行具体计算，从而在保证准确性的同时充分利用 DolphinDB 分布式计算框架，获得卓越的执行性能。
 
 在基本概念上，DolphinDB Alphalens 模块的函数名、参数、参数默认值与 Python 版本高度保持一致，以降低学习和迁移成本。
 
@@ -474,7 +474,7 @@ plotting.create_turnover_tear_sheet(turnover_tear_sheet, save_name="turnover_tea
 单因子分析虽然是量化投资的重要基石，但远不止于此。随着技术的不断进步，量化投资正向多元化、智能化的方向演进：
 
 * 高频交易时代的临近：
-  + 通过实时获取市场信号，抓住短暂的交易机遇将成为可能。DolphinDB 内置的流计算引擎功能将在这一过程中扮演关键角色。[DolphinDB 流计算介绍](https://docs.dolphindb.cn/zh/stream/str_intro.html)
+  + 通过实时获取市场信号，抓住短暂的交易机遇将成为可能。DolphinDB 内置的流计算引擎功能将在这一过程中扮演关键角色。[DolphinDB 流计算介绍](https://docs.dolphindb.cn/zh/stream/str_intro.md)
 * 投资组合优化的重要性与日俱增：
   + 如何在控制风险的前提下，优化投资组合以获取最大收益，将成为投资者的核心需求。DolphinDB优化求解系列函数将为此提供强力支持。[《优化投资组合：DolphinDB 最优化求解系列函数应用指南》](https://zhuanlan.zhihu.com/p/687639598)
 * 自动化因子挖掘成为投研重点：

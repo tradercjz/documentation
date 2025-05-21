@@ -5,7 +5,7 @@
 `msumTopN(X, S, window, top, [ascending=true],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 详情
 
@@ -112,5 +112,5 @@ select code, date, msumTopN(close, volume, 5, 3, false) from t context by code
 | IBM | 2020.01.18 | 315 |
 | IBM | 2020.01.20 | 314 |
 
-相关函数：[msum](msum.html)
+相关函数：[msum](msum.md)
 

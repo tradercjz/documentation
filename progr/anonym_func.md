@@ -52,7 +52,7 @@ def(a,b){return (a+1)*(b+1)} (4,5);
 30
 ```
 
-除了支持自定义聚合函数(详情见 [NamedFunction](named_func.html))外，DolphinDB 支持自定义匿名聚合函数。 其语法和匿名函数语法基本一致。
+除了支持自定义聚合函数(详情见 [NamedFunction](named_func.md))外，DolphinDB 支持自定义匿名聚合函数。 其语法和匿名函数语法基本一致。
 
 ```
 f = defg (x, y){

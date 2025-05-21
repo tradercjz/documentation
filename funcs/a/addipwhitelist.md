@@ -21,5 +21,5 @@
 addIPWhiteList(["1.1.1.1", "2.2.2.2", "3.3.3.3"])
 ```
 
-相关函数：[removeIPWhiteList](../r/removeipwhitelist.html)、[getIPWhiteList](../g/getipwhitelist.html)
+相关函数：[removeIPWhiteList](../r/removeipwhitelist.md)、[getIPWhiteList](../g/getipwhitelist.md)
 

@@ -21,7 +21,7 @@
 
 ### 2.1 建库
 
-使用 [database](https://docs.dolphindb.cn/zh/funcs/d/database.html) 函数来创建 OLTP 数据库，语法与创建 OLAP/TSDB 数据库一样，但是有以下注意事项：
+使用 [database](https://docs.dolphindb.cn/zh/funcs/d/database.md) 函数来创建 OLTP 数据库，语法与创建 OLAP/TSDB 数据库一样，但是有以下注意事项：
 
 * *directory* 必须以 `oltp://` 开头。
 * *engine* 必须为 `IMOLTP`。
@@ -34,7 +34,7 @@ db = database(dbName, VALUE, 1..100, , "IMOLTP")
 
 ### 2.2 建表
 
-使用 [createIMOLTPTable](https://docs.dolphindb.cn/zh/funcs/c/createIMOLTPTable.html) 函数来创建 OLTP 表，语法如下：
+使用 [createIMOLTPTable](https://docs.dolphindb.cn/zh/funcs/c/createIMOLTPTable.md) 函数来创建 OLTP 表，语法如下：
 
 ```
 createIMOLTPTable(dbHandle, table, tableName, primaryKey, [secondaryKey], [uniqueFlag])
@@ -75,7 +75,7 @@ pt3 = db.createIMOLTPTable(
 
 ### 2.3 删库/删表
 
-使用 [dropTable](https://docs.dolphindb.cn/zh/funcs/d/dropTable.html) 和 [dropDatabase](https://docs.dolphindb.cn/zh/funcs/d/dropDatabase.html) 来删表删库，使用方式与 OLAP/TSDB 没有区别。
+使用 [dropTable](https://docs.dolphindb.cn/zh/funcs/d/dropTable.md) 和 [dropDatabase](https://docs.dolphindb.cn/zh/funcs/d/dropDatabase.md) 来删表删库，使用方式与 OLAP/TSDB 没有区别。
 
 ```
 db.dropTable("test_table_1")
@@ -109,7 +109,7 @@ pt = db.createIMOLTPTable(
 
 ### 3.1 写入数据
 
-写入数据可以用 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.html) 和 [insert into](https://docs.dolphindb.cn/zh/progr/sql/insertInto.html)，使用方式与 OLAP/TSDB 一样。
+写入数据可以用 [append!](https://docs.dolphindb.cn/zh/funcs/a/append%21.md) 和 [insert into](https://docs.dolphindb.cn/zh/progr/sql/insertInto.md)，使用方式与 OLAP/TSDB 一样。
 
 ```
 pt = loadTable("oltp://test_imoltp", "test_table")
@@ -165,7 +165,7 @@ delete from pt where id >= 100, id <= 110
 
 ## 4. 事务
 
-使用 [transaction](https://docs.dolphindb.cn/zh/progr/statements/transaction.html) 语句块可以在一个事务内执行多条 DML 语句，在一个事务范围内，所有的 DML 操作都会一起成功或一起失败。若一个事务执行的时候有异常抛出，会自动撤销本次事务的所有更改。
+使用 [transaction](https://docs.dolphindb.cn/zh/progr/statements/transaction.md) 语句块可以在一个事务内执行多条 DML 语句，在一个事务范围内，所有的 DML 操作都会一起成功或一起失败。若一个事务执行的时候有异常抛出，会自动撤销本次事务的所有更改。
 
 ```
 pt = loadTable("oltp://test_imoltp", "test_table")

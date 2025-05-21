@@ -47,5 +47,5 @@ select * from t where sym like "%aa%";
 | aac | 2.3 |
 | aaa | 3.7 |
 
-相关函数：[ilike](../i/ilike.html)
+相关函数：[ilike](../i/ilike.md)
 

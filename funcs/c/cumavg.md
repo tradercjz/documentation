@@ -4,7 +4,7 @@
 
 `cumavg(X)`
 
-参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ cumavg(m);
 | 2 | 6 |
 | 2.5 | 6.5 |
 
-相关函数：[avg](../a/avg.html)
+相关函数：[avg](../a/avg.md)
 

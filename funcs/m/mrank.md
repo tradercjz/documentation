@@ -5,7 +5,7 @@
 `mrank(X, ascending, window, [ignoreNA=true], [tiesMethod='min'],
 [percent=false], [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -135,5 +135,5 @@ mrank(m, window=1w, percent = 1)
 | 2020.01.09 | 0.1429 |
 | 2020.01.10 | 0.7143 |
 
-相关函数：[rank](../r/rank.html)
+相关函数：[rank](../r/rank.md)
 

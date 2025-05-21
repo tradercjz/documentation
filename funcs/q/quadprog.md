@@ -96,5 +96,5 @@ x[1];
 
 目标函数在没有约束条件的情况下，最优解的值最小。约束条件越多，最优解的值越大。
 
-相关函数：[linprog](../l/linprog.html), [scs](../s/scs.html)
+相关函数：[linprog](../l/linprog.md), [scs](../s/scs.md)
 

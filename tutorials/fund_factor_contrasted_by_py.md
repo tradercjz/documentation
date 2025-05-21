@@ -19,7 +19,7 @@
 
   | 软件名称 | 版本信息 | 教程&下载链接 |
   | --- | --- | --- |
-  | DolphinDB | 2.00.7 | [DolphinDB单节点部署教程](standalone_server.html)；[DolphinDB下载链接](https://dolphindb.cn/alone/alone.php?id=10) |
+  | DolphinDB | 2.00.7 | [DolphinDB单节点部署教程](standalone_server.md)；[DolphinDB下载链接](https://dolphindb.cn/alone/alone.php?id=10) |
   | DolphinDB GUI | 1.30.19.2 | [DolphinDB GUI下载链接](https://dolphindb.cn/alone/alone.php?id=10) |
   | Python（包含numpy、pandas、scipy等库以及 DolphinDB 的 Python API，需要预先安装） | 3.7.9 | [Python官网](https://www.python.org/) |
 

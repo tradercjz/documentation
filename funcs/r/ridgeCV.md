@@ -23,7 +23,7 @@
 
 **alphas** 是浮点型标量或向量，表示乘以L1范数惩罚项的系数。默认值是 [0.01, 0.1, 1.0]。
 
-注： 除 *alphas* 参数外，其它参数都和 ridge 的参数相同，参数描述可参考 [ridge](ridge.html)。这里仅说明 *alphas* 参数。
+注： 除 *alphas* 参数外，其它参数都和 ridge 的参数相同，参数描述可参考 [ridge](ridge.md)。这里仅说明 *alphas* 参数。
 
 ## 例子
 

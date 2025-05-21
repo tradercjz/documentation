@@ -38,5 +38,5 @@ prevState(X)
 | 1.1 | 1.3 | 4.2 |
 | 1 | 2.5 | 1.6 |
 
-相关函数： [nextState](../n/nextState.html)
+相关函数： [nextState](../n/nextState.md)
 

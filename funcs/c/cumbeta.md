@@ -4,7 +4,7 @@
 
 `cumbeta(Y, X)`
 
-参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -21,5 +21,5 @@ cumbeta(y,x);
 [,2.5,2,1.2,1.256757,1.365322,1.440948]
 ```
 
-相关函数：[beta](../b/beta.html)
+相关函数：[beta](../b/beta.md)
 

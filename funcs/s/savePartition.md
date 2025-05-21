@@ -19,7 +19,7 @@
 
 把一张表保存为分布式数据库中的分区表。该命令必须要用户登录后才能执行。
 
-在用 *savePartition* 保存之前，要用 [createPartitionedTable](../c/createPartitionedTable.html) 先创建空的分区表。
+在用 *savePartition* 保存之前，要用 [createPartitionedTable](../c/createPartitionedTable.md) 先创建空的分区表。
 
 ## 例子
 

@@ -26,7 +26,7 @@ DolphinDB 为此开发了 FICC 系列函数，方便用户快速地计算各类�
 
 | 软件名称 | 版本信息 | 教程&下载链接 |
 | --- | --- | --- |
-| DolphinDB | 3.00.2 | [DolphinDB单节点部署教程](standalone_server.html) |
+| DolphinDB | 3.00.2 | [DolphinDB单节点部署教程](standalone_server.md) |
 | [DolphinDB下载链接](https://dolphindb.cn/) |
 | DolphinDB GUI | 3.00.2.0 | [DolphinDB GUI下载链接](https://dolphindb.cn/product#client) |
 | DolphinDB VS Code 插件 | 3.0.200 | [DolphinDB VS Code插件下载](https://dolphindb.cn/product#client) |
@@ -47,7 +47,7 @@ DolphinDB 为此开发了 FICC 系列函数，方便用户快速地计算各类�
 
 计息周期，当前付息周期的实际天数
 
-* DolphinDB 函数实现：[bondAccrInt](../funcs/b/bondaccrint.html)
+* DolphinDB 函数实现：[bondAccrInt](../funcs/b/bondaccrint.md)
 
 举例说明：
 
@@ -84,7 +84,7 @@ n，债券到期日对应的付息次数
 * DolphinDB 函数实现：`bondDirtyPrice`
   是用于计算全价的函数。`bondAccrInt` 是用于计算应付利息的函数，两者相减即是净价。
 
-[bondDirtyPrice](../funcs/b/bondDirtyPrice.html) 用于计算面值为 100
+[bondDirtyPrice](../funcs/b/bondDirtyPrice.md) 用于计算面值为 100
 的债券的含息价格（全价） 。当前函数支持固息债券、零息债券和贴现债券价格计算。
 
 举例说明：
@@ -116,7 +116,7 @@ CP = DP -AI
   按照定义，利率互换的固定端支付方为利率互换合约的买方，浮动端支付方为利率互换合约的卖方。
 * 计算公式： 利率互换合约价值 = 固定端现值 - 浮动端现值
 
-* DolphinDB 函数实现：[irs](../funcs/i/irs.html)
+* DolphinDB 函数实现：[irs](../funcs/i/irs.md)
   函数返回对于浮动利率支付方的利率互换估值，该估值是一个 DOUBLE 类型的标量或向量。
 
 **其他估值函数：**
@@ -125,11 +125,11 @@ CP = DP -AI
 
 | 指标名称 | 内容概述 | 使用手册链接 |
 | --- | --- | --- |
-| 债券收益率计算 | 债券收益率，这里指的是到期收益率（yield-to-maturity）。债券收益率的计算，是根据债券的净价和未来现金流，反算债券净价计算公式中的到期收益率。目前 `bondYield`函数支持多种常见的规划求解器，包括牛顿法（Newton）, brent， Nelder-Mead，BFGS等。 | [bondYield](../funcs/b/bondyield.html) |
-| 香草期权定价函数 | 使用 Black-Scholes-Merton 模型对欧式期权进行定价。 | [vanillaOption](../funcs/v/vanillaoption.html) |
-| CDS 信用违约互换估值函数 | 信用违约互换（Credit Default Swap，CDS）是一种金融衍生品，它是一种可供投资人规避信用风险的契约。具体实现方式参考：<https://data.bloomberglp.com/professional/sites/10/WhitePaper_Wen.pdf> | [cds](../funcs/c/cds.html) |
-| CRMW 信用风险缓释凭证定价函数 | 信用风险缓释凭证（Credit Risk Mitigation Warrant，CRMW）是指由标的实体以外的机构创设的，为凭证持有人就标的债务提供信用风险保护的、可交易流通的有价凭证。  本函数使用[中债估值](https://pdf.dfcfw.com/pdf/H3_AP201811151246405013_1.pdf)方法，对标的债务为到期一次还本付息的短期债券的信用风险缓释凭证进行估值。短期债券指在一年或更短的时间内到期的债券。 | [crmwCBond](../funcs/c/crmwcbond.html) |
-| treasuryFutures 国债期货转换因子函数 | 国债期货实行一篮子可交割国债的多券种交割方式。由于可交割债券的剩余期限、票面利率、付息频率、付息时间等各不相同，各交割券价值会有一定区别。因此交割时就要通过转换因子将可交割国债转换成名义标准券，使所有可交割券在交割时的价值基本相当。  本函数使用[中金所的方法](http://www.cffex.com.cn/5tf/)对转换因子进行计算。 | [treasuryBonversionFactor](../funcs/t/treasuryconversionfactor.html) |
+| 债券收益率计算 | 债券收益率，这里指的是到期收益率（yield-to-maturity）。债券收益率的计算，是根据债券的净价和未来现金流，反算债券净价计算公式中的到期收益率。目前 `bondYield`函数支持多种常见的规划求解器，包括牛顿法（Newton）, brent， Nelder-Mead，BFGS等。 | [bondYield](../funcs/b/bondyield.md) |
+| 香草期权定价函数 | 使用 Black-Scholes-Merton 模型对欧式期权进行定价。 | [vanillaOption](../funcs/v/vanillaoption.md) |
+| CDS 信用违约互换估值函数 | 信用违约互换（Credit Default Swap，CDS）是一种金融衍生品，它是一种可供投资人规避信用风险的契约。具体实现方式参考：<https://data.bloomberglp.com/professional/sites/10/WhitePaper_Wen.pdf> | [cds](../funcs/c/cds.md) |
+| CRMW 信用风险缓释凭证定价函数 | 信用风险缓释凭证（Credit Risk Mitigation Warrant，CRMW）是指由标的实体以外的机构创设的，为凭证持有人就标的债务提供信用风险保护的、可交易流通的有价凭证。  本函数使用[中债估值](https://pdf.dfcfw.com/pdf/H3_AP201811151246405013_1.pdf)方法，对标的债务为到期一次还本付息的短期债券的信用风险缓释凭证进行估值。短期债券指在一年或更短的时间内到期的债券。 | [crmwCBond](../funcs/c/crmwcbond.md) |
+| treasuryFutures 国债期货转换因子函数 | 国债期货实行一篮子可交割国债的多券种交割方式。由于可交割债券的剩余期限、票面利率、付息频率、付息时间等各不相同，各交割券价值会有一定区别。因此交割时就要通过转换因子将可交割国债转换成名义标准券，使所有可交割券在交割时的价值基本相当。  本函数使用[中金所的方法](http://www.cffex.com.cn/5tf/)对转换因子进行计算。 | [treasuryBonversionFactor](../funcs/t/treasuryconversionfactor.md) |
 
 ### 1.2 风险管理
 
@@ -159,7 +159,7 @@ n，债券到期日对应的付息次数
 
 * DolphinDB 函数实现：
 
-[bondDuration](../funcs/b/bondDuration.html)，[bondConvexity](../funcs/b/bondconvexity.html)
+[bondDuration](../funcs/b/bondDuration.md)，[bondConvexity](../funcs/b/bondconvexity.md)
 函数分别计算面值为100的债券的麦考利久期和凸性 。当前函数支持计算固息债券、零息债券和贴现债券价格。
 
 举例说明：
@@ -210,7 +210,7 @@ VaR，在险价值，根据价值分布确定和设定的置信区间。
 
 * DolphinDB 函数实现：
 
-[valueAtRisk](../funcs/v/var_0.html)
+[valueAtRisk](../funcs/v/var_0.md)
 函数用于量化在给定的置信水平（例如95%或99%）和特定时间范围内，金融资产可能遭受的最大损失，即最低收益率水平。返回值为绝对值。
 
 举例说明：
@@ -250,7 +250,7 @@ p(x)，为该损益值发生的概率。
 
 * DolphinDB 函数实现：
 
-[condValueAtRisk](../funcs/c/cvar.html) 函数（Conditional Value at
+[condValueAtRisk](../funcs/c/cvar.md) 函数（Conditional Value at
 Risk，简称 CVaR；也可称 Expected Shortfall，简称 ES），用于计算超过VaR 的损失的平均值，即收益率低于 VaR
 的情况的平均值。
 
@@ -290,7 +290,7 @@ ut，随机变量时间序列，代表误差
 
 * DolphinDB 函数实现：
 
-[piecewiseLinFit](../funcs/p/piecewiselinfit.html)
+[piecewiseLinFit](../funcs/p/piecewiselinfit.md)
 函数为给定数据点集和给定线段数拟合一个连续的分段线性回归（MSLR）函数，使用差分进化算法，通过最小化平方误差之和，来找到给定数量的线段断点的最优位置。
 
 举例说明：
@@ -306,7 +306,7 @@ model
 
 * 业务含义：在分段回归（`piecewiseLinFit`）函数运行后，对资产价格等金融时间序列的未来值进行预测。
 * 计算公式：使用拟合后的连续分段线性回归模型来对输入的数据点进行预测。可以用在利率曲线预测上，分段回归出其他的点。
-* DolphinDB 函数实现： [pwlfPredict](../funcs/p/pwlfpredict.html)
+* DolphinDB 函数实现： [pwlfPredict](../funcs/p/pwlfpredict.md)
 
 举例说明：
 
@@ -336,7 +336,7 @@ yi，收益率。
 
 * DolphinDB 函数实现：
 
-[kroghInterpolate](../funcs/k/kroghinterpolate.html)
+[kroghInterpolate](../funcs/k/kroghinterpolate.md)
 函数为一组点集进行多项式插值。该多项式通过点集中所有的点对 ( xi, yi)。可以额外指定在每个点
 xi 处的多个导数值，用户通过重复 xi 值并将导数值指定为连续的 yi
 值来实现。
@@ -381,7 +381,7 @@ T，为到期期限。
 
 * DolphinDB 函数实现：
 
-[nss](../funcs/n/nss.html) 函数使用 Nelson-Siegel(NS) 模型/
+[nss](../funcs/n/nss.md) 函数使用 Nelson-Siegel(NS) 模型/
 Nelson-Siegel-Svensson(NSS) 模型和 nelder-mead 优化方法来拟合债券的收益率曲线。NS
 模型将收益率曲线表示为三个参数：水平、斜率和曲率的函数，并假设一种公式形式，反映债券收益率的历史模式。Nelson-Siegel-Svensson(NSS)
 模型通过增加一个额外的因素来捕捉收益曲线随时间变化的斜率从而对 Nelson-Siegel 模型进行了扩展。
@@ -411,7 +411,7 @@ warnFlag->0
 ```
 
 当需要使用上述计算出来的模型对数据进行预测时，可以使用函数 `predict` 也可以直接调用 NS 模型及 NSS
-模型专用预测函数 [nsspredict](../funcs/n/nsspredict.html)
+模型专用预测函数 [nsspredict](../funcs/n/nsspredict.md)
 ，预测结果是一样的。
 
 ```
@@ -427,9 +427,9 @@ nssPredict(model, [3,1])
 
 | 插值方法 | 内容概述 | 使用手册链接 |
 | --- | --- | --- |
-| 线性插值法 | 线性插值通过已知的两个数据点 [x0, y0] 和 [x1, y1] ，求解在[x0, x1] 区间内某一个位置的 xi 所对应的 yi 值。 | [linearInterpolateFit](../funcs/l/linearinterpolatefit.html) |
-| 三次样条插值法 | 三次样条插值法是一种常用的数值分析方法，可以通过给定的一组散点数据来拟合出一条光滑的连续函数曲线。其基本思想是用低次多项式逼近一段小区间内的数据，并利用这些多项式的连接处衔接条件来保证整个曲线的光滑性。 | [cubicSpline](../funcs/c/cubicspline.html) |
-| 多项式拟合 | 根据给定的数据点集 (xi, yi)，通过一个多项式函数，使拟合曲线尽可能接近已知的数据点。 | [polyFit](../funcs/p/polyfit.html) |
+| 线性插值法 | 线性插值通过已知的两个数据点 [x0, y0] 和 [x1, y1] ，求解在[x0, x1] 区间内某一个位置的 xi 所对应的 yi 值。 | [linearInterpolateFit](../funcs/l/linearinterpolatefit.md) |
+| 三次样条插值法 | 三次样条插值法是一种常用的数值分析方法，可以通过给定的一组散点数据来拟合出一条光滑的连续函数曲线。其基本思想是用低次多项式逼近一段小区间内的数据，并利用这些多项式的连接处衔接条件来保证整个曲线的光滑性。 | [cubicSpline](../funcs/c/cubicspline.md) |
+| 多项式拟合 | 根据给定的数据点集 (xi, yi)，通过一个多项式函数，使拟合曲线尽可能接近已知的数据点。 | [polyFit](../funcs/p/polyfit.md) |
 
 ### 1.4 实时计算引擎
 
@@ -456,7 +456,7 @@ createYieldCurveEngine(name, dummyTable, assetType, fitMethod, keyColumn, modelO
 是用户需要指定的具体利率拟合使用的算法。引擎支持对不同类型的资产，采用不同的拟合算法，目前支持的曲线拟合函数有：`piecewiseLinFit`
 , `nss` , `cubicSpline`,
 `linearInterpFit`, `polyFit`,
-`kroghInterpFit` 。关于函数参数使用说明，请参考 [createYieldCurveEngine](../funcs/c/createyieldcurveengine.html)。
+`kroghInterpFit` 。关于函数参数使用说明，请参考 [createYieldCurveEngine](../funcs/c/createyieldcurveengine.md)。
 
 **估值定价引擎**
 
@@ -477,7 +477,7 @@ createPricingEngine(name, dummyTable, timeColumn, typeColumn, securityType, meth
 其中，*method*
 是用户需要指定的具体估值使用的算法，也支持用户根据需要传入自定义函数或表达式。目前支持的估值计算函数有：`bondDirtyPrice`,
 `bondAccrInt`, `bondDuration`,
-`irs`, `vanillaOption`等等。关于函数参数使用说明，请参考 [createPricingEngine](../funcs/c/createpricingengine.html)。
+`irs`, `vanillaOption`等等。关于函数参数使用说明，请参考 [createPricingEngine](../funcs/c/createpricingengine.md)。
 
 ### 1.5 其他相关函数
 
@@ -486,13 +486,13 @@ createPricingEngine(name, dummyTable, timeColumn, typeColumn, securityType, meth
 
 | 函数链接 | 功能描述 |
 | --- | --- |
-| [brute](../funcs/b/brute.html) | 通过穷举法在给定范围内最小化一个函数 |
-| [fmin](../funcs/f/fmin.html) | 使用 Nelder-Mead 单纯形算法找到目标函数的最小值。 |
-| [fminBFGS](../funcs/f/fminbfgs.html) | 使用 BFGS 算法找到目标函数的最小值。 |
-| [fminLBFGSB](../funcs/f/fminlbfgsb.html) | 使用 L-BFGS-B 算法找到目标函数的最小值。 |
-| [fminSLSQP](../funcs/f/fminslsqp.html) | 使用顺序最小二乘编程方法（Sequential Least Squares Programming, SLSQP）找到目标函数的最小值。 |
-| [fminNCG](../funcs/f/fminncg.html) | 使用牛顿共轭梯度法（Newton conjugate gradient；也称为截断牛顿法，Truncated Newton method）对目标函数进行无约束最小化。本方法适用于解决大型非线性优化问题。 |
-| [gaussianKde](../funcs/g/gaussiankde.html)  [gaussianKdePredict](../funcs/g/gaussiankdepredict.html) | 使用核密度估计方法中的高斯核来估计随机变量的概率密度。  生成的模型可以作为 `gaussianKdePredict` 函数的输入进行预测。 |
+| [brute](../funcs/b/brute.md) | 通过穷举法在给定范围内最小化一个函数 |
+| [fmin](../funcs/f/fmin.md) | 使用 Nelder-Mead 单纯形算法找到目标函数的最小值。 |
+| [fminBFGS](../funcs/f/fminbfgs.md) | 使用 BFGS 算法找到目标函数的最小值。 |
+| [fminLBFGSB](../funcs/f/fminlbfgsb.md) | 使用 L-BFGS-B 算法找到目标函数的最小值。 |
+| [fminSLSQP](../funcs/f/fminslsqp.md) | 使用顺序最小二乘编程方法（Sequential Least Squares Programming, SLSQP）找到目标函数的最小值。 |
+| [fminNCG](../funcs/f/fminncg.md) | 使用牛顿共轭梯度法（Newton conjugate gradient；也称为截断牛顿法，Truncated Newton method）对目标函数进行无约束最小化。本方法适用于解决大型非线性优化问题。 |
+| [gaussianKde](../funcs/g/gaussiankde.md)  [gaussianKdePredict](../funcs/g/gaussiankdepredict.md) | 使用核密度估计方法中的高斯核来估计随机变量的概率密度。  生成的模型可以作为 `gaussianKdePredict` 函数的输入进行预测。 |
 
 ## 2. 函数性能测试
 

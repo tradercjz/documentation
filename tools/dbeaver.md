@@ -19,7 +19,7 @@ windows）上运行。其直观的用户界面和丰富的功能，极大地提�
 
 DolphinDB 的版本需大于等于 3.00.0。这是因为 DBeaver 使用 JDBC DatabaseMetaData 接口中的
 getCatalogs，getSchemas，getColumns 等相关方法访问数据库，而 DolphinDB 2.0 版本并没有实现
-catalog。安装请参阅[部署](../deploy/deploy_intro.html)文档。
+catalog。安装请参阅[部署](../deploy/deploy_intro.md)文档。
 
 **安装 DBeaver Community**
 
@@ -27,13 +27,13 @@ catalog。安装请参阅[部署](../deploy/deploy_intro.html)文档。
 
 **了解 catalog**
 
-DBeaver 访问的分布式库表需纳入 catalog 管理。若尚未了解 catalog，请先阅读文档 [数据目录](../db_distr_comp/db/catalog.html) 。以下是在使用 DBEaver
+DBeaver 访问的分布式库表需纳入 catalog 管理。若尚未了解 catalog，请先阅读文档 [数据目录](../db_distr_comp/db/catalog.md) 。以下是在使用 DBEaver
 时可能用到的函数。
 
 | **函数** | **作用** | **示例** |
 | --- | --- | --- |
-| [createCatalog](../funcs/c/createCatalog.html)(catalog) | 创建 catalog | ``` createCatalog("test") ```   创建 catalog test |
-| [createSchema](../funcs/c/createSchema.html)(catalog, dbUrl, schema) | 把已有的数据库添加到指定的 catalog/schema 中 | ``` createSchema("catalog1", "dfs://db1", "schema1") ``` |
+| [createCatalog](../funcs/c/createCatalog.md)(catalog) | 创建 catalog | ``` createCatalog("test") ```   创建 catalog test |
+| [createSchema](../funcs/c/createSchema.md)(catalog, dbUrl, schema) | 把已有的数据库添加到指定的 catalog/schema 中 | ``` createSchema("catalog1", "dfs://db1", "schema1") ``` |
 
 ## 2. 配置并连接 DolphinDB
 
@@ -141,7 +141,7 @@ tableInsert(stock.trade, data)
 
 **注意：**
 
-* 你可以通过 [createSchema](../funcs/c/createSchema.html) 函数将已有的
+* 你可以通过 [createSchema](../funcs/c/createSchema.md) 函数将已有的
   DFS 表加入到某个 schema 中。
 * 在“查看表”菜单中的“数据”子选项会对 DFS 表的数据进行逻辑分页查询，执行全表扫描并在 DBeaver 的进程中缓存数据。因此，不建议对 DFS
   表使用此选项。

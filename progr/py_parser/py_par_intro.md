@@ -7,7 +7,7 @@ DolphinDB 脚本共享对象系统和运行环境，这使得 Python Parser 具�
 
 ![](images/arch.png)
 
-Python Parser 基于 Python 3.10 开发，目前支持了 Python 中最常用的语法，参考[基础语法](programming/syntax.html)。此外，Python Parser 兼容了
+Python Parser 基于 Python 3.10 开发，目前支持了 Python 中最常用的语法，参考[基础语法](programming/syntax.md)。此外，Python Parser 兼容了
 DolphinDB 部分独有的语法，引入了 SQL 等扩展语法，使得 Python Parser 的代码表达能力更强大。通过下面的例子，初步体验一下 Python
 Parser 中的代码表达能力。
 
@@ -18,13 +18,13 @@ Parser 中的代码表达能力。
        return select count(*) from t
    ```
 2. 时间类型作为 Python Parser 的内置类型，可以直接通过字面值常量 `2012.06M` 创建，而不需要通过
-   `import datetime` 的方式创建。目前 Python Parser 已经完全兼容[DolphinDB 常量数据类型](../data_types_forms_intro.html)。
+   `import datetime` 的方式创建。目前 Python Parser 已经完全兼容[DolphinDB 常量数据类型](../data_types_forms_intro.md)。
 
    ```
    month = 2012.06M
    ```
 
-更多关于 Python Parser 的拓展语法，请参考[拓展语法](programming/extension.html)。
+更多关于 Python Parser 的拓展语法，请参考[拓展语法](programming/extension.md)。
 
 注：
 

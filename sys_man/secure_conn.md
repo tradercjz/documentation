@@ -7,7 +7,7 @@ DolphinDB 支持 Web 上 HTTPS 安全通信。
 DolphinDB 可以设置 Web 集群管理器的访问权限。DolphinDB 第一次启动时，系统会自动创建用户名称为
 "admin"，密码为 "123456" 的管理员账号。
 
-有关用户权限设置，请参考 [用户权限管理](../tutorials/ACL_and_Security.html)。
+有关用户权限设置，请参考 [用户权限管理](../tutorials/ACL_and_Security.md)。
 
 ## 启用 HTTPS
 

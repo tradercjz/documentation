@@ -11,7 +11,7 @@
 .so）和插件描述文件（.txt）到 DolphinDB
 的插件目录（/server/plugins/）下。返回插件描述文件的完整路径。后续可通过该路径加载插件。
 
-可通过 [listRemotePlugins](../l/listRemotePlugins.html) 函数查看所支持的插件名称及版本信息。
+可通过 [listRemotePlugins](../l/listRemotePlugins.md) 函数查看所支持的插件名称及版本信息。
 
 ## 参数
 

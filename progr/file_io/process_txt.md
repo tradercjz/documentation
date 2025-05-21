@@ -12,8 +12,8 @@
 
 ## 读写单行
 
-[writeLine](../../funcs/w/writeLine.html)
-函数把一行写入到指定文件中。该函数将会自动附加一个行分隔符到写入行的后面。因此该字符串不需要以行分隔符结尾。如果操作成功，函数返回1；否则抛出IOExeception。[readLine](../../funcs/r/readLine.html)
+[writeLine](../../funcs/w/writeLine.md)
+函数把一行写入到指定文件中。该函数将会自动附加一个行分隔符到写入行的后面。因此该字符串不需要以行分隔符结尾。如果操作成功，函数返回1；否则抛出IOExeception。[readLine](../../funcs/r/readLine.md)
 函数从给定文件中读取一行。读取的行不包含行分隔符。如果到达文件尾，函数返回一个NULL对象，该对象可以用isVoid函数来判断是否已读完文件。如果由于其他原因该操作失败了，将抛出IOException。
 
 ```
@@ -35,8 +35,8 @@ ORCL
 
 ## 读写多行
 
-[writeLines](../../funcs/w/writeLines.html)
-函数往指定文件中写入多行。该函数自动添加换行符到每一行数据后面。如果操作成功，函数返回写入的行数；否则抛出IOException。[readLines](../../funcs/r/readLines.html)
+[writeLines](../../funcs/w/writeLines.md)
+函数往指定文件中写入多行。该函数自动添加换行符到每一行数据后面。如果操作成功，函数返回写入的行数；否则抛出IOException。[readLines](../../funcs/r/readLines.md)
 函数从文件中读取指定数量的行。默认行数为1024。当到达文件尾或者指定行数全部读完，该函数返回。如果实际读取的行数小于要求读取的行数，那么表明已到达文件尾。如果由于其他原因该操作失败了，抛出IOException。
 
 ```

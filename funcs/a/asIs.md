@@ -27,5 +27,5 @@ a;
 [0, 4, 3]
 ```
 
-相关函数：[copy](../c/copy.html), [deepCopy](../d/deepCopy.html)
+相关函数：[copy](../c/copy.md), [deepCopy](../d/deepCopy.md)
 

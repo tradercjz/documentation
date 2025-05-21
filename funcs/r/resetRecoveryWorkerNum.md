@@ -20,5 +20,5 @@
 resetRecoveryWorkerNum(2)
 ```
 
-相关函数：[getRecoveryWorkerNum](../g/getRecoveryWorkerNum.html)
+相关函数：[getRecoveryWorkerNum](../g/getRecoveryWorkerNum.md)
 

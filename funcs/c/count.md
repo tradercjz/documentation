@@ -10,10 +10,10 @@
 
 ## 详情
 
-[size](../s/size.html) 和 `count`
+[size](../s/size.md) 和 `count`
 不同。`size` 返回向量/矩阵中元素的个数，而 `count` 返回向量/矩阵中非 NULL
 的元素个数。`count` 可以用在 SQL 查询中，而 `size`
-不可以。对于表而言，`size` 和 `count` 都返回行数。参见相关函数 [size](../s/size.html)。
+不可以。对于表而言，`size` 和 `count` 都返回行数。参见相关函数 [size](../s/size.md)。
 
 `count` 用于 SQL 查询时，有如下三种常见用法：
 

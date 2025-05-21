@@ -2,7 +2,7 @@
 
 select子句总是生成一张表，即使只选择一列亦是如此。若需要生成一个标量或者一个向量，可使用exec子句。
 
-当与pivot by 共同使用时，exec语句生成一个矩阵，详情参考 [pivotBy](pivotBy.html)。
+当与pivot by 共同使用时，exec语句生成一个矩阵，详情参考 [pivotBy](pivotBy.md)。
 
 ## 例子
 

@@ -37,5 +37,5 @@ gmd5(m)
 // output: 660a82bc074f9dccc5c9fbb806f44f5c
 ```
 
-相关函数：[rowGmd5](../r/rowgmd5.html)
+相关函数：[rowGmd5](../r/rowgmd5.md)
 

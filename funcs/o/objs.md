@@ -32,7 +32,7 @@
   "dfs://dbName/tableName"
 * owner：共享变量的创建者。只有设置 shared=true 时才会显示该字段。对于本地变量，此字段值为空。
 
-注意，该函数不返回函数定义。我们应该用 defs 检查函数定义，或通过 [memSize](../m/memSize.html) 查看函数定义的内存占用。
+注意，该函数不返回函数定义。我们应该用 defs 检查函数定义，或通过 [memSize](../m/memSize.md) 查看函数定义的内存占用。
 
 ## 例子
 

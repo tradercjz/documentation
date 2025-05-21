@@ -5,7 +5,7 @@
 `tmskewTopN(T, X, S, window, top, [biased=true], [ascending=true],
 [tiesMethod='latest'])`
 
-参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.html)
+参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.md)
 
 ## 参数
 
@@ -46,5 +46,5 @@ select tmskewTopN(time,val,id,4,3) as topN from t
 | 0.5280 |
 | 0.7071 |
 
-相关函数：[tmskew](tmskew.html)
+相关函数：[tmskew](tmskew.md)
 

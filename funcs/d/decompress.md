@@ -26,5 +26,5 @@ z.size();
 // output: 100000000
 ```
 
-相关函数：[compress](../c/compress.html)
+相关函数：[compress](../c/compress.md)
 

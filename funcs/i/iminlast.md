@@ -36,5 +36,5 @@ c1       c2
 2	1
 ```
 
-相关函数：[imin](imin.html)
+相关函数：[imin](imin.md)
 

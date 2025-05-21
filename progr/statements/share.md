@@ -122,5 +122,5 @@ select count(*) from outputTable
 10000
 ```
 
-相关文档：[取消变量](../objs/undef_var.html), [undef](../../funcs/u/undef.html)
+相关文档：[取消变量](../objs/undef_var.md), [undef](../../funcs/u/undef.md)
 

@@ -1,6 +1,6 @@
 # createTimeSeriesAggregator
 
-是 [createTimeSeriesEngine](createTimeSeriesEngine.html) 的别名。
+是 [createTimeSeriesEngine](createTimeSeriesEngine.md) 的别名。
 
 Copyright
 

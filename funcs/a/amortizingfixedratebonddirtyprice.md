@@ -28,7 +28,7 @@ yield, calendar, frequency, [basis=1], [convention=`Following])`
 
 **yield** 数值标量或向量，表示债券的年收益率。
 
-**calendar** 字符串标量或向量，表示使用的交易日历。具体使用说明请参阅[交易日历](../../modules/MarketHoliday/mkt_calendar.html)。
+**calendar** 字符串标量或向量，表示使用的交易日历。具体使用说明请参阅[交易日历](../../modules/MarketHoliday/mkt_calendar.md)。
 
 **frequency** 用于指定债券的年付息频率。支持以下两种输入类型：
 

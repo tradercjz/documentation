@@ -18,7 +18,7 @@
 
 ## 详情
 
-使用指定压缩算法对向量或数据表进行压缩。压缩某个变量后，需要使用函数 [decompress](../d/decompress.html) 将其解压缩后方可使用该变量。
+使用指定压缩算法对向量或数据表进行压缩。压缩某个变量后，需要使用函数 [decompress](../d/decompress.md) 将其解压缩后方可使用该变量。
 
 ## 例子
 
@@ -53,5 +53,5 @@ z.size();
 // output: 100000000
 ```
 
-相关函数：[decompress](../d/decompress.html)
+相关函数：[decompress](../d/decompress.md)
 

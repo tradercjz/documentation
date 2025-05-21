@@ -137,7 +137,7 @@ resourceSamplingLogRetentionTime=-1
 
 * 服务器集群配置
 
-若使用服务器集群，可通过 Web 集群管理器对集群节点增加如下配置参数以开启功能。Web 集群管理器修改节点配置的具体操作方法，2.00.11 版本请参考[集群总览](https://docs.dolphindb.cn/zh/2.00.11/db_distr_comp/db_man/web/cluster_overview.html)，2.00.12及之后版本请参考[集群节点配置](https://docs.dolphindb.cn/zh/db_distr_comp/db_man/web/cfg_man.html#cfg_man__section_lwj_t53_w1c)。
+若使用服务器集群，可通过 Web 集群管理器对集群节点增加如下配置参数以开启功能。Web 集群管理器修改节点配置的具体操作方法，2.00.11 版本请参考[集群总览](https://docs.dolphindb.cn/zh/2.00.11/db_distr_comp/db_man/web/cluster_overview.md)，2.00.12及之后版本请参考[集群节点配置](https://docs.dolphindb.cn/zh/db_distr_comp/db_man/web/cfg_man.html#cfg_man__section_lwj_t53_w1c)。
 
 ```
 resourceSamplingInterval=30

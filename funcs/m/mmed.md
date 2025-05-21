@@ -4,7 +4,7 @@
 
 `mmed(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -66,5 +66,5 @@ m.mmed(1w)
 | 2020.09.12 | 3 | 9 |
 | 2020.09.13 | 2 | 5.5 |
 
-相关函数：[med](med.html)
+相关函数：[med](med.md)
 

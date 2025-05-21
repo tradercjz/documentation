@@ -15,10 +15,10 @@ matrix）。
 
 注：
 
-* 如果矩阵中含有空值，会默认将空值转化为0，然后进行计算。而由于 [corr](corr.html) 函数计算时忽略 NULL 值，因此调用 [cross/pcross(corr, X)](../ho_funcs/cross.html)
+* 如果矩阵中含有空值，会默认将空值转化为0，然后进行计算。而由于 [corr](corr.md) 函数计算时忽略 NULL 值，因此调用 [cross/pcross(corr, X)](../ho_funcs/cross.md)
   函数计算相关矩阵时也会忽略 NULL 值。
 * 在不含 NULL 值的情况下，虽然该函数计算结果等价于 `cross(corr,
-  X)`，但该函数内部进行了优化，其性能较 [cross/pcross(corr, X)](../ho_funcs/cross.html) 函数有大幅提升。
+  X)`，但该函数内部进行了优化，其性能较 [cross/pcross(corr, X)](../ho_funcs/cross.md) 函数有大幅提升。
 
 ## 例子
 
@@ -49,5 +49,5 @@ timer pcross(corr, a)
 
 输出返回：Time elapsed: 45629.6 ms
 
-相关函数： [covarMatrix](covarMatrix.html)
+相关函数： [covarMatrix](covarMatrix.md)
 

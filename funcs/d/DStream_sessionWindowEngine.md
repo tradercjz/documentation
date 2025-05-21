@@ -8,7 +8,7 @@
 
 ## 详情
 
-创建流计算会话窗口引擎。参考：[createSessionWindowEngine](../c/createSessionWindowEngine.html)。
+创建流计算会话窗口引擎。参考：[createSessionWindowEngine](../c/createSessionWindowEngine.md)。
 
 **返回值**：一个 DStream 对象。
 
@@ -18,7 +18,7 @@
 必选参数，正整数标量，是判断窗口结束的时间指标，表示某条数据到来后若等待该时间仍无更新的数据到来，就终止当前窗口。此参数的时间精度取决于
 *useSystemTime* 参数。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个系统内置或用户自定义的聚合函数（使用 defg 关键字定义），如
   <[sum(volume), avg(price)]>；可以对聚合结果使用表达式，如
@@ -40,7 +40,7 @@
 时，必须指定该参数。 该参数用于指定订阅的流数据表中时间列的名称。
 
 注： 字符串向量必须是 date 和 time
-组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与 [concatDateTime(date, time)](../c/concatDateTime.html)
+组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与 [concatDateTime(date, time)](../c/concatDateTime.md)
 的类型一致。
 
 **useSystemTime** 可选参数，布尔值，表示是否使用数据注入引擎时的系统时间作为时间列进行计算。

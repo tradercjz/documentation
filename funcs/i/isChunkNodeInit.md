@@ -1,6 +1,6 @@
 # isChunkNodeInit
 
-是 [isDataNodeInitialized](isDataNodeInitialized.html)
+是 [isDataNodeInitialized](isDataNodeInitialized.md)
 的别名。
 
 Copyright

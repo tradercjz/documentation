@@ -26,6 +26,6 @@ Engine 的容量，来保证写入继续进行。
 
 ## 相关函数
 
-可以使用 [getCacheEngineMemSize](../g/getCacheEngineMemSize.html) 获取 Cache Engine 的实时状态，确认 Cache Engine
+可以使用 [getCacheEngineMemSize](../g/getCacheEngineMemSize.md) 获取 Cache Engine 的实时状态，确认 Cache Engine
 是否在线修改成功。
 

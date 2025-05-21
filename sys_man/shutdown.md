@@ -31,7 +31,7 @@ DolphinDB 支持安全关机后，在系统关闭前完成事务刷盘，可以�
 
 ## 集群模式安全关机的过程
 
-1. 关闭数据节点：在集群 web 管理界面通过下图的停止按钮或调用 [stopDataNode](../funcs/s/stopDataNode.html) 函数关闭数据节点，或在 GUI
+1. 关闭数据节点：在集群 web 管理界面通过下图的停止按钮或调用 [stopDataNode](../funcs/s/stopDataNode.md) 函数关闭数据节点，或在 GUI
    端或其他 API 客户端调用`stopDataNode`函数关闭数据节点。
 
    ![](images/shutdown.png)

@@ -17,7 +17,7 @@
 ## 详情
 
 `readRecord!` 函数将二进制文件转换为 DolphinDB 数据对象。DolphinDB
-也提供了 [writeRecord](../w/writeRecord.html) 函数，用于将 DolphinDB
+也提供了 [writeRecord](../w/writeRecord.md) 函数，用于将 DolphinDB
 数据对象转换为二进制文件，以供其它程序使用。 二进制文件基于行，且每行包含的记录有相同的数据类型和固定的长度。例如，如果一个二进制文件包含了 5
 个数据域，分别具有下述数据类型（长度）：char(1), boolean(1), short(2), int(4), long(8), 和 double(8)， 那么
 `readRecord!` 函数将把每行视为 24 个字节。类似地，`writeRecord`

@@ -1,6 +1,6 @@
 # push!
 
-жҳҜ [append!](../a/append%21.html) зҡ„еҲ«еҗҚгҖӮ
+жҳҜ [append!](../a/append%21.md) зҡ„еҲ«еҗҚгҖӮ
 
 Copyright
 

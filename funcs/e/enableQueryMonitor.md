@@ -12,5 +12,5 @@
 
 启用监控查询任务状态的功能。系统默认会开启该功能。
 
-相关函数： [disableQueryMonitor](../d/disableQueryMonitor.html)
+相关函数： [disableQueryMonitor](../d/disableQueryMonitor.md)
 

@@ -4,7 +4,7 @@
 
 `msum2(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -53,5 +53,5 @@ msum2(m, 3d)  // 等价于 msum2(m, 3)
 | 2021.08.21 | 80 | 100 |
 | 2021.08.22 | 100 | 104 |
 
-相关函数：[sum2](../s/sum2.html)
+相关函数：[sum2](../s/sum2.md)
 

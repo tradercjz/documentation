@@ -16,7 +16,7 @@
 
 在指定的远程节点上调用本地函数，并把结果返回到本地节点。这个函数可以是内置函数或调用节点上的用户自定义函数。函数的参数暂不支持值为函数定义的字典。
 
-调用节点和远程节点必须在同一集群。否则，我们需要使用 [remoteRun](remoteRun.html) 函数。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.html)。
+调用节点和远程节点必须在同一集群。否则，我们需要使用 [remoteRun](remoteRun.md) 函数。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.md)。
 
 ## 例子
 

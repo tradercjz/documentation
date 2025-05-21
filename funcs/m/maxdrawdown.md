@@ -52,5 +52,5 @@ maxDrawdown(x, false)
 // Output: 75
 ```
 
-相关函数：[cummdd](../c/cummdd.html)
+相关函数：[cummdd](../c/cummdd.md)
 

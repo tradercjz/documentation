@@ -271,14 +271,14 @@ print(assert_frame_equal)
 
   首先我们需要下载 DolphinDB 并完成单节点 server 部署搭建，这一步骤在 Linux 系统和 Windows 系统中均可以完成，详情可以参考下面的链接：
 
-  [单节点部署与升级](standalone_server.html)
+  [单节点部署与升级](standalone_server.md)
 * **第二步 DolphinDB 客户端安装**
 
   安装并启动 GUI 或者 VSCode，连接到 server 后即可复现 DolphinDB 脚本，详情参考下面的链接：
 
-  [使用DolphinDB数据库及客户端](../getstarted/use_clients_server.html)
+  [使用DolphinDB数据库及客户端](../getstarted/use_clients_server.md)
 
-  [DolphinDB VS Code 插件](../db_distr_comp/vscode.html)
+  [DolphinDB VS Code 插件](../db_distr_comp/vscode.md)
 * **第三步 上传压缩包并解压代码**
 
   将 [Python\_plus\_file\_VS\_dolphindb\_on\_factor\_calc.zip](script/DolphinDB_VS_Python%2BFile_Storage/python_plus_file_VS_dolphindb_on_factor_calc.zip) 上传至服务器。注意：此处服务器路径为：/home/ddb/workfile/demo/，用户需根据实际情况修改路径。

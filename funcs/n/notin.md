@@ -109,5 +109,5 @@ trades=db.createPartitionedTable(t,`trades,`datetime).append!(t)
 select * from trades where sym notIn `IBM`C
 ```
 
-相关函数：[in](../i/in.html)
+相关函数：[in](../i/in.md)
 

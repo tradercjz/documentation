@@ -109,5 +109,5 @@ dropStreamEngine("reactive_csum")
 dropStreamEngine("reactive_prev")
 ```
 
-相关函数：[dynamicGroupCumcount](dynamicGroupCumcount.html)
+相关函数：[dynamicGroupCumcount](dynamicGroupCumcount.md)
 

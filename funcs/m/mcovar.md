@@ -4,7 +4,7 @@
 
 `mcovar(X, Y, window, [minPeriods])`
 
-参数说明和窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+参数说明和窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -70,5 +70,5 @@ mcovar(x1,y1,1w)
 | 2020.06.14 | -0.6667 |
 | 2020.06.15 | -1.6667 |
 
-相关函数：[covar](../c/covar.html)
+相关函数：[covar](../c/covar.md)
 

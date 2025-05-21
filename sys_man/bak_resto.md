@@ -2,11 +2,11 @@
 
 ## 数据备份
 
-DolphinDB以分区为单位进行数据备份，每个分区备份为一个数据文件。在DolphinDB中，我们使用[backup](../funcs/b/backup.html) 函数备份整个库，部分表或部分分区。
+DolphinDB以分区为单位进行数据备份，每个分区备份为一个数据文件。在DolphinDB中，我们使用[backup](../funcs/b/backup.md) 函数备份整个库，部分表或部分分区。
 
 目前 DolphinDB 支持两种备份方式：拷贝文件或 SQL 语句。
 
-* 备份文件方式，即调用 [backup](../funcs/b/backup.html) 函数时，指定为
+* 备份文件方式，即调用 [backup](../funcs/b/backup.md) 函数时，指定为
   *dbPath*。此方式将备份文件拷贝至指定目录。备份后，系统会在 backupDir/dbName/tbName 目录下生成元数据文件
   \_metaData 和 domain，并将分区文件整体拷贝至 backupDir/dbName/tbName/chunkID 目录下。
 
@@ -28,7 +28,7 @@ DolphinDB以分区为单位进行数据备份，每个分区备份为一个数�
   backup("/home/DolphinDB/backup",<select * from loadTable("dfs://compoDB","pt")>,true);
   ```
 
-为方便用户使用，DolphinDB 对 `backup` 进一步封装，提供了 [backupDB](../funcs/b/backupDB.html) 用于一键备份数据库下所有表，以及 [backupTable](../funcs/b/backupTable.html) 用于一键备份一个数据表。
+为方便用户使用，DolphinDB 对 `backup` 进一步封装，提供了 [backupDB](../funcs/b/backupDB.md) 用于一键备份数据库下所有表，以及 [backupTable](../funcs/b/backupTable.md) 用于一键备份一个数据表。
 
 | 区别 | backup | backupDB | backupTable |
 | --- | --- | --- | --- |
@@ -40,10 +40,10 @@ DolphinDB以分区为单位进行数据备份，每个分区备份为一个数�
 
 DolphinDB 数据恢复的方法：
 
-* 使用 [migrate](../funcs/m/migrate.html) 函数
-* 使用 [restore](../funcs/r/restore.html) 函数
-* 使用 [restoreDB](../funcs/r/restoreDB.html) 函数
-* 使用 [restoreTable](../funcs/r/restoreTable.html) 函数
+* 使用 [migrate](../funcs/m/migrate.md) 函数
+* 使用 [restore](../funcs/r/restore.md) 函数
+* 使用 [restoreDB](../funcs/r/restoreDB.md) 函数
+* 使用 [restoreTable](../funcs/r/restoreTable.md) 函数
 
 | 区别 | migrate | restore | restoreDB | restoreTable |
 | --- | --- | --- | --- | --- |
@@ -55,12 +55,12 @@ DolphinDB 数据恢复的方法：
 
 ## 其他相关函数
 
-* [getBackupList](../funcs/g/getBackupList.html)：查看某个分布式表的所有备份信息，返回一张表，每个分区对应一行记录。
-* [getBackupMeta](../funcs/g/getBackupMeta.html)：查看某张表，某个分区的备份的信息，返回一个字典，包含schema,
+* [getBackupList](../funcs/g/getBackupList.md)：查看某个分布式表的所有备份信息，返回一张表，每个分区对应一行记录。
+* [getBackupMeta](../funcs/g/getBackupMeta.md)：查看某张表，某个分区的备份的信息，返回一个字典，包含schema,
   cid, path等信息。
-* [loadBackup](../funcs/l/loadBackup.html)：加载指定分布式表中某个分区的备份数据。
-* [checkBackup](../funcs/c/checkBackup.html)：检查备份文件的的完整性和准确性。
-* [getBackupStatus](../funcs/g/getBackupStatus.html)：查看数据备份/恢复任务的具体信息。
+* [loadBackup](../funcs/l/loadBackup.md)：加载指定分布式表中某个分区的备份数据。
+* [checkBackup](../funcs/c/checkBackup.md)：检查备份文件的的完整性和准确性。
+* [getBackupStatus](../funcs/g/getBackupStatus.md)：查看数据备份/恢复任务的具体信息。
 
 ## 示例
 

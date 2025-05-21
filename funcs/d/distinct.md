@@ -45,7 +45,7 @@ select sort(distinct(x)) as x from t;
 | 2 |
 | 3 |
 
-函数 `distinct` 返回一个向量，而函数 [`set`](../s/set.html) 返回一个集合。
+函数 `distinct` 返回一个向量，而函数 [`set`](../s/set.md) 返回一个集合。
 
 ```
 x=set(4 5 5 2 3);

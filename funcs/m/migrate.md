@@ -125,5 +125,5 @@ exec count(*) from loadTable("dfs://db3", "trades")
 1000000
 ```
 
-相关函数：[backup](../b/backup.html), [backupDB](../b/backupDB.html), [backupTable](../b/backupTable.html), [restore](../r/restore.html), [restoreDB](../r/restoreDB.html), [restoreTable](../r/restoreTable.html)
+相关函数：[backup](../b/backup.md), [backupDB](../b/backupDB.md), [backupTable](../b/backupTable.md), [restore](../r/restore.md), [restoreDB](../r/restoreDB.md), [restoreTable](../r/restoreTable.md)
 

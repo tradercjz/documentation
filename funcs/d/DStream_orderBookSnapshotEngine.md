@@ -12,7 +12,7 @@ date, startTime, prevClose, inputColMap, [outputColMap], [outputCodeMap],
 
 ## 详情
 
-创建一个订单簿引擎。参考：[createOrderBookSnapshotEngine](../c/createorderbooksnapshotengine.html)。
+创建一个订单簿引擎。参考：[createOrderBookSnapshotEngine](../c/createorderbooksnapshotengine.md)。
 
 **返回值**：一个 DStream 对象。
 

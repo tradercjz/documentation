@@ -146,7 +146,7 @@ defg low(deltasLowPrice, lowPrice, lastPrice){
 
 #### 1.2.2. 成交量、成交额和成交笔数的处理
 
-快照行情中的成交量、成交金额和成交笔数都是日累计求和值，所以在进行滚动窗口计算前，需要先求出两笔相邻快照的增量。使用DolphinDB 内置的 [deltas](../funcs/d/deltas.html) 函数和 [context by SQL](../progr/sql/contextBy.html)
+快照行情中的成交量、成交金额和成交笔数都是日累计求和值，所以在进行滚动窗口计算前，需要先求出两笔相邻快照的增量。使用DolphinDB 内置的 [deltas](../funcs/d/deltas.md) 函数和 [context by SQL](../progr/sql/contextBy.md)
 语句进行数据预处理，具体处理代码下文会详细介绍。
 
 #### 1.2.3. 开盘以后没有成交
@@ -207,7 +207,7 @@ defg low(deltasLowPrice, lowPrice, lastPrice){
 
   注：
 
-  对于 interval 函数具体用法与参数可参考文档 [interval函数](../progr/sql/interval.html)。参数中的
+  对于 interval 函数具体用法与参数可参考文档 [interval函数](../progr/sql/interval.md)。参数中的
   *label*字符串，表示将分组区间的哪一个边界作为 label 输出，可取值为 'left' 或
   'right'。本教程中期货数据的分钟频数据根据分组区间**右边界**输出，可根据具体需求调整 label
   参数。
@@ -301,7 +301,7 @@ defg low(deltasLowPrice, lowPrice, lastPrice){
 
 ## 3. 基于实时期货快照数据合成 K 线
 
-本部分将详细介绍如何在 DolphinDB 中搭建期货快照数据的分钟 K 线实时计算流框架。关于 DolphinDB 的流数据功能的基础概念可以参考官网教程: [流数据](../stream/str_intro.html)。 需要说明的是，实时数据与上文中历史数据的分钟 K
+本部分将详细介绍如何在 DolphinDB 中搭建期货快照数据的分钟 K 线实时计算流框架。关于 DolphinDB 的流数据功能的基础概念可以参考官网教程: [流数据](../stream/str_intro.md)。 需要说明的是，实时数据与上文中历史数据的分钟 K
 线计算逻辑是一致的。
 
 基于实时快照行情合成 K 线的流程图如下:
@@ -316,7 +316,7 @@ defg low(deltasLowPrice, lowPrice, lastPrice){
 
 说明: `enableTableShareAndPersistence`
 函数在使用时，需要在配置文件中（单节点：dolphindb.cfg，集群：cluster.cfg）指定配置参数
-*persistenceDir*，配置参考[功能配置](../db_distr_comp/cfg/function_configuration.html)。
+*persistenceDir*，配置参考[功能配置](../db_distr_comp/cfg/function_configuration.md)。
 
 ```
 temp = streamTable(100:0, colNames , colTypes)
@@ -387,7 +387,7 @@ FuturesOLHC/
 ### 4.2 模块导入
 
 下载 DolphinDB 模块 `FuturesOLHC` 之后，需要将其同步到服务器上，当在 DolphinDB
-调用模块时，会到相应路径下查找需要的模块文件。关于 DolphinDB 模块部分的详细介绍，可参考：[模块](tu_modules.html)。
+调用模块时，会到相应路径下查找需要的模块文件。关于 DolphinDB 模块部分的详细介绍，可参考：[模块](tu_modules.md)。
 
 **同步路径**
 

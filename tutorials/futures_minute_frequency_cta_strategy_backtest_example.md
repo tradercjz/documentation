@@ -60,7 +60,7 @@ CTA 投资策略主要通过技术分析和系统化交易方法，在期货和�
 
 **首先，基于分钟频行情数据定义两个重要的技术分析指标：** 平均真实范围（ATR）和相对强弱指数（RSI）。ATR 用于衡量市场的波动性，而 RSI 则用来评估市场的超买或超卖状态。
 
-为了满足使用中高频行情数据计算类似量价因子的需求，DolphinDB 回测引擎采用了状态响应式引擎。这一引擎能够实现流批统一计算，并有效处理带有状态的高频因子，具体也可以参考[状态响应式引擎用户手册](../funcs/c/createReactiveStateEngine.html)定义相应的指标。以下是定义技术指标 ATR 和 RSI 的代码示例：
+为了满足使用中高频行情数据计算类似量价因子的需求，DolphinDB 回测引擎采用了状态响应式引擎。这一引擎能够实现流批统一计算，并有效处理带有状态的高频因子，具体也可以参考[状态响应式引擎用户手册](../funcs/c/createReactiveStateEngine.md)定义相应的指标。以下是定义技术指标 ATR 和 RSI 的代码示例：
 
 ```
 @state
@@ -154,7 +154,7 @@ Backtest::submitOrder(engine, msg, label="")
 //label:可选参数，方便用于对订单进行分类
 ```
 
-除了根据行情到来编写相应策略外，中高频回测引擎还支持针对委托订单发生订单状态变化、成交、每日盘后进行账户信息统计、策略结束之前处理相应的业务逻辑等编写相应策略。要了解所有中高频回测引擎支持的事件回调函数，请参阅[回测插件接口说明文档](../plugins/backtest.html)。
+除了根据行情到来编写相应策略外，中高频回测引擎还支持针对委托订单发生订单状态变化、成交、每日盘后进行账户信息统计、策略结束之前处理相应的业务逻辑等编写相应策略。要了解所有中高频回测引擎支持的事件回调函数，请参阅[回测插件接口说明文档](../plugins/backtest.md)。
 
 ### **2.2 根据策略设置相应的配置参数**
 
@@ -175,7 +175,7 @@ userConfig["outputOrderInfo"]= true
 userConfig["depth"]= 5
 ```
 
-创建期货回测时，需要用户配置期货合约的基本信息表，包括期货合约的合约乘数、交易单位、手续费和手续费的计费方式的（按手数计费或者按成交金额计费）等，具体配置可见[回测引擎接口说明文档](../plugins/backtest.html)。
+创建期货回测时，需要用户配置期货合约的基本信息表，包括期货合约的合约乘数、交易单位、手续费和手续费的计费方式的（按手数计费或者按成交金额计费）等，具体配置可见[回测引擎接口说明文档](../plugins/backtest.md)。
 
 ### 2.3 创建回测引擎
 
@@ -186,7 +186,7 @@ engine=Backtest::createBacktestEngine(strategyName, userConfig,, initialize,
 
 ### 2.4 执行回测引擎
 
-通过 Backtest::createBacktestEngine 创建回测引擎之后，可以通过以下方式执行回测。messageTable 数据为相应的分钟频率行情数据，行情数据字段和类型说明参考[回测插件的接口文档](../plugins/backtest.html)。
+通过 Backtest::createBacktestEngine 创建回测引擎之后，可以通过以下方式执行回测。messageTable 数据为相应的分钟频率行情数据，行情数据字段和类型说明参考[回测插件的接口文档](../plugins/backtest.md)。
 
 ```
 Backtest::appendQuotationMsg(engine,messageTable)
@@ -194,7 +194,7 @@ Backtest::appendQuotationMsg(engine,messageTable)
 
 ### 2.5 **获取回测结果**
 
-回测运行结束之后，可以通过相应的接口获取每日持仓、每日权益、收益概述、成交明细和策略中用户自定义的逻辑上下文。回测插件提供的完整回测结果接口可以参阅[回测插件的接口说明文档](../plugins/backtest.html)。下图为本例获得的每日持仓数据：
+回测运行结束之后，可以通过相应的接口获取每日持仓、每日权益、收益概述、成交明细和策略中用户自定义的逻辑上下文。回测插件提供的完整回测结果接口可以参阅[回测插件的接口说明文档](../plugins/backtest.md)。下图为本例获得的每日持仓数据：
 
 ![](images/futures_minute_frequency_cta_strategy_backtest_example/1.png)
 

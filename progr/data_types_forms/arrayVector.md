@@ -13,7 +13,7 @@ DolphinDB 中的数组向量 (array vector)
 
 ## 创建数组向量
 
-使用 [array](../../funcs/a/array.html) 函数或 [bigarray](../../funcs/b/bigarray.html) 函数初始化生成空的数组向量。
+使用 [array](../../funcs/a/array.md) 函数或 [bigarray](../../funcs/b/bigarray.md) 函数初始化生成空的数组向量。
 请注意，指定数据类型时，需在数据类型后添加“[]”，以表示创建数组向量，且 initialSize 必须为 0。
 
 目前支持以下数据类别：Logical, Integral（不包括 INT128, COMPRESS 类型）, Floating, DECIMAL,
@@ -23,12 +23,12 @@ Temporal。
 
 向量转数组向量：
 
-* 通过 [arrayVector](../../funcs/a/arrayVector.html) 将单个向量转换成数组向量。
-* 通过 [fixedLengthArrayVector](../../funcs/f/fixedLengthArrayVector.html) 将多个向量拼接成数组向量。
+* 通过 [arrayVector](../../funcs/a/arrayVector.md) 将单个向量转换成数组向量。
+* 通过 [fixedLengthArrayVector](../../funcs/f/fixedLengthArrayVector.md) 将多个向量拼接成数组向量。
 
 数组向量转向量：
 
-通过 [flatten](../../funcs/f/flatten.html) 将数组向量转换成向量。
+通过 [flatten](../../funcs/f/flatten.md) 将数组向量转换成向量。
 
 ```
 a=array(INT[], 0, 10).append!([1 2 3, 4 5, 6 7 8, 9 10]);
@@ -43,7 +43,7 @@ flatten(a)
 
 ## 数组向量转化为矩阵
 
-通过函数 [matrix](../../funcs/m/matrix.html) 可以将每个元素等长的数组向量转换成矩阵，以进一步进行矩阵计算。
+通过函数 [matrix](../../funcs/m/matrix.md) 可以将每个元素等长的数组向量转换成矩阵，以进一步进行矩阵计算。
 
 ```
 bid = array(DOUBLE[], 0, 20).append!([1.4799 1.479 1.4787 1.4784 1.4667, 1.4796 1.479 1.4782 1.4781 1.4783, 1.4791 1.479 1.4785 1.4698 1.4720, 1.4699 1.469 1.4707 1.4704 1.4697, 1.4789 1.477 1.4780 1.4724 1.4669])
@@ -138,7 +138,7 @@ a
 
 相同点：
 
-都可以通过 [row](../../funcs/r/row.html) 读取行数据。
+都可以通过 [row](../../funcs/r/row.md) 读取行数据。
 
 不同点：
 
@@ -252,7 +252,7 @@ t;
 
 ## 将表的多列合并成一个数组向量
 
-通过函数 [fixedLengthArrayVector](../../funcs/f/fixedLengthArrayVector.html) 将表的多列数据存成一列。
+通过函数 [fixedLengthArrayVector](../../funcs/f/fixedLengthArrayVector.md) 将表的多列数据存成一列。
 
 ```
 syms="A"+string(1..30)
@@ -293,9 +293,9 @@ t1;
 
 * 支持 row 系列函数，如:
 
-  + [rowMax](../../funcs/r/rowMax.html)
-  + [rowStd](../../funcs/r/rowStd.html)
-* 支持调用高阶函数 [byRow](../../funcs/ho_funcs/byRow.html)，对数组向量的每行元素进行聚合计算。
+  + [rowMax](../../funcs/r/rowMax.md)
+  + [rowStd](../../funcs/r/rowStd.md)
+* 支持调用高阶函数 [byRow](../../funcs/ho_funcs/byRow.md)，对数组向量的每行元素进行聚合计算。
 
   ```
   a=array(DOUBLE[], 0, 10).append!([8.3 1.2 5.6, 1.8 3.3, 0.1 2.4 6.8]);
@@ -329,7 +329,7 @@ t1;
 
 **窗口计算（滑动窗口、累计窗口等）**
 
-通过高阶函数 [byRow](../../funcs/ho_funcs/byRow.html)
+通过高阶函数 [byRow](../../funcs/ho_funcs/byRow.md)
 将窗口计算应用在数组向量的每行元素上。
 
 ```

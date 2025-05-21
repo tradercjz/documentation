@@ -56,5 +56,5 @@ print constantDesc(c[`A]).address  // 000000000c88c450
 print constantDesc(d[`A]).address  // 000000000c7cde00
 ```
 
-相关函数：[copy](../c/copy.html), [asis](../a/asIs.html)
+相关函数：[copy](../c/copy.md), [asis](../a/asIs.md)
 

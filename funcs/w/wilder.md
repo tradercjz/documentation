@@ -4,15 +4,15 @@
 
 `wilder(X, window)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.md)
 
 ## 详情
 
 在给定长度（以元素个数衡量）的滑动窗口内，计算 *X* 的指数移动平均（Exponential Moving
-Average），该函数是 [ema](../e/ema.html) 的扩展。若 *X* 是向量，返回一个与
+Average），该函数是 [ema](../e/ema.md) 的扩展。若 *X* 是向量，返回一个与
 *X* 长度相同的向量；若 *X* 是矩阵，在每列内进行上述计算，返回一个与 *X* 维度相同的矩阵。
 
-与 [ema](../e/ema.html) 的区别在于，该函数使用 Welles Wilder
+与 [ema](../e/ema.md) 的区别在于，该函数使用 Welles Wilder
 指数平滑率，其计算公式为：
 
 ![wilderXk](../../images/wilderxk.png)
@@ -43,5 +43,5 @@ wilder(x,3);
 | 12.0519 | 16.1235 |
 | 11.7679 | 14.0823 |
 
-相关函数：[ema](../e/ema.html), [gema](../g/gema.html), [tema](../t/tema.html)
+相关函数：[ema](../e/ema.md), [gema](../g/gema.md), [tema](../t/tema.md)
 

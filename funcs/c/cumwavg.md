@@ -4,7 +4,7 @@
 
 `cumwavg(X, Y)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -22,5 +22,5 @@ cumwavg(1 NULL 1, 1 1 1);
 [1,1,1]
 ```
 
-相关函数：[wavg](../w/wavg.html)
+相关函数：[wavg](../w/wavg.md)
 

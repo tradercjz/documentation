@@ -13,7 +13,7 @@
 * 当 X 出现多次时，则第一个 Y 是 f(X) 的值，第二个为对应的 X 的一阶导数值，第三个为对应的 X 的二阶导数值，依此类推。比如对于输入 X =
   [0,0,1,1], Y= [1,0,2,3], 有 Y[0]=f(0)，Y[1]=f'(0)，Y[2]=f(1)，Y[3]=f'(1)。
 
-另外，本函数可结合 [predict](../p/predict.html)
+另外，本函数可结合 [predict](../p/predict.md)
 函数先后使用，针对生成的模型进行预测。
 
 ## 参数
@@ -32,7 +32,7 @@
 * X：数值向量，表示用于插值的点的x坐标，即输入 X。
 * der：非负整数，即输入 der。
 * coeffs：数值向量，表示根据输入数据点拟合得到的多项式系数。
-* predict：模型的预测函数。其使用方法为 `model.predict(X)`，或者通过 [predict](../p/predict.html) 函数进行调用：`predict(model,
+* predict：模型的预测函数。其使用方法为 `model.predict(X)`，或者通过 [predict](../p/predict.md) 函数进行调用：`predict(model,
   X)`。其参数为：
 
   + model：字典类型，即 kroghInterpolateFit 的输出。
@@ -77,6 +77,6 @@ output:
 */
 ```
 
-相关函数：[predict,](../p/predict.html)
-[kroghinterpolate](kroghinterpolate.html)
+相关函数：[predict,](../p/predict.md)
+[kroghinterpolate](kroghinterpolate.md)
 

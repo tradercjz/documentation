@@ -5,7 +5,7 @@
 `tmvarpTopN(T, X, S, window, top, [ascending=true],
 [tiesMethod='latest'])`
 
-参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.html)
+参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ select tmvarpTopN(time,val,id,4,3) as topN from t
 | 2.8888 |
 | 2 |
 
-相关函数：[tmvarp](tmvarp.html)
+相关函数：[tmvarp](tmvarp.md)
 

@@ -14,7 +14,7 @@
 * **range** 是一个整型数据对或 DURATION 数据对，左右边界都包含在内。
 * **prevailing** 只能为 0/false，1/true 或 2。
   + 如果 *prevailing* = 0/false，则滑动窗口不对边界重复值做处理，请阅读详情部分。
-  + 如果 *prevailing* = 1/true，则滑动窗口边界的选取规则同 [pwj](../../progr/sql/windowjoin.html)。
+  + 如果 *prevailing* = 1/true，则滑动窗口边界的选取规则同 [pwj](../../progr/sql/windowjoin.md)。
   + 如果 *prevailing* = 2，（假设 *range* 参数为 d1:d2）：
 
     - 若 d1 为 0，则滑动窗口将把当前索引对象作为边界，窗口左边的重复值不参与计算。

@@ -13,7 +13,7 @@ false，在批处理作业没有完成的情况下，函数会抛出异常。如
 
 ## 详情
 
-取得批处理作业返回的对象。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.html)。
+取得批处理作业返回的对象。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.md)。
 
 ## 例子
 

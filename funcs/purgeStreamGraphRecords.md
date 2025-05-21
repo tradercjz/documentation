@@ -19,7 +19,7 @@ catalog\_name.orca\_graph.graph\_name），也可以仅提供流图名（如 fac
 
 ## 例子
 
-对 [dropStreamGraph](d/dropStreamGraph.html) 函数的例子中已销毁的流图进行操作，删除其在
+对 [dropStreamGraph](d/dropStreamGraph.md) 函数的例子中已销毁的流图进行操作，删除其在
 DFS 表中记录：
 
 ```

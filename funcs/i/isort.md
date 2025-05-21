@@ -12,7 +12,7 @@
 
 ## 详情
 
-和 [sort!](../s/sort_.html) 返回一个排序后的数组不同，*isort*
+和 [sort!](../s/sort_.md) 返回一个排序后的数组不同，*isort*
 返回排序后的每个元素在原始向量中的索引。
 
 X[isort X] 等价于 sort(X)。

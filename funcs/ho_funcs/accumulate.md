@@ -42,7 +42,7 @@ X)` 表示不指定 *assembleRule*，使用默认值
     `eachPre (:P)` 为例，形如
     `sub:PU(X)`。不指定则使用默认值 D。
 
-其他相关的 cum 系列函数的参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+其他相关的 cum 系列函数的参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -71,7 +71,7 @@ X)` 表示不指定 *assembleRule*，使用默认值
   ```
 * 当 *func* 是三元函数时，其迭代规则等同于二元函数。
 
-  与 [reduce](reduce.html)
+  与 [reduce](reduce.md)
   返回最后一个结果不同，`accumulate` 输出所有中间结果。
 
 ## 例子

@@ -15,7 +15,7 @@
 * time：客户端将脚本发送给 server 的时间戳。
 * scripts：客户端发送给 server 端执行的脚本。部分脚本（如下例：objs11
   等）是客户端调用的脚本，可以忽略。
-* traceId：记录 SQL Trace 信息的 id，配合 [viewTraceInfo](viewTraceInfo.html) 函数可以展示该脚本完整的跟踪信息。
+* traceId：记录 SQL Trace 信息的 id，配合 [viewTraceInfo](viewTraceInfo.md) 函数可以展示该脚本完整的跟踪信息。
 * sessionId：发起 SQL Trace 的会话的 id。
 
 ## 例子

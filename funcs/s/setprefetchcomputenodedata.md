@@ -18,5 +18,5 @@
 setPrefetchComputeNodeData(false)
 ```
 
-相关函数：[getPrefetchComputeNodeData](../g/getprefetchcomputenodedata.html)
+相关函数：[getPrefetchComputeNodeData](../g/getprefetchcomputenodedata.md)
 

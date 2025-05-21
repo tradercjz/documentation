@@ -18,5 +18,5 @@
 setComputeNodeCachingDelay(580)
 ```
 
-相关函数：[getComputeNodeCachingDelay](../g/getcomputenodecachingdelay.html)
+相关函数：[getComputeNodeCachingDelay](../g/getcomputenodecachingdelay.md)
 

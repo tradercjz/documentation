@@ -26,7 +26,7 @@
 与其他自定义函数会话隔离不同，函数视图可以实现会话之间的共享。函数视图的定义持久化存储在控制节点，因此如果 DolphinDB
 集群重启，之前定义的函数视图仍然可以使用。
 
-使用 [grant](../g/grant.html), [deny](../d/deny.html) 或 [revoke](../r/revoke.html)
+使用 [grant](../g/grant.md), [deny](../d/deny.md) 或 [revoke](../r/revoke.md)
 命令对用户的 VIEW\_EXEC 权限进行操作时，用户自定义函数可以作为这些命令的 objs 参数。
 
 `addFunctionView` 只能由管理员或拥有 VIEW\_OWNER
@@ -71,5 +71,5 @@ grant(`user1, VIEW_EXEC, "test::*")
 test::f1()
 ```
 
-相关命令： [dropFunctionView](../d/dropFunctionView.html)
+相关命令： [dropFunctionView](../d/dropFunctionView.md)
 

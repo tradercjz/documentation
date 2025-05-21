@@ -5,7 +5,7 @@
 `tmwsumTopN(T, X, Y, S, window, top, [ascending=true],
 [tiesMethod='latest'])`
 
-参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.html)
+参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.md)
 
 ## 详情
 
@@ -44,5 +44,5 @@ select tmwsumTopN(time,val1,val2,id,4,3) as topN from t
 | 26 |
 | 28 |
 
-相关函数：[tmwsum](tmwsum.html)
+相关函数：[tmwsum](tmwsum.md)
 

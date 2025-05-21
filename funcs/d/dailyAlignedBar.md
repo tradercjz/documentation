@@ -5,7 +5,7 @@
 `dailyAlignedBar(X, timeOffset, n, [timeEnd],
 [mergeSessionEnd=false])`
 
-相关函数：[bar](../b/bar.html)
+相关函数：[bar](../b/bar.md)
 
 ## 参数
 

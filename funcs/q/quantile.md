@@ -46,5 +46,5 @@ quantile(a,0.75, 'lower');
 42
 ```
 
-相关函数：[quantileSeries](quantileSeries.html), [percentile](../p/percentile.html)
+相关函数：[quantileSeries](quantileSeries.md), [percentile](../p/percentile.md)
 

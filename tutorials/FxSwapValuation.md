@@ -12,7 +12,7 @@
 
 ![](images/FxSwapValuation/fx_swap_b.png)
 
-本次外汇掉期估值计算的逻辑，参考[中国外汇交易中心](https://www.chinamoney.com.cn/chinese/rdgz/20190402/1275734.html)2019年4月2日在官网推出的外汇掉期估值服务中的估值算法，即通过掉期曲线计算当日的远端全价汇率折算，并与约定交易的全价汇率生成的现金流轧差得到净值，再用当日的 Shibor3M(Shanghai Interbank Offered Rate) 利率互换收盘曲线进行贴现，最后得到合约净额的贴现值即为合约估值。
+本次外汇掉期估值计算的逻辑，参考[中国外汇交易中心](https://www.chinamoney.com.cn/chinese/rdgz/20190402/1275734.md)2019年4月2日在官网推出的外汇掉期估值服务中的估值算法，即通过掉期曲线计算当日的远端全价汇率折算，并与约定交易的全价汇率生成的现金流轧差得到净值，再用当日的 Shibor3M(Shanghai Interbank Offered Rate) 利率互换收盘曲线进行贴现，最后得到合约净额的贴现值即为合约估值。
 
 ### 1.2. 数据准备
 
@@ -85,7 +85,7 @@ webWorkerNum=2
 dataSync=1
 ```
 
-单节点部署教程：[单节点部署](standalone_server.html)
+单节点部署教程：[单节点部署](standalone_server.md)
 
 ## 3. 外汇掉期估值的普通实现
 
@@ -135,7 +135,7 @@ k = ploop(valuationDtmRate{today, swap_rate, IR_swap},fx_contract.maturity_date,
 result = fx_contract join table(k as valuation)
 ```
 
-**注意**：在批流一体的因子实现中，不建议使用 `ploop`/`peach` 并行加速。具体并行策略可以参考因子最佳实践中的[并行计算章节](best_practice_for_factor_calculation.html)。
+**注意**：在批流一体的因子实现中，不建议使用 `ploop`/`peach` 并行加速。具体并行策略可以参考因子最佳实践中的[并行计算章节](best_practice_for_factor_calculation.md)。
 
 ## 4. 外汇掉期估值的优化实现
 

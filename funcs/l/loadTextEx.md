@@ -21,7 +21,7 @@ filename, [delimiter], [schema], [skipRows=0], [transform], [sortColumns], [atom
 
 **delimiter** 字符串标量，表示数据文件中各列的分隔符。分隔符可以是一个或多个字符，默认是逗号（","）。
 
-**schema** 是一个表，用于指定各列的数据类型。具体请参考 [loadText](loadText.html) 的 *schema* 参数。
+**schema** 是一个表，用于指定各列的数据类型。具体请参考 [loadText](loadText.md) 的 *schema* 参数。
 
 **skipRows** 是0到1024之间的整数，表示从文件头开始忽略的行数。它是一个可选参数。默认值为0。
 
@@ -55,7 +55,7 @@ sort key 组合值对应的数据将按时间列顺序连续存放在一起。�
 是数据文件中数组向量列的分隔符。默认是逗号。由于不支持自动识别数组向量，必须同步修改 *schema* 的 type 列为数组向量类型。
 
 **containHeader**
-布尔值，表示数据文件是否包含标题行，默认为空。具体请参考 [loadText](loadText.html) 的
+布尔值，表示数据文件是否包含标题行，默认为空。具体请参考 [loadText](loadText.md) 的
 *containHeader* 参数。
 
 **arrayMarker**  包含两个字符的字符串或或 CHAR
@@ -81,7 +81,7 @@ sort key 组合值对应的数据将按时间列顺序连续存放在一起。�
 如果指定了 *transform* 参数，需要先创建分区表，再加载数据。系统会对数据文件中的数据执行
 *transform* 参数指定的函数，再将得到的结果保存到数据库中。
 
-`loadTextEx` 函数与 [loadText](loadText.html) 函数有很多共同之处，例如第一行数据是否判断为列名，如何确定各列的数据类型，列名的要求及自动调整等。细节请参见 [loadText](loadText.html) 函数文档。
+`loadTextEx` 函数与 [loadText](loadText.md) 函数有很多共同之处，例如第一行数据是否判断为列名，如何确定各列的数据类型，列名的要求及自动调整等。细节请参见 [loadText](loadText.md) 函数文档。
 
 ## 例子
 

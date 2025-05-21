@@ -12,7 +12,7 @@
 
 ## 例子
 
-获取 [StreamGraph::submit](StreamGraph_submit.html) 函数文档的例子中所提交流图 g
+获取 [StreamGraph::submit](StreamGraph_submit.md) 函数文档的例子中所提交流图 g
 的全限定名：
 
 ```

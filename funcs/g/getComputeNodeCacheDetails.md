@@ -20,7 +20,7 @@
 
 用户指定以表或分区为单位，查询对应数据在该节点上的缓存类型、缓存大小等。
 
-关于存算分离架构的详细介绍与相关配置，请参见[存算分离](../../db_distr_comp/db/storage_compute_separation.html)主题页。
+关于存算分离架构的详细介绍与相关配置，请参见[存算分离](../../db_distr_comp/db/storage_compute_separation.md)主题页。
 
 **返回值：**
 
@@ -56,6 +56,6 @@ getComputeNodeCacheDetails("TABLE");
 | --- | --- | --- | --- | --- |
 | dfs://demo | pt1 | 27 | MEM | 5804 |
 
-相关函数：[clearComputeNodeCache](../c/clearcomputenodecache.html), [clearComputeNodeDiskCache](../c/clearcomputenodediskcache.html),
-[getComputeNodeCacheStat](getcomputenodecachestat.html)
+相关函数：[clearComputeNodeCache](../c/clearcomputenodecache.md), [clearComputeNodeDiskCache](../c/clearcomputenodediskcache.md),
+[getComputeNodeCacheStat](getcomputenodecachestat.md)
 

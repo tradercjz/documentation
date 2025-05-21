@@ -5,13 +5,13 @@
 
 ## m 系列函数介绍
 
-* m 系列函数对应的高阶函数 [moving](../ho_funcs/moving.html)：
+* m 系列函数对应的高阶函数 [moving](../ho_funcs/moving.md)：
 
   ```
   moving(func, funcArgs, window, [minPeriods])
   ```
 
-  注： m 系列函数为各自的计算场景进行了优化，因此比 [moving](../ho_funcs/moving.html) 高阶函数有更好的性能。
+  注： m 系列函数为各自的计算场景进行了优化，因此比 [moving](../ho_funcs/moving.md) 高阶函数有更好的性能。
 * 内置的 m
   系列函数的通用参数模板如下：
 
@@ -41,48 +41,48 @@
 
 * 单目：
 
-  + [msum](../m/msum.html)
-  + [msum2](../m/msum2.html)
-  + [mavg](../m/mavg.html)
-  + [mprod](../m/mprod.html)
-  + [mmax](../m/mmax.html)
-  + [mmin](../m/mmin.html)
-  + [mmed](../m/mmed.html)
-  + [mfirst](../m/mfirst.html)
-  + [mlast](../m/mlast.html)
-  + [mrank](../m/mrank.html)
-  + [mcount](../m/mcount.html)
-  + [mpercentile](../m/mpercentile.html)
-  + [mstd](../m/mstd.html)
-  + [mstdp](../m/mstdp.html)
-  + [mvar](../m/mvar.html)
-  + [mvarp](../m/mvarp.html)
-  + [mkurtosis](../m/mkurtosis.html)
-  + [mskew](../m/mskew.html)
-  + [mimax](../m/mimax.html)
-  + [mimin](../m/mimin.html)
-  + [mfirstNot](../m/mfirstnot.html)
-  + [mlastNot](../m/mlastnot.html)
-  + [mifirstNot](../m/mifirstNot.html)
-  + [milastNot](../m/milastNot.html)
-  + [miminLast](../m/miminlast.html)
-  + [mimaxLast](../m/mimaxlast.html)
-  + [mLowRange](../m/mlowrange.html)
-  + [mTopRange](../m/mtoprange.html)
+  + [msum](../m/msum.md)
+  + [msum2](../m/msum2.md)
+  + [mavg](../m/mavg.md)
+  + [mprod](../m/mprod.md)
+  + [mmax](../m/mmax.md)
+  + [mmin](../m/mmin.md)
+  + [mmed](../m/mmed.md)
+  + [mfirst](../m/mfirst.md)
+  + [mlast](../m/mlast.md)
+  + [mrank](../m/mrank.md)
+  + [mcount](../m/mcount.md)
+  + [mpercentile](../m/mpercentile.md)
+  + [mstd](../m/mstd.md)
+  + [mstdp](../m/mstdp.md)
+  + [mvar](../m/mvar.md)
+  + [mvarp](../m/mvarp.md)
+  + [mkurtosis](../m/mkurtosis.md)
+  + [mskew](../m/mskew.md)
+  + [mimax](../m/mimax.md)
+  + [mimin](../m/mimin.md)
+  + [mfirstNot](../m/mfirstnot.md)
+  + [mlastNot](../m/mlastnot.md)
+  + [mifirstNot](../m/mifirstNot.md)
+  + [milastNot](../m/milastNot.md)
+  + [miminLast](../m/miminlast.md)
+  + [mimaxLast](../m/mimaxlast.md)
+  + [mLowRange](../m/mlowrange.md)
+  + [mTopRange](../m/mtoprange.md)
 * 双目：
 
-  + [mwavg](../m/mwavg.html)
-  + [mwsum](../m/mwsum.html)
-  + [mcorr](../m/mcorr.html)
-  + [mcovar](../m/mcovar.html)
-  + [mbeta](../m/mbeta.html)
+  + [mwavg](../m/mwavg.md)
+  + [mwsum](../m/mwsum.md)
+  + [mcorr](../m/mcorr.md)
+  + [mcovar](../m/mcovar.md)
+  + [mbeta](../m/mbeta.md)
 
 ***window* 是正整数时**
 
-* [mmad](../m/mmad.html)
-* [mmaxPositiveStreak](../m/mmaxPositiveStreak.html)
-* [mmse](../m/mmse.html)
-* [mslr](../m/mslr.html)
+* [mmad](../m/mmad.md)
+* [mmaxPositiveStreak](../m/mmaxPositiveStreak.md)
+* [mmse](../m/mmse.md)
+* [mslr](../m/mslr.md)
 
 ## 窗口确定规则
 
@@ -106,7 +106,7 @@ m 系列函数（mrank, mcount 除外）提供了 *minPeriods*
 1. 如果没有指定 *minPeriods*，前(*window* - 1)个元素为 NULL；
 2. 如果指定了 *minPeriods*，前(*minPeriods* - 1)个元素为 NULL。
 
-上图的对应代码，这里以 [msum](../m/msum.html)
+上图的对应代码，这里以 [msum](../m/msum.md)
 为例：
 
 ```
@@ -126,7 +126,7 @@ msum(X, 3);
 
 ![](../../images/mfunc_2.png)
 
-上图的对应代码，这里以 [msum](../m/msum.html)
+上图的对应代码，这里以 [msum](../m/msum.md)
 为例：
 
 ```

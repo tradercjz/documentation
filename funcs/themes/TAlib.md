@@ -5,7 +5,7 @@ Library）是一个广泛用于金融市场数据分析的库，提供了一系�
 
 ## TA-lib 系列函数介绍
 
-TA-lib 系列函数对应的高阶函数 [talib](../ho_funcs/talib.html)：
+TA-lib 系列函数对应的高阶函数 [talib](../ho_funcs/talib.md)：
 
 ```
 talib(func, args...)
@@ -22,24 +22,24 @@ TA-libFunc(X, window)
 * **X** 是一个向量/矩阵/表。
 * **window** 是一个大于 1 的正整数，表示滑动窗口长度。
 
-TAlib 系列提供了一个函数模板 [ma](../m/ma.html),
+TAlib 系列提供了一个函数模板 [ma](../m/ma.md),
 可以通过该函数指定计算移动平均的类型，实现以下函数的功能：
 
-* [sma](../s/sma.html)
-* [ema](../e/ema.html)
-* [wma](../w/wma.html)
-* [dema](../d/dema.html)
-* [tema](../t/tema.html)
-* [trima](../t/trima.html)
-* [kama](../k/kama.html)
-* [t3](../t/t3.html)
+* [sma](../s/sma.md)
+* [ema](../e/ema.md)
+* [wma](../w/wma.md)
+* [dema](../d/dema.md)
+* [tema](../t/tema.md)
+* [trima](../t/trima.md)
+* [kama](../k/kama.md)
+* [t3](../t/t3.md)
 
 指数移动平均（Exponential Moving Average）的拓展函数：
 
-* [wilder](../w/wilder.html)
-* [gema](../g/gema.html)
+* [wilder](../w/wilder.md)
+* [gema](../g/gema.md)
 
-滑动线性回归：[linearTimeTrend](../l/linearTimeTrend.html)
+滑动线性回归：[linearTimeTrend](../l/linearTimeTrend.md)
 
 ## 窗口确定规则
 
@@ -57,7 +57,7 @@ TA-lib 系列函数的 *window* 长度以元素个数衡量。
 
 ![talib1](../../images/talib_1.png)
 
-上图的对应代码，这里以 [talib](../ho_funcs/talib.html) 应用在 msum
+上图的对应代码，这里以 [talib](../ho_funcs/talib.md) 应用在 msum
 函数为例：
 
 ```

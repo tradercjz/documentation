@@ -14,7 +14,7 @@
 
 如果设置成功，函数返回 true。如函数报错，请检查密钥路径是否正确，以及文件是否符合密钥格式要求。
 
-完成主密钥设置后，用户可以调用函数 [getCurrentTDEKeyVersion](../g/getcurrenttdekeyversion.html) 查询当前主密钥版本，验证加密配置是否生效。
+完成主密钥设置后，用户可以调用函数 [getCurrentTDEKeyVersion](../g/getcurrenttdekeyversion.md) 查询当前主密钥版本，验证加密配置是否生效。
 
 ## 例子
 

@@ -13,7 +13,7 @@
 
 **delimiter** 字符串标量，表示数据文件中各列的分隔符。分隔符可以是一个或多个字符，默认是逗号（","）。
 
-**schema** 表对象，用于指定各字段的数据类型。具体请参考 [loadText](../l/loadText.html)
+**schema** 表对象，用于指定各字段的数据类型。具体请参考 [loadText](../l/loadText.md)
 的 *schema* 参数。
 
 **skipRows** 0 到 1024 之间的整数，表示从文件头开始忽略的行数。它是一个可选参数。默认值为 0。
@@ -21,7 +21,7 @@
 **arrayDelimiter** 数据文件中数组向量列的分隔符。默认是逗号。由于不支持自动识别数组向量，必须同步修改
 *schema* 的 type 列修为数组向量类型。
 
-**containHeader** 布尔值，表示数据文件是否包含标题行，默认为空。具体请参考 [loadText](../l/loadText.html) 的 *containHeader* 参数。
+**containHeader** 布尔值，表示数据文件是否包含标题行，默认为空。具体请参考 [loadText](../l/loadText.md) 的 *containHeader* 参数。
 
 **arrayMarker**  包含两个字符的字符串或或 CHAR
 类型数据对，两个字符分别表示数组向量左右边界的标识符。默认标识符为双引号（"）。
@@ -38,13 +38,13 @@
 ## 详情
 
 将文件划分为多个数据源，每个数据源的大小为 *chunkSize*。如果需要将大文本文件加载到 DolphinDB, 可以使用
-*textChunkDS* 函数将文本文件划分为多个小文件数据源，再通过 [mr](../m/mr.html) 函数写入到数据库中。与直接把大文本文件加载到数据库对比，这种方法占用的内存更少。
+*textChunkDS* 函数将文本文件划分为多个小文件数据源，再通过 [mr](../m/mr.md) 函数写入到数据库中。与直接把大文本文件加载到数据库对比，这种方法占用的内存更少。
 
 当 DolphinDB
-加载数据文件时，会进行随机抽样，并基于样本决定每列的数据类型。这个方法不一定每次都能准确决定各列的数据类型。因此我们建议，在加载数据前，使用 [extractTextSchema](../e/extractTextSchema.html) 函数查看 DolphinDB
+加载数据文件时，会进行随机抽样，并基于样本决定每列的数据类型。这个方法不一定每次都能准确决定各列的数据类型。因此我们建议，在加载数据前，使用 [extractTextSchema](../e/extractTextSchema.md) 函数查看 DolphinDB
 识别每列的数据类型。如果 DolphinDB 识别的数据类型不符合预期，可以在 *schema* 的 type 列中指定数据类型。对于日期列或时间列，如果
 DolphinDB 识别的数据类型不符合预期，不仅需要在 *schema* 的 type 列指定时间类型，还需要在 format
-列中指定数据文件中日期或时间的格式（用字符串表示），如 "MM/dd/yyyy"。如何表示日期和时间格式请参考 [日期和时间的调整及格式](../../progr/data_mani/format_temp_obj.html)。
+列中指定数据文件中日期或时间的格式（用字符串表示），如 "MM/dd/yyyy"。如何表示日期和时间格式请参考 [日期和时间的调整及格式](../../progr/data_mani/format_temp_obj.md)。
 
 ## 例子
 

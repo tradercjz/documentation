@@ -65,5 +65,5 @@ mimaxLast(X, 3d)
 | 2020.01.09 | -1 |
 | 2020.01.10 | 1 |
 
-相关函数：[mimax](mimax.html)
+相关函数：[mimax](mimax.md)
 

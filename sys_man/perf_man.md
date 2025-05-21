@@ -2,12 +2,12 @@
 
 DolphinDB 提供以下三种运维监控方式，以下依照推荐度排序：
 
-1. 通过第三方系统的 API，如 Prometheus 和 Grafana 的组合。有关详细的使用步骤，参考：[集群运维监控](../tutorials/cluster_monitor.html)。
+1. 通过第三方系统的 API，如 Prometheus 和 Grafana 的组合。有关详细的使用步骤，参考：[集群运维监控](../tutorials/cluster_monitor.md)。
 2. 使用内置函数。可以使用以下函数来进行性能监控。以下函数都返回多个性能监控的度量值：
 
-   * [getPerf](../funcs/g/getPerf.html)：返回本地节点的性能监控度量值。可以在集群中的每个节点执行。
-   * [getClusterPerf](../funcs/g/getClusterPerf.html)：返回集群中所有节点的性能监控度量值。只能在控制器上执行。
-   * [getJobStat](../funcs/g/getJobStat.html) ：监控正在执行或者在作业队列中的作业和任务数量。
+   * [getPerf](../funcs/g/getPerf.md)：返回本地节点的性能监控度量值。可以在集群中的每个节点执行。
+   * [getClusterPerf](../funcs/g/getClusterPerf.md)：返回集群中所有节点的性能监控度量值。只能在控制器上执行。
+   * [getJobStat](../funcs/g/getJobStat.md) ：监控正在执行或者在作业队列中的作业和任务数量。
 3. Web 界面。以下是部分显示在 Web 界面的性能监控度量值：
 
    * memUsed： 节点使用的内存

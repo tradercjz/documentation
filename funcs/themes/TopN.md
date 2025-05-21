@@ -4,7 +4,7 @@
 
 ## mTopN系列函数介绍
 
-TopN 系列函数对应的高阶函数 [aggrTopN](../ho_funcs/aggrTopN.html)：
+TopN 系列函数对应的高阶函数 [aggrTopN](../ho_funcs/aggrTopN.md)：
 
 ```
 aggrTopN(func, funcArgs, sortingCol, top, [ascending=true])
@@ -47,22 +47,22 @@ mTopN 系列函数如下：
 
 单目：
 
-* [mstdTopN](../m/mstdTopN.html)
-* [mstdpTopN](../m/mstdpTopN.html)
-* [mvarTopN](../m/mvarTopN.html)
-* [mvarpTopN](../m/mvarpTopN.html)
-* [msumTopN](../m/msumTopN.html)
-* [mavgTopN](../m/mavgTopN.html)
-* [mskewTopN](../m/mskewTopN.html)
-* [mkurtosisTopN](../m/mkurtosisTopN.html)
-* [mpercentileTopN](../m/mpercentiletopn.html)
+* [mstdTopN](../m/mstdTopN.md)
+* [mstdpTopN](../m/mstdpTopN.md)
+* [mvarTopN](../m/mvarTopN.md)
+* [mvarpTopN](../m/mvarpTopN.md)
+* [msumTopN](../m/msumTopN.md)
+* [mavgTopN](../m/mavgTopN.md)
+* [mskewTopN](../m/mskewTopN.md)
+* [mkurtosisTopN](../m/mkurtosisTopN.md)
+* [mpercentileTopN](../m/mpercentiletopn.md)
 
 双目：
 
-* [mbetaTopN](../m/mbetaTopN.html)
-* [mcorrTopN](../m/mcorrTopN.html)
-* [mcovarTopN](../m/mcovarTopN.html)
-* [mwsumTopN](../m/mwsumTopN.html)
+* [mbetaTopN](../m/mbetaTopN.md)
+* [mcorrTopN](../m/mcorrTopN.md)
+* [mcovarTopN](../m/mcovarTopN.md)
+* [mwsumTopN](../m/mwsumTopN.md)
 
 ## 窗口确定规则
 
@@ -86,7 +86,7 @@ true 为升序），取排序后结果的前 *top* 个元素进行计算。
 ![](../../images/mTopN_1.png)
 
 上图的对应代码，这里以
-[msumTopN](../m/msumTopN.html)
+[msumTopN](../m/msumTopN.md)
 为例：
 
 ```

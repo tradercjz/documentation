@@ -146,5 +146,5 @@ t;
 | 4 | 14 |
 | 5 | 14 |
 
-相关函数：[iif](../../funcs/i/iif.html)
+相关函数：[iif](../../funcs/i/iif.md)
 

@@ -32,5 +32,5 @@ atImin(m1,m2)
 [3,2,3]
 ```
 
-相关函数：[imin](../i/imin.html), [atImax](atImax.html)
+相关函数：[imin](../i/imin.md), [atImax](atImax.md)
 

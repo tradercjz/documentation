@@ -4,7 +4,7 @@
 
 `tmcovar(T, X, Y, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -59,5 +59,5 @@ select *, tmcovar(t, y, x, 1w) from m
 | 2021.01.07 | 2 | 9 | -0.6 |
 | 2021.01.08 | 4 | 1 | -1.6 |
 
-相关函数：[mcovar](../m/mcovar.html), [covar](../c/covar.html)
+相关函数：[mcovar](../m/mcovar.md), [covar](../c/covar.md)
 

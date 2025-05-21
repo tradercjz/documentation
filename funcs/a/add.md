@@ -81,7 +81,7 @@ x+y
 | 8 | 14 |
 | 10 | 16 |
 
-参见 ["+" 运算符](../../progr/operators/add.html)
+参见 ["+" 运算符](../../progr/operators/add.md)
 
-相关函数：[sub](../s/sub.html)
+相关函数：[sub](../s/sub.md)
 

@@ -18,5 +18,5 @@
 getDfsRecoveryConcurrency()
 ```
 
-相关函数：[resetDfsRecoveryConcurrency](../r/resetDfsRecoveryConcurrency.html)
+相关函数：[resetDfsRecoveryConcurrency](../r/resetDfsRecoveryConcurrency.md)
 

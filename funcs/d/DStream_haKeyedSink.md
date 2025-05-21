@@ -23,7 +23,7 @@
 
 将流数据输出到高可用键值流数据表。
 
-有关最新高可用流数据表的更多信息，请参阅 [haStreamTable](../h/haStreamTable.html)
+有关最新高可用流数据表的更多信息，请参阅 [haStreamTable](../h/haStreamTable.md)
 手册。
 
 **返回值**：DStream 对象。

@@ -19,6 +19,6 @@
 
 * 该命令仅对当前节点有效。集群环境中，可通过 `pnodeRun`
   调用该函数，使其在其它节点生效。
-* 该命令设置的转存策略与 [setRetentionPolicy](../s/setRetentionPolicy.html)
-  设置的转存策略的有区别，详情请参考 [TieredStorage](../../db_distr_comp/db/tiered_storage.html)。
+* 该命令设置的转存策略与 [setRetentionPolicy](../s/setRetentionPolicy.md)
+  设置的转存策略的有区别，详情请参考 [TieredStorage](../../db_distr_comp/db/tiered_storage.md)。
 

@@ -51,7 +51,7 @@ true，流数据写入内存即为写入成功，持久化到磁盘的操作将�
 该命令将流数据表共享，并把它持久化到磁盘上。
 
 为了保证该命令能够正常执行，需要在配置文件中（单节点：dolphindb.cfg，集群：cluster.cfg）指定配置参数
-*persistenceDir*，配置参考：[功能配置](../../db_distr_comp/cfg/function_configuration.html)。流数据表在磁盘上的存储目录是
+*persistenceDir*，配置参考：[功能配置](../../db_distr_comp/cfg/function_configuration.md)。流数据表在磁盘上的存储目录是
 <PERSISTENCE\_DIR>/<TABLE\_NAME>。目录包含两种类型的文件：数据文件（名称类型
 *data0.log, data1.log...*）和索引文件
 *index.log*。把这些数据保存到磁盘后，如果重启系统，再次执行该命令会把磁盘中的数据加载到内存中，加载的记录条数由参数 *preCache*
@@ -77,7 +77,7 @@ true，即为异步模式。通常情况下，异步模式实现更高的吞吐�
 
 注：
 
-* 如果手动重启 server，建议调用 [fflush](../f/fflush.html) 函数先把缓存区的数据写入磁盘使用 `kill -15` 命令 进程。
+* 如果手动重启 server，建议调用 [fflush](../f/fflush.md) 函数先把缓存区的数据写入磁盘使用 `kill -15` 命令 进程。
 * 如果设置 asynWrite=true，此时流数据写入速度最快，若 server 发生 crash
   可能导致部分数据丢失。
 * 如果设置 asynWrite=false，flushmode=0，此时流数据写入速度中等，server 发生

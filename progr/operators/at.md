@@ -12,7 +12,7 @@
 ## 详情
 
 当 index 是布尔表达式时， 返回 X 中满足于 index 为 True 的元素；否则返回以 index 为索引的元素。若 X
-是函数，则 index 将作为函数的参数。该运算符等同于函数 [at](../../funcs/a/at.html)。
+是函数，则 index 将作为函数的参数。该运算符等同于函数 [at](../../funcs/a/at.md)。
 
 注： 当 index 是元组时，at 会将 index 的元素作为 X 每个维度的索引。例如：若 X 是一个向量组成的元组，则
 index = (0, 1) 则返回 X 的第 1 个元素中下标为 1 的元素值。
@@ -82,5 +82,5 @@ tp at [1 2 3, 0 1 2]
 
 输出返回：-0.5000
 
-相关函数：[eachAt](eachAt.html)
+相关函数：[eachAt](eachAt.md)
 

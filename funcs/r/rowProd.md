@@ -4,7 +4,7 @@
 
 `rowProd(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -36,5 +36,5 @@ select * from t where rowOr(price1>50, price2>50);
 | IBM | 1539.7258 |
 | C | 4589.4631 |
 
-相关函数：[prod](../p/prod.html)
+相关函数：[prod](../p/prod.md)
 

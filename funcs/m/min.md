@@ -102,5 +102,5 @@ select min sym from t;
 | --- |
 | aaa |
 
-相关函数：[mmin](mmin.html)
+相关函数：[mmin](mmin.md)
 

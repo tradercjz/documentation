@@ -158,13 +158,13 @@ gdb 调试命令格式：`gdb [exec file] [core file]`，然后执行 bt 看堆�
 
 ### 3.3 core 文件不生成的情况
 
-Linux中信号是一种异步事件处理的机制，每种信号对应有默认的操作，可以在 **[这里](http://man7.org/linux/man-pages/man7/signal.7.html)** 查看 Linux 系统提供的信号以及默认处理。默认操作主要包括忽略该信号（Ingore）、暂停进程（Stop）、终止进程（Terminate）、终止并发生 core dump 等。如果信号均是采用默认操作，那么，以下几种信号发生时会产生 core dump:
+Linux中信号是一种异步事件处理的机制，每种信号对应有默认的操作，可以在 **[这里](http://man7.org/linux/man-pages/man7/signal.7.md)** 查看 Linux 系统提供的信号以及默认处理。默认操作主要包括忽略该信号（Ingore）、暂停进程（Stop）、终止进程（Terminate）、终止并发生 core dump 等。如果信号均是采用默认操作，那么，以下几种信号发生时会产生 core dump:
 
 | Signal | Action | Comment |
 | --- | --- | --- |
 | SIGQUIT | core | Quit from keyboard |
 | SIGILL | core | Illegal Instruction |
-| SIGABRT | core | Abort signal from [abort](http://man7.org/linux/man-pages/man3/abort.3.html) |
+| SIGABRT | core | Abort signal from [abort](http://man7.org/linux/man-pages/man3/abort.3.md) |
 | SIGSEGV | core | Invalid memory reference |
 | SIGTRAP | core | Trace/breakpoint trap |
 
@@ -208,11 +208,11 @@ danger(1)
 
 ### 4.2 监控内存使用，避免内存高位运行
 
-内存高位运行容易发生OOM，如何监控和高效使用内存详见 **[内存管理](memory_management.html)** 中为分布式数据库提供写入缓存小节与流数据消息缓存队列小节
+内存高位运行容易发生OOM，如何监控和高效使用内存详见 **[内存管理](memory_management.md)** 中为分布式数据库提供写入缓存小节与流数据消息缓存队列小节
 
 ### 4.3 避免多线程并发访问某些内存表
 
-DolphinDB内置编程语言，在操作访问表时有一些规则，如[内存表详解](in_memory_table.html)并发性小节就说明了有些内存表不能并发写入。若不遵守规则，容易出现 server 崩溃。下例创建了一个以 id 字段进行 RANGE 分区的常规内存表：
+DolphinDB内置编程语言，在操作访问表时有一些规则，如[内存表详解](in_memory_table.md)并发性小节就说明了有些内存表不能并发写入。若不遵守规则，容易出现 server 崩溃。下例创建了一个以 id 字段进行 RANGE 分区的常规内存表：
 
 ```
 t=table(1:0,`id`val,[INT,INT])

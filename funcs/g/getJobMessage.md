@@ -10,7 +10,7 @@
 
 ## 详情
 
-取得批处理任务的中间信息。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.html)。
+取得批处理任务的中间信息。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.md)。
 
 ## 例子
 

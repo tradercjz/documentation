@@ -16,7 +16,7 @@ catalog\_name.orca\_graph.graph\_name），也可以仅提供流图名（如 fac
 
 ## 例子
 
-假设有已通过 [dropStreamGraph](../d/dropStreamGraph.html) 销毁的流图
+假设有已通过 [dropStreamGraph](../d/dropStreamGraph.md) 销毁的流图
 demo.orca\_graph.indicators：
 
 ```

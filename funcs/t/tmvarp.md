@@ -4,7 +4,7 @@
 
 `tmvarp(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -59,5 +59,5 @@ select *, tmvarp(t, x, 1w) from m
 | 2021.01.07 | 2 | 4.2222 |
 | 2021.01.08 | 4 | 4.1875 |
 
-相关函数：[mvarp](../m/mvarp.html), [varp](../v/varp.html)
+相关函数：[mvarp](../m/mvarp.md), [varp](../v/varp.md)
 

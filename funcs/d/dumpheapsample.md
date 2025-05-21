@@ -31,6 +31,6 @@ dumpHeapSample("/DolphinDB/Data/heap2")
 stopHeapSample()
 ```
 
-相关函数：[startHeapSample](../s/startheapsample.html),
-[stopHeapSample](../s/stopheapsample.html)
+相关函数：[startHeapSample](../s/startheapsample.md),
+[stopHeapSample](../s/stopheapsample.md)
 

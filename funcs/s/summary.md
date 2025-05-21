@@ -17,7 +17,7 @@
 
 ## 参数
 
-**X** 可以是内存表、DFS 表或由 [sqlDS](sqlDS.html) 函数生成的数据源。注意：暂不支持由 `sqlDS` 生成的包含表连接的数据源。
+**X** 可以是内存表、DFS 表或由 [sqlDS](sqlDS.md) 函数生成的数据源。注意：暂不支持由 `sqlDS` 生成的包含表连接的数据源。
 
 **interpolation** 字符串，表示计算百分位采用的插值方法，可以是 'linear'（默认值）, 'nearst', 'lower',
 'higher', 'midpoint'。

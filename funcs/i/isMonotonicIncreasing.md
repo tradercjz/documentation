@@ -31,5 +31,5 @@ isMonotonicIncreasing(a);
 false
 ```
 
-相关函数：[isMonotonicDecreasing](isMonotonicDecreasing.html), [isMonotonic](isMonotonic.html)
+相关函数：[isMonotonicDecreasing](isMonotonicDecreasing.md), [isMonotonic](isMonotonic.md)
 

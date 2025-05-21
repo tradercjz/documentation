@@ -47,5 +47,5 @@ tanimoto(m,m1)
 [0.5494,0.3225]
 ```
 
-相关函数：[rowTanimoto](../r/rowTanimoto.html)
+相关函数：[rowTanimoto](../r/rowTanimoto.md)
 

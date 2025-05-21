@@ -48,7 +48,7 @@ DolphinDB 支持单节点、集群等多种部署方式，Zabbix 也支持监控
 
 在本文中，我们使用的是 DolphinDB 2.00.12.1 版本的高可用集群，包括三个控制节点、三个数据节点和三个代理节点。
 
-注： 部署 DolphinDB 的相关文档可查阅：[DolphinDB教程](../deploy/deploy_intro.html)
+注： 部署 DolphinDB 的相关文档可查阅：[DolphinDB教程](../deploy/deploy_intro.md)
 
 ## 3. DolphinDB 监控项配置
 

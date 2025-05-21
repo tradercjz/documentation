@@ -25,7 +25,7 @@ DolphinDB 在数据库层面支持多种分区类型： 范围分区、哈希分
 
 为便于学习， 以下分区例子使用 Windows 本地目录，用户可以将数据库创建使用的路径改成 Linux 或 DFS 目录。
 
-调用 [database](../../funcs/d/database.html) 函数前，用户必须先登录，只有具有 DB\_OWNER
+调用 [database](../../funcs/d/database.md) 函数前，用户必须先登录，只有具有 DB\_OWNER
 或 admin 管理员权限才能创建数据库。默认的 admin 管理员登录脚本为：
 
 ```

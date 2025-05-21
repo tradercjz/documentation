@@ -26,5 +26,5 @@ strip x;
 hello world
 ```
 
-相关函数：[trim](../t/trim.html)
+相关函数：[trim](../t/trim.md)
 

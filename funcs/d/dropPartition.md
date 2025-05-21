@@ -24,7 +24,7 @@
 * 指定条件：以分区列的一个或多个值组成的标量或向量作为过滤条件，系统会找到并删除这些值所在的分区。对于组合分区，partitionPaths
   是由每层分区的过滤条件组成的元组，如果某层分区不需要过滤，那么相应的过滤条件需置为空。
 
-**tableName** 字符串，表示表名。若分区粒度为数据库级（[database](database.html): *chunkGranularity* = 'DATABASE'），可以不指定
+**tableName** 字符串，表示表名。若分区粒度为数据库级（[database](database.md): *chunkGranularity* = 'DATABASE'），可以不指定
 *tableName*，否则必须指定该参数。
 
 **forceDelete** 布尔值，默认值为 false，表示不开启强制删除。如果 *forceDelete*
@@ -34,7 +34,7 @@
 false，表示仅删除分区数据，分区方案（partitionSchema）中仍保留其对应的分区方案信息。
 
 如果
-*deleteSchema*=true，在满足以下条件时，删除分区数据及其对应的分区方案信息（可通过 [schema](../s/schema.html).partitionSchema 函数查看）：
+*deleteSchema*=true，在满足以下条件时，删除分区数据及其对应的分区方案信息（可通过 [schema](../s/schema.md).partitionSchema 函数查看）：
 
 1. 数据库只包含一个表；
 2. 单级分区时采用 VALUE 分区，或多级分区的第一级为 VALUE 分区；
@@ -98,7 +98,7 @@ dropPartition(dbHandle=database("dfs://compoDB"), partitionPaths=partitions, tab
 dropPartition(dbHandle=database("dfs://compoDB"), partitionPaths=2017.08.08, tableName=`pt);
 ```
 
-删除分区数据后，我们使用 [schema](../s/schema.html)
+删除分区数据后，我们使用 [schema](../s/schema.md)
 函数查看数据库的分区方案：
 
 ```

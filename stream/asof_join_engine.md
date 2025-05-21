@@ -22,7 +22,7 @@ asof join 引擎在创建时通过参数 *useSystemTime* 指定以下两种规�
 createAsofJoinEngine(name, leftTable, rightTable, outputTable, metrics, matchingColumn, [timeColumn], [useSystemTime=false], [delayedTime], [garbageSize], [sortByTime])
 ```
 
-其参数的详细含义可以参考：[createAsofJoinEngine](../funcs/c/createAsofJoinEngine.html) 函数。
+其参数的详细含义可以参考：[createAsofJoinEngine](../funcs/c/createAsofJoinEngine.md) 函数。
 
 ## 应用例子 1-计算个股交易成本
 

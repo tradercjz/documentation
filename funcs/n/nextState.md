@@ -38,5 +38,5 @@ nextState(X)
 | 0.9 | 5.5 | 1.8 |
 |  |  |  |
 
-相关函数： [prevState](../p/prevState.html)
+相关函数： [prevState](../p/prevState.md)
 

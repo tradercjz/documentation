@@ -6,7 +6,7 @@ DolphinDB 集高性能时序数据库与全面的分析功能为一体，可用�
 
 随着手机移动应用与网约车平台的迅速发展，网约车出行逐渐成为城市生活中一种重要的出行方式。相较其他出行方式而言，选择网约车的乘客对出行时效性有更高的要求，本文将基于乘客上车时间及上下车地点等静态信息，使用 DolphinDB 机器学习方法训练模型，预测网约车行程时间。
 
-在此基础上，本文将介绍如何使用 [DolphinDB 流数据处理系统](streaming_tutorial.html)对业务系统产生的持续增长的网约车订单动态数据进行实时的收集、清洗、统计、入库，并实时展示行程时间预测结果。
+在此基础上，本文将介绍如何使用 [DolphinDB 流数据处理系统](streaming_tutorial.md)对业务系统产生的持续增长的网约车订单动态数据进行实时的收集、清洗、统计、入库，并实时展示行程时间预测结果。
 
 图 1. 行程时间实时预测流程
 
@@ -53,7 +53,7 @@ select top 5 * from train
 
 ### 2.3. 数据存储
 
-将数据加载到内存表后，可以将训练数据与测试数据导入 DolphinDB 数据库中，便于后续数据的读取与模型的训练，数据导入分布式数据库的操作详见 [分区数据库教程](database.html)。
+将数据加载到内存表后，可以将训练数据与测试数据导入 DolphinDB 数据库中，便于后续数据的读取与模型的训练，数据导入分布式数据库的操作详见 [分区数据库教程](database.md)。
 
 ## 3. 模型构建
 
@@ -112,7 +112,7 @@ pca_trainpick = dot((matrix(trainPickPara) - repmat(matrix(avg(trainPickPara)), 
 trainData[`pca_trainpick_0] = flatten(pca_trainpick[:, 0])
 ```
 
-DolphinDB 提供了 `plot` 函数供数据可视化。用户可通过 `chartType` 指定图表类型，详见 [plot](../funcs/p/plot.html)。
+DolphinDB 提供了 `plot` 函数供数据可视化。用户可通过 `chartType` 指定图表类型，详见 [plot](../funcs/p/plot.md)。
 
 ```
 x = select top 1000 pca_trainpick_1 from trainData
@@ -183,7 +183,7 @@ for(gby_col in ['pickup_hour', 'pickup_date', 'pickup_week_hour', 'pickup_cluste
 
 ![](images/Forecast_of_Taxi_Trip_Duration/3_5.png)
 
-DolphinDB 提供了 XGBoost 插件实现模型训练及预测，使用前需要下载插件到指定路径并加载 XGBoost 插件。DolphinDB XGBoost 插件使用详见 [XGboost 插件使用说明](../plugins/xgboost/xgboost.html)。
+DolphinDB 提供了 XGBoost 插件实现模型训练及预测，使用前需要下载插件到指定路径并加载 XGBoost 插件。DolphinDB XGBoost 插件使用详见 [XGboost 插件使用说明](../plugins/xgboost/xgboost.md)。
 
 ```
 xgb_pars = {'min_child_weight': 50, 'eta': 0.3, 'colsample_bytree': 0.3, 'max_depth': 10,
@@ -254,7 +254,7 @@ submitJob("replay", "trade",  replay{inputTables=data, outputTables=orderTable, 
 
 服务商可通过第三方 API 连接 DolphinDB 数据库监控行程时间预测服务，本文以 Grafana 为例简要介绍如何使用第三方应用程序动态展示实时数据。
 
-Grafana 是一个用于时序数据动态可视化的数据展示工具，DolphinDB 提供了 Grafana 的数据接口，用户可在 Grafana 面板上编写查询脚本与 DolphinDB 进行交互，实现 DolphinDB 时序数据的可视化，并 Web 端进行实时数据分析，详见 [grafana-datasource](../tools/grafana.html)。
+Grafana 是一个用于时序数据动态可视化的数据展示工具，DolphinDB 提供了 Grafana 的数据接口，用户可在 Grafana 面板上编写查询脚本与 DolphinDB 进行交互，实现 DolphinDB 时序数据的可视化，并 Web 端进行实时数据分析，详见 [grafana-datasource](../tools/grafana.md)。
 
 添加 datasource 并新建 dashboard 后，在 Query 中填写以下 DolphinDB 语句进行实时数据可视化：
 

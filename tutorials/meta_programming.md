@@ -1,6 +1,6 @@
 # 基于函数的元编程应用
 
-DolphinDB 支持使用元编程来动态创建表达式，包括函数调用的表达式与 SQL 查询表达式等。DolphinDB 中有3种方法实现元编程，本文将展开说明如何在 DolphinDB 中基于函数编写元代码。如需了解宏变量元编程方法，请参考[基于宏变量的元编程应用](macro_var_based_metaprogramming.html)。
+DolphinDB 支持使用元编程来动态创建表达式，包括函数调用的表达式与 SQL 查询表达式等。DolphinDB 中有3种方法实现元编程，本文将展开说明如何在 DolphinDB 中基于函数编写元代码。如需了解宏变量元编程方法，请参考[基于宏变量的元编程应用](macro_var_based_metaprogramming.md)。
 
 ## 1. 基于函数生成元代码
 
@@ -209,7 +209,7 @@ sql(select=sel, from=fm, where=wre, groupby=ctxBy, groupFlag=0, csort=cs, limit=
   + 多字段参与计算：`sqlColAlias` 函数 搭配 `makeCall` 或者 `makeUnifiedCall` 函数。
 * 表对象可以是一个表变量名字符串、表变量如 t 或 `loadTable` 返回的句柄。
 
-具体的参数说明请参考：[sql](../funcs/s/sql.html)
+具体的参数说明请参考：[sql](../funcs/s/sql.md)
 
 进一步可以发现 `sql` 函数生成的元代码是基于一些小的元代码片段组装的，即通过一些元代码生成函数组装而成。为了进一步理解这个规则，下面介绍一下组装涉及到的相关函数及其作用：
 

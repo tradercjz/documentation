@@ -28,7 +28,7 @@ pt.tableInsert(t);
    中配置，集群模式在 cluster.cfg 中配置）这会使得值分区自动增加以适应现有分区外的数据。此外，该配置参数还有两个可选值：
    * skip（默认值）：此时仅存储属于现有分区以内的数据。
    * fail：当写入现有分区以外的数据时抛出异常。
-2. 使用[addValuePartitions](../../funcs/a/addValuePartitions.html) 函数手动增加对应分区。
+2. 使用[addValuePartitions](../../funcs/a/addValuePartitions.md) 函数手动增加对应分区。
 
    下例是给组合分区的数据库的日期分区层增加分区：
 
@@ -58,7 +58,7 @@ dfs://compoDB 的句柄，参数 *dbHandle* 也可指定为创建数据库时返
 
 ## 增加范围分区
 
-对于范围分区的数据库，无法像值分区数据库那样根据设置参数来自动增加分区，默认会舍弃现有分区之外的数据。可以通过 [addRangePartitions](../../funcs/a/addRangePartitions.html)
+对于范围分区的数据库，无法像值分区数据库那样根据设置参数来自动增加分区，默认会舍弃现有分区之外的数据。可以通过 [addRangePartitions](../../funcs/a/addRangePartitions.md)
 函数扩展分区方案，但只能在最后一个现有数据分区后面添加分区，不能在第一个现有数据分区前面添加分区。例如：
 
 * 可以给上例中的数据库的 ID 分区层新增 [100,150), [150,200) 和 [200,250) 这三个分区

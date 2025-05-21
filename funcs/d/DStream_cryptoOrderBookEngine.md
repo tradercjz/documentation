@@ -8,7 +8,7 @@
 
 ## 详情
 
-创建流计算数字货币实时订单簿引擎，支持根据数字货币全量深度快照和增量深度信息，实时更新订单簿。参考：[createCryptoOrderBookEngine](../c/createcryptoorderbookengine.html)。
+创建流计算数字货币实时订单簿引擎，支持根据数字货币全量深度快照和增量深度信息，实时更新订单簿。参考：[createCryptoOrderBookEngine](../c/createcryptoorderbookengine.md)。
 
 **返回值**：一个 DStream 对象。
 

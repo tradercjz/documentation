@@ -30,5 +30,5 @@ base64Encode("")
 ""
 ```
 
-相关函数：[base64Decode](base64Decode.html)
+相关函数：[base64Decode](base64Decode.md)
 

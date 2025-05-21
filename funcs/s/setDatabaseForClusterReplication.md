@@ -14,5 +14,5 @@
 
 开启/关闭分布式数据库的集群间的异步复制。该函数只能由管理员在主集群的数据节点调用。
 
-相关函数：[getDatabaseClusterReplicationStatus](../g/getDatabaseClusterReplicationStatus.html)
+相关函数：[getDatabaseClusterReplicationStatus](../g/getDatabaseClusterReplicationStatus.md)
 

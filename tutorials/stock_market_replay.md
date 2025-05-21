@@ -2,7 +2,7 @@
 
 一个量化策略在生产（交易）环境中运行时，实时数据的处理通常是由事件驱动的。为确保研发和生产使用同一套代码，通常在研发阶段需将历史数据，严格按照事件发生的时间顺序进行回放，以此模拟交易环境。一个交易所的行情数据通常包括逐笔委托、逐笔成交、快照等多种类型的数据。DolphinDB 提供了严格按照时间顺序将多个不同数据源同时进行回放的功能。
 
-首先简要介绍 DolphinDB 数据回放功能和原理，之后介绍股票行情回放的应用方案和代码实现。关于如何基于 DolphinDB 搭建行情数据回放服务，请参阅：[搭建行情回放服务的最佳实践](appendices_market_replay_bp.html)。
+首先简要介绍 DolphinDB 数据回放功能和原理，之后介绍股票行情回放的应用方案和代码实现。关于如何基于 DolphinDB 搭建行情数据回放服务，请参阅：[搭建行情回放服务的最佳实践](appendices_market_replay_bp.md)。
 
 ## 1. 单表回放
 
@@ -13,7 +13,7 @@ tradeDS = replayDS(sqlObj=<select * from loadTable("dfs://trade", "trade") where
 replay(inputTables=tradeDS, outputTables=tradeStream, dateColumn=`Date, timeColumn=`Time, replayRate=10000, absoluteRate=true)
 ```
 
-以上脚本将数据库 "dfs://trade" 中的 "trade" 表中 2020 年 12 月 31 日的数据以每秒 1 万条的速度注入目标表 tradeStream 中。更多关于 replay、replayDS 函数的介绍可以参考 [DolphinDB 历史数据回放教程](data_replay.html)。
+以上脚本将数据库 "dfs://trade" 中的 "trade" 表中 2020 年 12 月 31 日的数据以每秒 1 万条的速度注入目标表 tradeStream 中。更多关于 replay、replayDS 函数的介绍可以参考 [DolphinDB 历史数据回放教程](data_replay.md)。
 
 但是，单表回放并不能满足所有的回放要求。因为在实践中，一个领域问题往往需要多个不同类型的消息协作，例如金融领域的行情数据包括逐笔委托、逐笔成交、快照等，为了更好地模拟实际交易中的实时数据流，通常需要将以上三类数据同时进行回放，这时便提出了多表回放的需求。
 
@@ -405,7 +405,7 @@ lanCluster=0
 
 **注意**： 配置参数 `persistenceDir` 需要开发人员根据实际环境配置。
 
-单节点部署教程：[单节点部署](standalone_server.html)
+单节点部署教程：[单节点部署](standalone_server.md)
 
 **DolphinDB client 开发环境**
 
@@ -421,7 +421,7 @@ lanCluster=0
 
 **注意**： Kafka 插件版本建议按 DolphinDB server 版本选择，如 2.00.6 版本的 server 安装 release200 分支的插件
 
-Kafka 插件教程：[Kafka 插件教程](../plugins/kafka/kafka.html)
+Kafka 插件教程：[Kafka 插件教程](../plugins/kafka/kafka.md)
 
 **Kafka server 部署**
 
@@ -440,7 +440,7 @@ Kafka 插件教程：[Kafka 插件教程](../plugins/kafka/kafka.html)
 
 **注意**： C++API 版本建议按 DolphinDB server 版本选择，如 2.00.6 版本的 server 安装 release200 分支的 API。
 
-[C++ API教程](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.html)
+[C++ API教程](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.md)
 
 ## 6. 附录
 

@@ -10,7 +10,7 @@
 
 ### 创建分布式数据库
 
-只有具备 DB\_OWNER 权限的用户才可以通过数据节点或计算节点创建分布式数据库。可通过 [getUserAccess](../../funcs/g/getUserAccess.html) 查看当前用户是否具有该权限，如果没有，请联系管理员赋权。
+只有具备 DB\_OWNER 权限的用户才可以通过数据节点或计算节点创建分布式数据库。可通过 [getUserAccess](../../funcs/g/getUserAccess.md) 查看当前用户是否具有该权限，如果没有，请联系管理员赋权。
 
 若您刚刚下载 DolphinDB ，可登录默认管理员账号：
 
@@ -41,9 +41,9 @@ database(directory="dfs://valuedb", partitionType=VALUE,
 两种方式的区别在于：CREATE DATABASE 语句没有返回值；`database`
 函数会返回一个数据库句柄(dbHandle)。
 
-关于 CREATE DATABASE 语句，细节请参见 [create](../../progr/sql/create.html)。
+关于 CREATE DATABASE 语句，细节请参见 [create](../../progr/sql/create.md)。
 
-关于 `database` 函数，细节请参见 [database](../../funcs/d/database.html)。
+关于 `database` 函数，细节请参见 [database](../../funcs/d/database.md)。
 
 关于数据分区：
 
@@ -53,9 +53,9 @@ database(directory="dfs://valuedb", partitionType=VALUE,
 * 同一数据库下的所有表都是采用相同的分区方案。
 * 数据库分区方案 (*partitionScheme*) 设定后，分布式表的值分区（VALUE）允许增加分区；分布式表的范围分区 (RANGE)
   允许在最后一个现有数据分区后面增加分区；其它分布类型不允许增加分区。
-* 更多关于数据分区的内容请参考[数据分区](../db/db_partitioning.html)。
+* 更多关于数据分区的内容请参考[数据分区](../db/db_partitioning.md)。
 
-关于存储引擎（*engine*）：DolphinDB 支持 [TSDB](../db/tsdb.html) ，[OLAP](../db/olap.html)，[PKEY](../db/pkey_engine.html)等多种存储引擎，一个数据库的存储引擎一经确定，不可修改。
+关于存储引擎（*engine*）：DolphinDB 支持 [TSDB](../db/tsdb.md) ，[OLAP](../db/olap.md)，[PKEY](../db/pkey_engine.md)等多种存储引擎，一个数据库的存储引擎一经确定，不可修改。
 
 类似的，若要创建组合分区数据库：
 
@@ -91,7 +91,7 @@ DolphinDB 中，数据表分为内存表和分布式表。本节将分别举例�
 
 ### 创建分布式表
 
-只有具备 DBOBJ\_CREATE 和 DB\_MANAGE 权限的用户或当前数据库创建者才能够创建分布式表。可通过 [getUserAccess](../../funcs/g/getUserAccess.html)
+只有具备 DBOBJ\_CREATE 和 DB\_MANAGE 权限的用户或当前数据库创建者才能够创建分布式表。可通过 [getUserAccess](../../funcs/g/getUserAccess.md)
 查看当前用户是否具有创建分区表的权限，如果没有，请联系管理员赋权。
 
 #### 创建分区表
@@ -110,7 +110,7 @@ PARTITIONED BY date,
 sortColumns=`time
 ```
 
-**通过函数 [createPartitionedTable](../../funcs/c/createPartitionedTable.html) 创建 TSDB 分区表**
+**通过函数 [createPartitionedTable](../../funcs/c/createPartitionedTable.md) 创建 TSDB 分区表**
 
 ```
 // 获取已创建的数据库句柄
@@ -121,7 +121,7 @@ schemaTb = table(1:0,`date`time`sym`price,[DATE,TIME,SYMBOL,DOUBLE])
 pt = createPartitionedTable(dbHandle=valueDb, table=schemaTb, tableName=`pt, partitionColumns=`date, sortColumns=`sym`time)
 ```
 
-更多实用细节请参考[**createPartitionedTable**。](../../funcs/c/createPartitionedTable.html)
+更多实用细节请参考[**createPartitionedTable**。](../../funcs/c/createPartitionedTable.md)
 
 对于组合分区的数据库，在创建分区表时，分区列个数应匹配对应的分区方案：
 
@@ -173,11 +173,11 @@ schemaTb = table(1:0,`date`time`sym`price,[DATE,TIME,SYMBOL,DOUBLE])
 dt = createDimensionTable(dbHandle=valueDb, table=schemaTb, tableName=`dt, sortColumns=`sym`time)
 ```
 
-更多使用细节，请参考 [createDimensionTable](../../funcs/c/createdimensiontable.html) 。
+更多使用细节，请参考 [createDimensionTable](../../funcs/c/createdimensiontable.md) 。
 
 ### 创建内存表
 
-DolphinDB 支持多种内存表，包括普通内存表、索引内存表、键值内存表、流数据表、mvcc 内存表、内存分区表和缓存表等，详情请见[表](../../progr/data_types_forms/Table.html)。
+DolphinDB 支持多种内存表，包括普通内存表、索引内存表、键值内存表、流数据表、mvcc 内存表、内存分区表和缓存表等，详情请见[表](../../progr/data_types_forms/Table.md)。
 
 **通过** `CREATE LOCAL TEMPORARY TABLE`**语句创建普通内存表**
 
@@ -189,7 +189,7 @@ CREATE LOCAL TEMPORARY TABLE t(
 )
 ```
 
-**通过函数 [table](../../funcs/t/table.html) 创建普通内存表**
+**通过函数 [table](../../funcs/t/table.md) 创建普通内存表**
 
 * 创建空表
 
@@ -205,7 +205,7 @@ CREATE LOCAL TEMPORARY TABLE t(
 通过 CREATE 语句和 `table` 函数创建内存表的区别在于， `table`
 函数可以通过现有向量创建含有数据的内存表，CREATE 语句只能创建空表。
 
-**通过函数 [createPartitionedTable](../../funcs/c/createPartitionedTable.html)可以创建内存分区表**
+**通过函数 [createPartitionedTable](../../funcs/c/createPartitionedTable.md)可以创建内存分区表**
 
 ```
 // 创建一个内存数据库

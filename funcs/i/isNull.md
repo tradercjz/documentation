@@ -59,5 +59,5 @@ isNull(t)
 | false | false | true |
 | false | false | false |
 
-相关函数：[hasNull](../h/hasNull.html), [nullFill](../n/nullFill.html)
+相关函数：[hasNull](../h/hasNull.md), [nullFill](../n/nullFill.md)
 

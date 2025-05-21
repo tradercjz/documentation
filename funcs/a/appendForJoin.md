@@ -6,7 +6,7 @@
 
 ## 参数
 
-**engine** 是流数据 join 引擎，即 [createAsofJoinEngine](../c/createAsofJoinEngine.html) 等函数返回的抽象表对象。目前支持以下 join 引擎:
+**engine** 是流数据 join 引擎，即 [createAsofJoinEngine](../c/createAsofJoinEngine.md) 等函数返回的抽象表对象。目前支持以下 join 引擎:
 
 * createAsofJoinEngine
 * createEquiJoinEngine
@@ -22,8 +22,8 @@
 
 将数据插入流数据 join 引擎中。
 
-注： 使用订阅函数 [subscribeTable](../s/subscribeTable.html) 为流数据 join
-引擎订阅数据时，*handler* 参数需要为 `appendForJoin`、[getLeftStream](../g/getLeftStream.html) 或 [getRightStream](../g/getRightStream.html) 函数。
+注： 使用订阅函数 [subscribeTable](../s/subscribeTable.md) 为流数据 join
+引擎订阅数据时，*handler* 参数需要为 `appendForJoin`、[getLeftStream](../g/getLeftStream.md) 或 [getRightStream](../g/getRightStream.md) 函数。
 
 ## 例子
 

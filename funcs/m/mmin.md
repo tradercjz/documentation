@@ -4,7 +4,7 @@
 
 `mmin(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -72,5 +72,5 @@ m.mmin(1w)
 | 2020.09.17 | (1) | (1) |
 | 2020.09.18 | (1) | (1) |
 
-相关函数：[min](min.html)
+相关函数：[min](min.md)
 

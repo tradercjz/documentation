@@ -4,7 +4,7 @@
 
 `sort(X, [ascending=true])`
 
-[sort!](sort_.html) 是 `sort`
+[sort!](sort_.md) 是 `sort`
 的原地版本。
 
 ## 参数
@@ -62,5 +62,5 @@ x;
 [1 5 9];
 ```
 
-相关函数：[isort](../i/isort.html)
+相关函数：[isort](../i/isort.md)
 

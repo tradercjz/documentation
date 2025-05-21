@@ -57,7 +57,7 @@ x;
 
 ## 变量和变量名称
 
-变量和变量名称是不同的概念。变量是对象的占位符。变量名称是字符串。要引用变量，我们不需要引用变量名。DolphinDB提供了几个内置函数来操作变量。例如，[undef](../../funcs/u/undef.html) 用于取消一个或多个变量定义，而 [defined](../../funcs/d/defined.html) 用于检查是否存在一个或多个变量。这些函数是以变量名作为输入参数，而不是变量引用的对象。
+变量和变量名称是不同的概念。变量是对象的占位符。变量名称是字符串。要引用变量，我们不需要引用变量名。DolphinDB提供了几个内置函数来操作变量。例如，[undef](../../funcs/u/undef.md) 用于取消一个或多个变量定义，而 [defined](../../funcs/d/defined.md) 用于检查是否存在一个或多个变量。这些函数是以变量名作为输入参数，而不是变量引用的对象。
 
 一些内置函数的参数是数据类型，例如，定义数组、矩阵、字典、集合、函数等。DolphinDB有三种表示数据类型的方式。第一种是类型枚举，如INT,
 DOUBLE和BOOL。它们使用大写字母并作为系统的保留字符（即这些字符不能作为列名、变量名或函数名使用），我们推荐使用这种方法； 第二种是使用类型函数名，如int,
@@ -75,8 +75,8 @@ bool等，这些词汇可以用作变量名。如果数据类型名称被用作�
 2. 数据形式： SCALAR, PAIR, VECTOR, MATRIX, SET, DICT, TABLE
 3. 图表类型： LINE, PIE, COLUMN, BAR, AREA, HISTOGRAM, SCATTER
 4. 分区类型： VALUE, RANGE, HASH, LIST, COMPO
-5. 用于函数 [undef](../../funcs/u/undef.html)： VAR, SHARED, DEF
-6. 用于函数 [seek](../../funcs/s/seek.html)： HEAD, CURRENT, TAIL
+5. 用于函数 [undef](../../funcs/u/undef.md)： VAR, SHARED, DEF
+6. 用于函数 [seek](../../funcs/s/seek.md)： HEAD, CURRENT, TAIL
 7. 特殊数值： NULL, pi, e
 
 关键字在DolphinDB脚本语言中有特定含义，成为语法中一部分，亦不可用作变量名。关键字包括以下几类：

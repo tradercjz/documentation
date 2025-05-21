@@ -72,7 +72,7 @@ python datax.py /root/datax/myconf/BASECODE.json
       因为变更数据的更新需要目标表中有唯一列，所以 writer 的配置中，需要对 table 配置项中唯一键列增加 `isKeyField=true` 这一配置项。
     - saveFunctionName
       DolphinDB 有多种数据存储的方式，比较常用的两种是分布式表和维度表。dolphindbwriter 中内置了更新这两种表的脚本模板，当从数据源中过滤出变更数据之后，在 writer 配置中增加 `saveFunctionName` 和 `saveFunctionDef` 两个配置（具体用法请参考附录），writer 会根据这两个配置项，采用对应的方式将数据更新到 DolphinDB 中。
-      在 1.30.21.4 版本中，用户可通过 `saveFunctionName` 和 `saveFunctionDef` 引入 DolphinDB 的[upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.html) 功能以保证导入后的数据唯一性。具体配置示例参考附录。
+      在 1.30.21.4 版本中，用户可通过 `saveFunctionName` 和 `saveFunctionDef` 引入 DolphinDB 的[upsert!](https://docs.dolphindb.cn/zh/funcs/u/upsert_.md) 功能以保证导入后的数据唯一性。具体配置示例参考附录。
   + 当有些数据源中不包含 OPTYPE 这一标识列，无法分辨出新数据是更新或是新增的时候，可以作为新增数据入库，以函数视图输出的方式:
     - 数据作为新增数据处理。这种方式处理后，数据表中存在重复键值。
     - 定义 functionView 作为数据访问接口，在 functionView 中对有重复键值的数据仅输出时间戳最新的一条。

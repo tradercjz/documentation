@@ -54,5 +54,5 @@ rowEuclidean(a,b)
 [14.4568,10,33.1059]
 ```
 
-相关函数：[euclidean](../e/euclidean.html)
+相关函数：[euclidean](../e/euclidean.md)
 

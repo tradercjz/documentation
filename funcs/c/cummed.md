@@ -4,7 +4,7 @@
 
 `cummed(X)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ cummed(m);
 | 6.5 | 3.5 |
 | 6 | 4 |
 
-相关函数：[cummax](cummax.html), [cummin](cummin.html), [med](../m/med.html)
+相关函数：[cummax](cummax.md), [cummin](cummin.md), [med](../m/med.md)
 

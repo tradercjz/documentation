@@ -4,7 +4,7 @@
 
 `rowMin(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -41,5 +41,5 @@ select sym,rowMin(price1,price2) as min from t;
 | IBM | 30.02 |
 | C | 26.23 |
 
-相关函数：[min](../m/min.html)
+相关函数：[min](../m/min.md)
 

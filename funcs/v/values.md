@@ -28,5 +28,5 @@ values(t);
 ([1,2,3],[4,5,6],["IBM","MSFT","GOOG"])
 ```
 
-相关函数：[keys](../k/keys.html)
+相关函数：[keys](../k/keys.md)
 

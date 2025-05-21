@@ -6,7 +6,7 @@
 
 ## 参数
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)。
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)。
 
 **steps** 是一个整数，表示移动多少位置。
 

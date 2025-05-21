@@ -68,5 +68,5 @@ ewmCorr(X=t1,other=b,com=0.5);
 | 09:30:00.001 | DELL | 0.5536 | 0.8747 |
 | 09:30:00.001 | DELL | 0.3064 | 0.7050 |
 
-相关函数：[ewmCov](ewmCov.html), [ewmMean](ewmMean.html), [ewmStd](ewmStd.html), [ewmVar](ewmVar.html)
+相关函数：[ewmCov](ewmCov.md), [ewmMean](ewmMean.md), [ewmStd](ewmStd.md), [ewmVar](ewmVar.md)
 

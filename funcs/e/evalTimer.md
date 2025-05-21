@@ -15,7 +15,7 @@
 返回执行指定函数耗费的时间，单位是毫秒。如果 *funcs*
 包含多个函数，`evalTimer` 返回的是顺序执行这些函数耗费的时间。
 
-[timer](../../progr/statements/timer.html) 语句和
+[timer](../../progr/statements/timer.md) 语句和
 `evalTimer` 函数的功能类似，两者的区别是：
 
 * `timer` 语句的输入是代码块；

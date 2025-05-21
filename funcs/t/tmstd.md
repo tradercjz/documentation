@@ -4,7 +4,7 @@
 
 `tmstd(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -59,5 +59,5 @@ select *, tmstd(t, x, 1w) from m
 | 2021.01.07 | 2 | 2.5166 |
 | 2021.01.08 | 4 | 2.3629 |
 
-相关函数：[mstd](../m/mstd.html), [std](../s/std.html)
+相关函数：[mstd](../m/mstd.md), [std](../s/std.md)
 

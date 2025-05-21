@@ -4,7 +4,7 @@
 
 `bar(X, interval, [closed='left'])`
 
-相关函数：[dailyAlignedBar](../d/dailyAlignedBar.html)
+相关函数：[dailyAlignedBar](../d/dailyAlignedBar.md)
 
 ## 参数
 
@@ -16,7 +16,7 @@
 us, ns。
 
 注： 由于 *interval* 不支持年(y)和月(M)的时间单位，如果需要对
-*X* 以年或月进行分组时，可以调用 [year](../y/year.html) 或 [month](../m/month.html) 对 *X* 进行转换后，指定 *interval*
+*X* 以年或月进行分组时，可以调用 [year](../y/year.md) 或 [month](../m/month.md) 对 *X* 进行转换后，指定 *interval*
 为整数进行计算。可以参考例2。
 
 **closed** 字符串，可选值为 'left' 或 'right'。 表示 *X* 中可被

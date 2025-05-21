@@ -20,5 +20,5 @@ getMemLimitOfTaskGroupResult() / 1024 / 1024 / 1024
 // output: 10
 ```
 
-相关函数：[setMemLimitOfTaskGroupResult](../s/setMemLimitOfTaskGroupResult.html)
+相关函数：[setMemLimitOfTaskGroupResult](../s/setMemLimitOfTaskGroupResult.md)
 

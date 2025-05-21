@@ -6,7 +6,7 @@
 
 ## 参数
 
-**dbHandle** 是 [database](../d/database.html) 函数返回的分布式数据库句柄。
+**dbHandle** 是 [database](../d/database.md) 函数返回的分布式数据库句柄。
 
 **atomic** 表示写入事务的原子性层级，决定了是否允许并发写入同一分区。可选值为 'TRANS' 和 'CHUNK'，默认值为 'TRANS'。
 

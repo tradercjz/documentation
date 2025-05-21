@@ -124,5 +124,5 @@ nullFill(t, -999999);
 | 5 | 2.4 | 8.8 |
 | 6 | 2.6 | -999999 |
 
-相关函数：[isNull](../i/isNull.html), [hasNull](../h/hasNull.html), [bfill](../b/bfill.html), [ffill](../f/ffill.html), [lfill](../l/lfill.html)
+相关函数：[isNull](../i/isNull.md), [hasNull](../h/hasNull.md), [bfill](../b/bfill.md), [ffill](../f/ffill.md), [lfill](../l/lfill.md)
 

@@ -1,6 +1,6 @@
 # 删除分区
 
-DolphinDB 支持通过 [dropPartition](../../funcs/d/dropPartition.html)
+DolphinDB 支持通过 [dropPartition](../../funcs/d/dropPartition.md)
 函数删除分区：
 
 ```
@@ -50,7 +50,7 @@ dropPartition(dbHandle=database("dfs://compoDB"), partitionPaths=2024.08.07, tab
 
 ## 删除分区数据
 
-要删除分区内数据同时保留分区结构，可在调用函数 [dropPartition](../../funcs/d/dropPartition.html) 时设置参数*deleteSchema*= false 实现。
+要删除分区内数据同时保留分区结构，可在调用函数 [dropPartition](../../funcs/d/dropPartition.md) 时设置参数*deleteSchema*= false 实现。
 
 本节以删除指定表的分区数据为例进行介绍。以下示例中使用的分布式表 pt
 及其数据由以下脚本生成。组合分区的数据库第一层分区为基于日期的值分区，第二层分区为基于值的范围分区：
@@ -128,7 +128,7 @@ pt.append!(t);
 dropPartition(dbHandle=database("dfs://compoDB"), partitionPaths=[,[0,100]], tableName=`pt);
 ```
 
-[existsPartition](../../funcs/e/existsPartition.html) 函数可以检查某个分区是否存在。例如，检查数据库 "dfs://compoDB" 中表 pt 对应的
+[existsPartition](../../funcs/e/existsPartition.md) 函数可以检查某个分区是否存在。例如，检查数据库 "dfs://compoDB" 中表 pt 对应的
 "/20240807/0\_50" 分区是否存在：
 
 ```

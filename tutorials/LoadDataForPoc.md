@@ -82,7 +82,7 @@ DolphinDB 导入数据的步骤是先把 CSV 文件读入内存，再写入硬�
 * 分区使系统可以充分利用资源，提高计算速度
 * 增加了系统的可用性
 
-分区原理及详细教程参见：[分区数据库设计和操作](database.html)。
+分区原理及详细教程参见：[分区数据库设计和操作](database.md)。
 
 对于 level2 逐笔数据的场景，推荐复合分区，先按日期做值分区，再按股票代码做 HASH 分区。
 
@@ -185,7 +185,7 @@ select top 10 * from loadTable("dfs://sh_entrust",`entrust)
   ```
   mount -t nfs -o v3,local_lock=all [IP]:/hdd/hdd0/nfs /hdd/hdd0/DolphinDB-test/
   ```
-* 执行没有任何报错，但是任务长时间执行不完，等待时间已经远超文件大小除以硬盘速度的时间，观测硬盘状态，也没有任何写入。这种情况是因为单个 CSV 文件太大了，缓存不够用，这个缓存是专门为数据入库设置的一块内存，有关缓存机制的详细介绍见：[CacheEngine 与数据库日志教程](redoLog_cacheEngine.html) 与 [DolphinDB TSDB 存储引擎介绍](tsdb_explained.html)。解决方法是：先把 OLAPCacheEngineSize 和 TSDBCacheEngineSize 两个参数的值修改为大于 CSV 文件的大小，再重启系统。
+* 执行没有任何报错，但是任务长时间执行不完，等待时间已经远超文件大小除以硬盘速度的时间，观测硬盘状态，也没有任何写入。这种情况是因为单个 CSV 文件太大了，缓存不够用，这个缓存是专门为数据入库设置的一块内存，有关缓存机制的详细介绍见：[CacheEngine 与数据库日志教程](redoLog_cacheEngine.md) 与 [DolphinDB TSDB 存储引擎介绍](tsdb_explained.md)。解决方法是：先把 OLAPCacheEngineSize 和 TSDBCacheEngineSize 两个参数的值修改为大于 CSV 文件的大小，再重启系统。
 
 单文件完整的导入脚本下载链接为：[单文件导入](script/LoadDataForPoc/loadOneFile.dos)
 
@@ -193,7 +193,7 @@ select top 10 * from loadTable("dfs://sh_entrust",`entrust)
 
 上一节的核心导入代码中，使用了`loadTextEx`函数，其中 transform 参数引用了 transType 函数定义，其作用是数据清洗和类型转换。`loadTextEx`导入机制如下：
 
-首先，把 CSV 文件加载到内存生成一个内存表，这个内存表的数据类型可能和之前建立的分布式数据表定义的类型不一致。可以通过指定 schema 的方式尝试进行自动转换，详见：[指定数据导入格式](import_csv.html)。无法进行自动转换的类型会提示失败。此时，我们需要使用 transform 参数引用的函数进行类型转换和数据清洗。从该函数的返回值中获得清洗转换后的数据，类型依然是一个内存表。然后，把处理好的内存表数据写到硬盘上对应数据库中的数据表内。如果 transform 参数已赋值，**分布式表的结构和 transform 参数引用的函数返回的表的结构保持一致，不用和原 CSV 文件的结构保持一致。**
+首先，把 CSV 文件加载到内存生成一个内存表，这个内存表的数据类型可能和之前建立的分布式数据表定义的类型不一致。可以通过指定 schema 的方式尝试进行自动转换，详见：[指定数据导入格式](import_csv.md)。无法进行自动转换的类型会提示失败。此时，我们需要使用 transform 参数引用的函数进行类型转换和数据清洗。从该函数的返回值中获得清洗转换后的数据，类型依然是一个内存表。然后，把处理好的内存表数据写到硬盘上对应数据库中的数据表内。如果 transform 参数已赋值，**分布式表的结构和 transform 参数引用的函数返回的表的结构保持一致，不用和原 CSV 文件的结构保持一致。**
 
 transform 能够非常方便地完成但不限于如下需求：
 
@@ -311,7 +311,7 @@ def partCol(mutable memTable)
 }
 ```
 
-方法二是通过指定 schema 的方式，详见如下链接的教程 2.4 节：[导入指定列](import_csv.html)
+方法二是通过指定 schema 的方式，详见如下链接的教程 2.4 节：[导入指定列](import_csv.md)
 
 #### 2.2.8. 并行导入
 
@@ -325,7 +325,7 @@ def partCol(mutable memTable)
 2. 用异步任务的方式提交一批任务，按天进行批量导入。
 3. 如果两市的数据合并成一张表，则需要分别并行导入，不同市场的数据同时并行导入意味着不同任务同时写入一个分区，会报错。
 
-异步任务的详细用法见：[DolphinDB 教程：作业管理](job_management_tutorial.html)。代码如下：
+异步任务的详细用法见：[DolphinDB 教程：作业管理](job_management_tutorial.md)。代码如下：
 
 ```
 def loadOneDayFile(db,table,filePath)
@@ -394,7 +394,7 @@ errorMsg 可能的错误信息及解决方式如下：
 1. 只提交了一个文件的导入，长时间执行不完，硬盘也没有写入，这是什么原因？
 
    答：这是因为单个 CSV 文件太大了，缓存不够用。这个缓存是专门为数据入库设置的一块内存，
-   详细的介绍见：[CacheEngine 与数据库日志教程](redoLog_cacheEngine.html) 与 [DolphinDB TSDB 存储引擎介绍](tsdb_explained.html)。
+   详细的介绍见：[CacheEngine 与数据库日志教程](redoLog_cacheEngine.md) 与 [DolphinDB TSDB 存储引擎介绍](tsdb_explained.md)。
 
    解决方法是：先把 OLAPCacheEngineSize 和 TSDBCacheEngineSize 两个参数的值修改为大于 CSV 文件的大小，再重启系统。
 2. 导入时，时间是年月日时分秒结构的纯数字类型，如何转化为 DolphinDB 的时间日期格式？

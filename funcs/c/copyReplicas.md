@@ -17,7 +17,7 @@
 把源节点上的一个或多个 chunk 的副本复制到目标节点。如果目标节点上已经存在该
 chunk，那么系统将忽略本次操作。该命令只能由管理员在控制节点上执行。
 
-通过 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.html) 函数可以查看任务状态。
+通过 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.md) 函数可以查看任务状态。
 
 ## 例子
 

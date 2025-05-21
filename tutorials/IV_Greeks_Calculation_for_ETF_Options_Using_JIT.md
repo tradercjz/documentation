@@ -529,7 +529,7 @@ calculateAll(closPriceWideMatrix, etfPriceWideMatrix, contractInfo, tradingDates
 ms，耗时相差50%左右。
 
 关于 DolphinDB JIT 的更多详细特性，可以参考 [DolphinDB
-JIT教程](jit.html)。
+JIT教程](jit.md)。
 
 通过 [DolphinDB 下载连接](https://www.dolphindb.cn/alone/alone.php?id=10)下载 DolphinDB server 进行测试的时候，必须选择包含 JIT
 功能的安装包，如下图所示：

@@ -8,14 +8,14 @@
 
 ## 详情
 
-创建一个流计算异常检测引擎。参考 [createAnomalyDetectionEngine](../c/createAnomalyDetectionEngine.html)。
+创建一个流计算异常检测引擎。参考 [createAnomalyDetectionEngine](../c/createAnomalyDetectionEngine.md)。
 
 **返回值**：一个 DStream 对象。
 
 ## 参数
 
 **metrics** 以元代码或元组的格式表示异常指标，每个异常指标必须是布尔表达式，如<[sum(qty) >
-5, avg(qty) > qty, qty < 4]>。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.html)。
+5, avg(qty) > qty, qty < 4]>。有关元代码的更多信息可参考 [元编程](../c/../../progr/objs/meta_progr.md)。
 
 注： *metrics* 中使用的列名大小写不敏感，不需要与输入表的列名大小写保持一致。
 

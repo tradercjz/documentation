@@ -329,7 +329,7 @@ run\_type 参数为选项值，当前支持 [test|prod], 具体说明如下：
 
     - `name`：字段名称。
     - `isKeyField`：是否唯一键值，可以允许组合唯一键。本属性用于数据更新场景，用于确认更新数据的主键，若无更新数据的场景，无需设置。
-    - `type`枚举值以及对应 DataX 数据类型如下。DolphinDB 的数据类型及精度，参考：：[数据类型](../progr/data_types.html)。
+    - `type`枚举值以及对应 DataX 数据类型如下。DolphinDB 的数据类型及精度，参考：：[数据类型](../progr/data_types.md)。
 
   | DolphinDB 类型 | 配置值 | DataX 类型型 |
   | --- | --- | --- |

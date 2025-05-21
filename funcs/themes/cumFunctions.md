@@ -4,7 +4,7 @@
 
 ## cum 系列函数介绍
 
-cum 系列函数对应的高阶函数 [accumulate](../ho_funcs/accumulate.html)：
+cum 系列函数对应的高阶函数 [accumulate](../ho_funcs/accumulate.md)：
 
 ```
 accumulate(func, X, [init])
@@ -27,34 +27,34 @@ cumfunc(X, Y)
 
 单目：
 
-* [cummax](../c/cummax.html)
-* [cummin](../c/cummin.html)
-* [cummed](../c/cummed.html)
-* [cumfirstNot](../c/cumfirstNot.html)
-* [cumlastNot](../c/cumlastNot.html)
-* [cumrank](../c/cumrank.html)
-* [cumcount](../c/cumcount.html)
-* [cumpercentile](../c/cumpercentile.html)
-* [cumstd](../c/cumstd.html)
-* [cumstdp](../c/cumstdp.html)
-* [cumvar](../c/cumvar.html)
-* [cumvarp](../c/cumvarp.html)
-* [cumsum](../c/cumsum.html)
-* [cumsum2](../c/cumsum2.html)
-* [cumsum3](../c/cumsum3.html)
-* [cumsum4](../c/cumsum4.html)
-* [cumavg](../c/cumavg.html)
-* [cumprod](../c/cumprod.html)
-* [cumnunique](../c/cumnunique.html)
-* [cumPositiveStreak](../c/cumPositiveStreak.html)
+* [cummax](../c/cummax.md)
+* [cummin](../c/cummin.md)
+* [cummed](../c/cummed.md)
+* [cumfirstNot](../c/cumfirstNot.md)
+* [cumlastNot](../c/cumlastNot.md)
+* [cumrank](../c/cumrank.md)
+* [cumcount](../c/cumcount.md)
+* [cumpercentile](../c/cumpercentile.md)
+* [cumstd](../c/cumstd.md)
+* [cumstdp](../c/cumstdp.md)
+* [cumvar](../c/cumvar.md)
+* [cumvarp](../c/cumvarp.md)
+* [cumsum](../c/cumsum.md)
+* [cumsum2](../c/cumsum2.md)
+* [cumsum3](../c/cumsum3.md)
+* [cumsum4](../c/cumsum4.md)
+* [cumavg](../c/cumavg.md)
+* [cumprod](../c/cumprod.md)
+* [cumnunique](../c/cumnunique.md)
+* [cumPositiveStreak](../c/cumPositiveStreak.md)
 
 双目：
 
-* [cumbeta](../c/cumbeta.html)
-* [cumwsum](../c/cumwsum.html)
-* [cumwavg](../c/cumwavg.html)
-* [cumcovar](../c/cumcovar.html)
-* [cumcorr](../c/cumcorr.html)
+* [cumbeta](../c/cumbeta.md)
+* [cumwsum](../c/cumwsum.md)
+* [cumwavg](../c/cumwavg.md)
+* [cumcovar](../c/cumcovar.md)
+* [cumcorr](../c/cumcorr.md)
 
 ## 窗口确定规则
 
@@ -65,7 +65,7 @@ cum
 
 ![](../../images/cum_1.png)
 
-上图的对应代码，这里以 [cumsum](../c/cumsum.html) 为例：
+上图的对应代码，这里以 [cumsum](../c/cumsum.md) 为例：
 
 ```
 X = 1 1 2 3 4 5 NULL 8 9 1 3

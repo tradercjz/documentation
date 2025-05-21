@@ -23,7 +23,7 @@ outputTable, metrics, matchingColumn, [timeColumn], [useSystemTime=false],
   *delayedTime* 设置值，或者左表中数据在经过 2 \* *delayedTime*
   （小于2秒按2秒计算）后还没有 join 输出，就直接触发左右两表 join。
 
-更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.html)。
+更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.md)。
 
 ## 参数
 
@@ -46,10 +46,10 @@ array vector 类型。在使用 `createAsofJoinEngine`
 5. batchSize 列。如果指定 *outputElapsedMicroseconds* = true, 则指定一个 INT
    类型的列，记录单次响应的数据条数。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个表达式、系统内置或用户自定义函数、一个常量标量/向量，但不能是聚合函数。当指定为常量向量时，对应的输出列必须设置为数组向量类型，例子参见
-  [createReactiveStateEngine](createReactiveStateEngine.html) 中的例4。
+  [createReactiveStateEngine](createReactiveStateEngine.md) 中的例4。
 * *metrics* 内支持调用具有多个返回值的函数，且必须指定列名，例如 <func(price) as
   `col1`col2>。若在 *metrics* 指定了 *leftTable* 和 *rightTable*
   中具有相同名称的列，默认取左表的列，可以通过 "tableName.colName" 指定该列来自哪个表。

@@ -277,7 +277,7 @@ STRING->ANY DICTIONARY
 
 Table 型数据在 Python 中对应的数据类型为 pd.DataFrame，在转换时，按列进行处理，每列作为 Vector 型数据进行转换。特别的，当 pd.DataFrame 的元素中出现 Vector 型数据时，将作为 Array Vector 进行处理，且不支持 Any Vector 作为列类型，这点与 Vector 型数据的转换逻辑有较大不同。
 
-当 Table 型数据中包含空值时，处理逻辑与 Vector 型数据保持一致。同样的，也不支持直接上传 BLOB、INT128 等类型，如需上传，需指定 \_\_DolphinDB\_Type\_\_ 进行强制类型转换才能上传，具体操作参考：[强制类型转换](ForceTypeCasting.html)。
+当 Table 型数据中包含空值时，处理逻辑与 Vector 型数据保持一致。同样的，也不支持直接上传 BLOB、INT128 等类型，如需上传，需指定 \_\_DolphinDB\_Type\_\_ 进行强制类型转换才能上传，具体操作参考：[强制类型转换](ForceTypeCasting.md)。
 
 **注意**：pd.DataFrame 中仅有一种时间类型 datetime64[ns]，对应 np.datetime64[ns]，因此，如果直接上传时间类型数据，在 DolphinDB 服务器端仅能得到 NANOTIMESTAMP 类型的数据。
 
@@ -317,7 +317,7 @@ Table 型数据在 Python 中对应的数据类型为 pd.DataFrame，在转换�
 1  month_v  NANOTIMESTAMP       14    NaN
 ```
 
-对于时间类型，pandas 中仅有一种时间类型 datetime64[ns]，因此无法直接上传 DATE、MONTH等类型，需要指定 \_\_DolphinDB\_Type\_\_ 进行强制类型转换才能上传，具体操作参考：[强制类型转换](ForceTypeCasting.html)。
+对于时间类型，pandas 中仅有一种时间类型 datetime64[ns]，因此无法直接上传 DATE、MONTH等类型，需要指定 \_\_DolphinDB\_Type\_\_ 进行强制类型转换才能上传，具体操作参考：[强制类型转换](ForceTypeCasting.md)。
 
 ```
 >>> import dolphindb.settings as keys
@@ -386,7 +386,7 @@ dtype: object
 
 ```
 
-以下为 pandas ExtensionDtype 和 DolphinDB 的数据类型对照表。其中关于强制类型转换的更多说明可参阅[强制类型转换](ForceTypeCasting.html)。
+以下为 pandas ExtensionDtype 和 DolphinDB 的数据类型对照表。其中关于强制类型转换的更多说明可参阅[强制类型转换](ForceTypeCasting.md)。
 
 | **pandas ExtensionDtype** | **DolphinDB 类型** | **说明** |
 | --- | --- | --- |
@@ -429,7 +429,7 @@ dtype: object
 2   string     STRING       18    NaN
 ```
 
-以下为 DataFrame/Series、PyArrow 和 DolphinDB 的数据类型对照表。其中关于强制类型转换的更多说明可参阅[强制类型转换](ForceTypeCasting.html)。
+以下为 DataFrame/Series、PyArrow 和 DolphinDB 的数据类型对照表。其中关于强制类型转换的更多说明可参阅[强制类型转换](ForceTypeCasting.md)。
 
 | **DataFrame/Series 类型** | **PyArrow 类型** | **DolphinDB 类型** | **说明** |
 | --- | --- | --- | --- |
@@ -631,7 +631,7 @@ DolphinDB 中的 Matrix 类型对应 Python 中的 np.ndarray。不同数据类�
 
 与上传数据时不同，虽然 Matrix 直接对应二维 np.ndarray，但是 API 在下载 Matrix 型数据时会包含其行名和列名的信息。如果 Matrix 数据中不包含行名（或列名），则使用 None 代替。
 
-* **注1：** 时间类型的 Matrix 在 PROTOCOL\_DDB 协议中的对应规则与 Vector 类似，但在 PROTOCOL\_PICKLE 协议中则全部对应 datetime64[ns]，请参考 [Pickle](PROTOCOL_PICKLE.html)。
+* **注1：** 时间类型的 Matrix 在 PROTOCOL\_DDB 协议中的对应规则与 Vector 类似，但在 PROTOCOL\_PICKLE 协议中则全部对应 datetime64[ns]，请参考 [Pickle](PROTOCOL_PICKLE.md)。
 
 ### Set
 

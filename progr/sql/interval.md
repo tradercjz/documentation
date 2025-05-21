@@ -18,7 +18,7 @@
 * **duration** 是一个整数或者 DURATION 类型。 *duration*
   支持的时间单位（区分大小写）：w, d, H, m, s, ms, us, ns 和由四个大写英文字母构成的交易日历标识（对应的文件必须保存在
   *marketHolidayDir* 中）。
-* 对 *X* 以年进行分组时，需要调用[year](../../funcs/y/year.html) 对 *X* 进行转换。
+* 对 *X* 以年进行分组时，需要调用[year](../../funcs/y/year.md) 对 *X* 进行转换。
 * **fill** 是计算结果缺失值的填充方式，可取值为：'prev', 'post', 'linear', 'null', 'none'
   和一个数字。
 

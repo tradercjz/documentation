@@ -13,9 +13,9 @@
 
 通过文本文件进行数据中转是较为通用的一种数据迁移方式。DolphinDB 提供了以下三个函数来加载文本文件：
 
-* [loadText](../../funcs/l/loadText.html)：把文本文件加载到内存中
-* [ploadText](../../funcs/p/ploadText.html)：以并行的方式把文本文件加载到内存中，它的速度比 `loadText` 要快
-* [loadTextEx](../../funcs/l/loadTextEx.html)：把文本文件导入到 DolphinDB 数据库中
+* [loadText](../../funcs/l/loadText.md)：把文本文件加载到内存中
+* [ploadText](../../funcs/p/ploadText.md)：以并行的方式把文本文件加载到内存中，它的速度比 `loadText` 要快
+* [loadTextEx](../../funcs/l/loadTextEx.md)：把文本文件导入到 DolphinDB 数据库中
 
 **导入内存**
 
@@ -136,7 +136,7 @@ db=database(dfsPath,VALUE,2018.01.01..2018.01.31)
 hdf5::loadHDF5Ex(db, "cycle", "tradingDay", dataFilePath,datasetName)
 ```
 
-更多关于 HDF5 插件的内容，参考：[HDF5 插件](../../plugins/hdf5/hdf5.html)。
+更多关于 HDF5 插件的内容，参考：[HDF5 插件](../../plugins/hdf5/hdf5.md)。
 
 ## ODBC 插件
 
@@ -183,7 +183,7 @@ data = odbc::query(conn,"select * from candle_201801")
 tb.append!(data);
 ```
 
-更多关于 ODBC 插件的内容，参考：[ODBC 插件](../../plugins/odbc/odbc.html)。
+更多关于 ODBC 插件的内容，参考：[ODBC 插件](../../plugins/odbc/odbc.md)。
 
 ## MySQL 插件
 
@@ -223,5 +223,5 @@ pt=loadEx(conn,db,"pt","gender","employees")
 ```
 
 更多关于 MySQL 插件的内容，参考：[MySQL
-插件](../../plugins/mysql/mysql.html)。
+插件](../../plugins/mysql/mysql.md)。
 

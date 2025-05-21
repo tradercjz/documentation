@@ -74,7 +74,7 @@ redis::getHandle(token)
 
 其中参数 token 是通过 `getHandleStatus` 接口获取的连接的 id。
 
-插件使用的详细内容请参考 [Redis 插件文档](https://docs.dolphindb.cn/zh/plugins/redis.html)
+插件使用的详细内容请参考 [Redis 插件文档](https://docs.dolphindb.cn/zh/plugins/redis.md)
 
 ### 2.3 数据类型转换
 
@@ -88,7 +88,7 @@ redis::getHandle(token)
 
 ![](images/redis_plugin_tutorial/%E5%9B%BE3_1.png)
 
-通过 DolphinDB 的众多行情插件，您可以非常方便高效地将实时行情数据写入 DolphinDB 分布式数据库。本文不关注如何订阅实时行情到 DolphinDB 数据库，该部分可参考 [MDL 行情插件](https://docs.dolphindb.cn/zh/tutorials/mdl.html) 和 [amdQuote 行情插件](https://docs.dolphindb.cn/zh/tutorials/amd_best_prac_2.html) 等行情类插件教程。
+通过 DolphinDB 的众多行情插件，您可以非常方便高效地将实时行情数据写入 DolphinDB 分布式数据库。本文不关注如何订阅实时行情到 DolphinDB 数据库，该部分可参考 [MDL 行情插件](https://docs.dolphindb.cn/zh/tutorials/mdl.md) 和 [amdQuote 行情插件](https://docs.dolphindb.cn/zh/tutorials/amd_best_prac_2.md) 等行情类插件教程。
 
 通过 `submitJob` 提交一个 Redis 写入作业，每 500ms 执行一次 `redisjob` 自定义函数，将订阅的最新行情数据更新到 Redis 数据库。
 

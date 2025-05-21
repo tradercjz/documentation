@@ -20,7 +20,7 @@
 
 ## 创建字典
 
-用函数 [dict](../../funcs/d/dict.html) 或 [syncDict](../../funcs/s/syncDict.html) 创建一个字典，其中X表示键，Y表示值，参数 *ordered*
+用函数 [dict](../../funcs/d/dict.md) 或 [syncDict](../../funcs/s/syncDict.md) 创建一个字典，其中X表示键，Y表示值，参数 *ordered*
 控制是否创建有序字典。*dict* 函数创建的字典不允许并发读写，*syncDict* 函数创建的字典允许并发读写。
 
 ```
@@ -77,7 +77,7 @@ z;
 1->6.3```
 ```
 
-我们可以用函数 [dict](../../funcs/d/dict.html) (string, any)来创建一个值为不同数据类型的字典。
+我们可以用函数 [dict](../../funcs/d/dict.md) (string, any)来创建一个值为不同数据类型的字典。
 
 ```
 z=dict(STRING,ANY)
@@ -153,7 +153,7 @@ x[`IBM`MSFT,1 2];
 ([2,3],[8,9])
 ```
 
-也可使用函数 [find](../../funcs/f/find.html) 来获得某个键对应的值。
+也可使用函数 [find](../../funcs/f/find.md) 来获得某个键对应的值。
 
 ```
 find(z,1 3);
@@ -172,7 +172,7 @@ find(z, 7 3);
 
 ## 修改字典
 
-我们可以用语句Z[X]=Y来更新或追加一个字典。如果键存在于字典中，那么该语句会更新对应的值；否则它会向字典Z添加一个新的键值对。另一个更新字典的方法是 [dictUpdate!](../../funcs/d/dictUpdate_.html) 函数。
+我们可以用语句Z[X]=Y来更新或追加一个字典。如果键存在于字典中，那么该语句会更新对应的值；否则它会向字典Z添加一个新的键值对。另一个更新字典的方法是 [dictUpdate!](../../funcs/d/dictUpdate_.md) 函数。
 
 ```
 // 更新字典z
@@ -224,7 +224,7 @@ x.dictUpdate!(mul, 3 4, 2 4);
 2->2
 ```
 
-函数 [erase!](../../funcs/e/erase_.html) 用于删除一个键值；函数 [clear!](../../funcs/c/clear_.html) 用于清空所有键值。
+函数 [erase!](../../funcs/e/erase_.md) 用于删除一个键值；函数 [clear!](../../funcs/c/clear_.md) 用于清空所有键值。
 
 ```
 x=1..3
@@ -265,7 +265,7 @@ b->7.1
 
 ## 检索字典
 
-用函数 [in](../../funcs/i/in.html) 在字典里检索某个键值。
+用函数 [in](../../funcs/i/in.md) 在字典里检索某个键值。
 
 ```
 x=1..3
@@ -285,7 +285,7 @@ z=dict(x,y);
 
 ### 将一个字典转置为表
 
-通过 `transpose` 函数可以将字典转置为表，更多转换规则请参考[函数页面](../../funcs/t/transpose.html)。
+通过 `transpose` 函数可以将字典转置为表，更多转换规则请参考[函数页面](../../funcs/t/transpose.md)。
 
 将简单字典转置为表：
 
@@ -329,7 +329,7 @@ transpose(d)
 
 ### 将多个字典合并为表
 
-高阶函数 [each](../../funcs/ho_funcs/each.html) 结合函数 [asis](../../funcs/a/asIs.html) 可以将多个字典合并为表。
+高阶函数 [each](../../funcs/ho_funcs/each.md) 结合函数 [asis](../../funcs/a/asIs.md) 可以将多个字典合并为表。
 
 合并后的表结构由第一个字典确定，表的列名对应该字典的键，每行的数据来自于字典中该键对应的值。如果某个字典中缺少某个键，表中该位置的值将为 NULL。
 

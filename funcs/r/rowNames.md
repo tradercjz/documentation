@@ -10,7 +10,7 @@
 
 ## 详情
 
-返回矩阵 *X* 的行名。参见相关函数： [columnNames](../c/columnNames.html)
+返回矩阵 *X* 的行名。参见相关函数： [columnNames](../c/columnNames.md)
 
 ## 例子
 

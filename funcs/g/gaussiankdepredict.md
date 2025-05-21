@@ -6,7 +6,7 @@
 
 ## 详情
 
-[gaussianKde](gaussiankde.html)
+[gaussianKde](gaussiankde.md)
 对应的预测函数。使用其生成的模型对数据进行预测。
 
 ## 参数
@@ -35,5 +35,5 @@ gaussianKdePredict(model, testData)
 */
 ```
 
-相关函数：[gaussianKde](gaussiankde.html)
+相关函数：[gaussianKde](gaussiankde.md)
 

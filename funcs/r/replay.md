@@ -8,7 +8,7 @@
 
 ## 详情
 
-根据指定的回放模式，按时间顺序将一个或多个数据表或数据源列表（由 [replayDS](replayDS.html) 函数的返回值）的数据回放到数据表，以模拟实时数据写入，通常用于高频策略回测场景。
+根据指定的回放模式，按时间顺序将一个或多个数据表或数据源列表（由 [replayDS](replayDS.md) 函数的返回值）的数据回放到数据表，以模拟实时数据写入，通常用于高频策略回测场景。
 
 ### 回放形式
 
@@ -61,13 +61,13 @@
 3. 数据写入。
 
    注： 目前系统仅支持单线程写入输出表。
-4. 终止回放：可使用 [cancelJob](../c/cancelJob.html) 和 [cancelConsoleJob](../c/cancelConsoleJob.html) 命令。
+4. 终止回放：可使用 [cancelJob](../c/cancelJob.md) 和 [cancelConsoleJob](../c/cancelConsoleJob.md) 命令。
 
    注：
    * 2.00.5 版本前，N 对 1 回放要求输入表结构必须相同，称为同构回放。自
      2.00.5 版本起，N 对 1
-     回放开始支持输入结构不同的表，称为异构回放。由于异构回放到输出表的记录均被序列化存储，无法直接读取，需要通过 [streamFilter](../s/streamFilter.html)
-     进行数据过滤和分发，详情请参考 [streamFilter](../s/streamFilter.html)。
+     回放开始支持输入结构不同的表，称为异构回放。由于异构回放到输出表的记录均被序列化存储，无法直接读取，需要通过 [streamFilter](../s/streamFilter.md)
+     进行数据过滤和分发，详情请参考 [streamFilter](../s/streamFilter.md)。
    * 2.00.9 版本后，若 N 对 1
      回放的输入表为多个数据源列表，会自动按照时间戳排序后回放。在该版本前，系统每次仅加载多个列表相同索引位置的数据源排序后回放，不保证全局的有序性。
 

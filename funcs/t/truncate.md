@@ -12,10 +12,10 @@
 
 ## 详情
 
-删除分布式表的所有数据，但保留数据表结构。其性能较 [delete](../../progr/sql/delete.html) 语句以及 [dropPartition](../d/dropPartition.html) 命令均有数倍提升。
+删除分布式表的所有数据，但保留数据表结构。其性能较 [delete](../../progr/sql/delete.md) 语句以及 [dropPartition](../d/dropPartition.md) 命令均有数倍提升。
 
 若仅需要删除表中所有的数据，但保留表结构，建议调用 `truncate`
-实现。若无需保留表结构，建议调用 [dropTable](../d/dropTable.html) 命令。
+实现。若无需保留表结构，建议调用 [dropTable](../d/dropTable.md) 命令。
 
 ## 例子
 

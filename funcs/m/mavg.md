@@ -4,7 +4,7 @@
 
 `mavg(X, window|weights, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -77,5 +77,5 @@ mavg(m, 1w)
 | 2020.01.12 | 4.3333 | 9.5 |
 | 2020.01.15 | 6 | 6 |
 
-相关函数：[avg](../a/avg.html)
+相关函数：[avg](../a/avg.md)
 

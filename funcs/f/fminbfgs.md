@@ -86,5 +86,5 @@ iterations->7
 */
 ```
 
-相关函数：[fminBFGSB](fminlbfgsb.html)
+相关函数：[fminBFGSB](fminlbfgsb.md)
 

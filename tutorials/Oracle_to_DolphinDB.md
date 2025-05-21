@@ -17,7 +17,7 @@ Oracle 迁移数据到 DolphinDB 的整体框架如下：
 
   ODBC(Open Database Connectivity) 插件是 DolphinDB 提供的通过 ODBC 接口访问 Oracle 的开源产品。使用插件配合 DolphinDB 脚本使用，与服务器在同一个进程空间内运行，能高效地完成 Oracle 数据到 DolphinDB 的数据写入。
 
-  ODBC 提供如下函数，函数的具体使用请参考 [ODBC/README\_CN.md](../plugins/odbc/odbc.html)。
+  ODBC 提供如下函数，函数的具体使用请参考 [ODBC/README\_CN.md](../plugins/odbc/odbc.md)。
 
   1. `odbc::connect(connStr, [dataBaseType])`
   2. `odbc::close(conn)`
@@ -70,7 +70,7 @@ loadPlugin("odbc")
 
 请注意，DolphinDB ODBC 插件版本号必须与 Server 版本号一致，否则可能出现报错。例如，DolphinDB Server 版本号为 2.00.9.X，则必须使用 release200.9 分支的 ODBC 插件。
 
-如果想自行编译，请参考： [ODBC/README\_CN.md](../plugins/odbc/odbc.html) 文章中的第 2 章。
+如果想自行编译，请参考： [ODBC/README\_CN.md](../plugins/odbc/odbc.md) 文章中的第 2 章。
 
 ### 建库建表
 
@@ -92,7 +92,7 @@ create table ticksh(
 );
 ```
 
-对于实际的数据，需要综合考虑被迁移数据的字段、类型、数据量，在 DolphinDB 是否需要分区，分区方案，使用 OLAP 还是 TSDB 引擎等情况，去设计建库建表方案。一些数据存储库表设计实践，可以参考 [DolphinDB 数据库分区教程](database.html)。
+对于实际的数据，需要综合考虑被迁移数据的字段、类型、数据量，在 DolphinDB 是否需要分区，分区方案，使用 OLAP 还是 TSDB 引擎等情况，去设计建库建表方案。一些数据存储库表设计实践，可以参考 [DolphinDB 数据库分区教程](database.md)。
 
 本例建库建表文件 *createTable.dos* 内容如下:
 
@@ -155,9 +155,9 @@ createTick(dbName, tbName)
    ```
 2. 下载 Oracle 的 ODBC 驱动并安装
 
-   根据 Oracle 官方的要求，安装 Instant Client ODBC 前，需首先安装 Oracle Instant Client Basic 或 Basic Light 软件包，根据官方提供的建议确定需要的安装内容。Oracle 官方安装说明：[Oracle Instant Client ODBC 安装说明](https://www.oracle.com/cn/database/technologies/releasenote-odbc-ic.html) 。
+   根据 Oracle 官方的要求，安装 Instant Client ODBC 前，需首先安装 Oracle Instant Client Basic 或 Basic Light 软件包，根据官方提供的建议确定需要的安装内容。Oracle 官方安装说明：[Oracle Instant Client ODBC 安装说明](https://www.oracle.com/cn/database/technologies/releasenote-odbc-ic.md) 。
 
-   确定好需要的安装内容后，可在官方提供的下载链接中 [Oracle Instant Client Downloads](https://www.oracle.com/cn/database/technologies/instant-client/downloads.html) 根据当前的操作系统和处理器进入到对应的下载链接，比如本文使用的是 Linux 操作系统，x86-64 的指令。进入到下载链接 [Instant Client for Linux x86-64 (64-bit)](https://www.oracle.com/cn/database/technologies/instant-client/linux-x86-64-downloads.html) 。然后根据 Oracle 的版本选择对应的 Client 版本并进行下载。
+   确定好需要的安装内容后，可在官方提供的下载链接中 [Oracle Instant Client Downloads](https://www.oracle.com/cn/database/technologies/instant-client/downloads.md) 根据当前的操作系统和处理器进入到对应的下载链接，比如本文使用的是 Linux 操作系统，x86-64 的指令。进入到下载链接 [Instant Client for Linux x86-64 (64-bit)](https://www.oracle.com/cn/database/technologies/instant-client/linux-x86-64-downloads.md) 。然后根据 Oracle 的版本选择对应的 Client 版本并进行下载。
 
    **注意**：目前官网上没有给出详细的客户端版本和 Oracle 数据库版本的对应关系，从网上查到的资料来看，如果读者的 Oracle 版本是11.2.xx 版本及以上，可以下载使用最新的客户端版本。版本的最终建议请以官方提供的信息为准。
 
@@ -267,7 +267,7 @@ createTick(dbName, tbName)
    ln -s libodbcinst.so.2.0.0 libodbcinst.so.1
    ```
 
-其他常见问题，可参考 [ODBC\_plugin\_user\_guide](../plugins/odbc/odbc_faq.html) 文章中的 “ODBC 插件使用注意事项和常见问题”一章。
+其他常见问题，可参考 [ODBC\_plugin\_user\_guide](../plugins/odbc/odbc_faq.md) 文章中的 “ODBC 插件使用注意事项和常见问题”一章。
 
 #### 同步数据
 

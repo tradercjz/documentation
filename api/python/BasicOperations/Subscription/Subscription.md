@@ -72,7 +72,7 @@ def handler(msg):
 * **throttle** ：浮点数，表示 *handler* 处理到达的消息之前等待的时间。单位为秒，默认值为 1.0。如果未指定 *batchSize*，参数 *throttle* 将无法产生作用。
 * **streamDeserializer** ：表示订阅的异构流表对应的反序列化器。
 
-**注意：** 订阅流表时，参数 *batchsize*、*msgAsTable*、*streamDeserializer* 的值都将影响传入回调函数 *handler* 中变量的格式，各种参数的订阅示例请参考章节[流订阅](../../AdvancedOperations/SubscriptionOptions/SubscriptionOptions.html)。
+**注意：** 订阅流表时，参数 *batchsize*、*msgAsTable*、*streamDeserializer* 的值都将影响传入回调函数 *handler* 中变量的格式，各种参数的订阅示例请参考章节[流订阅](../../AdvancedOperations/SubscriptionOptions/SubscriptionOptions.md)。
 
 ### 订阅示例
 

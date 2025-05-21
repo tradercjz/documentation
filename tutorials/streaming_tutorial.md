@@ -390,7 +390,7 @@ dropStreamTable(`pubTable);
 
 ## 3. 数据回放
 
-DolphinDB提供了`replay`函数，可以将历史数据按照时间顺序导入流数据表中。具体教程请参考[流数据回放教程](data_replay.html)。
+DolphinDB提供了`replay`函数，可以将历史数据按照时间顺序导入流数据表中。具体教程请参考[流数据回放教程](data_replay.md)。
 
 ## 4. 流数据计算引擎
 
@@ -504,7 +504,7 @@ subscribeTable(tableName=`tickStream, actionName="factors", offset=msgId, handle
 
 ### 5.1. 流数据高可用
 
-为满足流数据服务不中断的需求，DolphinDB采用了基于Raft协议的高可用多副本架构，以提供流数据的高可用功能。具体教程请参考[流数据高可用教程](haStreaming.html)。
+为满足流数据服务不中断的需求，DolphinDB采用了基于Raft协议的高可用多副本架构，以提供流数据的高可用功能。具体教程请参考[流数据高可用教程](haStreaming.md)。
 
 ### 5.2. 流计算引擎高可用
 
@@ -870,5 +870,5 @@ act\_getdata"。那么当订阅完成之后，用getStreamingStat().pubTables �
 * 实时值监控：定时刷新流数据在滑动窗口的聚合计算值，通常用于指标的监控和预警。
 * 趋势监控：把新产生的数据附加到原有的数据上并以可视化图表的方式实时更新。
 
-很多数据可视化的平台都能支持流数据的实时监控，比如当前流行的开源数据可视化框架Grafana。DolphinDB database 已经实现了Grafana的服务端和客户端的接口，具体配置可以参考 [Grafana教程](../tools/grafana.html)。
+很多数据可视化的平台都能支持流数据的实时监控，比如当前流行的开源数据可视化框架Grafana。DolphinDB database 已经实现了Grafana的服务端和客户端的接口，具体配置可以参考 [Grafana教程](../tools/grafana.md)。
 

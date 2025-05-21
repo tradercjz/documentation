@@ -65,7 +65,7 @@
 * lapackDriver：字符串标量，表示使用的具体 LAPACK 程序来求解最小二乘问题。
 * numParameters：整数标量，表示模型的参数数量。
 * predict：模型的预测函数。其使用方法为 `model.predict(X, [beta],
-  [breaks])`，详情见 [pwlfPredict](pwlfpredict.html)。
+  [breaks])`，详情见 [pwlfPredict](pwlfpredict.md)。
 * modelName：表示模型类型，值为字符串”Piecewise Linear Regression”。
 
 ## 例子
@@ -110,5 +110,5 @@ model.predict(xHat)
 */
 ```
 
-相关函数：[pwlfPredict](pwlfpredict.html)
+相关函数：[pwlfPredict](pwlfpredict.md)
 

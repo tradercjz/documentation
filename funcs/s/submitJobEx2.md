@@ -9,7 +9,7 @@ args...)`
 
 提交批处理作业到本地节点并返回作业的 ID，待作业完成后，执行回调函数。
 
-注： `submitJobEx2` 与 [submitJobEx](submitJobEx.html) 的区别在于：执行完成后，`submitJobEx2`
+注： `submitJobEx2` 与 [submitJobEx](submitJobEx.md) 的区别在于：执行完成后，`submitJobEx2`
 会执行回调函数。
 
 ## 参数

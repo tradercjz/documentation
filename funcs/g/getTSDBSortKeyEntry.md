@@ -12,7 +12,7 @@
 
 ## 详情
 
-获取 TSDB 引擎已经写入磁盘的每个 chunk 分区的 sort key（详见 [sortColumns](../c/createPartitionedTable.html) 参数介绍）信息。
+获取 TSDB 引擎已经写入磁盘的每个 chunk 分区的 sort key（详见 [sortColumns](../c/createPartitionedTable.md) 参数介绍）信息。
 
 返回一个表，包含以下字段：
 
@@ -23,7 +23,7 @@
 * key：sort key 的组合值。sort key 之间以下划线 “\_” 分隔。
 * size：当前 sort key 组合值对应的记录数。
 
-注： 该函数不支持查询 Cache Engine 中的分区数据，因此，调用该函数前，需要先调用 [flushTSDBCache](../f/flushTSDBCache.html)，将
+注： 该函数不支持查询 Cache Engine 中的分区数据，因此，调用该函数前，需要先调用 [flushTSDBCache](../f/flushTSDBCache.md)，将
 cacheEngine 中已完成的分区数据写入磁盘。
 
 ## 例子

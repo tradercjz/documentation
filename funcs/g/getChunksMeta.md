@@ -26,7 +26,7 @@ chunk的数量。
 * flag：删除标志。若 flag=0，表示此 chunk 数据可以正常被查询和访问。若 flag=1，表示此
   chunk 数据已在逻辑上被标记为删除，不可被查询，但仍然占用磁盘空间。
 * size：表示 file chunk 占用磁盘空间，单位为字节。对于 tablet chunk，返回0，需要使用
-  [getTabletsMeta](getTabletsMeta.html)
+  [getTabletsMeta](getTabletsMeta.md)
   函数来查看其占用的磁盘空间。
 * version：版本号
 * state：chunk 的状态。

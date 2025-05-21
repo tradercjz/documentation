@@ -8,7 +8,7 @@
 
 **X** 可以是向量、矩阵或表；
 
-**steps** 是一个整数或一个 [duration](../d/duration.html)，表示移动多少位置或多少时间。
+**steps** 是一个整数或一个 [duration](../d/duration.md)，表示移动多少位置或多少时间。
 
 * 如果 *steps* 为正数，*X* 向右移动 *steps* 个位置；
 * 如果 *steps* 为负数，*X* 向左移动 *steps* 个位置；
@@ -17,8 +17,8 @@
 
 ## 详情
 
-`move` 是 [prev](../p/prev.html) 和
-[next](../n/next.html) 的通用形式。
+`move` 是 [prev](../p/prev.md) 和
+[next](../n/next.md) 的通用形式。
 
 ## 例子
 

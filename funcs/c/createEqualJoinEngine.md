@@ -1,6 +1,6 @@
 # createEqualJoinEngine
 
-是 [createEquiJoinEngine](createEquiJoinEngine.html)
+是 [createEquiJoinEngine](createEquiJoinEngine.md)
 的别名。
 
 Copyright

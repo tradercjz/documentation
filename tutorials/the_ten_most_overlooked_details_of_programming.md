@@ -232,7 +232,7 @@ delete from t where Date = date1
 
 ## 6. 使用元编程计算多列数据
 
-在使用 SQL 对表的多列进行计算时，手写 SQL 不仅繁琐，而且容易出错。因此，在对表内多列进行计算时，我们可以利用元编程来简化代码逻辑并提高准确性。如果想学习元编程相关的更多内容，可以阅读教程：[元编程](https://docs.dolphindb.cn/zh/tutorials/meta_programming.html)。
+在使用 SQL 对表的多列进行计算时，手写 SQL 不仅繁琐，而且容易出错。因此，在对表内多列进行计算时，我们可以利用元编程来简化代码逻辑并提高准确性。如果想学习元编程相关的更多内容，可以阅读教程：[元编程](https://docs.dolphindb.cn/zh/tutorials/meta_programming.md)。
 
 ### 6.1 繁琐代码
 
@@ -316,7 +316,7 @@ metrics
 * 当查询采用 HASH 分区的分布式表时，若 where 子句中某个过滤条件满足以下条件，则系统会进行分区剪枝：
   + 包含分布式表的原始分区字段，使用关系运算符（=, ==, in, between）或逻辑运算符（or, and），以及常量（包括常量与常量的运算）。**注意**：当分区字段是 STRING 类型时，使用 between 运算符不能进行剪枝。
 
-若 WHERE 子句中的过滤条件不满足以上要求，则会遍历所有分区进行查询。因此，在 WHERE 条件中，需要正确进行分区剪枝。如果想了解 DolphinDB 中关于时间类型的比较和分区剪枝的更多细节，可以阅读：[DolphinDB 时间类型比较规则](https://docs.dolphindb.cn/zh/tutorials/ddb_comparison_rules_of_time_types.html)。
+若 WHERE 子句中的过滤条件不满足以上要求，则会遍历所有分区进行查询。因此，在 WHERE 条件中，需要正确进行分区剪枝。如果想了解 DolphinDB 中关于时间类型的比较和分区剪枝的更多细节，可以阅读：[DolphinDB 时间类型比较规则](https://docs.dolphindb.cn/zh/tutorials/ddb_comparison_rules_of_time_types.md)。
 
 ### 8.1 错误代码
 
@@ -421,5 +421,5 @@ t = select * from loadTable("dfs://StockData", "ORDER")
 
 本文介绍了使用 DolphinDB 进行编程时，最容易忽略的 10 个细节，涵盖了分区冲突、数据类型处理、元编程、分区剪枝、SQL 查询等多个方面。在编程时忽略这些细节，可能导致程序运行报错或运算结果不符合预期。用户了解了这些细节，并合理进行编程，可以极大提升脚本的质量，提高编程效率。
 
-DolphinDB 文档中心提供了更多使用 DolphinDB 编程的相关教程：[教程](https://docs.dolphindb.cn/zh/tutorials/about_tutorials.html)。如果想浏览更多 SQL 案例，可以阅读教程：[SQL 编写案例](https://docs.dolphindb.cn/zh/tutorials/ddb_sql_cases.html)。
+DolphinDB 文档中心提供了更多使用 DolphinDB 编程的相关教程：[教程](https://docs.dolphindb.cn/zh/tutorials/about_tutorials.md)。如果想浏览更多 SQL 案例，可以阅读教程：[SQL 编写案例](https://docs.dolphindb.cn/zh/tutorials/ddb_sql_cases.md)。
 

@@ -238,7 +238,7 @@ values2,...)` 实现。该函数能够在 Excel 表格中远程执行 DolphinDB
 
 在 Excel 中，`RUNFUNCTION` 的参数为 *values1, values2,……* 其中，
 
-* **values1** 必填参数，表示 functionName，即 DolphinDB server 中的函数。函数可参考 [DolphinDB 函数文档说明](../funcs/funcs_intro.html)。
+* **values1** 必填参数，表示 functionName，即 DolphinDB server 中的函数。函数可参考 [DolphinDB 函数文档说明](../funcs/funcs_intro.md)。
 * **values2,……** 表示被调用函数对应的参数。其数量没有限制，可以是 0。
 
 注： Excel 中 INT 的数据底层使用 DOUBLE 类型数据来存储。故填入 INT 类型的参数会转换成

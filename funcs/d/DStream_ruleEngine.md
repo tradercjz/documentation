@@ -7,7 +7,7 @@
 
 ## 详情
 
-创建流计算规则引擎。参考：[createRuleEngine](../c/createRuleEngine.html)。
+创建流计算规则引擎。参考：[createRuleEngine](../c/createRuleEngine.md)。
 
 **返回值**：一个 DStream 对象。
 

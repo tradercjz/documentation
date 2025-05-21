@@ -48,7 +48,7 @@ select top (1+2) * from t1;
 Syntax Error: [line #1] integer constant expected after keyword top
 ```
 
-top 子句不能和 pivot by 子句共同使用，但是可以与 group by, context by 子句共同使用。参考 [contextBy](contextBy.html)。
+top 子句不能和 pivot by 子句共同使用，但是可以与 group by, context by 子句共同使用。参考 [contextBy](contextBy.md)。
 
 Copyright
 

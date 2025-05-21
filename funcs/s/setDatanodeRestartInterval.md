@@ -21,5 +21,5 @@
   将失效。
 * 高可用环境下，Leader 节点通过该命令设置的 interval 并不会同步到其它 Follower 节点。
 
-相关函数：[getDatanodeRestartInterval](../g/getDatanodeRestartInterval.html)
+相关函数：[getDatanodeRestartInterval](../g/getDatanodeRestartInterval.md)
 

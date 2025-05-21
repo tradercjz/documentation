@@ -25,7 +25,7 @@ true，可以支持对维度表进行并发的写入、修改或删除操作。
 
 ## 参数
 
-**dbHandle** 是 [database](../d/database.html)
+**dbHandle** 是 [database](../d/database.md)
 函数返回的分布式数据库句柄。
 
 **table** 是一个表，系统将根据该表的结构在数据库中创建一个空的维度表。

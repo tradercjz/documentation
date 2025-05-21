@@ -27,7 +27,7 @@
    ![](../images/cfg_man_new_controller_node_cfg.png)
 
    注： 在实际环境中，设置的配置项名称和值应与 DolphinDB Server
-   版本支持的配置项保持一致。详细配置项名称可以参考：[参数配置](../../cfg/para_cfg.html)。
+   版本支持的配置项保持一致。详细配置项名称可以参考：[参数配置](../../cfg/para_cfg.md)。
 3. 点击保存。
 
 如需修改已有的配置项，点击配置项右侧的编辑。
@@ -120,7 +120,7 @@ DolphinDB Server 内置的集群节点配置项或自定义配置项。
    ![](../images/cfg_man_cluster_node_cfg_new.png)
 
    注： 手动输入的配置项名称如果不存在于 DolphinDB
-   内置的配置项列表中，将会被归入其他类别。有关详细的配置项信息，参考：[参数配置](../../cfg/para_cfg.html)。
+   内置的配置项列表中，将会被归入其他类别。有关详细的配置项信息，参考：[参数配置](../../cfg/para_cfg.md)。
 3. 【可选】设置配置项的限定词。例如，dnode1 或留空。
 4. 设置配置项的值。例如，设置数据节点 dnode1.startup=startup.dos。
 

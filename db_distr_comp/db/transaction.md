@@ -167,7 +167,7 @@ DolphinDB 支持多副本机制，允许在不同节点上存储分区的多个�
 
 **副本一致性**
 
-数据节点定期向控制节点发送心跳信息。如果某个数据节点因意外宕机等原因变为离线状态，则控制节点将其标为未存活节点。当该节点重启后，它会向控制节点报告其所有分区的信息（包括版本号等）。控制节点将比较其存储的版本号与该节点报告的副本版本号。如果发现副本版本号落后，控制节点会推动自动进行在线恢复，以确保副本之间的数据一致性。关于在线恢复的机制和流程，参考[在线恢复](recovery.html)。
+数据节点定期向控制节点发送心跳信息。如果某个数据节点因意外宕机等原因变为离线状态，则控制节点将其标为未存活节点。当该节点重启后，它会向控制节点报告其所有分区的信息（包括版本号等）。控制节点将比较其存储的版本号与该节点报告的副本版本号。如果发现副本版本号落后，控制节点会推动自动进行在线恢复，以确保副本之间的数据一致性。关于在线恢复的机制和流程，参考[在线恢复](recovery.md)。
 
 ## 事务高可用
 
@@ -189,9 +189,9 @@ DolphinDB 支持多副本机制，允许在不同节点上存储分区的多个�
 
 对分布式表的写入、更新和删除操作均支持分布式事务。本节将列出相关的语句和函数。
 
-* DDL：[create](../../progr/sql/create.html) (database/table)，[alter](../../progr/sql/alter.html)，[drop](../../progr/sql/drop.html)。
-* DML：[insert into](../../progr/sql/insertInto.html)，[update](../../progr/sql/update.html)，[delete](../../progr/sql/delete.html)。
-* 表连接语句：[表连接](../../progr/sql/tb_joiner_intro.html)
-* 分布式数据库/表相关操作函数：[addColumn](../../funcs/a/addColumn.html)，[addRangePartitions](../../funcs/a/addRangePartitions.html)，[addValuePartitions](../../funcs/a/addValuePartitions.html)，[createdimensiontable](../../funcs/c/createdimensiontable.html)，[createPartitionedTable](../../funcs/c/createPartitionedTable.html)，[database](../../funcs/d/database.html)，[dropColumns!](../../funcs/d/dropColumns_.html)，[dropDatabase](../../funcs/d/dropDatabase.html)，[dropPartition](../../funcs/d/dropPartition.html)，[dropTable](../../funcs/d/dropTable.html)，[rename!](../../funcs/r/rename_.html)，[renameTable](../../funcs/r/renameTable.html)，[reorderColumns!](../../funcs/r/reorderColumns_.html)，[replaceColumn!](../../funcs/r/replaceColumn_.html)，[tableInsert](../../funcs/t/tableInsert.html) ，[tableUpsert](../../funcs/t/tableUpsert.html)，[truncate](../../funcs/t/truncate.html)，[upsert!](../../funcs/u/upsert_.html)
-* 备份恢复函数：[backup](../../funcs/b/backup.html), [backupDB](../../funcs/b/backupDB.html), [backupTable](../../funcs/b/backupTable.html), [restore](../../funcs/r/restore.html), [restoreDB](../../funcs/r/restoreDB.html), [restoreTable](../../funcs/r/restoreTable.html)
+* DDL：[create](../../progr/sql/create.md) (database/table)，[alter](../../progr/sql/alter.md)，[drop](../../progr/sql/drop.md)。
+* DML：[insert into](../../progr/sql/insertInto.md)，[update](../../progr/sql/update.md)，[delete](../../progr/sql/delete.md)。
+* 表连接语句：[表连接](../../progr/sql/tb_joiner_intro.md)
+* 分布式数据库/表相关操作函数：[addColumn](../../funcs/a/addColumn.md)，[addRangePartitions](../../funcs/a/addRangePartitions.md)，[addValuePartitions](../../funcs/a/addValuePartitions.md)，[createdimensiontable](../../funcs/c/createdimensiontable.md)，[createPartitionedTable](../../funcs/c/createPartitionedTable.md)，[database](../../funcs/d/database.md)，[dropColumns!](../../funcs/d/dropColumns_.md)，[dropDatabase](../../funcs/d/dropDatabase.md)，[dropPartition](../../funcs/d/dropPartition.md)，[dropTable](../../funcs/d/dropTable.md)，[rename!](../../funcs/r/rename_.md)，[renameTable](../../funcs/r/renameTable.md)，[reorderColumns!](../../funcs/r/reorderColumns_.md)，[replaceColumn!](../../funcs/r/replaceColumn_.md)，[tableInsert](../../funcs/t/tableInsert.md) ，[tableUpsert](../../funcs/t/tableUpsert.md)，[truncate](../../funcs/t/truncate.md)，[upsert!](../../funcs/u/upsert_.md)
+* 备份恢复函数：[backup](../../funcs/b/backup.md), [backupDB](../../funcs/b/backupDB.md), [backupTable](../../funcs/b/backupTable.md), [restore](../../funcs/r/restore.md), [restoreDB](../../funcs/r/restoreDB.md), [restoreTable](../../funcs/r/restoreTable.md)
 

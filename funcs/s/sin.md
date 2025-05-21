@@ -20,5 +20,5 @@ sin(1 2 3);
 [0.841471,0.909297,0.141120]
 ```
 
-相关函数：[asin](../a/asin.html), [acos](../a/acos.html), [atan](../a/atan.html), [cos](../c/cos.html), [tan](../t/tan.html), [asinh](../a/asinh.html), [acosh](../a/acosh.html), [atanh](../a/atanh.html), [sinh](sinh.html), [cosh](../c/cosh.html), [tanh](../t/tanh.html)
+相关函数：[asin](../a/asin.md), [acos](../a/acos.md), [atan](../a/atan.md), [cos](../c/cos.md), [tan](../t/tan.md), [asinh](../a/asinh.md), [acosh](../a/acosh.md), [atanh](../a/atanh.md), [sinh](sinh.md), [cosh](../c/cosh.md), [tanh](../t/tanh.md)
 

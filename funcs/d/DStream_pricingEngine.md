@@ -7,7 +7,7 @@
 
 ## 详情
 
-创建一个估值定价引擎。参考：[createPricingEngine](../c/createpricingengine.html)。
+创建一个估值定价引擎。参考：[createPricingEngine](../c/createpricingengine.md)。
 
 **返回值**：一个 DStream 对象。
 
@@ -27,7 +27,7 @@
 * 算法中的参数可以是输入表中的列或者是参数 *securityReference* 中的列或者常量，优先查找参数
   *dummyTable* 中的列；如果有重名，可以用列引用的方式，如
   `dummyTable.X`。
-* 对于 [vanillaOption](../c/../v/vanillaoption.html) 的 kwargs,
+* 对于 [vanillaOption](../c/../v/vanillaoption.md) 的 kwargs,
   支持以下几种写法：
   + 单独指定kwargs
 

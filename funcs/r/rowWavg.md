@@ -4,7 +4,7 @@
 
 `rowWavg(X, Y)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -39,5 +39,5 @@ rowWavg(x, y)
 [-3.6612, 7.0892, 14.4583]
 ```
 
-相关函数：[wavg](../w/wavg.html)
+相关函数：[wavg](../w/wavg.md)
 

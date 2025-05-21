@@ -78,5 +78,5 @@ valueChanged(t)
 | true | true | true |
 | true | true | true |
 
-相关函数：[keys](../k/keys.html)
+相关函数：[keys](../k/keys.md)
 

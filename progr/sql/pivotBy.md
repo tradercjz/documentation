@@ -2,7 +2,7 @@
 
 `pivot by` 是 DolphinDB 的独有功能，是对标准 SQL
 语句的拓展。它将表中一列或多列的内容按照两个维度重新排列，亦可配合数据转换函数使用。与 select 子句一起使用时返回一个表，而和 exec
-语句一起使用时返回一个矩阵。若重新排列后行维度存在多个相同值，则会进行去重，只保留最后一个值。 参考 [pivot](../../funcs/ho_funcs/pivot.html) 和 [unpivot](../../funcs/u/unpivot.html)。
+语句一起使用时返回一个矩阵。若重新排列后行维度存在多个相同值，则会进行去重，只保留最后一个值。 参考 [pivot](../../funcs/ho_funcs/pivot.md) 和 [unpivot](../../funcs/u/unpivot.md)。
 
 从 2.00.10.4 版本开始，`pivot by` 支持搭配 select
 子句查询表中的数组向量列，返回一个表，且支持对数组向量列应用聚合函数（row 系列函数除外）； `pivot by` 支持搭配 exec
@@ -124,7 +124,7 @@ select price from ETF pivot by time, symbol;
 | 2019.02.27T09:45:01.000000789 | 103.962 |  |
 | 2019.02.27T09:45:01.000000989 |  | 64.604 |
 
-以上结果为在每个时间戳经过 ETF 权重调整的股票价格。 为了计算 ETF 在每个时间戳的内在价值，需要使用 [ffill](../../funcs/f/ffill.html) 函数来填充每个股票的 NULL
+以上结果为在每个时间戳经过 ETF 权重调整的股票价格。 为了计算 ETF 在每个时间戳的内在价值，需要使用 [ffill](../../funcs/f/ffill.md) 函数来填充每个股票的 NULL
 值，然后将所有股票价格相加。可在一个 SQL 语句中完成。
 
 ```
@@ -154,7 +154,7 @@ select rowSum(ffill(price)) from ETF pivot by time, symbol;
 * 2.00.2 版本开始，由 `pivot by`,
   `addColumn`操作产生的列名，支持包含特殊字符，或以数字开头。
 
-详情可以参考：[创建表章节](../data_types_forms/Table.html)。
+详情可以参考：[创建表章节](../data_types_forms/Table.md)。
 
 ```
 date = take(2021.08.01  2021.08.02 2021.08.03, 12)

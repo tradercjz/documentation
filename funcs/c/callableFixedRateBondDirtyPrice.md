@@ -51,7 +51,7 @@ Bonds）和可回售债券（Putable Bonds）：
 
 注： *exercisePrices* 必须与 *exerciseDates* 结构一致。
 
-**calendar** 字符串类型标量或向量，表示使用的市场日历类型，请参阅[交易日历](../../modules/MarketHoliday/mkt_calendar.html)。
+**calendar** 字符串类型标量或向量，表示使用的市场日历类型，请参阅[交易日历](../../modules/MarketHoliday/mkt_calendar.md)。
 
 **frequency**INT 类型或 Duration 类型的标量或向量，表示年付息频率。可选值为：
 

@@ -4,7 +4,7 @@
 
 `mbeta(Y, X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -66,5 +66,5 @@ mbeta(y1, x1, 1w);
 | 2020.06.11 | 1.6924 |
 | 2020.06.12 | 1.2659 |
 
-相关函数：[beta](../b/beta.html)
+相关函数：[beta](../b/beta.md)
 

@@ -1,6 +1,6 @@
 # getAggregatorStat
 
-жҳҜ [getStreamEngineStat](getStreamEngineStat.html)
+жҳҜ [getStreamEngineStat](getStreamEngineStat.md)
 зҡ„еҲ«еҗҚгҖӮ
 
 Copyright

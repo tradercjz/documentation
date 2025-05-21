@@ -54,11 +54,11 @@ TEMPORAL 或 LITERAL。
 
 键值表对单行的更新和查询效率很高，是数据缓存的理想选择。键值表也可作为时间序列聚合引擎的输出表，用于实时更新输出表的结果。
 
-关于对键值内存表和[索引内存表](../i/indexedTable.html)使用怎样的查询语句以及如何进行查询优化，详见下表：
+关于对键值内存表和[索引内存表](../i/indexedTable.md)使用怎样的查询语句以及如何进行查询优化，详见下表：
 
 |  | keyedTable | indexedTable |
 | --- | --- | --- |
-| 查询优化 | * 查询语句必须包含 *keyColumns* 所有列。 * 过滤条件中只能使用 =, in 或 and，且对不同列使用 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.html)   以提高性能。 | * 查询语句必须包含 *keyColumns* 的第 1 列，且该列过滤条件中只能使用 =, in 或   and； * 除 keyColumns 的第 1 列外，其它列可以通过   between、比较运算符等进行范围查询，且查询效率高于使用 in 谓词。 * 所有过滤条件中，对不同列使用的 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.html)   以提高性能。 |
+| 查询优化 | * 查询语句必须包含 *keyColumns* 所有列。 * 过滤条件中只能使用 =, in 或 and，且对不同列使用 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.md)   以提高性能。 | * 查询语句必须包含 *keyColumns* 的第 1 列，且该列过滤条件中只能使用 =, in 或   and； * 除 keyColumns 的第 1 列外，其它列可以通过   between、比较运算符等进行范围查询，且查询效率高于使用 in 谓词。 * 所有过滤条件中，对不同列使用的 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.md)   以提高性能。 |
 | 查询语句特点 | 包含 keyColumns 的所有列。此时查询性能优于 indexedTable。 | 只需要包含 *keyColumns* 的第 1 列，而无需包含所有列。 |
 
 ## 例子
@@ -262,5 +262,5 @@ update t set volume=newVolume, price=newPrice where sym="a"
 // error: Failed to update column: volume
 ```
 
-相关函数：[indexedTable](../i/indexedTable.html)
+相关函数：[indexedTable](../i/indexedTable.md)
 

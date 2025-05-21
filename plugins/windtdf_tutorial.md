@@ -10,11 +10,11 @@
 
 WindTDF 插件基于万得宏汇提供的行情数据服务 TDF\_C++ SDK 实现。其最核心的功能是实现了行情回调函数，每次接收到行情时会写入订阅时所指定的
 DolphinDB 共享流表中。DolphinDB WindTDF
-插件目前已经支持了包括上交所、深交所、中金所的股票基金快照、逐笔、期货等数据类型，具体订阅方式见下文。WindTDF 插件的接口见 [DolphinDB WindTDF Plugin 使用说明](windtdf.html)。
+插件目前已经支持了包括上交所、深交所、中金所的股票基金快照、逐笔、期货等数据类型，具体订阅方式见下文。WindTDF 插件的接口见 [DolphinDB WindTDF Plugin 使用说明](windtdf.md)。
 
 ### 1.1 安装插件
 
-节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](../db_distr_comp/clients.html)中执行 `installPlugin` 函数，可以下载到与当前 server
+节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](../db_distr_comp/clients.md)中执行 `installPlugin` 函数，可以下载到与当前 server
 版本适配的 WindTDF 插件文件。
 
 ```
@@ -24,7 +24,7 @@ installPlugin("WindTDF")
 
 ### 1.2 加载插件
 
-在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](../db_distr_comp/clients.html)中执行
+在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](../db_distr_comp/clients.md)中执行
 `loadPlugin("WindTDF")` 加载插件。
 
 ```
@@ -63,7 +63,7 @@ WindTDF 插件所提供的函数：
 
 为保证后续用于持久化的 `enableTableShareAndPersistence`
 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数
-*persistenceDir* ，配置参考[功能配置](../db_distr_comp/cfg/function_configuration.html)。
+*persistenceDir* ，配置参考[功能配置](../db_distr_comp/cfg/function_configuration.md)。
 
 **创建连接 handle**
 
@@ -111,11 +111,11 @@ enableTableShareAndPersistence(table=trade_sz,tableName=`trade_sz_s,cacheSize=ca
 代码第一行的 `cacheSize`
 变量控制了在建表时预分配内存的大小、以及流数据表可占用的最大内存，其单位是行，设置较大的 `cacheSize`
 可以降低出现峰值时延的频率。cacheSize 的具体大小可以根据实际的可使用的内存大小决定。具体优化原理可参考 [DolphinDB
-流计算时延统计与性能优化](../tutorials/streaming_timer.html)。
+流计算时延统计与性能优化](../tutorials/streaming_timer.md)。
 
 **创建分布式数据库**
 
-为将行情数据存入分布式数据库，需要根据之前得到的行情数据表结构来创建分布式库表，分区规则参考自[基于 DolphinDB 存储金融数据的分区方案最佳实践](../tutorials/best_practices_for_partitioned_storage.html)，使用按天分区 + 按股票代码
+为将行情数据存入分布式数据库，需要根据之前得到的行情数据表结构来创建分布式库表，分区规则参考自[基于 DolphinDB 存储金融数据的分区方案最佳实践](../tutorials/best_practices_for_partitioned_storage.md)，使用按天分区 + 按股票代码
 HASH25 分区的方式。
 
 ```
@@ -190,7 +190,7 @@ subscribeTable(tableName="trade_sz_s", actionName="tradeTableInsert_sz", offset=
 ```
 
 * `handleInsert` 自定义函数会往将数据写入分布式数据库。
-* 通过调整 [subscribeTable](../funcs/s/subscribeTable.html)
+* 通过调整 [subscribeTable](../funcs/s/subscribeTable.md)
   函数中的 *batchSize* 和 *throttle*
   参数可以控制写入分布式数据库的频率，达到其中一个设置的条件，才会向分布式数据库写入一次。
   + *batchSize*=20000 表示当未处理消息的数量达到 20000 时，handler
@@ -208,7 +208,7 @@ WindTDF::connect(handle)
 
 ### 2.3 WindTDF 运行状态监控
 
-运行过程中，可以使用 [WindTDF::getStatus](windtdf.html) 查询 WindTDF 行情的接收情况。
+运行过程中，可以使用 [WindTDF::getStatus](windtdf.md) 查询 WindTDF 行情的接收情况。
 
 ```
 WindTDF::getStatus()

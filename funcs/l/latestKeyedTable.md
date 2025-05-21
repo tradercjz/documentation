@@ -15,7 +15,7 @@ colTypes)`
 
 ## 参数
 
-在 [keyedTable](../k/keyedTable.html) 的基础上，增加了
+在 [keyedTable](../k/keyedTable.md) 的基础上，增加了
 *timeColumn* 参数。
 
 **timeColumn** 字符串，表示时间列，可以为整型或时间类型。
@@ -91,5 +91,5 @@ t;
 | D | 2 | 2022.12.07T00:00:00.004 | 48 |
 | E | 1 | 2022.12.07T00:00:00.005 | 71 |
 
-相关函数：[keyedTable](../k/keyedTable.html), [indexedTable](../i/indexedTable.html), [latestIndexedTable](latestIndexedTable.html)
+相关函数：[keyedTable](../k/keyedTable.md), [indexedTable](../i/indexedTable.md), [latestIndexedTable](latestIndexedTable.md)
 

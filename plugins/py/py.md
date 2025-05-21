@@ -1,6 +1,6 @@
 # Py
 
-利用 [python C-API](https://docs.python.org/zh-cn/3.7/c-api/index.html) 协议，实现在 DolphinDB 内调用 Python 环境中的第三方库。本插件使用了 [pybind11](https://github.com/pybind/pybind11) 库。
+利用 [python C-API](https://docs.python.org/zh-cn/3.7/c-api/index.md) 协议，实现在 DolphinDB 内调用 Python 环境中的第三方库。本插件使用了 [pybind11](https://github.com/pybind/pybind11) 库。
 
 目前，DolphinDB 提供支持 Python 3.6 的插件 py 和 py36，以及支持 Python 3.7 的插件 py37。用户可根据 Python 版本选择相应插件。
 

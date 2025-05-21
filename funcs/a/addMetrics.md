@@ -9,7 +9,7 @@
 
 ## 参数
 
-**engine** 是流数据引擎，即 [createTimeSeriesEngine](../c/createTimeSeriesEngine.html) 等函数返回的抽象表对象。请注意，暂不支持 [createAnomalyDetectionEngine](../c/createAnomalyDetectionEngine.html) 和 [createReactiveStateEngine](../c/createReactiveStateEngine.html) 引擎。
+**engine** 是流数据引擎，即 [createTimeSeriesEngine](../c/createTimeSeriesEngine.md) 等函数返回的抽象表对象。请注意，暂不支持 [createAnomalyDetectionEngine](../c/createAnomalyDetectionEngine.md) 和 [createReactiveStateEngine](../c/createReactiveStateEngine.md) 引擎。
 
 **newMetrics**
 是元代码，表示流数据引擎增加的计算指标。可以是一个或多个表达式、系统内置或用户自定义函数，也可以是一个常量标量/向量。当指定为常量向量时，对应的输出列应该设置为数组向量类型。

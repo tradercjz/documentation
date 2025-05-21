@@ -13,7 +13,7 @@
 ## 详情
 
 检验两个对象的类型和值是否相同。只有当类型和值都相同时，此函数才会返回 true。 如果值相同但类型不同，则此函数仍返回
-false，这与函数 [eq](eq.html) 不同。
+false，这与函数 [eq](eq.md) 不同。
 
 注： 使用
 `eqObj` 比较浮点数时，根据 abs(obj1-obj2)<=pow(10,-precision)
@@ -41,7 +41,7 @@ eq(1 2 3, 1 2 3);
 // output: [true,true,true]
 ```
 
-`eqObj` 不能直接用于比较两个表是否相同。但是，可以使用高阶函数 [each](../ho_funcs/each.html) 来逐列对比两个表的值。
+`eqObj` 不能直接用于比较两个表是否相同。但是，可以使用高阶函数 [each](../ho_funcs/each.md) 来逐列对比两个表的值。
 
 ```
 t1=table(1 2 3 as x, 4 5 6 as y);

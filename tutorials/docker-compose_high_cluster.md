@@ -148,7 +148,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（datanode），计算
   ![docker_high_outcome](images/ddb_high_cluster/docker_high_outcome.png)
 
   点击右上角登录按钮，输入用户名 admin 和密码123456登录，来启动容器服务等；
-* 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](ha_cluster_deployment.html)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
+* 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
 
   **注意**：在单机高可用版的项目中，关于配置文件中 DolphinDB 各节点ip地址所配置的是 `Docker Compose` 构建的虚拟网段中的，因此无法扩展为多机高可用集群。如要扩展成多机高可用版的集群，需要需要修改配置文件中各节点的ip信息为其所属容器的宿主机ip以实现各宿主机容器间的通信，详情见下一节。
 
@@ -277,7 +277,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（datanode），计算
 **注意**：
 
 * 由于在文件映射过程中，宿主机文件目录会覆盖对应容器的内容，因此在创建容器时需要确认是否保留宿主机文件夹下的 data、log 以及相关配置文件；
-* 参考[DolphininDB 多服务器集群部署](multi_machine_cluster_deployment.html)中关于各服务器 IP 地址的配置，修改宿主机的 IP，需要保证宿主机之间、容器与容器之间、宿主机与容器之间可以通信。
+* 参考[DolphininDB 多服务器集群部署](multi_machine_cluster_deployment.md)中关于各服务器 IP 地址的配置，修改宿主机的 IP，需要保证宿主机之间、容器与容器之间、宿主机与容器之间可以通信。
 * 在三台服务器的项目目录下（即 docker-compose.yml 文件同目录）分别执行如下命令启动服务：
 
   ```
@@ -315,7 +315,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（datanode），计算
   ![docker_high_outcome](images/ddb_high_cluster/docker_high_outcome.png)
 
   点击右上角登录按钮，输入用户名 admin 和密码123456登录，来启动容器服务等；
-* 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](ha_cluster_deployment.html)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
+* 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
 
 ## 常见问题
 

@@ -6,13 +6,13 @@
 
 ## 1. MDL 行情插件介绍
 
-MDL 插件基于 MDL 官方提供的行情数据服务 C++ SDK（即 TCP 版本 MDL）实现。MDL 插件最核心的功能是实现了行情回调函数，每次接收到行情时会写入订阅时所指定的 DolphinDB 共享流表中。DolphinDB MDL 插件目前已经支持了包括上交所、深交所、中金所 、郑商所、上期能源、大商所、广期所数据源的 50 余种数据类型，订阅使用所需指定的参数详情见下文。具体MDL 插件的接口介绍见 [DolphinDB MDL Plugin 使用说明](../plugins/MDL.html)。
+MDL 插件基于 MDL 官方提供的行情数据服务 C++ SDK（即 TCP 版本 MDL）实现。MDL 插件最核心的功能是实现了行情回调函数，每次接收到行情时会写入订阅时所指定的 DolphinDB 共享流表中。DolphinDB MDL 插件目前已经支持了包括上交所、深交所、中金所 、郑商所、上期能源、大商所、广期所数据源的 50 余种数据类型，订阅使用所需指定的参数详情见下文。具体MDL 插件的接口介绍见 [DolphinDB MDL Plugin 使用说明](../plugins/MDL.md)。
 
 ## 2. 基本使用介绍
 
 ### 2.1 安装插件
 
-MDL 插件目前可以在 2.00.11 版本及以后的 DolphinDB Server 通过插件市场进行安装。节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.html)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 MDL 插件文件，插件文件包括插件描述文件及插件的二进制文件。
+MDL 插件目前可以在 2.00.11 版本及以后的 DolphinDB Server 通过插件市场进行安装。节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.md)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 MDL 插件文件，插件文件包括插件描述文件及插件的二进制文件。
 
 ```
 login("admin", "123456")
@@ -29,7 +29,7 @@ installPlugin("mdl")
 
 ### 2.2 加载插件
 
-在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.html)中执行 `loadPlugin("mdl")`。以下示例中使用了相对路径，也可以使用 2.1 中返回的绝对路径 */path\_to\_dolphindb\_server/server/plugins/MDL/PluginMDL.txt*。
+在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.md)中执行 `loadPlugin("mdl")`。以下示例中使用了相对路径，也可以使用 2.1 中返回的绝对路径 */path\_to\_dolphindb\_server/server/plugins/MDL/PluginMDL.txt*。
 
 ```
 loadPlugin("./plugins/MDL/PluginMDL.txt")
@@ -62,7 +62,7 @@ MDL 行情接收流程图
 
 #### 3.2.1 流表和分布式表规划
 
-注意：为保证后续的 `enableTableShareAndPersistence` 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数 *persistenceDir*，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.html)。
+注意：为保证后续的 `enableTableShareAndPersistence` 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数 *persistenceDir*，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.md)。
 
 **获取表结构**
 
@@ -93,7 +93,7 @@ enableTableShareAndPersistence(table=streamTable(cacheSize:0, ngtsSchema[`name],
 
 **创建分布式数据库**
 
-为将行情数据存入分布式数据库，需要根据之前得到的行情数据表结构来创建分布式库表，分区规则参考自[《基于 DolphinDB 存储金融数据的分区方案最佳实践》](https://docs.dolphindb.cn/zh/tutorials/best_practices_for_partitioned_storage.html)。
+为将行情数据存入分布式数据库，需要根据之前得到的行情数据表结构来创建分布式库表，分区规则参考自[《基于 DolphinDB 存储金融数据的分区方案最佳实践》](https://docs.dolphindb.cn/zh/tutorials/best_practices_for_partitioned_storage.md)。
 
 注意：由于 MDL 没有当天的日期字段，因此需要手动增加日期字段以便于分区。
 
@@ -184,7 +184,7 @@ subscribeTable(tableName="ngtsTable_sh", actionName="ngtsTableInsert", offset=-1
 ```
 
 * `handleInsert` 自定义函数会手动新增一列新的 Date 数据，并写入当天的日期。
-* 通过调整 [subscribeTable](https://docs.dolphindb.cn/zh/funcs/s/subscribeTable.html) 函数中的 \*batchSize \*和 \*throttle \*参数可以控制写入分布式数据库的频率。
+* 通过调整 [subscribeTable](https://docs.dolphindb.cn/zh/funcs/s/subscribeTable.md) 函数中的 \*batchSize \*和 \*throttle \*参数可以控制写入分布式数据库的频率。
   + *batchSize*=20000 表示当未处理消息的数量达到 20000 时，handler 才会处理消息。
   + *throttle*=1 表示继上次 handler 处理消息之后，若未处理消息的数量还没有达到 20000 ，但是时间间隔 1s 后也会处理消息。
   + 因此，达到 \*batchSize \*设置的条件或者达到 \*throttle \*设置的条件，才会向分布式数据库写入一次。

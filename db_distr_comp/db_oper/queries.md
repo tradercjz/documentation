@@ -38,7 +38,7 @@ select * from pt where date between 2024.10.10 and 2024.10.12
 
 对于内存表的连接，DolphinDB 既支持使用内置函数实现，也可以通过 SQL 语句实现。而分布式表连接仅支持在 SQL 语句中完成。
 
-下面将重点介绍分布式表连接。有关分布式连接支持的连接方式，参考 [表连接](../../progr/sql/tb_joiner_intro.html) 及其下属连接方式页面。
+下面将重点介绍分布式表连接。有关分布式连接支持的连接方式，参考 [表连接](../../progr/sql/tb_joiner_intro.md) 及其下属连接方式页面。
 
 当分布式表与维度表或内存表连接时，系统会将维度表或内存表复制到分布式表所在的各个节点上执行连接操作。如果本地表数据量非常庞大，表的传送将非常耗时。为了提高性能，系统在数据复制之前用
 where 条件尽可能多地过滤内存表。如果右表数据量太大，会影响查询速度，所以在实际应用中，右表的数据量最好比较小。
@@ -146,7 +146,7 @@ orders = table(`SH0001`SH0001`SH0002`SH0002`SH0002 as code,
 select sum(orderQty) as sum_orderQty from orders group by date
 ```
 
-更多细节请参考 [group by](../../progr/sql/groupby.html)。
+更多细节请参考 [group by](../../progr/sql/groupby.md)。
 
 ### context by
 
@@ -171,7 +171,7 @@ select date, sum(orderQty) as sum_orderQty from orders context by date
 子句一起使用，以获取表中每个分组中的前 n 条或最后 n 条记录。如果 limit 后面为正数，则表示获取前 n 条记录；如果 limit
 后面为负数，则表示获取最后 n 条记录。
 
-更多细节请参考 [context by](../../progr/sql/contextBy.html)。
+更多细节请参考 [context by](../../progr/sql/contextBy.md)。
 
 ### pivot by
 
@@ -193,7 +193,7 @@ where tradetime >= 2023.12.01
 pivot by tradetime, securityid, factorname
 ```
 
-更多细节请参考 [pivot by](../../progr/sql/pivotBy.html)。
+更多细节请参考 [pivot by](../../progr/sql/pivotBy.md)。
 
 ## 查询优化
 
@@ -288,14 +288,14 @@ select max(x) from pt where y<5 or date between 1990.08.01:1990.08.31;
 
 在分布式 SQL
 中，对分组数据进行查询和计算时，通常先在各个分区内单独进行计算，然后将结果进行进一步的计算，以保证最终结果的正确性。如果分区的粒度大于或等于分组的粒度，则可以确保数据的查询和计算不会跨分区进行。在这种情况下，可以通过添加
-`map` 关键字来避免进一步计算的开销，从而提升查询性能。 详见 [map 关键字](../../progr/sql/map.html)。
+`map` 关键字来避免进一步计算的开销，从而提升查询性能。 详见 [map 关键字](../../progr/sql/map.md)。
 
 ### 使用 `HINT` 关键字
 
 DolphinDB 提供了一系列的 `HINT` 关键字，这些关键字可以让 SQL 以一些特殊的方式来执行。 例如，通过
 `[HINT_EXPLAIN]` 关键字，系统将在执行 SQL
 语句时打印执行过程，以实时监测查询速度和执行顺序，帮助用户发现性能瓶颈，优化 SQL 语句。`[HINT_KEEPORDER]`
-关键字可以保证`context by` 子句分组后的查询结果依然按照原本的数据顺序返回。 详见 [HINT 关键字](../../progr/sql/hint.html)。
+关键字可以保证`context by` 子句分组后的查询结果依然按照原本的数据顺序返回。 详见 [HINT 关键字](../../progr/sql/hint.md)。
 
 ### 结果赋值
 

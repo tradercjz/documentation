@@ -4,7 +4,7 @@
 
 `mwsum(X, Y, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -80,5 +80,5 @@ mwsum(X1, Y1, 1w)
 | 2020.06.14 | 158 |
 | 2020.06.15 | 189 |
 
-相关函数：[wsum](../w/wsum.html), [msum](msum.html)
+相关函数：[wsum](../w/wsum.md), [msum](msum.md)
 

@@ -180,7 +180,7 @@ DolphinDB 还提供了一些辅助 SQL 查询的 HINT 关键字：
 | [HINT\_SORT] | 添加该关键字后，group by 分组时将采用排序算法进行。 |
 | [HINT\_VECTORIZED] | 添加该关键字后，group by 分组时将采用向量化运算（vectorization）。 |
 
-更多有关 HINT 关键字的内容，参考：[HINT](../progr/sql/hint.html)。
+更多有关 HINT 关键字的内容，参考：[HINT](../progr/sql/hint.md)。
 
 ## 2. 数据准备
 

@@ -4,7 +4,7 @@
 
 `tmpercentile(T, X, percent, window, [interpolation='linear'])`
 
-部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 参数
 
@@ -72,5 +72,5 @@ select *, tmpercentile(t, x, 50, 1w) from m
 | 2021.01.07 | 2 | 2 |
 | 2021.01.08 | 4 | 3 |
 
-相关函数：[percentile](../p/percentile.html), [mpercentile](../m/mpercentile.html)
+相关函数：[percentile](../p/percentile.md), [mpercentile](../m/mpercentile.md)
 

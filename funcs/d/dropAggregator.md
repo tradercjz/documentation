@@ -1,6 +1,6 @@
 # dropAggregator
 
-是 [dropStreamEngine](dropStreamEngine.html) 的别名。
+是 [dropStreamEngine](dropStreamEngine.md) 的别名。
 
 Copyright
 

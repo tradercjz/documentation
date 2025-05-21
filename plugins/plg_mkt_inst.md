@@ -12,7 +12,7 @@ zip 插件安装方法如下：
 
 1. 下载[zip 插件压缩包](script/zip.zip)
 2. 解压 zip 插件压缩包至本地路径。例如：*/path\_to\_DolphinDB\_Server/plugins/zip*。
-3. 登录 DolphinDB 客户端后，使用 [loadPlugin](../funcs/l/loadPlugin.html) 命令加载 zip 插件：
+3. 登录 DolphinDB 客户端后，使用 [loadPlugin](../funcs/l/loadPlugin.md) 命令加载 zip 插件：
 
    ```
    loadPlugin("zip")
@@ -20,20 +20,20 @@ zip 插件安装方法如下：
 
 ## 3. 安装步骤
 
-1. 在 DolphinDB 客户端中使用 [listRemotePlugins](../funcs/l/listRemotePlugins.html) 命令查看插件仓库中的插件信息。
+1. 在 DolphinDB 客户端中使用 [listRemotePlugins](../funcs/l/listRemotePlugins.md) 命令查看插件仓库中的插件信息。
 
    ```
    login("admin", "123456")
    listRemotePlugins()
    ```
-2. 使用 [installPlugin](../funcs/i/installPlugin.html) 命令获取插件描述文件及插件的二进制文件以完成插件安装。以 MySQL 插件为例：
+2. 使用 [installPlugin](../funcs/i/installPlugin.md) 命令获取插件描述文件及插件的二进制文件以完成插件安装。以 MySQL 插件为例：
 
    ```
    installPlugin("mysql")
    ```
 
    返回：`<path_to_MySQL_plugin>/PluginMySQL.txt`
-3. 使用 [loadPlugin](../funcs/l/loadPlugin.html) 命令加载插件（即上一步返回的 .txt 文件）。以 MySQL 插件为例：
+3. 使用 [loadPlugin](../funcs/l/loadPlugin.md) 命令加载插件（即上一步返回的 .txt 文件）。以 MySQL 插件为例：
 
    ```
    loadPlugin("mysql")

@@ -4,7 +4,7 @@
 
 `kama(X, window)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.md)
 
 ## 详情
 

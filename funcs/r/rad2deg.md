@@ -20,5 +20,5 @@ rad2deg(pi);
 180
 ```
 
-相关函数：[deg2rad](../d/deg2rad.html)
+相关函数：[deg2rad](../d/deg2rad.md)
 

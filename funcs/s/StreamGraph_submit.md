@@ -30,7 +30,7 @@
 
 提交流图 g 并通过参数指定 checkpoint 设置。
 
-关于提交与使用流图的详细说明，请参见[主题页](../../stream/orca.html)。
+关于提交与使用流图的详细说明，请参见[主题页](../../stream/orca.md)。
 
 ```
 if (!existsCatalog("demo")) {
@@ -75,5 +75,5 @@ g.source("trade", 1:0, `time`symbol`price`volume, [DATETIME,SYMBOL,DOUBLE,LONG])
 g.submit(ckptConfig)
 ```
 
-**相关函数：**[getOrcaCheckpointConfig](../g/getOrcaCheckpointConfig.html), [setOrcaCheckpointConfig](setOrcaCheckpointConfig.html) （更多相关函数，请参见[主题页](../../stream/orca.html)）
+**相关函数：**[getOrcaCheckpointConfig](../g/getOrcaCheckpointConfig.md), [setOrcaCheckpointConfig](setOrcaCheckpointConfig.md) （更多相关函数，请参见[主题页](../../stream/orca.md)）
 

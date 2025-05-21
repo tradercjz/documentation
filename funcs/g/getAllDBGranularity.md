@@ -15,7 +15,7 @@
 返回结果是一个字典，其中：
 
 * key：数据库的名称。
-* value：分区粒度，结果为 TABLE 或者 DATABASE。详细说明可参考 [database](../d/database.html)的参数*chunkGranularity*。
+* value：分区粒度，结果为 TABLE 或者 DATABASE。详细说明可参考 [database](../d/database.md)的参数*chunkGranularity*。
 
 ## 例子
 

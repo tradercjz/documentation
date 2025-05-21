@@ -4,7 +4,7 @@
 
 `rowSkew(X, [biased=true])`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 参数
 
@@ -37,5 +37,5 @@ rowSkew(t1);
 [0.567316577993729,0.652012117044047,0.707106781186548,0.528004979218188,-0.381801774160629]
 ```
 
-相关函数：[skew](../s/skew.html)
+相关函数：[skew](../s/skew.md)
 

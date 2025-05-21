@@ -207,7 +207,7 @@ kdb::loadTableEx(dbHandle, tableName, partitionColumns, conn, tablePath|qScript,
 * 若指定 *tablePath*，*symPath* 表示表文件对应的 sym 文件路径。此时，若表内不包含被枚举的 symbol 列，该参数可以为空。
 * 若指定 *qScript*，该参数无效。
 
-**schema** 可选参数，是一个表，用于指定各列的数据类型。具体请参考 [loadText](https://docs.dolphindb.cn/zh/funcs/l/loadText.html) 的 *schema* 参数。若不指定该参数，系统将会根据数据特征自动判断各列数据类型。
+**schema** 可选参数，是一个表，用于指定各列的数据类型。具体请参考 [loadText](https://docs.dolphindb.cn/zh/funcs/l/loadText.md) 的 *schema* 参数。若不指定该参数，系统将会根据数据特征自动判断各列数据类型。
 
 **batchSize** 可选参数，整型标量，默认值为 1024。会每次分批取 *batchSize* 大小的 kdb+ 表格数据写入 DolphinDB 直到所有数据写入完成。指定 *batchSize* 是为了避免所有数据都被加载进内存导致 OOM 的问题。
 
@@ -250,7 +250,7 @@ kdb::loadFileEx(dbHandle, tableName, partitionColumns, tablePath, [symPath], [sc
 
 **symPath** STRING 类型标量，表示需要读取的表文件对应的 sym 文件路径。该参数可以为空，此时必须保证表内不包含被枚举的 symbol 列。
 
-**schema** 可选参数，是一个表，用于指定各列的数据类型。具体请参考 [loadText](https://docs.dolphindb.cn/zh/funcs/l/loadText.html) 的 *schema* 参数。若不指定该参数，系统将会根据数据特征自动判断各列数据类型。
+**schema** 可选参数，是一个表，用于指定各列的数据类型。具体请参考 [loadText](https://docs.dolphindb.cn/zh/funcs/l/loadText.md) 的 *schema* 参数。若不指定该参数，系统将会根据数据特征自动判断各列数据类型。
 
 **batchSize** 可选参数，整型标量，默认值为 1024。会每次分批取 *batchSize* 大小的 kdb+ 表格数据写入 DolphinDB 直到写完所有数据。指定 *batchSize* 是为了避免所有数据都被加载进内存导致 OOM 的问题。
 

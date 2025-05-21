@@ -17,7 +17,7 @@ i - *window* 对应的 *X* 中的元素，若 *T*
 
 **X** 是一个与 *T* 长度相同的向量。
 
-**window** 是一个正整数或一个 [duration](../d/duration.html)。表示向前移动的区间。
+**window** 是一个正整数或一个 [duration](../d/duration.md)。表示向前移动的区间。
 
 ## 例子
 

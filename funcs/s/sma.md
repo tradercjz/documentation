@@ -4,7 +4,7 @@
 
 `sma(X, window)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.md)
 
 ## 详情
 
@@ -37,5 +37,5 @@ sma(x,3);
 | 12.1 | 17.3333 |
 | 11.5667 | 14.3333 |
 
-相关函数：[wma](../w/wma.html), [trima](../t/trima.html)
+相关函数：[wma](../w/wma.md), [trima](../t/trima.md)
 

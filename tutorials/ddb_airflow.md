@@ -74,8 +74,8 @@ DolphinDBOperator 使用示例如下：
 
 **注意**：
 
-* 本教程使用 SQLite 数据库作为后端存储，如果因 SQLite 版本过低无法启动，可参考[设置数据库](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-up-database.html)，升级 SQLlite 或更改默认数据库。
-* 在流程开始前建议预先构建 DolphinDB 服务。具体安装方法可以参考 [DolphinDB 高可用集群部署教程](ha_cluster_deployment.html)。也可以参考基于 [Docker-Compose 的 DolphinDB 多容器集群部署](docker-compose_high_cluster.html)。
+* 本教程使用 SQLite 数据库作为后端存储，如果因 SQLite 版本过低无法启动，可参考[设置数据库](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-up-database.md)，升级 SQLlite 或更改默认数据库。
+* 在流程开始前建议预先构建 DolphinDB 服务。具体安装方法可以参考 [DolphinDB 高可用集群部署教程](ha_cluster_deployment.md)。也可以参考基于 [Docker-Compose 的 DolphinDB 多容器集群部署](docker-compose_high_cluster.md)。
 * **主机环境**
 
   1. 执行以下命令安装 Airflow：
@@ -85,7 +85,7 @@ DolphinDBOperator 使用示例如下：
      ```
   2. 安装好 airflow.provider.dolphindb 插件后，启动 Airflow ：
 
-     部署以及安装 Airflow 详情见官网：[airflow 快速入门](https://airflow.apache.org/docs/apache-airflow/stable/start.html)。以下为启动 Airflow 的核心代码:
+     部署以及安装 Airflow 详情见官网：[airflow 快速入门](https://airflow.apache.org/docs/apache-airflow/stable/start.md)。以下为启动 Airflow 的核心代码:
 
      ```
      #初始化数据库
@@ -155,7 +155,7 @@ DolphinDBOperator 使用示例如下：
 
 **DWD 数据明细 - > DWB/DWS 数据汇总**: 对清洗后的快照数据进行计算加工合成 K 线数据
 
-**注意**：本教程使用 DolphinDB 中 module 功能以及 DolphinDB 客户端工具进行工程化管理 DolphinDB 脚本，详细介绍见 [DolphinDB教程: 模块](module_tutorial.html) 以及 [使用客户端](../getstarted/use_clients_server.html)。
+**注意**：本教程使用 DolphinDB 中 module 功能以及 DolphinDB 客户端工具进行工程化管理 DolphinDB 脚本，详细介绍见 [DolphinDB教程: 模块](module_tutorial.md) 以及 [使用客户端](../getstarted/use_clients_server.md)。
 
 ### 2.2. 数据介绍
 
@@ -212,7 +212,7 @@ DolphinDBOperator 使用示例如下：
   }
   ```
 
-  对于 snapshot 数据，本文采用的数据库分区方案是组合分区，第一层按天分区，第二层对股票代码按 HASH 分50个分区。如何根据数据确定分区方案可参考 [DolphinDB 分区数据库教程](database.html)。
+  对于 snapshot 数据，本文采用的数据库分区方案是组合分区，第一层按天分区，第二层对股票代码按 HASH 分50个分区。如何根据数据确定分区方案可参考 [DolphinDB 分区数据库教程](database.md)。
 * 创建清洗后 snapshot 数据存储表：
 
   创建清洗后以 Array 格式存储 snapshot 数据的库表，核心代码如下：

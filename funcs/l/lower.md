@@ -25,5 +25,5 @@ lower(`Thl);
 thl
 ```
 
-相关函数：[upper](../u/upper.html)
+相关函数：[upper](../u/upper.md)
 

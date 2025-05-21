@@ -50,9 +50,9 @@ select [HINT_EXPLAIN] * from tb where id > 20
 
 ## 3. 库表设计
 
-库表设计可以参考[建库建表](../db_distr_comp/db_oper/create_db_tb.html)，需要注意分区的大小，TSDB 引擎的 sortKey 等的设置是否合理。如果不合理，也会导致查询/写入慢的情况。
+库表设计可以参考[建库建表](../db_distr_comp/db_oper/create_db_tb.md)，需要注意分区的大小，TSDB 引擎的 sortKey 等的设置是否合理。如果不合理，也会导致查询/写入慢的情况。
 
-为了更全面地掌握设计细节，避免常见陷阱，建议参阅[建库建表最容易忽略的十个细节](../tutorials/database_and_table_creation_details.html)。
+为了更全面地掌握设计细节，避免常见陷阱，建议参阅[建库建表最容易忽略的十个细节](../tutorials/database_and_table_creation_details.md)。
 
 ## 4. 系统负载
 

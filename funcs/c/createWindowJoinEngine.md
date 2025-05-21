@@ -10,7 +10,7 @@ outputTable, window, metrics, matchingColumn, [timeColumn],
 
 ## 详情
 
-创建流数据 window join 引擎。返回一个左、右两表实时 [window join](../../progr/sql/windowjoin.html) 后的表对象。
+创建流数据 window join 引擎。返回一个左、右两表实时 [window join](../../progr/sql/windowjoin.md) 后的表对象。
 
 该引擎与 window join 存在以下区别：
 
@@ -45,7 +45,7 @@ outputTable, window, metrics, matchingColumn, [timeColumn],
 *window*=0:0 时，若 *metrics* 中指定了非聚合的指标，其输出列必须为对应类型的
 array vector。
 
-更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.html)。
+更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.md)。
 
 ## 参数
 
@@ -71,7 +71,7 @@ array vector 类型。
 
 **window** 必选参数，表示滑动窗口区间的整型或 DURATION 数据对，其中左右边界都包含在内。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个表达式、系统内置或用户自定义函数。
 * *metrics* 内支持调用具有多个返回值的函数，且必须指定列名，例如 <func(price) as

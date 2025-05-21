@@ -4,7 +4,7 @@
 
 `cumvar(X)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ cumvar(m);
 | 0.0152 | 0.0288 |
 | 0.0143 | 0.0267 |
 
-相关函数：[cummax](cummax.html), [cummin](cummin.html), [cumprod](cumprod.html), [cumPositiveStreak](cumPositiveStreak.html), [cumsum](cumsum.html), [cumavg](cumavg.html), [cumstd](cumstd.html)
+相关函数：[cummax](cummax.md), [cummin](cummin.md), [cumprod](cumprod.md), [cumPositiveStreak](cumPositiveStreak.md), [cumsum](cumsum.md), [cumavg](cumavg.md), [cumstd](cumstd.md)
 

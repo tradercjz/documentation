@@ -12,7 +12,7 @@
 
 ## 详情
 
-判断字符串 *X* 中是否包含字符串 *pattern*。和函数 [like](../l/like.html) 不同，比较是不区分大小写的。
+判断字符串 *X* 中是否包含字符串 *pattern*。和函数 [like](../l/like.md) 不同，比较是不区分大小写的。
 
 ## 例子
 
@@ -35,5 +35,5 @@ a[a ilike  "%OO%"];
 ["Goog","YHOO"]
 ```
 
-相关函数：[like](../l/like.html)
+相关函数：[like](../l/like.md)
 

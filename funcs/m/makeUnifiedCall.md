@@ -13,7 +13,7 @@
 
 ## 详情
 
-它使用指定参数调用一个函数并生成脚本。 高阶函数 [unifiedCall](../ho_funcs/unifiedCall.html) 与 `makeUnifiedCall`
+它使用指定参数调用一个函数并生成脚本。 高阶函数 [unifiedCall](../ho_funcs/unifiedCall.md) 与 `makeUnifiedCall`
 的区别是，`makeUnifiedCall` 不执行脚本。
 
 ## 例子

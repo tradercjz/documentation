@@ -28,5 +28,5 @@ x = matrix(1..3, [float(`inf), float(`nan), 1.0])
 nanInfFill(x, 1.2)
 ```
 
-相关函数：[isNanInf](../i/isNanInf.html), [countNanInf](../c/countNanInf.html)
+相关函数：[isNanInf](../i/isNanInf.md), [countNanInf](../c/countNanInf.md)
 

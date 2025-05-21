@@ -33,5 +33,5 @@ a.keys();
 [4,2,1]
 ```
 
-相关函数：[values](../v/values.html)
+相关函数：[values](../v/values.md)
 

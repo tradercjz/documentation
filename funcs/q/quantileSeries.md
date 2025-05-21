@@ -38,5 +38,5 @@ quantileSeries(a,[0.25,0.5,0.75], 'higher');
 [36,40,43]
 ```
 
-相关函数：[quantile](quantile.html)
+相关函数：[quantile](quantile.md)
 

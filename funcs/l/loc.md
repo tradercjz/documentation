@@ -171,7 +171,7 @@ m.loc(rowFilter=`B, colFilter=2022.01.03)
 | B | 15 |
 
 若 *rowFilter* / *colFilter* 是数据对，则 obj 必须是索引矩阵，可通过函数
-[setIndexedMatrix!](../s/setIndexedMatrix_.html)
+[setIndexedMatrix!](../s/setIndexedMatrix_.md)
 将一个带标签的矩阵设置为索引矩阵。
 
 ```
@@ -198,5 +198,5 @@ m.loc(rowFilter=2:4, colFilter=2022.01.03:2022.01.06)
 | 3 | 29 | 17 | 7 | 18 |
 | 4 | 12 | 27 | 23 | 23 |
 
-相关函数：[at](../a/at.html)
+相关函数：[at](../a/at.md)
 

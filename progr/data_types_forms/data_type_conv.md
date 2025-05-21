@@ -1,8 +1,8 @@
 # 数据类型转换
 
-数据类型转换可以通过数据类型转换函数或函数 [cast($)](../../funcs/c/cast.html) 来实现。
+数据类型转换可以通过数据类型转换函数或函数 [cast($)](../../funcs/c/cast.md) 来实现。
 
-DolphinDB支持的数据类型转换函数包括 [string](../../funcs/s/string.html), [bool](../../funcs/b/bool.html), [char](../../funcs/c/char.html), [short](../../funcs/s/short.html), [int](../../funcs/i/int.html), [long](../../funcs/l/long.html), [double](../../funcs/d/double.html), [date](../../funcs/d/date.html), [month](../../funcs/m/month.html), [time](../../funcs/t/time.html), [second](../../funcs/s/second.html), [minute](../../funcs/m/minute.html), [datetime](../../funcs/d/datetime.html), [timestamp](../../funcs/t/timestamp.html), [symbol](../../funcs/s/symbol.html), [nanotime](../../funcs/n/nanotime.html), [nanotimestamp](../../funcs/n/nanotimestamp.html), [datehour](../../funcs/d/datehour.html), [uuid](../../funcs/u/uuid.html), [ipaddr](../../funcs/i/ipaddr.html), [int128](../../funcs/i/int128.html), [blob](../../funcs/b/blob.html), [complex](../../funcs/c/complex.html), [point](../../funcs/p/point.html), [duration](../../funcs/d/duration.html), [decimal32](../../funcs/d/decimal32.html), [decimal64](../../funcs/d/decimal64.html), [decimal128](../../funcs/d/decimal128.html)。
+DolphinDB支持的数据类型转换函数包括 [string](../../funcs/s/string.md), [bool](../../funcs/b/bool.md), [char](../../funcs/c/char.md), [short](../../funcs/s/short.md), [int](../../funcs/i/int.md), [long](../../funcs/l/long.md), [double](../../funcs/d/double.md), [date](../../funcs/d/date.md), [month](../../funcs/m/month.md), [time](../../funcs/t/time.md), [second](../../funcs/s/second.md), [minute](../../funcs/m/minute.md), [datetime](../../funcs/d/datetime.md), [timestamp](../../funcs/t/timestamp.md), [symbol](../../funcs/s/symbol.md), [nanotime](../../funcs/n/nanotime.md), [nanotimestamp](../../funcs/n/nanotimestamp.md), [datehour](../../funcs/d/datehour.md), [uuid](../../funcs/u/uuid.md), [ipaddr](../../funcs/i/ipaddr.md), [int128](../../funcs/i/int128.md), [blob](../../funcs/b/blob.md), [complex](../../funcs/c/complex.md), [point](../../funcs/p/point.md), [duration](../../funcs/d/duration.md), [decimal32](../../funcs/d/decimal32.md), [decimal64](../../funcs/d/decimal64.md), [decimal128](../../funcs/d/decimal128.md)。
 
 每个这样的函数都有如下三个用处：
 
@@ -14,7 +14,7 @@ DolphinDB支持的数据类型转换函数包括 [string](../../funcs/s/string.h
 
 * 除了 *symbol* 函数之外，所有这些函数都接受 0 或 1
   个参数。如果没有设定参数，将创建一个默认值的标量。如果参数是字符串或字符串向量，可将它转换为目标数据类型。其他类型数据，只要语义上与目标数据类型相容，也会被转换。
-* [short](../../funcs/s/short.html), [int](../../funcs/i/int.html), [long](../../funcs/l/long.html)
+* [short](../../funcs/s/short.md), [int](../../funcs/i/int.md), [long](../../funcs/l/long.md)
   函数将浮点数四舍五入为整数。当输入字符串时，这些函数会从字符串的第一个字符开始逐个判断，只要是数字就保存到结果中，否则立即输出结果。
 
 ## string

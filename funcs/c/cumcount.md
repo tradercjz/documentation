@@ -4,7 +4,7 @@
 
 `cumcount(X)`
 
-参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ cumcount(m);
 | 3 | 2 |
 | 4 | 3 |
 
-相关函数：[count](count.html)
+相关函数：[count](count.md)
 

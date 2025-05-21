@@ -33,7 +33,7 @@ sql(select=sqlCol("*"), from=t, groupBy=sqlCol(`sym), groupFlag=0, limit=1)
 // output: < select top 1 * from tf0746a0500000000 context by sym >
 ```
 
-参考：[元编程](../../objs/meta_progr.html)
+参考：[元编程](../../objs/meta_progr.md)
 
 ## `timer` 语句
 
@@ -51,7 +51,7 @@ timer(1000): fib(2000)
 // output: Time elapsed: 108.709 ms
 ```
 
-参考：[timer 语句](../../statements/timer.html)
+参考：[timer 语句](../../statements/timer.md)
 
 ## 字符串创建方式扩展
 

@@ -75,5 +75,5 @@ x.tail(2);
 | 4 | 9 |
 | 5 | 10 |
 
-相关函数：[head](../h/head.html)
+相关函数：[head](../h/head.md)
 

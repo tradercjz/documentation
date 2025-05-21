@@ -4,7 +4,7 @@
 
 `tmmed(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -57,5 +57,5 @@ select *, tmmed(t, x, 1w) from m
 | 2021.01.07 | 2 | 2 |
 | 2021.01.08 | 4 | 3 |
 
-相关函数：[mmed](../m/mmed.html), [med](../m/med.html)
+相关函数：[mmed](../m/mmed.md), [med](../m/med.md)
 

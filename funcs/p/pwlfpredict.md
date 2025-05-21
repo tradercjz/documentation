@@ -6,7 +6,7 @@
 
 ## 详情
 
-本函数须结合函数 [piecewiseLinFit](piecewiselinfit.html)
+本函数须结合函数 [piecewiseLinFit](piecewiselinfit.md)
 共同使用，即使用 `piecewiseLinFit` 拟合后的连续分段线性回归模型来对输入的数据点进行预测。
 
 ## 参数
@@ -44,5 +44,5 @@ output:
 */
 ```
 
-相关函数：[piecewiseLinFit](piecewiselinfit.html)
+相关函数：[piecewiseLinFit](piecewiselinfit.md)
 

@@ -1,6 +1,6 @@
 # 取消变量
 
-通过取消变量或函数定义来释放内存。详情请参考 [undef](../../../funcs/u/undef.html).
+通过取消变量或函数定义来释放内存。详情请参考 [undef](../../../funcs/u/undef.md).
 
 ```
 undef all;

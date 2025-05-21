@@ -82,8 +82,8 @@ ID、设备阈值上下限与阈值更新时间，但是阈值更新时间间隔
 
 高阶信息填写规则如下：
 
-1. 选择存储引擎，[OLAP](../db_distr_comp/db/olap.html) 或者 [TSDB](../db_distr_comp/db/tsdb.html)
-2. 选择是否[允许并发写入同一分区](../funcs/s/setAtomicLevel.html)
+1. 选择存储引擎，[OLAP](../db_distr_comp/db/olap.md) 或者 [TSDB](../db_distr_comp/db/tsdb.md)
+2. 选择是否[允许并发写入同一分区](../funcs/s/setAtomicLevel.md)
    * 允许并发写入同一分区指的是若一个事务写入多个分区时，某分区被其它写入事务锁定而出现冲突，系统会完成其他分区的写入，同时对之前发生冲突的分区尝试写入，写入方式在不同
      server 版本有所差异：
      + **release 200 及之前的版本：**数据节点收到写入的数据后，计算数据涉及的分区，并向
@@ -150,7 +150,7 @@ ID、设备阈值上下限与阈值更新时间，但是阈值更新时间间隔
 2. 选择现有库（现有库场景）
 3. 输入新建库名（新建库场景）
 4. 选择日增量（新建库场景）
-5. 选择存储引擎，[OLAP](../db_distr_comp/db/olap.html) 或者 [TSDB](../db_distr_comp/db/tsdb.html)（新建库场景）
+5. 选择存储引擎，[OLAP](../db_distr_comp/db/olap.md) 或者 [TSDB](../db_distr_comp/db/tsdb.md)（新建库场景）
 
 ### 2.2 建表信息
 

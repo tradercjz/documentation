@@ -58,7 +58,7 @@ Bond），简称可转债，是一种混合债券及期权的产品，可按一�
 * ‘european’：表示欧式期权。
 * ‘american’：表示美式期权。
 
-**calendar** 字符串类型标量或向量，表示使用的市场日历类型，请参阅[交易日历](../../modules/MarketHoliday/mkt_calendar.html)。
+**calendar** 字符串类型标量或向量，表示使用的市场日历类型，请参阅[交易日历](../../modules/MarketHoliday/mkt_calendar.md)。
 
 **frequency** 支持以下两种输入类型：
 

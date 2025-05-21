@@ -81,7 +81,7 @@ b;
 // output: ([73,26,32,96,26,86,11,63,21,49],[-71,-22,-26,-88,-16,-74,3,-47,-3,-29])
 ```
 
-(3) 使用函数 [array](../../funcs/a/array.html) 将第一个输入变量设为 ANY，然后定义每个元素。
+(3) 使用函数 [array](../../funcs/a/array.md) 将第一个输入变量设为 ANY，然后定义每个元素。
 
 ```
 a=array(ANY, 3);
@@ -169,14 +169,14 @@ x[1 2];
 
 我们可以使用如下函数对元组进行计算:
 
-* [max](../../funcs/m/max.html)
-* [min](../../funcs/m/min.html)
-* [prod](../../funcs/p/prod.html)
-* [sum](../../funcs/s/sum.html)
-* [cummin](../../funcs/c/cummin.html)
-* [cummax](../../funcs/c/cummax.html)
-* [cumprod](../../funcs/c/cumprod.html)
-* [cumsum](../../funcs/c/cumsum.html)
+* [max](../../funcs/m/max.md)
+* [min](../../funcs/m/min.md)
+* [prod](../../funcs/p/prod.md)
+* [sum](../../funcs/s/sum.md)
+* [cummin](../../funcs/c/cummin.md)
+* [cummax](../../funcs/c/cummax.md)
+* [cumprod](../../funcs/c/cumprod.md)
+* [cumsum](../../funcs/c/cumsum.md)
 
 ```
 a=(2, [3, 5], 10);
@@ -206,14 +206,14 @@ isNull a;
 
 我们可以对元组使用某些运算符，比如:
 
-* [add](../../funcs/a/add.html)
-* [sub](../../funcs/s/sub.html)
-* [mul](../../funcs/m/mul.html)
-* [div](../../funcs/d/div.html)
-* [ratio](../../funcs/r/ratio.html)
-* [mod](../../funcs/m/mod.html)
-* [pow](../../funcs/p/pow.html)
-* [abs](../../funcs/a/abs.html).
+* [add](../../funcs/a/add.md)
+* [sub](../../funcs/s/sub.md)
+* [mul](../../funcs/m/mul.md)
+* [div](../../funcs/d/div.md)
+* [ratio](../../funcs/r/ratio.md)
+* [mod](../../funcs/m/mod.md)
+* [pow](../../funcs/p/pow.md)
+* [abs](../../funcs/a/abs.md).
 
 ```
 a=(2, [3, 5], 10);
@@ -248,7 +248,7 @@ typestr x;
 
 ## 特殊使用场景
 
-实质上，元组的每个元素存储的是对象的地址。当在元组上应用 [take](../../funcs/t/take.html) 函数进行循环取值生成一个新的元组时，新元组实际拷贝的是原元组各个元素的地址（引用），而非实际的元素值，即进行的是浅拷贝（shallow
+实质上，元组的每个元素存储的是对象的地址。当在元组上应用 [take](../../funcs/t/take.md) 函数进行循环取值生成一个新的元组时，新元组实际拷贝的是原元组各个元素的地址（引用），而非实际的元素值，即进行的是浅拷贝（shallow
 copy）。
 
 在某些特殊场景下，如更新字典：字典的 value 是通过对一个元组应用 take 函数生成的元组，多个元素实际上指向了同一个对象。此时对某个 key 对应的 value

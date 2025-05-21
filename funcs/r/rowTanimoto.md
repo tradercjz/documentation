@@ -60,5 +60,5 @@ rowTanimoto(m,m1)
 [0.3812,NULL,0.3014,NULL]
 ```
 
-相关函数：[tanimoto](../t/tanimoto.html)
+相关函数：[tanimoto](../t/tanimoto.md)
 

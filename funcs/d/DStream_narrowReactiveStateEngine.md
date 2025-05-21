@@ -8,7 +8,7 @@
 
 ## 详情
 
-创建流计算生成窄表的响应式状态引擎。参考：[createNarrowReactiveStateEngine](../c/createnarrowreactivestateengine.html)。
+创建流计算生成窄表的响应式状态引擎。参考：[createNarrowReactiveStateEngine](../c/createnarrowreactivestateengine.md)。
 
 **返回值**：一个 DStream 对象。
 
@@ -42,7 +42,7 @@ false。
 2. 若满足上述条件，系统将根据 *keyPurgeFilter* 指定的条件，过滤出待清理的数据；
 3. 若待清理的数据所属的分组数大于等于所有分组数的 10%，则触发清理。
 
-若需要查看清理前后的状态，可以通过调用 [getStreamEngineStat](../c/../g/getStreamEngineStat.html) 函数查看 ReactiveStreamEngine 引擎状态的 numGroups
+若需要查看清理前后的状态，可以通过调用 [getStreamEngineStat](../c/../g/getStreamEngineStat.md) 函数查看 ReactiveStreamEngine 引擎状态的 numGroups
 列，来对比响应式状态引擎清理前后分组数的变化。
 
 **keyCapacity** 正整数，可选参数，表示建表时系统为该表预分配的 key 分组数量，用于调整状态表中 key

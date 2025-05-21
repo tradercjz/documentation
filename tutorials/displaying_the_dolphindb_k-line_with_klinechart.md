@@ -358,9 +358,9 @@ replay(inputTables=t1, outputTables=st, dateColumn=`ts, replayRate=100, absolute
 
 更复杂的 K 线功能请参考 KLineChart 官方文档：[Quick Start | KLineChart](https://klinecharts.com/en-US/guide/quick-start)
 
-JavaScript API 的用法请参考 DolphinDB 官方文档：[JavaScript API](https://docs.dolphindb.cn/zh/jsdoc/js.html)
+JavaScript API 的用法请参考 DolphinDB 官方文档：[JavaScript API](https://docs.dolphindb.cn/zh/jsdoc/js.md)
 
-更多 DolphinDB K 线合成的教程可以参考官方教程：[基于快照行情的股票和基金 K 线合成](k.html)
+更多 DolphinDB K 线合成的教程可以参考官方教程：[基于快照行情的股票和基金 K 线合成](k.md)
 
 ## 6. 附录
 

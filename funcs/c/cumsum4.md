@@ -4,7 +4,7 @@
 
 `cumsum4(X)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -38,5 +38,5 @@ cumsum4(m);
 | 17 | 881 |
 | 98 | 2177 |
 
-相关函数：[sum4](../s/sum4.html)
+相关函数：[sum4](../s/sum4.md)
 

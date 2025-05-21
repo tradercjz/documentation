@@ -31,17 +31,17 @@ frequency, [days], [onComplete], [priority], [parallelism])`
 
 **parallelism** 属于 0 到 8 的整数，表示任务的并行度。默认值为 2。
 
-注：用户设置的优先级和并行度，还分别受到 [setMaxJobPriority](setMaxJobPriority.html) 的参数 *maxPriority* 和 [setMaxJobParallelism](setMaxJobParallelism.html) 的参数
+注：用户设置的优先级和并行度，还分别受到 [setMaxJobPriority](setMaxJobPriority.md) 的参数 *maxPriority* 和 [setMaxJobParallelism](setMaxJobParallelism.md) 的参数
 *maxParallelism* 限制。最终的优先级和并行度分别为 min(*priority*, *maxPriority*),
 min(*parallelism*, *maxParallelism*)。
 
 ## 详情
 
 返回定时任务的任务 ID。如果 *jobId* 与已有的定时任务的 ID 不一致，系统返回 *jobId*。否则在 *jobId*
-后面添加当前日期，"000", "001" 等作为后缀，直到产生唯一的任务 ID。 我们可以使用 [getRecentJobs](../g/getRecentJobs.html) 来查看最近完成的定时任务。
+后面添加当前日期，"000", "001" 等作为后缀，直到产生唯一的任务 ID。 我们可以使用 [getRecentJobs](../g/getRecentJobs.md) 来查看最近完成的定时任务。
 
 执行定时任务生成的信息保存在 jodId.msg 文件中；如果定时任务会返回值，它会保存在 jobId.object 文件中。
-jobId.msg 和 jobId.object 保存在 batchIobs 文件夹中。我们可以分别使用 [getJobMessage](../g/getJobMessage.html) 和 [getJobReturn](../g/getJobReturn.html) 来查看这两个文件。
+jobId.msg 和 jobId.object 保存在 batchIobs 文件夹中。我们可以分别使用 [getJobMessage](../g/getJobMessage.md) 和 [getJobReturn](../g/getJobReturn.md) 来查看这两个文件。
 
 ## 例子
 

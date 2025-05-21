@@ -18,7 +18,7 @@ catalog）作为数据库管理系统中的重要组成部分，用于组织和�
 * table：字符串标量，表示表名称。
 * cluster\_identifier：可选参数，字符串标量，表示集群的名称。
 
-注意：以上参数的命名遵循[变量命名规则](../../progr/objs/var.html)，即必须以字母开头，且只包含字母（不区分大小写）、数字和下划线（\_）。
+注意：以上参数的命名遵循[变量命名规则](../../progr/objs/var.md)，即必须以字母开头，且只包含字母（不区分大小写）、数字和下划线（\_）。
 
 在 DolphinDB 中，catalog 包括：catalog, schema, table。以下为这三层概念的详细介绍：
 
@@ -44,7 +44,7 @@ catalog）作为数据库管理系统中的重要组成部分，用于组织和�
 
 本章将详细介绍 catalog 的创建、查询、更新、删除等基本操作，并在最后给出一个 catalog 相关的基本操作语句或函数的汇总表。
 
-注意：使用时请确保使用 3.00.0 及以上版本的 DolphinDB。相关说明请参阅文档 [DolphinDB-部署](../../deploy/deploy_intro.html)。
+注意：使用时请确保使用 3.00.0 及以上版本的 DolphinDB。相关说明请参阅文档 [DolphinDB-部署](../../deploy/deploy_intro.md)。
 
 ### 创建 catalog
 
@@ -214,20 +214,20 @@ undef(`stock)
 
 | 操作语句/函数 | 功能说明 |
 | --- | --- |
-| [use](../../progr/statements/use.html) | 切换当前 catalog |
-| [create](../../progr/sql/create.html) | 创建数据库或数据表 |
-| [alter](../../progr/sql/alter.html) | 向已有的表中添加一列 |
-| [drop](../../progr/sql/drop.html) | 删除数据库或数据表 |
-| [select](../../progr/sql/Select.html) | 访问表中数据 |
-| [update](../../progr/sql/update.html) | 更新数据表中的记录 |
-| [delete](../../progr/sql/delete.html) | 删除表中的记录 |
-| [setDefaultCatalog](../../funcs/s/setDefaultCatalog.html) | 为当前 session 设置默认的 catalog |
-| [existsCatalog](../../funcs/e/existsCatalog.html) | 检查指定 catalog 是否存在 |
-| [createCatalog](../../funcs/c/createCatalog.html) | 创建一个 catalog |
-| [createSchema](../../funcs/c/createSchema.html) | 把指定数据库添加到指定的 catalog 中 |
-| [dropDatabase](../../funcs/d/dropDatabase.html) | 删除数据库；如果该数据库位于某个 catalog 中，其引用关系也会被删掉 |
-| [dropCatalog](../../funcs/d/dropCatalog.html) | 删除指定的 catalog |
-| [dropSchema](../../funcs/d/dropSchema.html) | 删掉指定 catalog 中的指定 schema |
+| [use](../../progr/statements/use.md) | 切换当前 catalog |
+| [create](../../progr/sql/create.md) | 创建数据库或数据表 |
+| [alter](../../progr/sql/alter.md) | 向已有的表中添加一列 |
+| [drop](../../progr/sql/drop.md) | 删除数据库或数据表 |
+| [select](../../progr/sql/Select.md) | 访问表中数据 |
+| [update](../../progr/sql/update.md) | 更新数据表中的记录 |
+| [delete](../../progr/sql/delete.md) | 删除表中的记录 |
+| [setDefaultCatalog](../../funcs/s/setDefaultCatalog.md) | 为当前 session 设置默认的 catalog |
+| [existsCatalog](../../funcs/e/existsCatalog.md) | 检查指定 catalog 是否存在 |
+| [createCatalog](../../funcs/c/createCatalog.md) | 创建一个 catalog |
+| [createSchema](../../funcs/c/createSchema.md) | 把指定数据库添加到指定的 catalog 中 |
+| [dropDatabase](../../funcs/d/dropDatabase.md) | 删除数据库；如果该数据库位于某个 catalog 中，其引用关系也会被删掉 |
+| [dropCatalog](../../funcs/d/dropCatalog.md) | 删除指定的 catalog |
+| [dropSchema](../../funcs/d/dropSchema.md) | 删掉指定 catalog 中的指定 schema |
 
 ## 运维相关
 
@@ -309,13 +309,13 @@ ACL Audit: function createSchema [catalog=trading,dbUrl=dfs://db1,schema=stock2]
 
 | 运维函数 | 功能说明 |
 | --- | --- |
-| [getCurrentCatalog](../../funcs/g/getCurrentCatalog.html) | 查看当前 session 位于哪个 catalog 中 |
-| [getAllCatalogs](../../funcs/g/getAllCatalogs.html) | 检索当前所有可用的 catalog |
-| [getSchemaByCatalog](../../funcs/g/getSchemaByCatalog.html) | 检索指定 catalog 中的所有 schema |
-| [renameCatalog](../../funcs/r/renameCatalog.html) | 重命名 catalog |
-| [renameSchema](../../funcs/r/renameSchema.html) | 重命名 schema |
-| [getUserAccess](../../funcs/g/getUserAccess.html) | 查询指定用户所单独被赋予的权限；或者查询指定用户及其所属组的权限组合后的最终生效权限 |
-| [getGroupAccess](../../funcs/g/getGroupAccess.html) | 查询组的权限 |
+| [getCurrentCatalog](../../funcs/g/getCurrentCatalog.md) | 查看当前 session 位于哪个 catalog 中 |
+| [getAllCatalogs](../../funcs/g/getAllCatalogs.md) | 检索当前所有可用的 catalog |
+| [getSchemaByCatalog](../../funcs/g/getSchemaByCatalog.md) | 检索指定 catalog 中的所有 schema |
+| [renameCatalog](../../funcs/r/renameCatalog.md) | 重命名 catalog |
+| [renameSchema](../../funcs/r/renameSchema.md) | 重命名 schema |
+| [getUserAccess](../../funcs/g/getUserAccess.md) | 查询指定用户所单独被赋予的权限；或者查询指定用户及其所属组的权限组合后的最终生效权限 |
+| [getGroupAccess](../../funcs/g/getGroupAccess.md) | 查询组的权限 |
 
 ## 权限说明
 

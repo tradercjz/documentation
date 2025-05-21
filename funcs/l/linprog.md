@@ -89,5 +89,5 @@ re[1];
 [2,6]
 ```
 
-相关函数：[scs](../s/scs.html), [quadprog](../q/quadprog.html)
+相关函数：[scs](../s/scs.md), [quadprog](../q/quadprog.md)
 

@@ -4,7 +4,7 @@
 
 `mskew(X, window, [biased=true], [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -89,5 +89,5 @@ mskew(m, 1w)
 | 2020.04.12 | 0.3298 | 1.7107 |
 | 2020.04.13 | 2.0188 | 1.9363 |
 
-相关函数：[skew](../s/skew.html)
+相关函数：[skew](../s/skew.md)
 

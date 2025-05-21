@@ -20,7 +20,7 @@
 * 管理 IMOLTP 引擎库表权限时，*objs* 必须为 "oltp://database/table@nodeAlias" 或
   "oltp://database@nodeAlias"。
 
-*accessType* 和 *objs* 的取值请参照 [用户权限管理](../g/../../tutorials/ACL_and_Security.html) 权限类型表。
+*accessType* 和 *objs* 的取值请参照 [用户权限管理](../g/../../tutorials/ACL_and_Security.md) 权限类型表。
 
 ## 详情
 

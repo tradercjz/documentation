@@ -1,6 +1,6 @@
 # getAggregator
 
-是 [getStreamEngine](getStreamEngine.html) 的别名。
+是 [getStreamEngine](getStreamEngine.md) 的别名。
 
 Copyright
 

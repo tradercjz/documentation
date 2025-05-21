@@ -4,7 +4,7 @@
 
 `ploop(func, args...)`
 
-ploop 是 [loop](loop.html) 的并行版本。
+ploop 是 [loop](loop.md) 的并行版本。
 
 Copyright
 

@@ -61,5 +61,5 @@ b1->
 1.5 2.8 0.2
 ```
 
-相关函数：[loadNpy](loadNpy.html)
+相关函数：[loadNpy](loadNpy.md)
 

@@ -4,7 +4,7 @@
 
 `tmkurtosis(T, X, window, [biased=true])`
 
-部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 参数
 
@@ -69,5 +69,5 @@ select *, tmkurtosis(t, x, 1w) from m
 | 2019.06.13T18 | 5 | 2.2401 |
 | 2019.06.13T19 | 3 | 2.4072 |
 
-相关函数：[mkurtosis](../m/mkurtosis.html), [kurtosis](../k/kurtosis.html)
+相关函数：[mkurtosis](../m/mkurtosis.md), [kurtosis](../k/kurtosis.md)
 

@@ -51,7 +51,7 @@ DolphinDB 启动时会先校验 license 与集群配置信息是否合规。如�
 
 ### 2.2. 用户权限与函数视图初始化
 
-DolphinDB 的[权限管理](https://docs.dolphindb.cn/zh/tutorials/ACL_and_Security.html)与[函数视图](https://docs.dolphindb.cn/zh/db_distr_comp/db_oper/FunctionView.html)定义持久化保存在单节点或控制节点的数据目录，根据是否启用 RAFT 高可用存储在不同的位置。非 RAFT 模式（即单节点或普通集群）时，存储在控制节点的 *<HOME\_DIR>/<NodeAlias>/sysmgmt* 路径下，相关文件说明如下表：
+DolphinDB 的[权限管理](https://docs.dolphindb.cn/zh/tutorials/ACL_and_Security.md)与[函数视图](https://docs.dolphindb.cn/zh/db_distr_comp/db_oper/FunctionView.md)定义持久化保存在单节点或控制节点的数据目录，根据是否启用 RAFT 高可用存储在不同的位置。非 RAFT 模式（即单节点或普通集群）时，存储在控制节点的 *<HOME\_DIR>/<NodeAlias>/sysmgmt* 路径下，相关文件说明如下表：
 
 | **文件名** | **说明** |
 | --- | --- |
@@ -209,7 +209,7 @@ DolphinDB 通过 [redo log](https://docs.dolphindb.cn/zh/tutorials/redoLog_cache
    `applyTidRedoLog : <tid>,<chunkId>,<chunkPath>,<tablePhysicalName>,<newTableSize>,<lsn>,<newColumns>`
 6. 结束回放，打印日志：`Completed CacheEngine GC and RedoLog GC after applying all redo logs and engine is <engineType>`。
 
-**注意**：redo log 与 cache engine 的具体功能介绍见 [redo log 和 cache engine](https://docs.dolphindb.cn/zh/tutorials/redoLog_cacheEngine.html)。有后台线程定期自动清理不再需要的 *tid.log* 文件。
+**注意**：redo log 与 cache engine 的具体功能介绍见 [redo log 和 cache engine](https://docs.dolphindb.cn/zh/tutorials/redoLog_cacheEngine.md)。有后台线程定期自动清理不再需要的 *tid.log* 文件。
 
 ### 2.8. 控制节点 RAFT 元数据初始化
 
@@ -241,7 +241,7 @@ DolphinDB 的高可用集群通过 RAFT 管理 DFS 元数据、权限和函数�
 
 ### 2.9. 定时任务初始化
 
-DolphinDB 的[定时任务](https://docs.dolphindb.cn/zh/tutorials/scheduledJob.html)会持久化保存到硬盘，单节点或控制节点保存在 *<HOME\_DIR>/<NodeAlias>/sysmgmt* 目录下，数据节点或计算节点保存在 *<HOME\_DIR>/sysmgmt* 目录下，相关文件说明：
+DolphinDB 的[定时任务](https://docs.dolphindb.cn/zh/tutorials/scheduledJob.md)会持久化保存到硬盘，单节点或控制节点保存在 *<HOME\_DIR>/<NodeAlias>/sysmgmt* 目录下，数据节点或计算节点保存在 *<HOME\_DIR>/sysmgmt* 目录下，相关文件说明：
 
 | **文件** | **说明** |
 | --- | --- |
@@ -295,7 +295,7 @@ grep "ERROR" dolphindb.log
 
 ### 3.1. 启动异常关闭
 
-首先需要区分节点是启动成功后的运行过程中异常宕机，还是启动过程中异常关闭。需要参照[“节点整体启动流程”](node_startup_process_and_questions.html#%E8%8A%82%E7%82%B9%E6%95%B4%E4%BD%93%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B)一节查看是否有节点启动完成的日志 `Job scheduler initialization completed.`，有则是节点启动成功后运行过程中异常宕机，需要根据 [排查节点宕机的原因](https://docs.dolphindb.cn/zh/tutorials/how_to_handle_crash.html) 来定位节点宕机问题；否则是启动过程中异常关闭问题。
+首先需要区分节点是启动成功后的运行过程中异常宕机，还是启动过程中异常关闭。需要参照[“节点整体启动流程”](node_startup_process_and_questions.html#%E8%8A%82%E7%82%B9%E6%95%B4%E4%BD%93%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B)一节查看是否有节点启动完成的日志 `Job scheduler initialization completed.`，有则是节点启动成功后运行过程中异常宕机，需要根据 [排查节点宕机的原因](https://docs.dolphindb.cn/zh/tutorials/how_to_handle_crash.md) 来定位节点宕机问题；否则是启动过程中异常关闭问题。
 
 需要查看节点最新运行日志中启动阶段的 ERROR 日志。注意要查看启动阶段的 ERROR 日志而不是启动失败后关机阶段的 ERROR 日志。DolphinDB 在关机时打印如下 ERROR 日志是预期的：
 
@@ -638,7 +638,7 @@ DolphinDB 启动时，如果日志里有 `Start recovering from redo log. This m
 
 启动脚本 *startup.dos* 或 *postStart.dos* 运行失败会在节点运行日志里打印错误日志，然后跳过启动脚本报错行后的执行，不会导致节点启动失败，也不会回滚执行失败的动作，需要客户自行考虑启动脚本运行失败的情况。注意在**集群模式下，执行启动脚本时无法保证分布式数据库已初始化完毕**，在启动脚本访问分布式库表可能会报错。
 
-故不建议在启动脚本执行太慢的操作或涉及分布式库表的操作，而只做一些比较简单的操作如建共享表、加载插件等。启动脚本详细介绍见 [启动脚本](https://docs.dolphindb.cn/zh/tutorials/Startup.html)。
+故不建议在启动脚本执行太慢的操作或涉及分布式库表的操作，而只做一些比较简单的操作如建共享表、加载插件等。启动脚本详细介绍见 [启动脚本](https://docs.dolphindb.cn/zh/tutorials/Startup.md)。
 
 可以参考如下脚本在 *startup.dos* 或 *postStart.dos* 等待分布式模块准备完毕：
 

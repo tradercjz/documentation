@@ -14,13 +14,13 @@ DolphinDB 系统包括：服务器程序 dolphindb, web 集群管理工具、图
 
 ### DolphinDB VSCode 插件（推荐）
 
-DolphinDB 公司开发了支持 DolphinDB 数据库编程语言的 VSCode 插件，便于用户使用 VSCode 编写 DolphinDB 脚本并在 DolphinDB 服务器上运行。VS Code 使用者无需安装其它软件，直接下载插件即可使用，学习成本低，上手快。因此，推荐用户选择使用 VS Code。有关 VSCode 插件的安装和使用，参考：[DolphinDB VSCode 插件](../db_distr_comp/vscode.html)。
+DolphinDB 公司开发了支持 DolphinDB 数据库编程语言的 VSCode 插件，便于用户使用 VSCode 编写 DolphinDB 脚本并在 DolphinDB 服务器上运行。VS Code 使用者无需安装其它软件，直接下载插件即可使用，学习成本低，上手快。因此，推荐用户选择使用 VS Code。有关 VSCode 插件的安装和使用，参考：[DolphinDB VSCode 插件](../db_distr_comp/vscode.md)。
 
-DolphinDB 也支持使用 DolphinDB GUI 客户端来连接 DolphinDB、编辑脚本。有关 DolphinDB GUI 的安装和使用，参考：[使用客户端](../getstarted/use_clients_server.html)。
+DolphinDB 也支持使用 DolphinDB GUI 客户端来连接 DolphinDB、编辑脚本。有关 DolphinDB GUI 的安装和使用，参考：[使用客户端](../getstarted/use_clients_server.md)。
 
 ### Python/Java/C# API（可选）
 
-DolphinDB 提供 Java, Python 和 C# 的开发接口。安装步骤及使用请参考：[连接器 & API](../api/connapi_intro.html)。
+DolphinDB 提供 Java, Python 和 C# 的开发接口。安装步骤及使用请参考：[连接器 & API](../api/connapi_intro.md)。
 
 ## 配置
 
@@ -28,19 +28,19 @@ DolphinDB 提供 Java, Python 和 C# 的开发接口。安装步骤及使用请�
 
 ### 独立服务器（单节点模式）
 
-作为一个独立的工作站或服务器使用，下载后即可使用，无需配置。详见[单节点部署教程](standalone_server.html)。DolphinDB 支持嵌入式 ARM 环境。详见[ARM版本单节点部署教程](ARM_standalone_deploy.html)。
+作为一个独立的工作站或服务器使用，下载后即可使用，无需配置。详见[单节点部署教程](standalone_server.md)。DolphinDB 支持嵌入式 ARM 环境。详见[ARM版本单节点部署教程](ARM_standalone_deploy.md)。
 
 单节点模式拥有与集群模式相同的功能，区别在于单节点模式不支持扩展节点和高可用，而集群模式可以方便地扩展到多个服务器节点以及支持高可用。
 
 ### 单机集群搭建
 
-控制节点（controller）、代理节点（agent)、数据节点（datanode）、计算节点（compute node）部署在同一个物理机器上。详见[单服务器集群部署](single_machine_cluster_deploy.html)。
+控制节点（controller）、代理节点（agent)、数据节点（datanode）、计算节点（compute node）部署在同一个物理机器上。详见[单服务器集群部署](single_machine_cluster_deploy.md)。
 
 ### 多机集群搭建
 
-在多个物理机器上部署 DolphinDB 集群。详见[多服务器集群部署](multi_machine_cluster_deployment.html)。
+在多个物理机器上部署 DolphinDB 集群。详见[多服务器集群部署](multi_machine_cluster_deployment.md)。
 
-DolphinDB 提供数据、元数据以及客户端的高可用方案，使得数据库节点发生故障时，数据库依然可以正常运作，保证业务不会中断。详见[高可用集群部署](ha_cluster_deployment.html)。
+DolphinDB 提供数据、元数据以及客户端的高可用方案，使得数据库节点发生故障时，数据库依然可以正常运作，保证业务不会中断。详见[高可用集群部署](ha_cluster_deployment.md)。
 
 ### 功能及应用场景
 
@@ -68,15 +68,15 @@ DolphinDB 提供数据、元数据以及客户端的高可用方案，使得数�
 ## 使用系统
 
 * 使用 web 集群管理工具可以启动关闭数据节点、查看集群各节点的性能指标、浏览分布式数据库整体数据分区情况及详细数据，详见上文中的单机和多机集群部署教程。
-* 客户端 GUI 提供了方便开发 DolphinDB 脚本的图形界面。详见[使用客户端](../getstarted/use_clients_server.html)。
-* 在 DolphinDB 中创建分区数据库和表。DolphinDB 支持范围、哈希、值、列表、以及组合分区，可灵活应对各类企业实际业务场景，详见[分区数据库教程](database.html)。
-* 使用 DolphinDB 流数据引擎进行实时数据处理与分析。详见[流数据教程](streaming_tutorial.html)与[流数据时序聚合引擎教程](stream_aggregator.html)。
+* 客户端 GUI 提供了方便开发 DolphinDB 脚本的图形界面。详见[使用客户端](../getstarted/use_clients_server.md)。
+* 在 DolphinDB 中创建分区数据库和表。DolphinDB 支持范围、哈希、值、列表、以及组合分区，可灵活应对各类企业实际业务场景，详见[分区数据库教程](database.md)。
+* 使用 DolphinDB 流数据引擎进行实时数据处理与分析。详见[流数据教程](streaming_tutorial.md)与[流数据时序聚合引擎教程](stream_aggregator.md)。
 
-**注意**：使用系统前建议先阅读：[量化金融范例](quant_finance_examples.html)或[物联网范例](iot_examples.html)。
+**注意**：使用系统前建议先阅读：[量化金融范例](quant_finance_examples.md)或[物联网范例](iot_examples.md)。
 
 ## 用户权限设置
 
-DolphinDB 提供了完善、安全的权限管理机制，适用于企业级的不同应用场景，详见[权限管理和安全教程](ACL_and_Security.html)。
+DolphinDB 提供了完善、安全的权限管理机制，适用于企业级的不同应用场景，详见[权限管理和安全教程](ACL_and_Security.md)。
 
 ## 常见错误原因
 

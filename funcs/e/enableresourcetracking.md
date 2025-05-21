@@ -54,5 +54,5 @@
 系统会根据 *resourceSamplingLogRetentionTime*
 的配置值自动清理资源跟踪日志。此自动清理机制不受资源跟踪功能的开启或关闭影响。
 
-相关函数：[disableResourceTracking](../d/disableresourcetracking.html)
+相关函数：[disableResourceTracking](../d/disableresourcetracking.md)
 

@@ -4,7 +4,7 @@
 
 `mstd(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -88,5 +88,5 @@ mstd(m,1w)
 | 2020.04.11 | 3.5119 | 0.7071 |
 | 2020.04.12 | 2.9861 | 4.3589 |
 
-相关函数：[mmin](mmin.html), [mmax](mmax.html), [mavg](mavg.html), [msum](msum.html), [mvar](mvar.html)
+相关函数：[mmin](mmin.md), [mmax](mmax.md), [mavg](mavg.md), [msum](msum.md), [mvar](mvar.md)
 

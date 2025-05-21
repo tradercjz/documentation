@@ -4,7 +4,7 @@
 
 ## 函数定义
 
-要定义一个函数，可以使用关键字 "def"。详情请参考 [函数化编程](../func_progr.html)。内置函数与用户自定义函数均支持指定默认参数值。需要注意的是，默认值必须为常量，且可变参数（mutable
+要定义一个函数，可以使用关键字 "def"。详情请参考 [函数化编程](../func_progr.md)。内置函数与用户自定义函数均支持指定默认参数值。需要注意的是，默认值必须为常量，且可变参数（mutable
 类型）不支持指定默认值。如果一个参数设置了默认值，后续参数都必须设置默认值。注意：若在嵌套函数中使用 mutable
 修饰外层函数的某个参数，那么所有内层需要调用该参数的函数也必须使用 mutable 修饰该参数，否则在多线程情况下可能会出现报错：`Read only
 object can't be applied to mutable function xxx`。
@@ -94,12 +94,12 @@ x;
 
 DolphinDB 提供1000多个内置函数，其中包括绝大多数常用的计算函数如:
 
-* [avg](../../funcs/a/avg.html)
-* [sum](../../funcs/s/sum.html)
-* [log](../../funcs/l/log.html)
-* [add](../../funcs/a/add.html)
-* [sub](../../funcs/s/sub.html)
-* [prod](../../funcs/p/prod.html)
+* [avg](../../funcs/a/avg.md)
+* [sum](../../funcs/s/sum.md)
+* [log](../../funcs/l/log.md)
+* [add](../../funcs/a/add.md)
+* [sub](../../funcs/s/sub.md)
+* [prod](../../funcs/p/prod.md)
 
 ```
 avg(1.5 2.5 2 2);

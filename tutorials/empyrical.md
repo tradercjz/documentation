@@ -25,7 +25,7 @@ Empyrical 模块中的所有函数命名规则为函数具体功能名， 如
 * 回报率，可以仅输入基准回报率向量。
 * 由于 `beta` 函数与 DolphinDB 中内置关键字冲突，Empyrical 中将此函数命名为
   `covarBeta`（因为Empyrical 计算方法为 covariance / variance，DolphinDB
-  的 `beta` 为 Y 在 X 上的回归系数的最小二乘估计[beta](../funcs/b/beta.html)）。
+  的 `beta` 为 Y 在 X 上的回归系数的最小二乘估计[beta](../funcs/b/beta.md)）。
 * DolphinDB 中 `maxDrawdown` 函数为与峰值的最大差值，Empyrical
   库中此函数的定义为累积最大相对回撤比例。由于命名冲突，将 Empyrical 中计算最大回撤的函数命名为
   `cumMaxDrawdown`。
@@ -42,7 +42,7 @@ Empyrical 模块中的所有函数命名规则为函数具体功能名， 如
 把附件的 Empyrical.dos 放在 [home]/modules 目录下，[home] 目录由系统配置参数 *home* 决定，可以通过
 getHomeDir() 函数查看。
 
-有关模块使用的更多细节，请参见：[模块](tu_modules.html)。
+有关模块使用的更多细节，请参见：[模块](tu_modules.md)。
 
 ### 2.2. 脚本中直接使用指标函数
 

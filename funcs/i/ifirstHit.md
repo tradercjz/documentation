@@ -22,8 +22,8 @@
 
 通过 `ifirstHit` 查找时，NULL 值会被忽略：
 
-* 如需查找第一个非 NULL 的下标， 可以通过函数 [ifirstNot](ifirstNot.html)；
-* 如需查找第一个空值的下标，可以通过函数 [find](../f/find.html)。
+* 如需查找第一个非 NULL 的下标， 可以通过函数 [ifirstNot](ifirstNot.md)；
+* 如需查找第一个空值的下标，可以通过函数 [find](../f/find.md)。
 
 ## 例子
 
@@ -40,5 +40,5 @@ ifirstHit(>, X, 10.0)
 
 ```
 
-相关函数：[firstHit](../f/firstHit.html)
+相关函数：[firstHit](../f/firstHit.md)
 

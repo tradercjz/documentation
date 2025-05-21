@@ -65,6 +65,6 @@ predict->cubicHermiteSplinePredict
 */
 ```
 
-**相关函数：**[predict](predict.html)
-[cubicHermiteSplineFit](../c/cubichermitesplinefit.html)
+**相关函数：**[predict](predict.md)
+[cubicHermiteSplineFit](../c/cubichermitesplinefit.md)
 

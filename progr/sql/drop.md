@@ -1,6 +1,6 @@
 # drop
 
-drop 语句用于删除数据库或者数据表。建库建表语句请参考 [create](create.html)。
+drop 语句用于删除数据库或者数据表。建库建表语句请参考 [create](create.md)。
 
 ## 删除分布式数据库
 
@@ -20,7 +20,7 @@ drop database [if exists] dbPath
 drop database if exists "dfs://test"
 ```
 
-相关函数：[dropDatabase](../../funcs/d/dropDatabase.html), [existsDatabase](../../funcs/e/existsDatabase.html)
+相关函数：[dropDatabase](../../funcs/d/dropDatabase.md), [existsDatabase](../../funcs/e/existsDatabase.md)
 
 ## 删除分布式表或维度表
 
@@ -41,7 +41,7 @@ drop table [if exists] dbPath.tableName
 drop table if exists "dfs://test"."pt"
 ```
 
-相关函数：[dropTable](../../funcs/d/dropTable.html), [existsTable](../../funcs/e/existsTable.html)
+相关函数：[dropTable](../../funcs/d/dropTable.md), [existsTable](../../funcs/e/existsTable.md)
 
 ## 删除 catalog 中的数据库
 
@@ -88,5 +88,5 @@ drop table [if exists] tableName
 drop table if exists "t"
 ```
 
-相关函数：[undef](../../funcs/u/undef.html), [objs](../../funcs/o/objs.html)
+相关函数：[undef](../../funcs/u/undef.md), [objs](../../funcs/o/objs.md)
 

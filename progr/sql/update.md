@@ -120,7 +120,7 @@ update t1 set price=price-0.5, qty=qty+50 where sym=`C;
 // 将 t1 还原到初始状态
 ```
 
-使用 [contextBy](contextBy.html) 更新一张表。context by
+使用 [contextBy](contextBy.md) 更新一张表。context by
 可以用来做分组调整，而 contextby 不可。下例首先使用 context by 计算每只股票的平均价格，然后将每个记录的原始价格减去平均价格。
 
 ```

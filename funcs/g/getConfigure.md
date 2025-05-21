@@ -1,6 +1,6 @@
 # getConfigure
 
-是 [getConfig](getConfig.html) 的别名。
+是 [getConfig](getConfig.md) 的别名。
 
 Copyright
 

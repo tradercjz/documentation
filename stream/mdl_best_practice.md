@@ -5,16 +5,16 @@
 ）实现，提供了实时数据获取和处理的能力。接着文章详细阐述了数据的存储方案，以及实时数据与历史数据字段对齐的方法。此外，本文还提供了实时合成K线的模块，并讨论了数据处理中的关键细节，例如主力合约的选择和成交量加权平均价格（VWAP）的计算方法。值得注意的是，本文的方法不仅适用于中金所
 L1 数据，还可以扩展到其他期货交易所的数据处理，因此具有一定的通用性。
 
-本文中的实时数据处理功能依托于DolphinDB的流数据功能。在继续阅读本文之前，建议读者先了解DolphinDB的[流数据订阅](str_intro.html)及[流计算引擎](../funcs/themes/streamingEngine.html)的相关概念，以便更好地理解本文所述的实时行情处理流程及技术实现。
+本文中的实时数据处理功能依托于DolphinDB的流数据功能。在继续阅读本文之前，建议读者先了解DolphinDB的[流数据订阅](str_intro.md)及[流计算引擎](../funcs/themes/streamingEngine.md)的相关概念，以便更好地理解本文所述的实时行情处理流程及技术实现。
 
-本教程的代码基于 DolphinDB 2.00.12版本开发，建议用户使用2.00.12及3.00.1版本以上运行。具体 MDL 插件的接口说明，请参考 [DolphinDB MDL 插件使用说明](../plugins/MDL.html)。
+本教程的代码基于 DolphinDB 2.00.12版本开发，建议用户使用2.00.12及3.00.1版本以上运行。具体 MDL 插件的接口说明，请参考 [DolphinDB MDL 插件使用说明](../plugins/MDL.md)。
 
 ## 1. DolphinDB MDL 插件使用流程
 
 MDL 是通联数据提供的高频行情数据服务， DolphinDB 提供了能够从 MDL 服务器获取高频行情数据的 DolphinDB MDL 插件，用户可以通过
 DolphinScript 接入数据，实现高效的数据订阅与处理。
 
-以下是接入 MDL 数据的基本流程，详情请参见[《 MDL 行情插件最佳实践指南》](../tutorials/best_practice_for_mdl.html)：
+以下是接入 MDL 数据的基本流程，详情请参见[《 MDL 行情插件最佳实践指南》](../tutorials/best_practice_for_mdl.md)：
 
 1. 插件安装及加载
 
@@ -245,7 +245,7 @@ Level 1 提供了更深的订单委托行情数据。目前，期货市场的 Le
 ### 3.3 数据存储方案
 
 为实现数据库存储及查询的最优性能，我们需要针对不同数据的特点，设计不同的分区方案存储。本文提供存储期货 Level 1
-数据的最佳存储方案，用户也可以根据自身需要进行调整。更多金融数据的存储方案可参考[《存储金融数据的分区方案最佳实践》](../tutorials/best_practices_for_partitioned_storage.html)。
+数据的最佳存储方案，用户也可以根据自身需要进行调整。更多金融数据的存储方案可参考[《存储金融数据的分区方案最佳实践》](../tutorials/best_practices_for_partitioned_storage.md)。
 
 #### 3.3.1 期货L1数据存储方案
 

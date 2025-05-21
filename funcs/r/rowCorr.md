@@ -4,7 +4,7 @@
 
 `rowCorr(X, Y)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -32,5 +32,5 @@ rowBeta(a, b)
 [0.535, 1 , 0.9105, 2.3333]
 ```
 
-相关函数：[corr](../c/corr.html)
+相关函数：[corr](../c/corr.md)
 

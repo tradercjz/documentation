@@ -16,7 +16,7 @@
 [snapshotIntervalInMsgCount], [raftGroup], [outputElapsedMicroseconds=false],
 [roundTime=true], [keyFilter], [updatedContextGroupsOnly=false])`
 
-其参数的详细含义可以参考：[createCrossSectionalEngine](../funcs/c/createCrossSectionalEngine.html)
+其参数的详细含义可以参考：[createCrossSectionalEngine](../funcs/c/createCrossSectionalEngine.md)
 
 ## 应用示例
 

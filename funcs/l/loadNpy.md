@@ -42,5 +42,5 @@ loadNpy("doubleMat.npy");
 | 1.5 | 5.6 | -7.87 |
 | -1 | 3.4 | 4.5 |
 
-相关函数：[saveAsNpy](../s/saveAsNpy.html)
+相关函数：[saveAsNpy](../s/saveAsNpy.md)
 

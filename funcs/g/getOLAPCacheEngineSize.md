@@ -33,5 +33,5 @@ getOLAPCacheEngineSize()
 (0,0,0,429496729)
 ```
 
-相关函数： [setOLAPCacheEngineSize](../s/setOLAPCacheEngineSize.html)
+相关函数： [setOLAPCacheEngineSize](../s/setOLAPCacheEngineSize.md)
 

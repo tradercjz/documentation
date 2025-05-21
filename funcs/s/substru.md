@@ -37,5 +37,5 @@ substru("这是测试字符串",2,10)
 测试字符串
 ```
 
-相关函数：[substr](substr.html)
+相关函数：[substr](substr.md)
 

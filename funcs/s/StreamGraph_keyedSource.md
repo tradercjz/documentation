@@ -9,8 +9,8 @@
 
 ## 详情
 
-创建一个持久化键值流数据表。参考 [keyedStreamTable](../k/keyedStreamTable.html) 和
-[enableTableShareAndPersistence](../e/enableTableShareAndPersistence.html)。
+创建一个持久化键值流数据表。参考 [keyedStreamTable](../k/keyedStreamTable.md) 和
+[enableTableShareAndPersistence](../e/enableTableShareAndPersistence.md)。
 
 **返回值**：一个 DStream 对象。
 

@@ -60,7 +60,7 @@ Docker 只是轻量化的资源隔离，DolphinDB 部署在 Docker 环境和非 
   ```
 * 客户端连接 DolphinDB 进行测试。
 
-  详细教程参考[使用客户端](../db_distr_comp/clients.html)
+  详细教程参考[使用客户端](../db_distr_comp/clients.md)
 
 ### Docker(ARM架构)
 
@@ -99,7 +99,7 @@ docker ps|grep dolphindb
 
 客户端连接 DolphinDB 进行测试。
 
-详细教程参考[使用客户端](../db_distr_comp/clients.html)
+详细教程参考[使用客户端](../db_distr_comp/clients.md)
 
 ## 生产环境部署建议
 
@@ -175,7 +175,7 @@ docker run -itd --name dolphindb \
 
 * 使用 DolphinDB 客户端连接 DolphinDB 进行测试
 
-  详细教程参考[使用客户端](../db_distr_comp/clients.html)
+  详细教程参考[使用客户端](../db_distr_comp/clients.md)
 
 ### 离线部署
 
@@ -331,7 +331,7 @@ docker run -itd --name dolphindb \
 
 * 使用 DolphinDB 客户端连接 DolphinDB 进行测试
 
-  详细教程参考[使用客户端](../db_distr_comp/clients.html)
+  详细教程参考[使用客户端](../db_distr_comp/clients.md)
 
 ## 常见问题
 

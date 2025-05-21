@@ -5,7 +5,7 @@
 `tmcorrTopN(T, X, Y, S, window, top, [ascending=true],
 [tiesMethod='latest'])`
 
-参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.html)
+参数说明和窗口计算规则请参考：[tmTopN](../themes/tmTopN.md)
 
 ## 详情
 
@@ -44,5 +44,5 @@ select tmcorrTopN(time,val1,val2,id,4,3) as topN from t
 | -0.9413 |
 | -0.8962 |
 
-相关函数：[tmcorr](tmcorr.html)
+相关函数：[tmcorr](tmcorr.md)
 

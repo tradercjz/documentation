@@ -20,5 +20,5 @@
 addIPBlackList(["1.1.1.1", "2.2.2.2", "3.3.3.3"])
 ```
 
-相关函数：[removeIPBlackList](../r/removeipblacklist.html)、[getIPBlackList](../g/getipblacklist.html)
+相关函数：[removeIPBlackList](../r/removeipblacklist.md)、[getIPBlackList](../g/getipblacklist.md)
 

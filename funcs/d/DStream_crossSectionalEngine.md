@@ -9,13 +9,13 @@
 
 ## 详情
 
-创建流计算横截面引擎。参考：[createCrossSectionalEngine](../c/createCrossSectionalEngine.html)。
+创建流计算横截面引擎。参考：[createCrossSectionalEngine](../c/createCrossSectionalEngine.md)。
 
 **返回值**：一个 DStream 对象。
 
 ## 参数
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考[元编程](../c/../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考[元编程](../c/../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是系统内置或用户自定义的函数，如 <[sum(qty), avg(price)]>；可以对计算结果使用表达式，如
   <[avg(price1)-avg(price2)]>；也可以对多列进行运算，如 <[std(price1-price2)]>。
@@ -83,7 +83,7 @@
 
 **roundTime** 可选参数，布尔值。用于对第一个数据窗口的起始时间进行规整，仅在
 *triggeringPattern*=dataInterval 时有效。系统将根据该参数、triggeringInterval
-和时间精度来确定规整尺度（alignmentSize）。窗口规整规则同[时序引擎](../c/createTimeSeriesEngine.html)。
+和时间精度来确定规整尺度（alignmentSize）。窗口规整规则同[时序引擎](../c/createTimeSeriesEngine.md)。
 
 **keyFilter** 可选参数，以元代码形式表示的过滤条件。过滤条件是一个表达式或者函数调用，应用于截面数据中的列（列值为
 key），返回一个布尔向量。引擎会从截面数据中过滤出 key 满足条件的数据进行计算。

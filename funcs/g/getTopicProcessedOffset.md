@@ -6,7 +6,7 @@
 
 ## 参数
 
-**topic** 是 [subscribeTable](../s/subscribeTable.html) 函数返回的订阅主题。
+**topic** 是 [subscribeTable](../s/subscribeTable.md) 函数返回的订阅主题。
 
 ## 详情
 

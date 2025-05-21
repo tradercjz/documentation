@@ -4,7 +4,7 @@
 
 `rowCovar(X, Y)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -46,5 +46,5 @@ timer rowCovar(x[movingWindowIndex(x, 5)], x[movingTopNIndex(x, 5, 5)])
 232.407 ms
 ```
 
-相关函数：[covar](../c/covar.html)
+相关函数：[covar](../c/covar.md)
 

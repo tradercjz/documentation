@@ -92,7 +92,7 @@ def i2t(mutable t){
 tmpTB=loadTextEx(dbHandle=db,tableName=`tb1,partitionColumns=`date,filename=dataFilePath,transform=i2t);
 ```
 
-**注**：关于文本导入的相关函数和案例，可以参考 [数据导入教程](import_data.html)
+**注**：关于文本导入的相关函数和案例，可以参考 [数据导入教程](import_data.md)
 
 ### 1.2. 有纳秒时间戳的文本导入
 
@@ -124,7 +124,7 @@ SendingTimeInNano#securityID#origSendingTimeInNano#bidSize
    nx = db.createPartitionedTable(schemaTb, `nx, `SendingTimeInNano`securityID);
    ```
 
-   上述脚本创建了一个 [组合分区](database.html) 的数据库，然后根据文本的字段和类型创建了表 nx。
+   上述脚本创建了一个 [组合分区](database.md) 的数据库，然后根据文本的字段和类型创建了表 nx。
 2. 导入数据
 
    导入数据时，使用函数 `nanotimestamp`，将文本中的整型转化为 NANOTIMESTAMP 类型：
@@ -234,7 +234,7 @@ hushen_daily_line=db.createPartitionedTable(table(100000000:0,columns1,type1),`h
 
 注：上面的表是按照 [日线行情](https://tushare.pro/document/2?doc_id=27) 里的结构说明定义的。
 
-定义好表结构后，如需获取对应的数据，可前往 [Tushare](https://tushare.pro/document/1?doc_id=39) 平台注册账户，获取 TOKEN，并参考 [案例脚本](script/getTushareDailyLine.py) 进行数据导入操作。本案例使用 DolphinDB 的 [Python API](https://docs.dolphindb.cn/zh/pydoc/py.html)获取数据，用户也可参考 Tushare 的说明文档使用其它语言或库。本例使用 2008 年到 2017 年的日线行情进行说明。
+定义好表结构后，如需获取对应的数据，可前往 [Tushare](https://tushare.pro/document/1?doc_id=39) 平台注册账户，获取 TOKEN，并参考 [案例脚本](script/getTushareDailyLine.py) 进行数据导入操作。本案例使用 DolphinDB 的 [Python API](https://docs.dolphindb.cn/zh/pydoc/py.md)获取数据，用户也可参考 Tushare 的说明文档使用其它语言或库。本例使用 2008 年到 2017 年的日线行情进行说明。
 
 在计算两两相关性时，首先使用 exec + pivot by 生成股票回报率矩阵：
 
@@ -500,7 +500,7 @@ update t set signal = moving(rangeTest, [close, downAvgPrice, upAvgPrice], 21)
 t=table(rand("d"+string(1..n),n) as ts_code, nanotimestamp(2008.01.10+1..n) as trade_date, rand(n,n) as open, rand(n,n) as high, rand(n,n) as low, rand(n,n) as close, rand(n,n) as pre_close, rand(n,n) as change, rand(n,n) as pct_chg, rand(n,n) as vol, rand(n,n) as amount, rand(n,n) as downAvgPrice, rand(n,n) as upAvgPrice, rand(1 0,n) as singna)
 ```
 
-rolling 和 moving 类似，都将函数运算符应用到滑动窗口，进行窗口计算。两者也有细微区别： `rolling` 可以指定步长 step，moving 的步长为 1；且两者对空值的处理也不相同。详情可参考 [rolling 的空值处理](window_cal.html)。
+rolling 和 moving 类似，都将函数运算符应用到滑动窗口，进行窗口计算。两者也有细微区别： `rolling` 可以指定步长 step，moving 的步长为 1；且两者对空值的处理也不相同。详情可参考 [rolling 的空值处理](window_cal.md)。
 
 #### 3.4.2. moving(sum) 和 msum 性能差距
 
@@ -822,7 +822,7 @@ r2 = accumulate(mul, 1..10)[9];
 
 ### 4.1. 提交带有参数的作业
 
-假设需要一个 [定时任务](scheduledJob.html)，每日 0 点执行，用于计算某设备前一日温度指标的最大值。
+假设需要一个 [定时任务](scheduledJob.md)，每日 0 点执行，用于计算某设备前一日温度指标的最大值。
 
 假设设备的温度信息存储在分布式库 `dfs://dolphindb` 下的表 `sensor` 中，其时间字段为 `ts`，类型为 DATETIME。下例定义一个 `getMaxTemperature` 函数来实现计算过程，脚本如下：
 
@@ -960,7 +960,7 @@ timer mr(ds, saveMinuteQuote, +)
 
 DolphinDB 的消息处理函数必须是单目函数，其唯一的参数就是当前的消息。要保存历史状态并在消息处理函数中计算历史数据，可以通过部分应用实现：对于多参数的消息处理函数，保留一个参数用于接收消息，固化其它所有的参数，用于保存历史状态。这些固化参数只对消息处理函数可见，不受其他应用的影响。
 
-历史状态可保存在内存表，字典或分区内存表中。本例将使用 DolphinDB[流计算引擎](streaming_tutorial.html) 来处理 [报价数据](https://www.dolphindb.cn/downloads/tutorial/hfFactorsSampleData.zip) 通过字典保存历史状态并计算因子。如需通过内存表或分布式内存表保存历史状态，可以参考 [实时计算高频因子](hf_factor_streaming.html)。
+历史状态可保存在内存表，字典或分区内存表中。本例将使用 DolphinDB[流计算引擎](streaming_tutorial.md) 来处理 [报价数据](https://www.dolphindb.cn/downloads/tutorial/hfFactorsSampleData.zip) 通过字典保存历史状态并计算因子。如需通过内存表或分布式内存表保存历史状态，可以参考 [实时计算高频因子](hf_factor_streaming.md)。
 
 定义状态因子：计算当前第一档卖价 (askPrice1) 与 30 个报价前的第一档卖价的比值。
 

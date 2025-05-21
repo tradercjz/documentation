@@ -23,5 +23,5 @@
 2. 该命令不会修改配置文件，重启后会恢复成默认配置或 *raftElectionTick*
    指定的配置。
 
-相关函数： [getRaftElectionTick](../g/getRaftElectionTick.html), [getControllerElectionTick](../g/getControllerElectionTick.html)
+相关函数： [getRaftElectionTick](../g/getRaftElectionTick.md), [getControllerElectionTick](../g/getControllerElectionTick.md)
 

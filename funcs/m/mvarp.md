@@ -4,7 +4,7 @@
 
 `mvarp(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -86,5 +86,5 @@ mvarp(m,1w)
 | 2020.04.11 | 8.2222 | 0.25 |
 | 2020.04.12 | 6.6875 | 12.6667 |
 
-相关函数：[varp](../v/varp.html)
+相关函数：[varp](../v/varp.md)
 

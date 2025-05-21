@@ -7,7 +7,7 @@
 本节会介绍其中最常用的两种方法 : 通过 MySQL 插件，ODBC 插件实现数据的导入和导出。
 
 注： 另外一种通用的导入导出方法是使用 DataX 平台，使用 DataX 中间件的方法可参考[从 Oracle 迁移到
-DolphinDB](Oracle_to_DolphinDB.html)。
+DolphinDB](Oracle_to_DolphinDB.md)。
 
 DolphinDB 提供了两个插件用于 MySQL 和 DolphinDB 之间进行即时数据交互。其中 MySQL 插件是专门针对 MySQL 的 Binlog
 机制而设计的专用高速读取插件，它支持高效的将 MySQL 的数据同步到 DolphinDB 中。

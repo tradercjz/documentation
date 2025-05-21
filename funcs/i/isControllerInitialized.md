@@ -20,5 +20,5 @@ isControllerInitialized()
 true
 ```
 
-相关函数：[isDataNodeInitialized](isDataNodeInitialized.html)
+相关函数：[isDataNodeInitialized](isDataNodeInitialized.md)
 

@@ -92,23 +92,23 @@ Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
   通过上述方法创建 ACK 集群后，会自带一个 alicloud -disk-ssd/alicloud-disk-essd 存储类型的 StorageClass。
 * **本地存储**
 
-  部署 local volume provisioner，详细请见参阅 [k8s\_deployment](k8s_deployment.html)。
+  部署 local volume provisioner，详细请见参阅 [k8s\_deployment](k8s_deployment.md)。
 
 ### 安装部署 DolphinDB MGR 和 DolphinDB 集群
 
-首先介绍如何通过 kubectl 客户端或 CloudShell 快速连接到 ACK 集群，详细见[通过kubectl快速使用ACK (aliyun.com)](https://help.aliyun.com/document_detail/309552.html)中步骤三。
+首先介绍如何通过 kubectl 客户端或 CloudShell 快速连接到 ACK 集群，详细见[通过kubectl快速使用ACK (aliyun.com)](https://help.aliyun.com/document_detail/309552.md)中步骤三。
 
-配置完成后，使用 DolphinDB MGR 部署 DolphinDB 集群的步骤参见 [k8s\_deployment](k8s_deployment.html)。
+配置完成后，使用 DolphinDB MGR 部署 DolphinDB 集群的步骤参见 [k8s\_deployment](k8s_deployment.md)。
 
 注意：需要部署公网 IP 以及阿里云安全组去访问 DolphinDB-mgr 组件，以此来部署 DolphinDB 集群。
 
 ### 配置公网以及阿里云安全组
 
-打开专有网络 VPC 页面 -> 弹性公网，创建弹性公网 IP，并且绑到到对应的 ECS 服务器上。详细步骤见 [绑定ECS实例 (aliyun.com)](https://help.aliyun.com/document_detail/72125.html)。如图所示 ECS 服务器已经绑定到公网121.40.216.37上。
+打开专有网络 VPC 页面 -> 弹性公网，创建弹性公网 IP，并且绑到到对应的 ECS 服务器上。详细步骤见 [绑定ECS实例 (aliyun.com)](https://help.aliyun.com/document_detail/72125.md)。如图所示 ECS 服务器已经绑定到公网121.40.216.37上。
 
 ![image-20220623113809348](images/k8s_deployment_in_Aliyun/k8s_deployment_in_Aliyun-2.png)
 
-打开 ECS 管理控制台，配置安全组。详细见[创建安全组 (aliyun.com)](https://help.aliyun.com/document_detail/25468.html)。本节配置结果如下：
+打开 ECS 管理控制台，配置安全组。详细见[创建安全组 (aliyun.com)](https://help.aliyun.com/document_detail/25468.md)。本节配置结果如下：
 
 ![image-20220623114130938](images/k8s_deployment_in_Aliyun/k8s_deployment_in_Aliyun-3.png)
 
@@ -118,7 +118,7 @@ Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 
 ## 销毁集群
 
-销毁 Dolphindb 集群详见 [k8s\_deployment](k8s_deployment.html)。
+销毁 Dolphindb 集群详见 [k8s\_deployment](k8s_deployment.md)。
 
 通过如下命令销毁 ACK 集群：
 

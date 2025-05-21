@@ -425,7 +425,7 @@ C:\DolphinDB\server\dolphindb.lic
   ![](images/single_machine_cluster_deploy/3_4.png)
 * 离线升级
 
-  下载升级所需版本的安装包，官方下载地址：[http://www.dolphindb.cn/downloads.html](https://gitee.com/link?target=http%3A%2F%2Fwww.dolphindb.cn%2Fdownloads.html)
+  下载升级所需版本的安装包，官方下载地址：[http://www.dolphindb.cn/downloads.html](https://gitee.com/link?target=http%3A%2F%2Fwww.dolphindb.cn%2Fdownloads.md)
 
   将下载好的安装包上传至 */DolphinDB/server/clusterDemo* 目录下，以更新至 2.00.9.1 版本为例：
 
@@ -518,7 +518,7 @@ C:\DolphinDB\server\dolphindb.lic
 
 **第三步：升级**
 
-* 下载所需升级版本的安装包，官方下载地址：[http://www.dolphindb.cn/downloads.html](https://gitee.com/link?target=http%3A%2F%2Fwww.dolphindb.cn%2Fdownloads.html)
+* 下载所需升级版本的安装包，官方下载地址：[http://www.dolphindb.cn/downloads.html](https://gitee.com/link?target=http%3A%2F%2Fwww.dolphindb.cn%2Fdownloads.md)
 * 将新版本 *server* 目录下除 *dolphindb.cfg*, *clusterDemo* 以及 *dolphindb.lic* 外的所有文件覆盖替换旧版文件
 
 **注意**：当 server 升级到某个版本后，使用的插件也应升级到与此对应的版本。

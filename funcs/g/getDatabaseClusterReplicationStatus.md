@@ -18,5 +18,5 @@
 * enabled：布尔值，表示是否启用集群间的异步复制。
 * executionSet：任务所属的执行集ID。
 
-相关函数：[setDatabaseForClusterReplication](../s/setDatabaseForClusterReplication.html)
+相关函数：[setDatabaseForClusterReplication](../s/setDatabaseForClusterReplication.md)
 

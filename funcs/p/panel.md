@@ -22,7 +22,7 @@
 
 将指标列按给定行与列维度进行透视操作，生成一个或多个矩阵。每一个矩阵对应一个指标列（metrics）。
 
-`panel` 函数同 [pivotBy](../../progr/sql/pivotBy.html)
+`panel` 函数同 [pivotBy](../../progr/sql/pivotBy.md)
 语句类似，将数据表中的数据按照两个维度重新排列。两者的不同之处在于，SQL 中，exec... pivot by... 只能指定一个指标列， 生成一个矩阵，而
 `panel` 函数可以指定一个或多个指标列，生成一个或多个矩阵。
 

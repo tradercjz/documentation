@@ -4,7 +4,7 @@
 
 `miminLast(X, window, [minPeriods])`
 
-窗口计算规则请参考: [滑动窗口系列（m 系列）](../themes/mFunctions.html)
+窗口计算规则请参考: [滑动窗口系列（m 系列）](../themes/mFunctions.md)
 
 ## 参数
 
@@ -66,5 +66,5 @@ miminLast(X, 3d)
 | 2020.01.09 | -1 |
 | 2020.01.10 | 1 |
 
-相关函数：[mimin](mimin.html)
+相关函数：[mimin](mimin.md)
 

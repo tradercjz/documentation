@@ -1,6 +1,6 @@
 # poly1d
 
-是 `[polyPredict](polyPredict.html)`的别名。
+是 `[polyPredict](polyPredict.md)`的别名。
 
 Copyright
 

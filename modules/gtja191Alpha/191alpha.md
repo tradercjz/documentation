@@ -33,7 +33,7 @@
 
 把附件的 gtja191Alpha.dos 放在 [home]/modules 目录下，[home] 目录由系统配置参数 home 决定，可以通过 `getHomeDir()` 函数查看。
 
-更多 DolphinDB 模块的说明，请参阅 [DolphinDB 教程：模块](../../tutorials/module_tutorial.html)。
+更多 DolphinDB 模块的说明，请参阅 [DolphinDB 教程：模块](../../tutorials/module_tutorial.md)。
 
 ### 2.2. 数据准备
 

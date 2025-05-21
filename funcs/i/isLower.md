@@ -36,5 +36,5 @@ isLower(["  ",string()]);
 [false,false]
 ```
 
-相关函数：[isUpper](isUpper.html), [isTitle](isTitle.html)
+相关函数：[isUpper](isUpper.md), [isTitle](isTitle.md)
 

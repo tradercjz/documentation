@@ -2,7 +2,7 @@
 
 综合交易平台（Comprehensive Transaction Platform），简称
 CTP，是上海期货信息技术有限公司专门为期货公司开发的一套期货经纪业务管理系统，系统支持国内商品期货和股指期货的交易结算业务，并能自动生成、报送保证金监控文件和反洗钱监控文件。关于
-CTP 插件的接口介绍详见 [CTP 文档说明](ctp.html)。注意， CTP
+CTP 插件的接口介绍详见 [CTP 文档说明](ctp.md)。注意， CTP
 插件基于上海期货交易所官方提供的 CTP C++ API 实现， 推荐的版本号为 v6.6.8 和 v6.6.9。
 
 DolphinDB 提供了对接 CTP 系统的 CTP 行情插件，可以订阅期货市场的实时行情数据和查询商品信息数据。插件基于多种 CTP SDK 进行开发，目前支持 CTP 与
@@ -13,7 +13,7 @@ DolphinDB server 以及插件上，目前仅支持 Linux 系统。
 
 ## 1. 基本使用介绍
 
-节点启动后，可以使用 GUI, VS Code, Web UI 等 [DolphinDB 客户端](../db_distr_comp/clients.html) 连接相应节点并执行示例代码。
+节点启动后，可以使用 GUI, VS Code, Web UI 等 [DolphinDB 客户端](../db_distr_comp/clients.md) 连接相应节点并执行示例代码。
 
 ### 1.1 安装插件
 
@@ -57,7 +57,7 @@ installPlugin("ctp")
 
 在脚本中调用插件相关的接口前，需要先加载插件。
 
-在 GUI（或 VS Code、Web UI）等[客户端](../db_distr_comp/clients.html)中执行
+在 GUI（或 VS Code、Web UI）等[客户端](../db_distr_comp/clients.md)中执行
 `loadPlugin` 函数加载插件。以下示例中直接使用了插件名，也可以使用相对路径
 *./plugins/ctp/PluginCtp.txt* 及 1.1
 中返回的绝对路径*/path\_to\_dolphindb\_server/server/plugins/ctp/PluginCtp.txt*。
@@ -80,7 +80,7 @@ CTP 插件，即可在任意会话中调用该插件提供的函数。错误提�
 The module [ctp] is already in use.
 ```
 
-可以通过 [try-catch](../progr/statements/tryCatch.html)
+可以通过 [try-catch](../progr/statements/tryCatch.md)
 语句捕获这个错误，避免因为插件已加载而中断后续脚本代码的执行：
 
 ```
@@ -143,7 +143,7 @@ ids = exec distinct trade_code from loadText("./future_basic.csv")
   + 如果 *OutputElapsed* 为 true，则会将数据进入插件，到插入流表前的时间间隔作为一个字段置于表末尾，类型为
     LONG，单位为纳秒。
 * *ids* 参数为 STRING 类型向量，是由合约 ID 组成的数组，表示需要订阅的合约范围。
-  + ./future\_basic.csv 是相对于节点主目录的路径，可以通过 [getHomeDir](../funcs/g/getHomeDir.html)
+  + ./future\_basic.csv 是相对于节点主目录的路径，可以通过 [getHomeDir](../funcs/g/getHomeDir.md)
     函数获取节点主目录。
 
 **原始数据流数据表配置**
@@ -197,7 +197,7 @@ conn = ctp::connect(ip, port, config)
 
 **创建持久化原始行情流数据表**
 
-首先调用 [ctp::getSchema](ctp.html#ctpgetschema)函数获取 CTP 原始行情数据表的表结构，再调用 [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.html) 函数将流数据表共享，创建持久化流数据表。
+首先调用 [ctp::getSchema](ctp.html#ctpgetschema)函数获取 CTP 原始行情数据表的表结构，再调用 [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.md) 函数将流数据表共享，创建持久化流数据表。
 
 ```
 tb = ctp::getSchema(conn, ctpSubType)
@@ -210,17 +210,17 @@ enableTableShareAndPersistence(
 
 * 为保证 `enableTableShareAndPersistence`
   函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolohindb.cfg*，集群：*cluster.cfg*）指定配置参数
-  *persistenceDir* ，配置参考[功能配置](../db_distr_comp/cfg/function_configuration.html)。
+  *persistenceDir* ，配置参考[功能配置](../db_distr_comp/cfg/function_configuration.md)。
 * 函数中的 `cacheSize` 变量控制了在建表时预分配内存的大小以及流数据表在内存里的最大行数。设置较大的
   `cacheSize` 可以降低出现峰值时延的频率。此处引用了在 2.1
   中配置好的参数*marketTBCapacity*，具体大小可以根据实际的可使用的内存大小决定。具体优化原理可参考 [DolphinDB
-  流计算时延统计与性能优化](../tutorials/streaming_timer.html)。
+  流计算时延统计与性能优化](../tutorials/streaming_timer.md)。
 
 **创建分布式数据库**
 
 为将行情数据存入分布式数据库，需要提前创建存储 CTP
 行情数据的分布式库表。以下提供了一个示例，本例将期货和期权数据存储在同一数据库中，为了控制每个分区数据大小，选择对数据库采用按天分区和按期权期货代码 HASH
-40 分区。具体分区规则参考自 [基于 DolphinDB 存储金融数据的分区方案最佳实践](../tutorials/best_practices_for_partitioned_storage.html)。
+40 分区。具体分区规则参考自 [基于 DolphinDB 存储金融数据的分区方案最佳实践](../tutorials/best_practices_for_partitioned_storage.md)。
 
 ```
 if(existsDatabase(stdDestDBName)){
@@ -283,7 +283,7 @@ bid\_volume, ask\_price, ask\_volume 列分别设置为 DOUBLE[]，LONG[]，DOUB
 
 **创建持久化标准化行情流数据表**
 
-调用 [schema](../funcs/s/schema.html) 函数获取存储 CTP
+调用 [schema](../funcs/s/schema.md) 函数获取存储 CTP
 行情数据的分布式表的表结构，然后创建结构一致的持久化流数据表。
 
 ```
@@ -303,7 +303,7 @@ setStreamTableFilterColumn(objByName(stdStreamTBName), `unified_code)
 
 ### 2.5 订阅流数据表并写入分布式数据库
 
-首先订阅 2.4 节中的持久化原始行情流数据表进行数据预处理，再订阅持久化标准化行情流数据表，将增量数据实时写入分布式数据库。调用 [subscribeTable](../funcs/s/subscribeTable.html)
+首先订阅 2.4 节中的持久化原始行情流数据表进行数据预处理，再订阅持久化标准化行情流数据表，将增量数据实时写入分布式数据库。调用 [subscribeTable](../funcs/s/subscribeTable.md)
 函数从客户端节点订阅本地或远程服务器的流数据表。
 
 ```
@@ -391,7 +391,7 @@ AskVolume4, AskVolume5) as AskVolume,
 
 注：
 
-在原始行情数据标准化处理过程中，调用 [fixedLengthArrayVector](../funcs/f/fixedLengthArrayVector.html) 函数，将原始行情表中的 `BidPrice1` ，
+在原始行情数据标准化处理过程中，调用 [fixedLengthArrayVector](../funcs/f/fixedLengthArrayVector.md) 函数，将原始行情表中的 `BidPrice1` ，
 `BidPrice2` ，`BidPrice3` ，
 `BidPrice4` ， `BidPrice5` 五档买方价格，合并为一个
 DOUBLE[] 类型的 `bid price` 列进行存储。`bid
@@ -553,7 +553,7 @@ share(tmp, "basicInfoTable")
 | 郑商所 | 2024.08.08 | 2024.08.08 |
 
 * 为了能将同一天的交易数据存在同一个日期的分区里，需要对 `ActionDay` 和
-  `TradingDay`进行处理。可以调用 [temporalAdd](../funcs/t/temporalAdd.html)
+  `TradingDay`进行处理。可以调用 [temporalAdd](../funcs/t/temporalAdd.md)
   函数对日期进行按照交易日的加减计算。`temporalAdd(trade_date, -1, `DCE)`
   就是按照 *DCE*（大商所）的交易日历找 `trade_date` 的前一个交易日期。
 
@@ -637,7 +637,7 @@ def ctpMarketHandler(msg, stdStreamTBName,
 
 ### 4.3 如何设置定时任务？
 
-由于每日收盘后 CTP 插件仍会接收一些测试数据，用户可以调用 [scheduleJob](../funcs/s/scheduleJob.html) 函数设定 CTP 连接和关闭的定时任务，参考代码如下：
+由于每日收盘后 CTP 插件仍会接收一些测试数据，用户可以调用 [scheduleJob](../funcs/s/scheduleJob.md) 函数设定 CTP 连接和关闭的定时任务，参考代码如下：
 
 ```
 // 由于 scheduleJob 中的 jobFunc 必须是没有参数的函数，所以首先定义关闭 CTP 连接函数
@@ -671,8 +671,8 @@ cluster.cfg 中配置 *preloadModules* 参数。
 
 ## 5. 附录
 
-* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](../tutorials/Startup.html)。
-* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](../tutorials/streaming_auto_sub.html)。
+* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](../tutorials/Startup.md)。
+* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](../tutorials/streaming_auto_sub.md)。
 * *[startup.dos](script/ctp_best_practice/startup.dos)* 启动脚本（账户信息需要根据用户实际情况进行修改） 。
 * [future\_basic.csv](script/ctp_best_practice/future_basic.csv)
 

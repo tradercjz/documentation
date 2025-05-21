@@ -21,5 +21,5 @@ dfsRecoveryConcurrency参数。默认情况下，该参数值为集群中控制�
 resetDfsRecoveryConcurrency(2)
 ```
 
-相关函数：[getDfsRecoveryConcurrency](../g/getDfsRecoveryConcurrency.html)
+相关函数：[getDfsRecoveryConcurrency](../g/getDfsRecoveryConcurrency.md)
 

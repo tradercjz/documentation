@@ -237,7 +237,7 @@ t
 
 ## 7. 长整型转换为 TIMESTAMP 类型时的时区注意事项
 
-有的数据库在存储时间数据时，会将其转换为全球统一的 Unix 时间戳，并单独存储时区信息（即 UTC 偏移量）。 而 DolphinDB 将时间转换为本地时间戳直接存储，不会单独存储时区信息，具体可参考：[时区处理](https://docs.dolphindb.cn/zh/tutorials/timezone.html)。
+有的数据库在存储时间数据时，会将其转换为全球统一的 Unix 时间戳，并单独存储时区信息（即 UTC 偏移量）。 而 DolphinDB 将时间转换为本地时间戳直接存储，不会单独存储时区信息，具体可参考：[时区处理](https://docs.dolphindb.cn/zh/tutorials/timezone.md)。
 
 因此，如果原始数据文件中的长整型是带时区信息的长整型，即已经加减了 UTC 偏移量的数据，导入 DolphinDB 进行转换时会被视为零时区数据处理，可能导致结果与预期不符。
 

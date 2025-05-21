@@ -103,5 +103,5 @@ select * from outputTable
 | B | 25.5 |
 | B | 33.75 |
 
-相关函数：[conditionalIterate](../c/conditionalIterate.html)
+相关函数：[conditionalIterate](../c/conditionalIterate.md)
 

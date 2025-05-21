@@ -5,7 +5,7 @@
 `cumbetaTopN(Y, X, S, top, [ascending=true],
 [tiesMethod='latest'])`
 
-部分通用参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 

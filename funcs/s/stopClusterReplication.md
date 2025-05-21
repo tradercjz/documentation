@@ -23,5 +23,5 @@
 stopClusterReplication();
 ```
 
-相关函数： [startClusterReplication](startClusterReplication.html), [skipClusterReplicationTask](skipClusterReplicationTask.html)
+相关函数： [startClusterReplication](startClusterReplication.md), [skipClusterReplicationTask](skipClusterReplicationTask.md)
 

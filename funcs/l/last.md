@@ -16,7 +16,7 @@
 
 返回向量的最后一个元素，或矩阵、表的最后一行。
 
-注： 若向量的最后一个元素为 NULL，则返回 NULL。若要返回最后一个非 NULL 的元素，请使用 [lastNot](lastNot.html) 函数。
+注： 若向量的最后一个元素为 NULL，则返回 NULL。若要返回最后一个非 NULL 的元素，请使用 [lastNot](lastNot.md) 函数。
 
 ## 例子
 
@@ -51,5 +51,5 @@ last(m);
 
 输出返回：[3,6]
 
-相关函数：[first](../f/first.html)
+相关函数：[first](../f/first.md)
 

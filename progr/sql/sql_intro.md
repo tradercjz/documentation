@@ -64,5 +64,5 @@ Oracle 和 MySQL。
 | SQL 方言 | 支持功能 | 支持函数（无分大小写） |
 | --- | --- | --- |
 | Oracle | * 注释符：--、/\*\*/ * 字符串拼接符：|| | asciistr, concat, decode, instr, length, listagg, nvl, nvl2, rank, regexp\_like, replace, to\_char, to\_date, to\_number, trunc, wm\_concat 注： to\_char 只接收数值类型和 DATE, DATEHOUR, DATETIME 类型的参数。有关 Oracle SQL 函数的语法参考，请访问：[SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Functions.html#GUID-D079EFD3-C683-441F-977E-2C9503089982) |
-| MySQL |  | sysdate 注： 有关 MySQL 函数的语法参考，请访问：[MySQL :: MySQL 8.0 Reference Manual :: 12 Functions and Operators](https://dev.mysql.com/doc/refman/8.0/en/functions.html) |
+| MySQL |  | sysdate 注： 有关 MySQL 函数的语法参考，请访问：[MySQL :: MySQL 8.0 Reference Manual :: 12 Functions and Operators](https://dev.mysql.com/doc/refman/8.0/en/functions.md) |
 

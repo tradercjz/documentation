@@ -31,5 +31,5 @@ fromUTF8(["hello","world"],"euc-cn");
 
 输出返回：["hello","world"]
 
-相关函数：[convertEncode](../c/convertEncode.html), [toUTF8](../t/toUTF8.html)
+相关函数：[convertEncode](../c/convertEncode.md), [toUTF8](../t/toUTF8.md)
 

@@ -48,7 +48,7 @@ max），定义了对应参数的边界。
 * fopt：浮点数标量，目标函数最小值。fopt=func(xopt)。
 * iterations：整数标量，优化过程中执行的总迭代数。
 * mode：整数标量，表示算法退出时的状态。mode=0 时表示成功进行优化，取其他值表示算法异常退出，详细说明可参考文档 [jacobwilliams -
-  slsqp](https://jacobwilliams.github.io/slsqp/proc/slsqp.html)。
+  slsqp](https://jacobwilliams.github.io/slsqp/proc/slsqp.md)。
 
 ## 例子
 

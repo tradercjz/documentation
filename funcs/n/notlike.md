@@ -64,5 +64,5 @@ trades=db.createPartitionedTable(t,`trades,`datetime).append!(t)
 select * from trades where sym notLike "%IBM%"
 ```
 
-相关函数：[like](../l/like.html)
+相关函数：[like](../l/like.md)
 

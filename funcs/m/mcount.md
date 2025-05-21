@@ -4,7 +4,7 @@
 
 `mcount(X, window, [minPeriods=1])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -94,5 +94,5 @@ mcount(s,1w)
 | 2020.06.02 | 5 |
 | 2020.06.03 | 5 |
 
-相关函数：[count](../c/count.html)
+相关函数：[count](../c/count.md)
 

@@ -4,7 +4,7 @@
 
 `rowXor(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -46,5 +46,5 @@ select * from t where rowXor(price1$ 30, price2$ 50);
 | IBM | 29.52 | 50.32 |
 | C | 174.97 | 26.23 |
 
-相关函数：[xor](../x/xor.html)
+相关函数：[xor](../x/xor.md)
 

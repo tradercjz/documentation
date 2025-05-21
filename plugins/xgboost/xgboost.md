@@ -50,7 +50,7 @@ xgboost::train(Y, X, [params], [numBoostRound=10], [model])
 
 **X** 一个矩阵或一个表，表示自变量。
 
-**params** 一个字典，表示 XGBoost 训练所用的参数，详情参考[官方文档](https://xgboost.readthedocs.io/en/latest/parameter.html)。
+**params** 一个字典，表示 XGBoost 训练所用的参数，详情参考[官方文档](https://xgboost.readthedocs.io/en/latest/parameter.md)。
 
 **numBoostRound** 一个正整数，表示 boosting 的迭代次数。
 
@@ -120,7 +120,7 @@ xgboost::predict(model, X, [type=0], [iterationRange], [strictShape=false], [tra
 
 **training** 一个布尔值。表示预测值是否用于训练。
 
-关于以上参数的具体用途说明，参见[官方文档](https://xgboost.readthedocs.io/en/latest/c.html)。
+关于以上参数的具体用途说明，参见[官方文档](https://xgboost.readthedocs.io/en/latest/c.md)。
 
 **详情**
 

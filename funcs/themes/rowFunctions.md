@@ -5,7 +5,7 @@ DolphinDB 中，绝大部分计算函数是基于向量、矩阵或表的一列�
 
 ## row 系列函数介绍
 
-row 系列函数对应的高阶函数 [byRow](../ho_funcs/byRow.html)：
+row 系列函数对应的高阶函数 [byRow](../ho_funcs/byRow.md)：
 
 ```
 byRow(func, X, [Y])
@@ -59,62 +59,62 @@ row 系列函数如下：
 
 单目函数：
 
-* [rowAnd](../r/rowAnd.html)
-* [rowOr](../r/rowOr.html)
-* [rowXor](../r/rowXor.html)
-* [rowMax](../r/rowMax.html)
-* [rowMin](../r/rowMin.html)
-* [rowImax](../r/rowImax.html)
-* [rowImin](../r/rowImin.html)
-* [rowImaxLast](../r/rowimaxlast.html)
-* [rowIminLast](../r/rowiminlast.html)
-* [rowCount](../r/rowCount.html)
-* [rowSize](../r/rowSize.html)
-* [rowSum](../r/rowSum.html)
-* [rowSum2](../r/rowSum2.html)
-* [rowAvg](../r/rowAvg.html)
-* [rowProd](../r/rowProd.html)
-* [rowStd](../r/rowStd.html)
-* [rowStdp](../r/rowStdp.html)
-* [rowVar](../r/rowVar.html)
-* [rowVarp](../r/rowVarp.html)
-* [rowPrev](../r/rowPrev.html)
-* [rowNext](../r/rowNext.html)
-* [rowMove](../r/rowMove.html)
-* [rowCumsum](../r/rowCumsum.html)
-* [rowCumprod](../r/rowCumprod.html)
-* [rowCummax](../r/rowCummax.html)
-* [rowCummin](../r/rowCummin.html)
+* [rowAnd](../r/rowAnd.md)
+* [rowOr](../r/rowOr.md)
+* [rowXor](../r/rowXor.md)
+* [rowMax](../r/rowMax.md)
+* [rowMin](../r/rowMin.md)
+* [rowImax](../r/rowImax.md)
+* [rowImin](../r/rowImin.md)
+* [rowImaxLast](../r/rowimaxlast.md)
+* [rowIminLast](../r/rowiminlast.md)
+* [rowCount](../r/rowCount.md)
+* [rowSize](../r/rowSize.md)
+* [rowSum](../r/rowSum.md)
+* [rowSum2](../r/rowSum2.md)
+* [rowAvg](../r/rowAvg.md)
+* [rowProd](../r/rowProd.md)
+* [rowStd](../r/rowStd.md)
+* [rowStdp](../r/rowStdp.md)
+* [rowVar](../r/rowVar.md)
+* [rowVarp](../r/rowVarp.md)
+* [rowPrev](../r/rowPrev.md)
+* [rowNext](../r/rowNext.md)
+* [rowMove](../r/rowMove.md)
+* [rowCumsum](../r/rowCumsum.md)
+* [rowCumprod](../r/rowCumprod.md)
+* [rowCummax](../r/rowCummax.md)
+* [rowCummin](../r/rowCummin.md)
 
 双目函数：
 
-* [rowBeta](../r/rowBeta.html)
-* [rowCorr](../r/rowCorr.html)
-* [rowCovar](../r/rowCovar.html)
-* [rowWavg](../r/rowWavg.html)
-* [rowWsum](../r/rowWsum.html)
-* [rowCumwsum](../r/rowCumwsum.html)
-* [rowEuclidean](../r/rowEuclidean.html)
-* [rowTanimoto](../r/rowTanimoto.html)
-* [rowDot](../r/rowDot.html)
+* [rowBeta](../r/rowBeta.md)
+* [rowCorr](../r/rowCorr.md)
+* [rowCovar](../r/rowCovar.md)
+* [rowWavg](../r/rowWavg.md)
+* [rowWsum](../r/rowWsum.md)
+* [rowCumwsum](../r/rowCumwsum.md)
+* [rowEuclidean](../r/rowEuclidean.md)
+* [rowTanimoto](../r/rowTanimoto.md)
+* [rowDot](../r/rowDot.md)
 
 特殊单目函数：
 
 * 只支持输入单个矩阵：
 
-  + [rowRank](../r/rowRank.html)
-  + [rowDenseRank](../r/rowDenseRank.html)
+  + [rowRank](../r/rowRank.md)
+  + [rowDenseRank](../r/rowDenseRank.md)
 * 支持输入元组、矩阵和表：
 
-  + [rowKurtosis](../r/rowKurtosis.html)
-  + [rowSkew](../r/rowSkew.html)
+  + [rowKurtosis](../r/rowKurtosis.md)
+  + [rowSkew](../r/rowSkew.md)
 
 特殊双目函数：
 
 X 支持输入矩阵或数组向量，Y 支持输入向量或数组向量：
 
-* [rowAt](../r/rowAt.html)
-* [rowAlign](../r/rowAlign.html)
+* [rowAt](../r/rowAt.md)
+* [rowAlign](../r/rowAlign.md)
 
 ## 计算规则
 

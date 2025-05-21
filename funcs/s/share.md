@@ -4,5 +4,5 @@ select count(*) from outputTable
 10,000
 ```
 
-相关文档：[undef](../u/undef.html), [取消变量](../../progr/objs/undef_var.html)
+相关文档：[undef](../u/undef.md), [取消变量](../../progr/objs/undef_var.md)
 

@@ -30,7 +30,7 @@
 
 注：
 
-在新服务器上增加节点前需要先部署代理节点。详情参考教程： [多服务器集群部署](../../tutorials/multi_machine_cluster_deployment.html)。
+在新服务器上增加节点前需要先部署代理节点。详情参考教程： [多服务器集群部署](../../tutorials/multi_machine_cluster_deployment.md)。
 
 ## 例子
 

@@ -4,7 +4,7 @@
 
 `rowAvg(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -40,5 +40,5 @@ select sym,rowAvg(price1,price2) as avg from t;
 | IBM | 40.655 |
 | C | 100.6 |
 
-相关函数：[avg](../a/avg.html)
+相关函数：[avg](../a/avg.md)
 

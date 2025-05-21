@@ -14,7 +14,7 @@
 
 ## 详情
 
-使用 *optr* 指定的二元运算符，将 *X* 与 *Y* 连接，成一个二元运算的元代码。使用 [eval](../e/eval.html) 函数可以执行
+使用 *optr* 指定的二元运算符，将 *X* 与 *Y* 连接，成一个二元运算的元代码。使用 [eval](../e/eval.md) 函数可以执行
 `binaryExpr` 函数生成的元代码。
 
 ## 例子
@@ -42,5 +42,5 @@ binaryExpr(a, b, dot).eval()
 | 10 | 8 |
 | 16 | 14 |
 
-相关函数： [unifiedExpr](../u/unifiedExpr.html)
+相关函数： [unifiedExpr](../u/unifiedExpr.md)
 

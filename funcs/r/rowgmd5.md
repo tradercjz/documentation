@@ -34,5 +34,5 @@ rowGmd5(xs, ys)
 // output: [50420aa84aa547ebc24dfa3ef8fffa57,de90d6c74c0b99f5656b95563a9a35b7,376579b27ec7c2f6eed7347ef0e5a15b,78bf6752e93cbca5fd1dcc3519fc6c55]
 ```
 
-相关函数：[gmd5](../g/gmd5.html)
+相关函数：[gmd5](../g/gmd5.md)
 

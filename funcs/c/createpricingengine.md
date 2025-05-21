@@ -33,7 +33,7 @@ method, outputTable, [securityReference], [keyColumn],
 * 算法中的参数可以是输入表中的列或者是参数 *securityReference* 中的列或者常量，优先查找参数
   *dummyTable* 中的列；如果有重名，可以用列引用的方式，如
   `dummyTable.X`。
-* 对于 [vanillaOption](../v/vanillaoption.html) 的 kwargs,
+* 对于 [vanillaOption](../v/vanillaoption.md) 的 kwargs,
   支持以下几种写法：
   + 单独指定kwargs
 
@@ -120,10 +120,10 @@ getStreamEngine(`engine1).append!(data)
 
 **相关函数**
 
-* [bondDirtyPrice](../b/bondDirtyPrice.html)
-* [bondAccrInt](../b/bondaccrint.html)
-* [bondDuration](../b/bondDuration.html)
-* [bondConvexity](../b/bondconvexity.html)
-* [bondYield](../b/bondyield.html)
-* [irs](../i/irs.html)
+* [bondDirtyPrice](../b/bondDirtyPrice.md)
+* [bondAccrInt](../b/bondaccrint.md)
+* [bondDuration](../b/bondDuration.md)
+* [bondConvexity](../b/bondconvexity.md)
+* [bondYield](../b/bondyield.md)
+* [irs](../i/irs.md)
 

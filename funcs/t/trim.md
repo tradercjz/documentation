@@ -21,5 +21,5 @@ trim(x);
 ["t1","t2"]
 ```
 
-相关函数：[strip](../s/strip.html)
+相关函数：[strip](../s/strip.md)
 

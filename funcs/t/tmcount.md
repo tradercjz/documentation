@@ -4,7 +4,7 @@
 
 `tmcount(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -57,5 +57,5 @@ select *, tmcount(t, x, 1w) from m
 | 2021.01.07 | 2 | 3 |
 | 2021.01.09 | 4 | 3 |
 
-相关函数：[mcount](../m/mcount.html), [count](../c/count.html)
+相关函数：[mcount](../m/mcount.md), [count](../c/count.md)
 

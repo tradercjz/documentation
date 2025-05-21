@@ -18,5 +18,5 @@
 getDfsRebalanceConcurrency()
 ```
 
-相关函数：[resetDfsRebalanceConcurrency](../r/resetDfsRebalanceConcurrency.html)
+相关函数：[resetDfsRebalanceConcurrency](../r/resetDfsRebalanceConcurrency.md)
 

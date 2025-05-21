@@ -14,7 +14,7 @@ NSQ 插件的版本支持情况请参考 [插件市场下载页](https://marketp
 
 使用 DolphinDBModules::easyNSQ 模块前，请确保在 DolphinDB 服务器上正确安装和加载了 NSQ 插件和 DolphinDBModules::easyNSQ 模块文件。
 
-**注意**：对于之前从未使用过 DolphinDB 插件和模块功能的读者，推荐在阅读以下章节的同时阅读 [DolphinDB NSQ 行情插件文档](https://docs.dolphindb.cn/zh/plugins/nsq/nsq.html) 以及 [DolphinDB 模块说明](https://docs.dolphindb.cn/zh/tutorials/tu_modules.html)。
+**注意**：对于之前从未使用过 DolphinDB 插件和模块功能的读者，推荐在阅读以下章节的同时阅读 [DolphinDB NSQ 行情插件文档](https://docs.dolphindb.cn/zh/plugins/nsq/nsq.md) 以及 [DolphinDB 模块说明](https://docs.dolphindb.cn/zh/tutorials/tu_modules.md)。
 easyNSQ 模块依赖于 NSQ 插件，**请确保先加载 NSQ 插件，再加载 easyNSQ 模块**。
 
 ### 1.1 安装 NSQ 插件
@@ -23,7 +23,7 @@ easyNSQ 模块依赖于 NSQ 插件，**请确保先加载 NSQ 插件，再加载
 
 用户可以通过 DolphinDB 官方的插件市场在线安装 NSQ 插件，具体操作步骤如下：
 
-1. 在 DolphinDB 客户端（DolphinDB GUI、Web 页面或者 Vscode 插件）中运行 [listRemotePlugins](https://docs.dolphindb.cn/zh/funcs/l/listRemotePlugins.html) 函数，查看插件市场中与当前 DolphinDB server 适配的 NSQ 插件及其版本信息。
+1. 在 DolphinDB 客户端（DolphinDB GUI、Web 页面或者 Vscode 插件）中运行 [listRemotePlugins](https://docs.dolphindb.cn/zh/funcs/l/listRemotePlugins.md) 函数，查看插件市场中与当前 DolphinDB server 适配的 NSQ 插件及其版本信息。
 
    ```
    listRemotePlugins("nsq")
@@ -34,7 +34,7 @@ easyNSQ 模块依赖于 NSQ 插件，**请确保先加载 NSQ 插件，再加载
    图 1-1 listRemotePlugins 函数的返回结果示例
 
    ![图 1-1 listRemotePlugins 函数的返回结果示例](images/1.1.png)
-2. 使用 [installPlugin](https://docs.dolphindb.cn/zh/funcs/i/installPlugin.html) 函数从插件市场下载并安装 NSQ 插件。
+2. 使用 [installPlugin](https://docs.dolphindb.cn/zh/funcs/i/installPlugin.md) 函数从插件市场下载并安装 NSQ 插件。
 
    ```
    installPlugin("nsq")
@@ -62,7 +62,7 @@ easyNSQ 模块依赖于 NSQ 插件，**请确保先加载 NSQ 插件，再加载
 
 * **手动加载插件**
 
-安装 NSQ 插件完之后，可以使用 [loadPlugin](https://docs.dolphindb.cn/zh/funcs/l/loadPlugin.html) 函数加载插件。任意会话中成功加载插件，即可在当前 server 节点的其他会话中使用插件。若 DolphinDB server 重启，则需要重新加载插件。
+安装 NSQ 插件完之后，可以使用 [loadPlugin](https://docs.dolphindb.cn/zh/funcs/l/loadPlugin.md) 函数加载插件。任意会话中成功加载插件，即可在当前 server 节点的其他会话中使用插件。若 DolphinDB server 重启，则需要重新加载插件。
 
 2.00.11 及以上版本的 server，支持使用插件名来加载插件。
 

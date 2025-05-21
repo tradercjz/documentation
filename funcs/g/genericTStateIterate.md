@@ -107,5 +107,5 @@ engine = createReactiveStateEngine(name="test", metrics=[<dateTime>, <genericTSt
   270599；
 * 以此类推。
 
-相关函数：[genericStateIterate](genericStateIterate.html)
+相关函数：[genericStateIterate](genericStateIterate.md)
 

@@ -6,7 +6,7 @@
 
 ## 创建集合
 
-可用函数 [set](../../funcs/s/set.html) 来创建集合。
+可用函数 [set](../../funcs/s/set.md) 来创建集合。
 
 ```
 x=set([5,5,3,4]);
@@ -128,7 +128,7 @@ y.append!(3);
 set(3,6,4,9,8)
 ```
 
-用函数 [erase!](../../funcs/e/erase_.html) 从集合中删除一个元素。
+用函数 [erase!](../../funcs/e/erase_.md) 从集合中删除一个元素。
 
 ```
 y.erase!(3);
@@ -136,7 +136,7 @@ y.erase!(3);
 set(6,4,9,8)
 ```
 
-用函数 [clear!](../../funcs/c/clear_.html) 清空一个集合。
+用函数 [clear!](../../funcs/c/clear_.md) 清空一个集合。
 
 ```
 y.clear!();

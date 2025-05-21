@@ -28,5 +28,5 @@ deleteMarketHoliday("XTSE")
 // Output: false
 ```
 
-**相关函数：[addMarketHoliday](../a/addMarketHoliday.html)**
+**相关函数：[addMarketHoliday](../a/addMarketHoliday.md)**
 

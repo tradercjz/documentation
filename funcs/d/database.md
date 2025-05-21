@@ -38,7 +38,7 @@
 参数，所有分区属于当前节点。我们不能指定分层域的分区。
 
 **engine = 'OLAP'** 设置数据库存储引擎。取值为：'OLAP' , 'TSDB', 'IMOLTP'或'PKEY'，默认值为
-'OLAP'。关于存储引擎的介绍，请参见[数据库](../../db_distr_comp/cfg/db_intro.html)。
+'OLAP'。关于存储引擎的介绍，请参见[数据库](../../db_distr_comp/cfg/db_intro.md)。
 
 注： TSDB 和 PKEY
 引擎只支持创建分布式数据库。

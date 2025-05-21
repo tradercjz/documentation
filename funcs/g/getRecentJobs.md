@@ -30,7 +30,7 @@
 | endTime | 作业结束时间，为 TIMESTAMP 类型。 |
 | errorMsg | 报错信息。 |
 
-详情参考：[BatchJobManagement](../../sys_man/BatchJobManagement.html)。
+详情参考：[BatchJobManagement](../../sys_man/BatchJobManagement.md)。
 
 ## 例子
 

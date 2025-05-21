@@ -221,7 +221,7 @@ words.values().sum();
 ## 读写对象
 
 *read!* 和 *write*
-函数操作二进制数据时提供了很大的灵活性，但是必须知道读写元素的准确个数以及数据类型，因此当处理复杂数据结构如矩阵、表或元组时，我们需要设计一种复杂的协议来协调读写操作。我们提供了两个高阶函数，[readObject](../../funcs/r/readObject.html) 和 [writeObject](../../funcs/w/writeObject.html)
+函数操作二进制数据时提供了很大的灵活性，但是必须知道读写元素的准确个数以及数据类型，因此当处理复杂数据结构如矩阵、表或元组时，我们需要设计一种复杂的协议来协调读写操作。我们提供了两个高阶函数，[readObject](../../funcs/r/readObject.md) 和 [writeObject](../../funcs/w/writeObject.md)
 用来处理对象的读写。所有数据结构包括标量、向量、集合、字典和表都可以使用这两个函数。
 
 ```

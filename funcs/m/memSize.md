@@ -35,5 +35,5 @@ memSize(select avg(x) as avgx from t)
 280
 ```
 
-相关函数：[objs](../o/objs.html)
+相关函数：[objs](../o/objs.md)
 

@@ -32,5 +32,5 @@ atImax(m1,m2)
 [1,5,2]
 ```
 
-相关函数：[imax](../i/imax.html), [atImin](atImin.html)
+相关函数：[imax](../i/imax.md), [atImin](atImin.md)
 

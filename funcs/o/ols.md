@@ -166,5 +166,5 @@ ols(y, (x1, x2), usePinv=false)
 
 由于在求解过程中，参与求逆的矩阵是奇异的，因此 usePinv=false 时报错。
 
-相关函数：[olsEx](olsEx.html), [bvls](../b/bvls.html)
+相关函数：[olsEx](olsEx.md), [bvls](../b/bvls.md)
 

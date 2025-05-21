@@ -4,7 +4,7 @@
 
 `cumnunique(X, [ignoreNull=false])`
 
-参数说明和窗口计算规则请参考：[cumFunctions](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[cumFunctions](../themes/cumFunctions.md)
 
 ## 参数
 

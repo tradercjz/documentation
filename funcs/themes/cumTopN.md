@@ -28,21 +28,21 @@ cumTopN 系列函数如下：
 
 单目：
 
-* [cumsumTopN](../c/cumsumTopN.html)
-* [cumavgTopN](../c/cumavgTopN.html)
-* [cumstdTopN](../c/cumstdTopN.html)
-* [cumstdpTopN](../c/cumstdpTopN.html)
-* [cumvarTopN](../c/cumvarTopN.html)
-* [cumvarpTopN](../c/cumvarpTopN.html)
-* [cumskewTopN](../c/cumskewTopN.html)
-* [cumkurtosisTopN](../c/cumkurtosisTopN.html)
+* [cumsumTopN](../c/cumsumTopN.md)
+* [cumavgTopN](../c/cumavgTopN.md)
+* [cumstdTopN](../c/cumstdTopN.md)
+* [cumstdpTopN](../c/cumstdpTopN.md)
+* [cumvarTopN](../c/cumvarTopN.md)
+* [cumvarpTopN](../c/cumvarpTopN.md)
+* [cumskewTopN](../c/cumskewTopN.md)
+* [cumkurtosisTopN](../c/cumkurtosisTopN.md)
 
 双目：
 
-* [cumbetaTopN](../c/cumbetaTopN.html)
-* [cumcorrTopN](../c/cumcorrTopN.html)
-* [cumcovarTopN](../c/cumcovarTopN.html)
-* [cumwsumTopN](../c/cumwsumTopN.html)
+* [cumbetaTopN](../c/cumbetaTopN.md)
+* [cumcorrTopN](../c/cumcorrTopN.md)
+* [cumcovarTopN](../c/cumcovarTopN.md)
+* [cumwsumTopN](../c/cumwsumTopN.md)
 
 ## 窗口确定规则
 
@@ -55,7 +55,7 @@ true 为升序），取排序后结果的前 *top* 个元素进行计算。
 
 ![](../../images/cumTopN_1.png)
 
-上图的对应代码，这里以 [cumsumTopN](../c/cumsumTopN.html)
+上图的对应代码，这里以 [cumsumTopN](../c/cumsumTopN.md)
 为例：
 
 ```

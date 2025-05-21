@@ -25,7 +25,7 @@
    ```
 3. 创建表 *tglobal* 的本地订阅，server 参数需设置为发布端节点名，在本例中为 dnode1； *handler*
    设置为需要写入的表 *trades*，*batchSize* 和 *throttle*
-   应根据需求合理设置，具体参数含义见[subscribeTable](../funcs/s/subscribeTable.html)。
+   应根据需求合理设置，具体参数含义见[subscribeTable](../funcs/s/subscribeTable.md)。
 
    ```
    trade = loadTable("dfs://tradeDB", "tradeTB")

@@ -1,6 +1,6 @@
 # notLike/NOTLIKE
 
-NOTLIKE 是与 LIKE 相反的操作，用于确定特定字符串是否与指定模式不匹配。其功能与 [notLike](../../funcs/n/notlike.html) 函数、NOT LIKE 相同。notLike 支持内存表和分布式表。
+NOTLIKE 是与 LIKE 相反的操作，用于确定特定字符串是否与指定模式不匹配。其功能与 [notLike](../../funcs/n/notlike.md) 函数、NOT LIKE 相同。notLike 支持内存表和分布式表。
 
 ## 语法
 

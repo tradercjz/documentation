@@ -25,14 +25,14 @@
 | scalar | 保持一致 |
 | regular vector | list.toddb()，其中 list 必须是强类型的 |
 | any vector | list.toddb() 或 tuple.toddb() |
-| HUGE vector | 内置函数 [bigarray](../../../funcs/b/bigarray.html) 创建 |
-| array vector | 内置函数 [arrayVector](../../../funcs/a/arrayVector.html) 创建 |
-| subarray | 内置函数 [subarray](../../../funcs/a/arrayVector.html) 创建 |
-| pair ( : ) | 内置函数 [pair](../../../funcs/p/pair.html) 创建 |
-| matrix / cast（ $ ） | 通过内置函数 [matrix](../../../funcs/m/matrix.html) 转换 |
+| HUGE vector | 内置函数 [bigarray](../../../funcs/b/bigarray.md) 创建 |
+| array vector | 内置函数 [arrayVector](../../../funcs/a/arrayVector.md) 创建 |
+| subarray | 内置函数 [subarray](../../../funcs/a/arrayVector.md) 创建 |
+| pair ( : ) | 内置函数 [pair](../../../funcs/p/pair.md) 创建 |
+| matrix / cast（ $ ） | 通过内置函数 [matrix](../../../funcs/m/matrix.md) 转换 |
 | set | set.toddb() / ddb.set |
 | dict / | dict.toddb() / ddb.dict |
-| table | 通过内置函数 [table](../../../funcs/t/table.html) 转换 |
+| table | 通过内置函数 [table](../../../funcs/t/table.md) 转换 |
 
 **注意**：
 

@@ -28,5 +28,5 @@ getUserAccessByCluster(["admin"], "masterOfMaster", true)
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | admin |  | 1 | allow | allow | allow | allow | allow | allow | allow | allow | ... |
 
-相关函数：[getUserAccess](getUserAccess.html)
+相关函数：[getUserAccess](getUserAccess.md)
 

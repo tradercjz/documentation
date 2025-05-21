@@ -22,5 +22,5 @@ getPrefetchComputeNodeData()
 // output: false
 ```
 
-相关函数：[setPrefetchComputeNodeData](../s/setprefetchcomputenodedata.html)
+相关函数：[setPrefetchComputeNodeData](../s/setprefetchcomputenodedata.md)
 

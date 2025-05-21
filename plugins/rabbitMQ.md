@@ -8,7 +8,7 @@ DolphinDB Server: 2.00.10及更高版本。支持 Linux x64。
 
 ### 安装步骤
 
-1. 在DolphinDB 客户端中使用 [listRemotePlugins](../funcs/l/listRemotePlugins.html) 命令查看插件仓库中的插件信息。
+1. 在DolphinDB 客户端中使用 [listRemotePlugins](../funcs/l/listRemotePlugins.md) 命令查看插件仓库中的插件信息。
 
    注意：仅展示当前操作系统和 server 版本支持的插件。若无预期插件，可[自行编译](https://gitee.com/dolphindb/DolphinDBPlugin)（请自行选择对应分支下的插件）或在 [DolphinDB 用户社区](https://ask.dolphindb.cn/)进行反馈。
 
@@ -16,7 +16,7 @@ DolphinDB Server: 2.00.10及更高版本。支持 Linux x64。
    login("admin", "123456")
    listRemotePlugins()
    ```
-2. 使用 [installPlugin](../funcs/i/installPlugin.html) 命令完成插件安装。
+2. 使用 [installPlugin](../funcs/i/installPlugin.md) 命令完成插件安装。
 
    ```
    installPlugin("rabbitmq")

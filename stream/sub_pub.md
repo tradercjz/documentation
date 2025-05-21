@@ -17,7 +17,7 @@ DolphinDB
 
 ## 订阅消费
 
-DolphinDB 的数据节点和计算节点可以作为消费者，通过 [subscribeTable](../funcs/s/subscribeTable.html)
+DolphinDB 的数据节点和计算节点可以作为消费者，通过 [subscribeTable](../funcs/s/subscribeTable.md)
 函数订阅流数据表。以下代码展示了一个简单的流数据实时清洗、转换并写入数据库的示例：
 
 **step1：创建存储数据库和分区表**
@@ -136,7 +136,7 @@ subscribeTable(tableName="pubTable", actionName="dataETL", offset=-1, handler=da
 发布端可以设置流数据表的过滤列。消费者在执行 `subscribe`
 函数时，可以基于过滤列指定过滤条件。通过指定过滤列，可以在发布端进行数据过滤，减少网络流量。设置过滤发布的步骤如下：
 
-1. 在发布端执行 [setStreamTableFilterColumn](../funcs/s/setStreamTableFilterColumn.html) 函数，指定流数据表的过滤列
+1. 在发布端执行 [setStreamTableFilterColumn](../funcs/s/setStreamTableFilterColumn.md) 函数，指定流数据表的过滤列
 2. 指定 `subscribe` 函数的 *filter* 参数。流数据表过滤列只有在*filter* 中的数据才会被发布到订阅端，不在 *filter*
    中的数据不会被发布。目前，仅支持对一个列的数据进行过滤
 

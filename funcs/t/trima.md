@@ -4,7 +4,7 @@
 
 `trima(X, window)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TAlib](../themes/TAlib.md)
 
 ## 详情
 
@@ -38,5 +38,5 @@ trima(x,3);
 | 12.0499 | 18.2500 |
 | 11.5750 | 13.7500 |
 
-相关函数：[sma](../s/sma.html), [wma](../w/wma.html), [trima](trima.html)
+相关函数：[sma](../s/sma.md), [wma](../w/wma.md), [trima](trima.md)
 

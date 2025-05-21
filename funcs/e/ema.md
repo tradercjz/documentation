@@ -4,7 +4,7 @@
 
 `ema(X, window, warmup=false)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.md)
 
 ## 参数
 
@@ -54,5 +54,5 @@ ema(x,3);
 | 11.9125 | 15.583333 |
 | 11.55625 | 12.791667 |
 
-相关函数：[gema](../g/gema.html), [wilder](../w/wilder.html), [dema](../d/dema.html), [tema](../t/tema.html)
+相关函数：[gema](../g/gema.md), [wilder](../w/wilder.md), [dema](../d/dema.md), [tema](../t/tema.md)
 

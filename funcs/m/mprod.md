@@ -4,7 +4,7 @@
 
 `mprod(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -68,5 +68,5 @@ mprod(m, 1w)
 | 2020.04.11 | 32 | 90 |
 | 2020.04.12 | 192 | 180 |
 
-相关函数：[prod](../p/prod.html)
+相关函数：[prod](../p/prod.md)
 

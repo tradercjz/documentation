@@ -138,5 +138,5 @@ c
 | 2 | C | 25 |
 | 3 | AAPL | 106.5 |
 
-相关函数：[cj (cross\_join)](../c/cj.html)
+相关函数：[cj (cross\_join)](../c/cj.md)
 

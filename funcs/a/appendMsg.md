@@ -6,7 +6,7 @@
 
 ## 参数
 
-**engine** 是内置流数据引擎，即 [createReactiveStateEngine](../c/createReactiveStateEngine.html) 等函数返回的抽象表对象。
+**engine** 是内置流数据引擎，即 [createReactiveStateEngine](../c/createReactiveStateEngine.md) 等函数返回的抽象表对象。
 
 **msgBody** 是将要写入流数据引擎的消息。
 
@@ -14,7 +14,7 @@
 
 ## 详情
 
-当流数据引擎启用快照机制（snapshot）且未开启 RaftGroup 时，订阅函数 [subscribeTable](../s/subscribeTable.html) 的handler参数必须为
+当流数据引擎启用快照机制（snapshot）且未开启 RaftGroup 时，订阅函数 [subscribeTable](../s/subscribeTable.md) 的handler参数必须为
 `appendMsg` 函数，将数据写入流数据引擎。
 
 ## 例子

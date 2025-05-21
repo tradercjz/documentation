@@ -16,7 +16,7 @@
 
 返回向量的第一个元素，或矩阵、表的第一行。
 
-注： 若向量的第一个元素为 NULL，则返回 NULL。若要返回第一个非 NULL 的元素，请使用 [firstNot](firstNot.html) 函数。
+注： 若向量的第一个元素为 NULL，则返回 NULL。若要返回第一个非 NULL 的元素，请使用 [firstNot](firstNot.md) 函数。
 
 ## 例子
 
@@ -51,5 +51,5 @@ first(m);
 
 输出返回：[1,4]
 
-相关函数：[last](../l/last.html)
+相关函数：[last](../l/last.md)
 

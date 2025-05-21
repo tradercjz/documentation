@@ -27,7 +27,7 @@ x.intersection(set([2,5,9]));
 set(2,5)
 ```
 
-与此不同，[distinct](../d/distinct.html) 函数返回一个向量。
+与此不同，[distinct](../d/distinct.md) 函数返回一个向量。
 
 ```
 distinct(4 5 5 2 3 11 6);

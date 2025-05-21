@@ -19,7 +19,7 @@
 
 ## 相关函数
 
-控制节点可调用函数 [getClusterChunksStatus](../g/getClusterChunksStatus.html) 查询所有节点上 chunk 对应的版本号。
+控制节点可调用函数 [getClusterChunksStatus](../g/getClusterChunksStatus.md) 查询所有节点上 chunk 对应的版本号。
 
-数据节点可调用函数 [getChunksMeta](../g/getChunksMeta.html) 查询当前数据节点上 chunk 对应的版本号。
+数据节点可调用函数 [getChunksMeta](../g/getChunksMeta.md) 查询当前数据节点上 chunk 对应的版本号。
 

@@ -1,6 +1,6 @@
 # isMonotonic
 
-是 [isMonotonicIncreasing](isMonotonicIncreasing.html) 的别名。
+是 [isMonotonicIncreasing](isMonotonicIncreasing.md) 的别名。
 
 Copyright
 

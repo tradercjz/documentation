@@ -4,7 +4,7 @@
 
 `rowKurtosis(X, [biased=true])`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 参数
 
@@ -37,5 +37,5 @@ rowKurtosis(t1);
 [1.417974225003112,1.676864,1.951167883478534,2.158698670898631,2.262015004030008]
 ```
 
-相关函数：[kurtosis](../k/kurtosis.html)
+相关函数：[kurtosis](../k/kurtosis.md)
 

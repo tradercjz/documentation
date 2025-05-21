@@ -30,5 +30,5 @@ saveModule("ta");
 saveModule("system::log::fileLog");
 ```
 
-相关函数：[loadModule](../l/loadModule.html)
+相关函数：[loadModule](../l/loadModule.md)
 

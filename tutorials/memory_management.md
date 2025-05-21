@@ -10,7 +10,7 @@ DolphinDB 开放了一些内存管理相关的配置项，方便用户根据系�
 
 * 通过参数 maxMemSize 设定节点的最大内存使用量：该参数指定节点的最大可使用内存。如果设置太小，会严重限制集群的性能；如果设置值超过物理内存，则内存使用量过大时可能会触发操作系统强制关闭进程。同一个服务器上各数据节点的最大内存使用量之和，建议设置为机器可用内存的 75%。例如机器内存为 16GB，并且只部署 1 个节点，建议将该参数设置为 12GB 左右。maxMemSize 包含三个部分：小对象内存区（*reservedMemSize*）、紧急内存区（*emergencyMemSize*），以及剩余部分构成的常规内存区。
 * 参数 reservedMemSize 和 maxBlockSizeForReservedMemory：当常规内存区用尽时，系统会进入"小对象分配"状态，此时通过 maxBlockSizeForReservedMemory 控制每次分配的最大内存块大小，避免一次性申请过多内存导致溢出。若新申请的内存块大于该值将受限或失败，从而减少系统关键操作失败的概率。当小对象内存区也用满后，系统会停止为常规任务分配内存。
-* 参数 emergencyMemSize：定义紧急内存区大小，当常规内存和小对象内存区都用尽时，紧急内存区会为关键任务保留资源，如存储引擎的刷盘操作或分布式写入事务提交时的关键步骤等。当 maxMemSize 完全用完后，DolphinDB 将停止为所有任务分配内存，仅允许管理员取消任务（详见[系统卡死](../omc/omc_server_hang_guidelines.html)）。
+* 参数 emergencyMemSize：定义紧急内存区大小，当常规内存和小对象内存区都用尽时，紧急内存区会为关键任务保留资源，如存储引擎的刷盘操作或分布式写入事务提交时的关键步骤等。当 maxMemSize 完全用完后，DolphinDB 将停止为所有任务分配内存，仅允许管理员取消任务（详见[系统卡死](../omc/omc_server_hang_guidelines.md)）。
 * 参数 warningMemSize 设定最多可缓存的数据量：当节点的内存使用总量小于 warningMemSize（以 GB 为单位，默认值为 maxMemSize 的 75%）时，DolphinDB 会尽可能多的缓存数据库分区数据，以便提升用户下次访问该数据块的速度。当内存使用量超过 warningMemSize 时，系统采用 LRU 的内存回收策略，自动清理部分数据库的缓存，以避免出现 OOM 异常。
 * 参数 memoryReleaseRate 控制将未使用的内存释放给操作系统的速率：memoryReleaseRate 是 0 到 10 之间的浮点数。memoryReleaseRate=0 表示不会主动释放未使用的内存。设置值越高，DolphinDB 释放内存的速度越快。默认值是 5。
 * 参数 maxPartitionNumPerQuery 控制单次查询数据量：系统默认允许单次最多可查找 65536 个分区的数据。若一次查询过多分区，需加载到内存的数据量过大，则可能导致 OOM。可根据需求以及可用内存量，适当调节该参数，控制单次可查询的分区数量。
@@ -96,7 +96,7 @@ OOM 一般可能由以下原因导致:
   ds.size()
   ```
 
-  为避免这个问题，参见本文档的[DolphinDB 按照分区进行数据检索](#%E9%AB%98%E6%95%88%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98) ，更详细的说明请参考教程 [SQL 案例分区剪枝](ddb_sql_cases.html)
+  为避免这个问题，参见本文档的[DolphinDB 按照分区进行数据检索](#%E9%AB%98%E6%95%88%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98) ，更详细的说明请参考教程 [SQL 案例分区剪枝](ddb_sql_cases.md)
 * 写入缓存占用了大量内存。
 
   ```
@@ -142,11 +142,11 @@ OOM 一般可能由以下原因导致:
 dmesg -T|grep dolphindb
 ```
 
-若打印结果中出现了“Out of memory: Kill process”，说明操作系统杀死了 DolphinDB 进程（详情请见 [Linux Kernel 相关文档](https://www.kernel.org/doc/gorman/html/understand/understand016.html)）。解决这种问题的办法是：通过参数 maxMemSize（单节点模式修改 dolphindb.cfg，集群模式修改 cluster.cfg）设定节点的最大内存使用量。
+若打印结果中出现了“Out of memory: Kill process”，说明操作系统杀死了 DolphinDB 进程（详情请见 [Linux Kernel 相关文档](https://www.kernel.org/doc/gorman/html/understand/understand016.md)）。解决这种问题的办法是：通过参数 maxMemSize（单节点模式修改 dolphindb.cfg，集群模式修改 cluster.cfg）设定节点的最大内存使用量。
 
 #### 3.2.4. 执行 `mem(true)` 或 `clearAllCache()` 后，操作系统实际内存占用未降低（如 Linux 中 RSS 占用）
 
-这是由于未使用的内存没有及时释放给操作系统。通过 memoryReleaseRate 控制将未使用的内存释放给操作系统的速率，memoryReleaseRate=10 表示以最快的速度释放内存，默认值是 5。该参数等价于设置了 [TCMalloc](https://gperftools.github.io/gperftools/tcmalloc.html) 的 tcmalloc\_release\_rate。
+这是由于未使用的内存没有及时释放给操作系统。通过 memoryReleaseRate 控制将未使用的内存释放给操作系统的速率，memoryReleaseRate=10 表示以最快的速度释放内存，默认值是 5。该参数等价于设置了 [TCMalloc](https://gperftools.github.io/gperftools/tcmalloc.md) 的 tcmalloc\_release\_rate。
 
 注：执行 `mem()` 以显示本地节点内存使用情况。如设置其参数 freeUnusedBlocks=true，系统将会释放未使用的内存块。
 
@@ -430,7 +430,7 @@ Cache Engine 需根据系统配置和实际场景合理设置。若设置过小�
 默认情况下，OLAP 存储引擎是不开启 Redo Log 的，即写入事务不会进行缓存，直接进行刷盘。若需要缓存事务进行批量刷盘，则需要通过 chunkCacheEngineMemSize 为 OLAP 指定 Cache Engine 的容量，且指定 dataSync=1 启用 Redo Log。下图示意了开启 Cache Engine 和 Redo Log 后事务的写入流程：事务先写入 Redo Log 和 Cache Engine。达到 cache engine 的刷盘条件后，三个事务的数据将被一次性写入到 DFS 的数据库上。
 ![image](images/memory_managment/cacheEngine.png)
 
-Cache Engine 空间一般推荐设置为 maxMemSize 的 1/8 到 1/4。chunkCacheEngineMemSize 不是一个刚性的限制，其实际内存占用可能会高于设置的值 ; 根据经验，cacheEngine 不建议设置超过 32G 以上的值，否则会造成 Redo Log 回收慢和内存占用过高的问题; 更多设置请参阅 [Cache Engine 与数据库日志](redoLog_cacheEngine.html)。
+Cache Engine 空间一般推荐设置为 maxMemSize 的 1/8 到 1/4。chunkCacheEngineMemSize 不是一个刚性的限制，其实际内存占用可能会高于设置的值 ; 根据经验，cacheEngine 不建议设置超过 32G 以上的值，否则会造成 Redo Log 回收慢和内存占用过高的问题; 更多设置请参阅 [Cache Engine 与数据库日志](redoLog_cacheEngine.md)。
 
 写入过程中，可用 `getCacheEngineMemSize()` 查看 OLAP 引擎的 Cache Engine 占用内存情况。
 

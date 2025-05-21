@@ -85,5 +85,5 @@ iterations->6
 */
 ```
 
-相关函数：[fminBFGS](fminbfgs.html)
+相关函数：[fminBFGS](fminbfgs.md)
 

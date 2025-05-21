@@ -38,7 +38,7 @@ DolphinDB 存算分离具备如下特性：
 
 ### 1.2 代理存储引擎
 
-DolphinDB 支持[多模态存储引擎](multimodal_storage.html)，以适应不同的业务场景。然而，如果在计算节点上实现通用的缓存层，可能无法充分利用不同存储引擎的特性。为此，DolphinDB
+DolphinDB 支持[多模态存储引擎](multimodal_storage.md)，以适应不同的业务场景。然而，如果在计算节点上实现通用的缓存层，可能无法充分利用不同存储引擎的特性。为此，DolphinDB
 提出了代理存储引擎的概念，确保不同存储引擎的数据由对应的代理存储引擎进行管理。目前，DolphinDB 支持对 OLAP、TSDB 和 PKEY
 存储引擎的缓存数据进行管理。图 2 展示了代理存储引擎的架构。
 
@@ -270,19 +270,19 @@ COMPUTE\_GROUP\_EXEC，以允许（grant）或拒绝（deny）特定用户或用
 
 **函数**
 
-* [addNode](../../funcs/a/addNode.html)：在线增加计算组中的计算节点。
-* [getComputeGroupChunksStatus](../../funcs/g/getcomputegroupchunksstatus.html)：获取计算组中缓存的所有 chunk 的元数据信息。
-* [getComputeNodeCacheStat](../../funcs/g/getcomputenodecachestat.html)：获取计算节点的缓存总使用量和缓存上限。
-* [getComputeNodeCacheDetails](../../funcs/g/getComputeNodeCacheDetails.html)：获取计算节点中缓存的具体构成信息。
-* [flushComputeNodeMemCache](../../funcs/f/flushcomputenodememcache.html)：将计算节点的内存缓存的内容写入磁盘缓存。
-* [clearComputeNodeDiskCache](../../funcs/c/clearcomputenodediskcache.html)：清空计算节点的磁盘缓存。
-* [clearComputeNodeCache](../../funcs/c/clearcomputenodecache.html)：清空计算节点的内存缓存和磁盘缓存。
-* [setComputeNodeCachingDelay](../../funcs/s/setcomputenodecachingdelay.html)：在线设置当前节点下配置项
+* [addNode](../../funcs/a/addNode.md)：在线增加计算组中的计算节点。
+* [getComputeGroupChunksStatus](../../funcs/g/getcomputegroupchunksstatus.md)：获取计算组中缓存的所有 chunk 的元数据信息。
+* [getComputeNodeCacheStat](../../funcs/g/getcomputenodecachestat.md)：获取计算节点的缓存总使用量和缓存上限。
+* [getComputeNodeCacheDetails](../../funcs/g/getComputeNodeCacheDetails.md)：获取计算节点中缓存的具体构成信息。
+* [flushComputeNodeMemCache](../../funcs/f/flushcomputenodememcache.md)：将计算节点的内存缓存的内容写入磁盘缓存。
+* [clearComputeNodeDiskCache](../../funcs/c/clearcomputenodediskcache.md)：清空计算节点的磁盘缓存。
+* [clearComputeNodeCache](../../funcs/c/clearcomputenodecache.md)：清空计算节点的内存缓存和磁盘缓存。
+* [setComputeNodeCachingDelay](../../funcs/s/setcomputenodecachingdelay.md)：在线设置当前节点下配置项
   *computeNodeCachingDelay* 的生效值。
-* [getComputeNodeCachingDelay](../../funcs/g/getcomputenodecachingdelay.html)：查看当前节点下配置项
+* [getComputeNodeCachingDelay](../../funcs/g/getcomputenodecachingdelay.md)：查看当前节点下配置项
   *computeNodeCachingDelay* 的生效值
-* [setPrefetchComputeNodeData](../../funcs/s/setprefetchcomputenodedata.html)：在线设置当前节点下配置项
+* [setPrefetchComputeNodeData](../../funcs/s/setprefetchcomputenodedata.md)：在线设置当前节点下配置项
   *enableComputeNodePrefetchData* 的生效值。
-* [getPrefetchComputeNodeData](../../funcs/g/getprefetchcomputenodedata.html)：当前节点下配置项
+* [getPrefetchComputeNodeData](../../funcs/g/getprefetchcomputenodedata.md)：当前节点下配置项
   *enableComputeNodePrefetchData* 的生效值。
 

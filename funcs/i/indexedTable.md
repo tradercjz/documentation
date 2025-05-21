@@ -55,11 +55,11 @@ table）。一个索引内存表有一个主键。主键可由一个或多个字
 
 键值内存表在指定所有键值字段时才能达到最佳的查询性能。然而，在实际应用中，并不总是需要查询所有键值字段的信息。对于那些只需查询部分键值字段的情况，可以考虑使用索引内存表。
 
-关于对索引内存表和[键值内存表](../k/keyedTable.html)使用怎样的查询语句以及如何进行查询优化，详见下表：
+关于对索引内存表和[键值内存表](../k/keyedTable.md)使用怎样的查询语句以及如何进行查询优化，详见下表：
 
 |  | indexedTable | keyedTable |
 | --- | --- | --- |
-| 查询优化 | * 查询语句必须包含 *keyColumns* 的第 1 列，且该列过滤条件中只能使用 =, in 或   and； * 除 keyColumns 的第 1 列外，其它列可以通过   between、比较运算符等进行范围查询，且查询效率高于使用 in 谓词。 * 所有过滤条件中，对不同列使用的 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.html)   以提高性能。 | * 查询语句必须包含 *keyColumns* 所有列。 * 过滤条件中只能使用 =, in 或 and，且对不同列使用 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.html)   以提高性能。 |
+| 查询优化 | * 查询语句必须包含 *keyColumns* 的第 1 列，且该列过滤条件中只能使用 =, in 或   and； * 除 keyColumns 的第 1 列外，其它列可以通过   between、比较运算符等进行范围查询，且查询效率高于使用 in 谓词。 * 所有过滤条件中，对不同列使用的 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.md)   以提高性能。 | * 查询语句必须包含 *keyColumns* 所有列。 * 过滤条件中只能使用 =, in 或 and，且对不同列使用 in 的次数不超过2次； * 建议调用 [sliceByKey](../s/sliceByKey.md)   以提高性能。 |
 | 查询语句特点 | 只需要包含 *keyColumns* 的第 1 列，而无需包含所有列。 | 包含 keyColumns 的所有列。此时查询性能优于 indexedTable。 |
 
 ## 例子
@@ -263,5 +263,5 @@ update t set volume=newVolume, price=newPrice where sym="a"
 // error: Failed to update column: price
 ```
 
-相关函数：[keyedTable](../k/keyedTable.html)
+相关函数：[keyedTable](../k/keyedTable.md)
 

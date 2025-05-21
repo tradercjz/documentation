@@ -17,5 +17,5 @@ TSDB 写入 Cache Engine 中的数据会根据 *sortColumns*
 
 因异步数据排序能提高数据写入性能，若 TSDB 引擎所在服务器 CPU 核数较多，建议在进行数据写入前，执行该命令开启异步数据排序功能。
 
-相关函数：[disableTSDBAsyncSorting](../d/disableTSDBAsyncSorting.html)
+相关函数：[disableTSDBAsyncSorting](../d/disableTSDBAsyncSorting.md)
 

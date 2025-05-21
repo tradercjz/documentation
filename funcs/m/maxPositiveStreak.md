@@ -59,5 +59,5 @@ maxPositiveStreak(y);
 [5,3]
 ```
 
-相关函数：[cumPositiveStreak](../c/cumPositiveStreak.html)
+相关函数：[cumPositiveStreak](../c/cumPositiveStreak.md)
 

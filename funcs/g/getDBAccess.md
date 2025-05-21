@@ -19,7 +19,7 @@
 * name 具有相关权限的对象的名称。
 * type 该对象的类型，可选值为 user 和 group，分别对应用户和组。
 * DB\_READ, DB\_INSERT, DB\_UPDATE, DB\_DELETE, DBOBJ\_CREATE, DBOBJ\_DELETE, DB\_MANAGE
-  分别指代对应权限，权限状态包括 ALLOW, DENY, NONE。关于用户权限的更多信息可参考[用户权限管理](../../tutorials/ACL_and_Security.html)。
+  分别指代对应权限，权限状态包括 ALLOW, DENY, NONE。关于用户权限的更多信息可参考[用户权限管理](../../tutorials/ACL_and_Security.md)。
 
 ## 例子
 

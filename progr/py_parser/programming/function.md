@@ -94,7 +94,7 @@ defg <functionName> ([parameters]):
 
 ## lambda 函数
 
-DolphinDB 原生语法支持如下4种[lambda 表达式](../../lambda.html) 的写法：
+DolphinDB 原生语法支持如下4种[lambda 表达式](../../lambda.md) 的写法：
 
 ```
 def <functionName>(parameters): expression

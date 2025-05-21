@@ -147,7 +147,7 @@ swEngine = createSessionWindowEngine(name="swEngine",sessionGap = 300,metrics=<l
 
 ### 5.4. 响应式状态引擎过滤关门告警
 
-上级会话窗口引擎获取到的数据包括开门和关门超过5分钟的数据，因此需要再通过响应式状态引擎过滤掉关门状态超时数据，只保留开门告警。与上一级引擎类似，首先同样创建一张内存表，为响应式状态引擎提供输入的表结构，在该响应式状态引擎中，设置分组列 *keyColumn* 为门号 doorNum ，两个计算指标为 *eventDate* 和 *doorEventCode*，表示原样输出。*filter* 参数设置为 `doorEventCode in [11,12,56,60,65,67]`，即只输出记录的事件码为开门事件的数据。参考[createReactiveStateEngine](../funcs/c/createReactiveStateEngine.html) 页面内容完成对其他参数的设置。代码如下：
+上级会话窗口引擎获取到的数据包括开门和关门超过5分钟的数据，因此需要再通过响应式状态引擎过滤掉关门状态超时数据，只保留开门告警。与上一级引擎类似，首先同样创建一张内存表，为响应式状态引擎提供输入的表结构，在该响应式状态引擎中，设置分组列 *keyColumn* 为门号 doorNum ，两个计算指标为 *eventDate* 和 *doorEventCode*，表示原样输出。*filter* 参数设置为 `doorEventCode in [11,12,56,60,65,67]`，即只输出记录的事件码为开门事件的数据。参考[createReactiveStateEngine](../funcs/c/createReactiveStateEngine.md) 页面内容完成对其他参数的设置。代码如下：
 
 ```
 swOut1 =table(1:0,`eventDate`doorNum`doorEventCode,[DATETIME,INT, INT])
@@ -167,7 +167,7 @@ subscribeTable(tableName="doorRecord", actionName="monitor", offset=0,
 
 ### 5.6. 从 MQTT 服务器接收数据
 
-DolphinDB 提供了 [MQTT](../plugins/mqtt/mqtt.html) 插件用于订阅 MQTT 服务器的数据。DolphinDB server 2.00.8 linux 64 JIT 版本已包含 MQTT 插件在 *server/plugins/mqtt* 目录下，不用下载插件即可直接加载使用。用户可以使用 `mqtt::subscribe` 从 MQTT 服务器订阅数据，在订阅时需要数据格式解析函数，目前插件提供了 `json` 和 `csv` 格式的解析函数，本例使用 `mqtt::createJsonParser` 解析 `json` 格式数据。示例代码如下：
+DolphinDB 提供了 [MQTT](../plugins/mqtt/mqtt.md) 插件用于订阅 MQTT 服务器的数据。DolphinDB server 2.00.8 linux 64 JIT 版本已包含 MQTT 插件在 *server/plugins/mqtt* 目录下，不用下载插件即可直接加载使用。用户可以使用 `mqtt::subscribe` 从 MQTT 服务器订阅数据，在订阅时需要数据格式解析函数，目前插件提供了 `json` 和 `csv` 格式的解析函数，本例使用 `mqtt::createJsonParser` 解析 `json` 格式数据。示例代码如下：
 
 ```
 loadPlugin(getHomeDir()+"/plugins/mqtt/PluginMQTTClient.txt")

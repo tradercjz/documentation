@@ -81,7 +81,7 @@ Syntax Error: [line #1] Please use '==' rather than '=' as equal operator in non
    ```
    plot(1..5 as value, `IBM`MSFT`GOOG`XOM`C, `rank, BAR)
    ```
-4. 在函数 [seek](../../funcs/s/seek.html)
+4. 在函数 [seek](../../funcs/s/seek.md)
    中，表示内部游标的位置：HEAD, CURRENT, TAIL。
 
    ```
@@ -91,7 +91,7 @@ Syntax Error: [line #1] Please use '==' rather than '=' as equal operator in non
    // output
    14
    ```
-5. 在函数 [undef](../../funcs/u/undef.html)
+5. 在函数 [undef](../../funcs/u/undef.md)
    中定义的对象类型： VAR, SHARED, DEF.
 
    ```

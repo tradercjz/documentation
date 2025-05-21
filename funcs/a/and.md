@@ -49,5 +49,5 @@ select id, value from t where id=2 and value=5;   // SQL query
 | --- | --- |
 | 2 | 5 |
 
-相关函数：[or](../o/or.html), [not](../n/not.html)
+相关函数：[or](../o/or.md), [not](../n/not.md)
 

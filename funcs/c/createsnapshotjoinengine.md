@@ -58,7 +58,7 @@ snapshot join 引擎与 lookup join、equi join 引擎很相似，主要区别�
 5. batchSize 列。如果指定 *outputElapsedMicroseconds* = true,
    则指定一个INT类型的列，记录单次响应的数据条数。
 
-**metrics**：以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.html)。
+**metrics**：以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个表达式、系统内置或用户自定义函数，但不能是聚合函数。
 * *metrics* 内支持调用具有多个返回值的函数，且必须指定列名，例如 <func(price) as

@@ -18,7 +18,7 @@ dummyTable, outputTable, [timeColumn], [useSystemTime=false], [keyColumn],
 它的大多数参数与 createTimeSeriesEngine 相同，唯一不同的是 *sessionGap* 和 *useSessionStartTime*
 两个参数。*sessionGap* 决定了一个会话窗口的结束时间，而 *useSessionStartTime*则决定输出表中时间列是以各个窗口的起始时刻还是结束时刻为准。
 
-其他参数的详细含义可以参考：[createSessionWindowEngine](../funcs/c/createSessionWindowEngine.html)。
+其他参数的详细含义可以参考：[createSessionWindowEngine](../funcs/c/createSessionWindowEngine.md)。
 
 ## 计算规则
 

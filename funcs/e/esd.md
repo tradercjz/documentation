@@ -41,5 +41,5 @@ esd(ts);
 | 500 | 25.17515 |
 | 999 | 24.748516 |
 
-相关函数：[stl](../s/stl.html), [seasonalEsd](../s/seasonalEsd.html)
+相关函数：[stl](../s/stl.md), [seasonalEsd](../s/seasonalEsd.md)
 

@@ -18,7 +18,7 @@
 * 不同数据节点或计算节点的模块是独立维护的。
 * 模块本身不具有权限管理功能。
 
-以上是与本教程有关的一些关键特点。更多关于模块的详细描述，请参考官网教程 [DolphinDB 模块](https://docs.dolphindb.cn/zh/tutorials/tu_modules.html)。
+以上是与本教程有关的一些关键特点。更多关于模块的详细描述，请参考官网教程 [DolphinDB 模块](https://docs.dolphindb.cn/zh/tutorials/tu_modules.md)。
 
 ### 1.2 函数视图
 
@@ -30,7 +30,7 @@
 * 函数视图序列化在控制节点，多个控制节点之间会自动同步。
 * 函数视图具有用户或用户组级别权限管理的功能。
 
-以上是与本教程有关的一些关键特点。更多关于函数视图的详细描述，请参考官网教程 [DolphinDB 函数视图](https://docs.dolphindb.cn/zh/db_distr_comp/db_oper/FunctionView.html)。
+以上是与本教程有关的一些关键特点。更多关于函数视图的详细描述，请参考官网教程 [DolphinDB 函数视图](https://docs.dolphindb.cn/zh/db_distr_comp/db_oper/FunctionView.md)。
 
 ## 2 方案介绍
 
@@ -142,7 +142,7 @@ deployModuleFromGitLab(gitLabSite, repoId, repoBranch, privateToken, timeout)
 
 ![](images/module_code_versioning_and_rights_management/4_2.png)
 
-个人访问令牌可以在 User Settings → Access Tokens 中生成，如下图所示。更详细地，可以参考 Gitlab 官方 [Project access tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html) 。
+个人访问令牌可以在 User Settings → Access Tokens 中生成，如下图所示。更详细地，可以参考 Gitlab 官方 [Project access tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.md) 。
 
 ![](images/module_code_versioning_and_rights_management/4_3.png)
 

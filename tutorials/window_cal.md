@@ -231,9 +231,9 @@ last_time               sym vol_100_sum
 
 此类情况可使用 m 系列函数，`moving` 函数，或者 `rolling` 函数。
 
-从1.30.16/2.00.4版本开始，亦可使用 [`window`](../funcs/ho_funcs/window.html) 函数。`window` 函数与 `moving` 函数类似，均为高阶函数，不同的是，`window` 函数更为灵活，不同于 `moving` 函数的窗口右边界是固定的， `window` 函数的左右边界均可自由设定。
+从1.30.16/2.00.4版本开始，亦可使用 [`window`](../funcs/ho_funcs/window.md) 函数。`window` 函数与 `moving` 函数类似，均为高阶函数，不同的是，`window` 函数更为灵活，不同于 `moving` 函数的窗口右边界是固定的， `window` 函数的左右边界均可自由设定。
 
-下面以[`msum`](../funcs/m/msum.html)为例，滑动计算窗口长度为5行的vol值之和。
+下面以[`msum`](../funcs/m/msum.md)为例，滑动计算窗口长度为5行的vol值之和。
 
 ```
 t=table(2021.11.01T10:00:00 + 0 1 2 5 6 9 10 17 18 30 as time, 1..10 as vol)
@@ -252,7 +252,7 @@ time                vol msum_vol
 ...
 ```
 
-DolphinDB SQL可以通过 `context by` 对各个不同的 symbol 在组内进行窗口计算。`context by` 是DolphinDB 独有的功能，是对标准 SQL 语句的拓展，具体其他用法参照：[`context by`](../progr/sql/contextBy.html)
+DolphinDB SQL可以通过 `context by` 对各个不同的 symbol 在组内进行窗口计算。`context by` 是DolphinDB 独有的功能，是对标准 SQL 语句的拓展，具体其他用法参照：[`context by`](../progr/sql/contextBy.md)
 
 ```
 t=table(2021.11.01T10:00:00 + 0 1 2 5 6 9 10 17 18 30 join 0 1 2 5 6 9 10 17 18 30 as time, 1..20 as vol, take(`A,10) join take(`B,10) as sym)
@@ -329,7 +329,7 @@ timer alpha98DDBSql = alpha98SQL(input)
 
 此类情况可使用 tm 系列或者 tmoving 系列函数。
 
-从1.30.16/2.00.4版本开始，亦可使用 [`twindow`](../funcs/ho_funcs/twindow.html) 函数。`twindow` 函数与 `tmoving` 函数类似，均为高阶函数，不同的是，`twindow` 函数更为灵活，不同于 `tmoving` 函数的窗口右边界是固定的， `twindow` 函数的左右边界均可自由设定。
+从1.30.16/2.00.4版本开始，亦可使用 [`twindow`](../funcs/ho_funcs/twindow.md) 函数。`twindow` 函数与 `tmoving` 函数类似，均为高阶函数，不同的是，`twindow` 函数更为灵活，不同于 `tmoving` 函数的窗口右边界是固定的， `twindow` 函数的左右边界均可自由设定。
 
 下面以`tmsum`为例，计算滑动窗口长度为5秒的 vol 值之和。
 
@@ -357,7 +357,7 @@ time                vol tmsum_time
 
 #### 2.2.3. 步长为 n 行，窗口为 m 行
 
-此类情况可使用高阶函数 [`rolling`](../funcs/ho_funcs/rolling.html)。
+此类情况可使用高阶函数 [`rolling`](../funcs/ho_funcs/rolling.md)。
 
 下面的例子计算步长为3行，窗口长度为6行的 vol 值之和。与 `interval` 函数不同的是，`rolling` 不会对缺失值进行插值，如果窗口内的元素个数不足窗口大小，该窗口不会被输出。 该例子中，数据一共是10条，在前两个窗口计算完之后，第三个窗口因为只有4条数据，所以不输出第三个窗口的结果。
 
@@ -500,7 +500,7 @@ vol order_type cumsum_vol
 
 `window join` 基于左表每条记录的时间戳，确定一个时间窗口，并计算对应时间窗口内右表的数据。左表每滑动一条记录，都会与右表窗口计算的结果连接。因为窗口的左右边界均可以指定，也可以为负数，所以也可以看作非常灵活的滑动窗口。
 
-详细用法参见用户手册 [`window join`](../progr/sql/windowjoin.html)。
+详细用法参见用户手册 [`window join`](../progr/sql/windowjoin.md)。
 
 ```
 //data
@@ -579,7 +579,7 @@ sym time     bid   offer volume avg_bid
 
 ### 3.1. 矩阵的滑动窗口计算
 
-滑动窗口 m 系列函数以及 `window` 函数可以用于处理矩阵，在矩阵每列内进行计算，返回一个与输入矩阵维度相同的矩阵。如果滑动维度为时间，则要先使用 [`setIndexedMatrix!`](../funcs/s/setIndexedMatrix_.html) 函数将矩阵的行与列标签设为索引。这里需要注意的是，行与列标签均须严格递增。
+滑动窗口 m 系列函数以及 `window` 函数可以用于处理矩阵，在矩阵每列内进行计算，返回一个与输入矩阵维度相同的矩阵。如果滑动维度为时间，则要先使用 [`setIndexedMatrix!`](../funcs/s/setIndexedMatrix_.md) 函数将矩阵的行与列标签设为索引。这里需要注意的是，行与列标签均须严格递增。
 
 首先我们新建一个矩阵，并将其设为 IndexedMatrix：
 

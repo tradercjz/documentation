@@ -122,7 +122,7 @@
 * 在配置项 outputQueuePosition 为 1 时，启用 openVolumeWithBetterPrice, openVolumeWithWorsePrice, openVolumeAtOrderPrice, priorOpenVolumeAtOrderPrice 和depthWithBetterPrice五列。
 * 在配置项 outputTimeInfo 为 1 时（详见本接口的 config 参数说明），启用 receiveTime, startMatchTime, endMatchTime 列。
 
-具体其他接口字段说明见：[模拟撮合引擎使用说明](../plugins/matchingEngineSimulator/mes.html)。
+具体其他接口字段说明见：[模拟撮合引擎使用说明](../plugins/matchingEngineSimulator/mes.md)。
 
 ## 撮合规则
 
@@ -224,7 +224,7 @@
 
 如需使用该功能，请联系DolphinDB技术支持申请模拟撮合引擎专用授权文件。
 
-关于模拟撮合引擎的接口介绍和安装使用，参考：[模拟撮合引擎使用说明](../plugins/matchingEngineSimulator/mes.html)。
+关于模拟撮合引擎的接口介绍和安装使用，参考：[模拟撮合引擎使用说明](../plugins/matchingEngineSimulator/mes.md)。
 
 ### 创建并使用模拟撮合引擎
 
@@ -554,7 +554,7 @@ timer{
 
 本节介绍如何通过 C++ 编写 DolphinDB 插件，并在插件中调用模拟撮合引擎接口。本节使用的示例插件是 TWAP 算法交易插件，完整的插件代码将在附件中提供。
 
-在编写插件前，用户需要先学习 [DolphinDB 插件开发教程](../plugins/plg_dev_tutorial.html)，以了解插件开发的基本概念和流程。例如在 TWAP 算法交易插件中，通过 getFunctionDef 方法可以获取模拟撮合引擎的函数接口，该方法返回一个函数指针，然后通过 createEngineFunc->call(heap\_, args)来调用该函数。以下是代码示例：
+在编写插件前，用户需要先学习 [DolphinDB 插件开发教程](../plugins/plg_dev_tutorial.md)，以了解插件开发的基本概念和流程。例如在 TWAP 算法交易插件中，通过 getFunctionDef 方法可以获取模拟撮合引擎的函数接口，该方法返回一个函数指针，然后通过 createEngineFunc->call(heap\_, args)来调用该函数。以下是代码示例：
 
 ```
 FunctionDefSP createEngineFunc = heap_->currentSession()->getFunctionDef("MatchingEngineSimulator::createMatchEngine");
@@ -1060,7 +1060,7 @@ DolphinDB 提供了模拟撮合引擎插件，可以基于快照和逐笔行情�
 
 ## 附录
 
-* [模拟撮合引擎使用说明](../plugins/matchingEngineSimulator/mes.html)
+* [模拟撮合引擎使用说明](../plugins/matchingEngineSimulator/mes.md)
 * [完整脚本文件](data/MatchEngineSimulator/mesuc.rar)
 * [C++ 代码文件](script/MatchingEngineSimulator/MatchEngineTest.zip)
 

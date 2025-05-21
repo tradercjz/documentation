@@ -127,5 +127,5 @@ engine.append!(data)
 ```
 
 **相关函数**
-[appendForPrediction](../a/appendforprediction.html)
+[appendForPrediction](../a/appendforprediction.md)
 

@@ -94,9 +94,9 @@ getJobReturn(jobId4, true)
 z2;
 ```
 
-相关函数：[array](../a/array.html), [matrix](../m/matrix.html), [dictUpdate!](../d/dictUpdate_.html), [dict](../d/dict.html)
+相关函数：[array](../a/array.md), [matrix](../m/matrix.md), [dictUpdate!](../d/dictUpdate_.md), [dict](../d/dict.md)
 
-例 2：syncDict 与 [go](../../progr/statements/go.html)
+例 2：syncDict 与 [go](../../progr/statements/go.md)
 配合使用：
 
 ```

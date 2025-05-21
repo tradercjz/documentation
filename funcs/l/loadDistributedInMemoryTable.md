@@ -26,5 +26,5 @@ pt.append!(tmp);
 select * from pt;
 ```
 
-相关函数：[dropDistributedInMemoryTable](../d/dropDistributedInMemoryTable.html), [createDistributedInMemoryTable](../c/createDistributedInMemoryTable.html)
+相关函数：[dropDistributedInMemoryTable](../d/dropDistributedInMemoryTable.md), [createDistributedInMemoryTable](../c/createDistributedInMemoryTable.md)
 

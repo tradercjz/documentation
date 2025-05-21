@@ -17,7 +17,7 @@
 
 ## 详情
 
-函数 `bucketCount` 有和 [bucket](bucket.html) 相同的参数，但是返回每个桶中元素的计数。
+函数 `bucketCount` 有和 [bucket](bucket.md) 相同的参数，但是返回每个桶中元素的计数。
 
 ## 例子
 

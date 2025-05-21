@@ -20,5 +20,5 @@ getControllerAlias();
 master
 ```
 
-相关函数：[getNodeAlias](getNodeAlias.html)
+相关函数：[getNodeAlias](getNodeAlias.md)
 

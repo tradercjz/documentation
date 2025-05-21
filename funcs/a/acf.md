@@ -27,5 +27,5 @@ acf = acf(x, 20)
 plot(acf,chartType=BAR)
 ```
 
-相关函数： [autocorr](autocorr.html)
+相关函数： [autocorr](autocorr.md)
 

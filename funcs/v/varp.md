@@ -46,5 +46,5 @@ varp(m);
 [8,18]
 ```
 
-相关函数： [cumvarp](../c/cumvarp.html)
+相关函数： [cumvarp](../c/cumvarp.md)
 

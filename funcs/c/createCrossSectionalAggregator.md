@@ -1,6 +1,6 @@
 # createCrossSectionalAggregator
 
-是 [createCrossSectionalEngine](createCrossSectionalEngine.html) 的别名。
+是 [createCrossSectionalEngine](createCrossSectionalEngine.md) 的别名。
 
 Copyright
 

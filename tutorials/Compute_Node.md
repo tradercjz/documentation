@@ -60,7 +60,7 @@ jobDesc="adaBoost train snap"
 submitJob(jobId, jobDesc, tranAdaBoost, Train)
 ```
 
-完整代码及过程请参考[实时实际波动率预测](ml_volatility.html) 。使用 10 个线程并行训练，加速训练过程。
+完整代码及过程请参考[实时实际波动率预测](ml_volatility.md) 。使用 10 个线程并行训练，加速训练过程。
 
 图 18. 图3\_4
 
@@ -76,7 +76,7 @@ submitJob(jobId, jobDesc, tranAdaBoost, Train)
 
 ### 监控软件部署
 
-通过部署第三方软件：Grafana，Prometheus 实现集群的管理与监控，具体流程参考 [集群监控](cluster_monitor.html)。
+通过部署第三方软件：Grafana，Prometheus 实现集群的管理与监控，具体流程参考 [集群监控](cluster_monitor.md)。
 
 ### 监控面板
 

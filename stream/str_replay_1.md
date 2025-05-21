@@ -8,7 +8,7 @@
 replay(inputTables, outputTables, [dateColumn], [timeColumn], [replayRate], [absoluteRate=true], [parallelLevel=1], [sortColumns])
 ```
 
-其参数的详细含义可以参考：[replay](../funcs/r/replay.html)。
+其参数的详细含义可以参考：[replay](../funcs/r/replay.md)。
 
 ## 应用例子 1
 

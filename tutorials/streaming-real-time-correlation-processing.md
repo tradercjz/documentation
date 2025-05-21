@@ -48,7 +48,7 @@ DolphinDB 提供了 createAsofJoinEngine, createWindowJoinEngine, createEquiJoin
 
 ![](images/streaming-real-time-correlation-processing/2_1.png)
 
-以下代码是 1.1 小节中的 asof join SQL 的流计算实现的脚本，首先创建 2 个流数据表作为输入、1 个流数据表作为输出，然后通过函数 createAsofJoinEngine 创建流计算引擎，之后通过函数 subscribeTable 分别订阅 2 个流数据表并将数据实时注入流计算引擎的左、右表。之后当数据不断写入两个流数据表时，输出结果表 output 中的记录数会相应地增加。流数据订阅功能更详细的介绍见 [流数据订阅](streaming_tutorial.html) 。
+以下代码是 1.1 小节中的 asof join SQL 的流计算实现的脚本，首先创建 2 个流数据表作为输入、1 个流数据表作为输出，然后通过函数 createAsofJoinEngine 创建流计算引擎，之后通过函数 subscribeTable 分别订阅 2 个流数据表并将数据实时注入流计算引擎的左、右表。之后当数据不断写入两个流数据表时，输出结果表 output 中的记录数会相应地增加。流数据订阅功能更详细的介绍见 [流数据订阅](streaming_tutorial.md) 。
 
 ```
 // create table
@@ -431,7 +431,7 @@ subscribeTable(tableName="indexKline", actionName="appendIndex1", handler=append
 subscribeTable(tableName="stockKline", actionName="appendStock", handler=getLeftStream(ljEngine1), msgAsTable=true, offset=-1, hash=0)
 ```
 
-* 数据流向：首先，股票数据 stockKline 注入连接引擎 leftJoinIndex1 的左表，指数数据经过滤后注入该引擎的右表，这一步将股票与指数的分钟指标关联。之后，将上述连接引擎的输出直接注入响应式状态引擎（createReactiveStateEngine），利用响应式状态引擎内置的 mcorr 和 ratios 函数计算股票与指数的相关性指标。多个引擎之间采用了引擎级联的方式处理。响应式状态引擎教程见 [金融高频因子的流批统一计算：DolphinDB 响应式状态引擎介绍](reactive_state_engine.html) 。
+* 数据流向：首先，股票数据 stockKline 注入连接引擎 leftJoinIndex1 的左表，指数数据经过滤后注入该引擎的右表，这一步将股票与指数的分钟指标关联。之后，将上述连接引擎的输出直接注入响应式状态引擎（createReactiveStateEngine），利用响应式状态引擎内置的 mcorr 和 ratios 函数计算股票与指数的相关性指标。多个引擎之间采用了引擎级联的方式处理。响应式状态引擎教程见 [金融高频因子的流批统一计算：DolphinDB 响应式状态引擎介绍](reactive_state_engine.md) 。
 * 订阅指数数据 indexKline 时指定 handler 为自定义函数 appendIndex，是指不断地收到 indexKline 数据后，首先过滤出指数数据中指数名为 idx1 的数据，然后再注入连接引擎的右表。
 
 构造数据写入作为原始输入的 2 个流数据表：

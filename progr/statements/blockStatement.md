@@ -13,8 +13,8 @@ statement3
 }
 ```
 
-[doWhile](doWhile.html)
-控制语句必须使用块符号。当执行多条语句时，块符号还能在 [if](ifElse.html) 语句中使用。
+[doWhile](doWhile.md)
+控制语句必须使用块符号。当执行多条语句时，块符号还能在 [if](ifElse.md) 语句中使用。
 
 Copyright
 

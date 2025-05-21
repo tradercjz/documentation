@@ -21,5 +21,5 @@ getMemLimitOfQueryResult() / 1024 / 1024 / 1024
 0.2
 ```
 
-相关函数：[setMemLimitOfQueryResult](../s/setMemLimitOfQueryResult.html)
+相关函数：[setMemLimitOfQueryResult](../s/setMemLimitOfQueryResult.md)
 

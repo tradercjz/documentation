@@ -4,7 +4,7 @@
 
 `mlastNot(X, window, [k=NULL], [minPeriods=1])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 

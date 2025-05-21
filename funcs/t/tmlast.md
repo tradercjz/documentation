@@ -4,7 +4,7 @@
 
 `tmlast(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -57,5 +57,5 @@ select *, tmlast(t, x, 1w) from m
 | 2021.01.07 | 2 | 2 |
 | 2021.01.08 | 4 | 4 |
 
-相关函数：[mlast](../m/mlast.html), [last](../l/last.html)
+相关函数：[mlast](../m/mlast.md), [last](../l/last.md)
 

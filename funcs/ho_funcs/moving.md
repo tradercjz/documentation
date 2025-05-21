@@ -11,7 +11,7 @@
 `moving`
 高阶函数总是返回一个向量，长度与输入参数的长度相同。当第一个滑动窗口出现时高阶函数开始计算，每计算一次，滑动窗口向右移动一个元素。
 
-内置函数 [msum](../m/msum.html), [mcount](../m/mcount.html) 和 [mavg](../m/mavg.html)
+内置函数 [msum](../m/msum.md), [mcount](../m/mcount.md) 和 [mavg](../m/mavg.md)
 为各自的计算场景进行了优化，因此比 `moving` 高阶函数有更好的性能。
 
 ## 参数
@@ -19,7 +19,7 @@
 * **func** 是一个**聚合**函数。
 
   注： 使用该参数时，用于定义相应聚合函数的关键词为 **defg**。有关 **defg**
-  的详细用法，参考：[自定义聚合函数](../../tutorials/udaf.html)。
+  的详细用法，参考：[自定义聚合函数](../../tutorials/udaf.md)。
 * **funcArgs** 是函数 func
   的参数。可为向量、字典或矩阵。如果有多个参数，则用元组表示，并且每个参数的长度（向量/字典的元素个数）必须相同。
 * **window** 是正整型 或 DURATION 标量。
@@ -32,7 +32,7 @@
   *window* 是 DURATION，且需要设置 *minPeriods* 时，*minPeriods* 必须是
   1。
 
-有关其他 m 系列函数的参数说明和窗口计算规则，参考: [滑动窗口系列（m 系列）](../themes/mFunctions.html)
+有关其他 m 系列函数的参数说明和窗口计算规则，参考: [滑动窗口系列（m 系列）](../themes/mFunctions.md)
 
 ## 例子
 
@@ -139,7 +139,7 @@ moving(avg, v1, 3d, 1);
 | 2020.08.04 | 3 |
 
 *moving* 高阶函数的参数 *func* 的所有参数必须要有相同的长度。如果 *func*
-的参数长度不等，例如 [percentile](../p/percentile.html) 函数，可以使用 [部分应用](../../progr/partial_app.html) 产生一个新的函数以满足此要求。请见下例：
+的参数长度不等，例如 [percentile](../p/percentile.md) 函数，可以使用 [部分应用](../../progr/partial_app.md) 产生一个新的函数以满足此要求。请见下例：
 
 ```
 moving(percentile{,50},1..20, 10);

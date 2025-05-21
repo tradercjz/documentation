@@ -581,7 +581,7 @@ returnsMatrix.setIndexedMatrix!().resample("Q", mean)
 
 为了方便大家快速将 Python 的代码转写为 DolphinDB 的代码，小编为大家准备了 DolphinDB 函数到 Python 函数的映射表：
 
-* [DolphinDB 函数到 Python 函数的映射](function_mapping_py.html)
+* [DolphinDB 函数到 Python 函数的映射](function_mapping_py.md)
 
 ## 5. 总结
 

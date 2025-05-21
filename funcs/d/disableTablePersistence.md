@@ -28,5 +28,5 @@ for(s in 0:200){
 disableTablePersistence(st);
 ```
 
-相关命令：[enableTablePersistence](../e/enableTablePersistence.html), [clearTablePersistence](../c/clearTablePersistence.html)
+相关命令：[enableTablePersistence](../e/enableTablePersistence.md), [clearTablePersistence](../c/clearTablePersistence.md)
 

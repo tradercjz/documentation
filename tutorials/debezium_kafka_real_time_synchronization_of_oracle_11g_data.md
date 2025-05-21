@@ -6,7 +6,7 @@
 
 **面向读者**
 
-* 已经掌握：[Debezium+Kafka 实时同步 Oracle 11g 数据到 DolphinDB](Debezium_Kafka_Oracle_sync.html)
+* 已经掌握：[Debezium+Kafka 实时同步 Oracle 11g 数据到 DolphinDB](Debezium_Kafka_Oracle_sync.md)
 * 本教程提供了操作步骤，掌握了上面内容的读者可以跟随教程内容进行运维操作
 
 基于开源技术 Debezium + Kafka 实时同步数据到 DolphinDB 中，我们目前已经支持了 Mysql 和 Oracle 11g。由于当前方案涉及到四个程序的部署，而且具体的 Source 同步任务和 Sink 同步任务还需要额外的管理，在运维上具有一定难度。本篇中基于 Oracle 11g 实时同步数据到 DolphinDB 的场景进行运维操作的介绍。

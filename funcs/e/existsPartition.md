@@ -10,12 +10,12 @@
 
 **tableName** 字符串，表示表名。
 
-* 若分区粒度为数据库级（ [database](../d/database.html) :
+* 若分区粒度为数据库级（ [database](../d/database.md) :
   *chunkGranularity* = 'DATABASE'），可以不指定该参数。
-* 若分区粒度为表级（ [database](../d/database.html) :
+* 若分区粒度为表级（ [database](../d/database.md) :
   *chunkGranularity* = 'TABLE'）
 
-  + 若 *path* 指定的路径包含了物理索引（通过函数 [listTables](../l/listTables.html) 获取），可以不指定该参数。
+  + 若 *path* 指定的路径包含了物理索引（通过函数 [listTables](../l/listTables.md) 获取），可以不指定该参数。
   + 否则，必须指定该参数。
 
 ## 详情

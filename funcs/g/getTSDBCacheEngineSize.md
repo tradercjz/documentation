@@ -23,5 +23,5 @@ getTSDBCacheEngineSize()
 536870912
 ```
 
-相关函数： [setTSDBCacheEngineSize](../s/setTSDBCacheEngineSize.html)
+相关函数： [setTSDBCacheEngineSize](../s/setTSDBCacheEngineSize.md)
 

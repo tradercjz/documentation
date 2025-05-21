@@ -46,5 +46,5 @@ appendForPrediction(engine, data)
 //Output: 30
 ```
 
-**相关函数** [createYieldCurveEngine](../c/createyieldcurveengine.html)
+**相关函数** [createYieldCurveEngine](../c/createyieldcurveengine.md)
 

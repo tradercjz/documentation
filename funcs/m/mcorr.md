@@ -4,7 +4,7 @@
 
 `mcorr(X, Y, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -67,5 +67,5 @@ mcorr(x1,y1,1w)
 | 2020.06.12 | -0.6116 |
 | 2020.06.13 | 0 |
 
-相关函数：[corr](../c/corr.html), [mmin](mmin.html), [mmax](mmax.html), [mavg](mavg.html), [msum](msum.html), [mstd](mstd.html), [mvar](mvar.html)
+相关函数：[corr](../c/corr.md), [mmin](mmin.md), [mmax](mmax.md), [mavg](mavg.md), [msum](msum.md), [mstd](mstd.md), [mvar](mvar.md)
 

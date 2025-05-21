@@ -54,5 +54,5 @@ hasNull(t);
 true
 ```
 
-相关函数：[isNull](../i/isNull.html), [nullFill](../n/nullFill.html)
+相关函数：[isNull](../i/isNull.md), [nullFill](../n/nullFill.md)
 

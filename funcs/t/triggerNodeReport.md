@@ -21,7 +21,7 @@ chunk 信息。
 
 1. 通过命令 `getClusterPerf` 查看 state
    字段，以确定各个节点的存活情况。
-2. 通过 [getClusterChunksStatus](../g/getClusterChunksStatus.html) 查看 replicas,
+2. 通过 [getClusterChunksStatus](../g/getClusterChunksStatus.md) 查看 replicas,
    replicaCount 字段，以确定 chunk 的副本信息。
 3. 若节点存活，但出现副本数不一致，在 controller 的日志中，搜索对应的
    chunkId，并定位出未汇报的数据节点。在该数据节点上调用 `tirggerNodeReport` 强制触发其汇报

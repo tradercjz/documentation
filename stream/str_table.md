@@ -9,11 +9,11 @@
 
 | 表类型 | 对应函数 | 是否支持键值 | 是否可以设置内存中保存最大记录数 |
 | --- | --- | --- | --- |
-| 非持久化流表 | [streamTable](../funcs/s/streamTable.html) | 不支持 | 不支持 |
-| [keyedStreamTable](../funcs/k/keyedStreamTable.html) | 支持 | 不支持 |
-| [enableTableCachePurge](../funcs/e/enabletablecachepurge.html)、[enableTableShareAndCachePurge](../funcs/e/enabletableshareandcachepurge.html) | 不支持 | 支持 |
-| 持久化流数据表 | [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.html)、[enableTablePersistence](../funcs/e/enableTablePersistence.html) | 不支持 | 支持 |
-| [haStreamTable](../funcs/h/haStreamTable.html) | 支持 | 支持 |
+| 非持久化流表 | [streamTable](../funcs/s/streamTable.md) | 不支持 | 不支持 |
+| [keyedStreamTable](../funcs/k/keyedStreamTable.md) | 支持 | 不支持 |
+| [enableTableCachePurge](../funcs/e/enabletablecachepurge.md)、[enableTableShareAndCachePurge](../funcs/e/enabletableshareandcachepurge.md) | 不支持 | 支持 |
+| 持久化流数据表 | [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.md)、[enableTablePersistence](../funcs/e/enableTablePersistence.md) | 不支持 | 支持 |
+| [haStreamTable](../funcs/h/haStreamTable.md) | 支持 | 支持 |
 
 ## 共享流数据表
 
@@ -252,5 +252,5 @@ dropStreamTable(tableName="pubTable")
 * 是持久化流表。在节点重启时，可以恢复已经写入的数据。
 * 可以设置内存中最大保留行数，仅保留最新的记录。
 
-高可用流数据表使用方法相对复杂，可以参考[流数据高可用功能](str_ha.html)。
+高可用流数据表使用方法相对复杂，可以参考[流数据高可用功能](str_ha.md)。
 

@@ -31,5 +31,5 @@ fromJson(y);
 [1,2,3]
 ```
 
-相关函数：[toJson](../t/toJson.html)
+相关函数：[toJson](../t/toJson.md)
 

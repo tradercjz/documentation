@@ -2,11 +2,11 @@
 
 ## 1. 前言
 
-DolphinDB 提供的[用户权限管理](ACL_and_Security.html)功能管控的最小粒度是表级别，无法设置小于表粒度的数据访问权限管控，如限制用户仅能访问表中某些行或某些列的数据。为了满足客户更精细的权限管控需求，我们编写了本教程。
+DolphinDB 提供的[用户权限管理](ACL_and_Security.md)功能管控的最小粒度是表级别，无法设置小于表粒度的数据访问权限管控，如限制用户仅能访问表中某些行或某些列的数据。为了满足客户更精细的权限管控需求，我们编写了本教程。
 
 ## 2. 概述
 
-本教程主要介绍如何通过[函数视图](../db_distr_comp/db_oper/FunctionView.html)对表的访问权限实现更加精细和个性化的管控。
+本教程主要介绍如何通过[函数视图](../db_distr_comp/db_oper/FunctionView.md)对表的访问权限实现更加精细和个性化的管控。
 
 函数视图是封装了访问数据库以及相关计算语句的自定义函数，它提供了一种灵活的方式来控制用户访问数据库和表。用户即使不具备读写数据库原始数据的权限，也可通过执行函数视图，间接访问数据库，得到所需的计算结果。
 
@@ -21,7 +21,7 @@ DolphinDB 提供的[用户权限管理](ACL_and_Security.html)功能管控的最
 
 **第一步：部署测试环境**
 
-* 部署 DolphinDB 单节点：[单节点部署教程](standalone_server.html)。
+* 部署 DolphinDB 单节点：[单节点部署教程](standalone_server.md)。
 * 根据部署教程打开节点 web 编程界面，登陆后运行后续步骤测试代码，默认 admin 账户的密码是 123456。
 
 ![](images/non-standard_permission_management/web.png)
@@ -287,7 +287,7 @@ grant("testGroup1", VIEW_EXEC, "getCond")
 
 ### 7.1 添加函数视图
 
-管理员定义函数后，使用 [addFunctionView](../funcs/a/addFunctionView.html) 函数添加函数视图。
+管理员定义函数后，使用 [addFunctionView](../funcs/a/addFunctionView.md) 函数添加函数视图。
 
 ```
 login("admin", "123456")
@@ -299,7 +299,7 @@ addFunctionView(getCount)
 
 ### 7.2 删除函数视图
 
-管理员使用 [dropFunctionView](../funcs/d/dropFunctionView.html) 函数进行函数视图删除。删除函数视图后，所有被赋予该函数视图权限的用户将无法调用该函数视图。
+管理员使用 [dropFunctionView](../funcs/d/dropFunctionView.md) 函数进行函数视图删除。删除函数视图后，所有被赋予该函数视图权限的用户将无法调用该函数视图。
 
 ```
 login("admin", "123456")
@@ -334,7 +334,7 @@ revoke("testUser1", VIEW_EXEC, "getPre2023")
 
 8.1 The FunctionView [xxx] already exists, please drop it before adding a new one
 
-执行 [addFunctionView](../funcs/a/addFunctionView.html) 函数添加新的函数视图时报如下错误：
+执行 [addFunctionView](../funcs/a/addFunctionView.md) 函数添加新的函数视图时报如下错误：
 
 ```
 addFunctionView(getCount) => The FunctionView [getCount] already exists, please drop it before adding a new one
@@ -346,7 +346,7 @@ addFunctionView(getCount) => The FunctionView [getCount] already exists, please 
 
 解决方案：
 
-* 办法1：通过 [dropFunctionView](../funcs/d/dropFunctionView.html) 函数删除已定义的同名函数视图
+* 办法1：通过 [dropFunctionView](../funcs/d/dropFunctionView.md) 函数删除已定义的同名函数视图
 
 ```
 dropFunctionView("getCount")

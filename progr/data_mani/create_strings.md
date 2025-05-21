@@ -29,14 +29,14 @@ typestr('C');
 CHAR
 ```
 
-(2) 使用函数 [string](../../funcs/s/string.html).
+(2) 使用函数 [string](../../funcs/s/string.md).
 
 ```
 var7=string(108.5);
 ```
 
-(3) 使用函数 [format](../../funcs/f/format.html)。*format*
-函数会把指定格式应用到对象，并生成一个字符串标量或向量。*format* 函数会根据输入数据的数据类型，来决定调用 [decimalFormat](../../funcs/d/decimalFormat.html) 还是 [temporalFormat](../../funcs/t/temporalFormat.html).
+(3) 使用函数 [format](../../funcs/f/format.md)。*format*
+函数会把指定格式应用到对象，并生成一个字符串标量或向量。*format* 函数会根据输入数据的数据类型，来决定调用 [decimalFormat](../../funcs/d/decimalFormat.md) 还是 [temporalFormat](../../funcs/t/temporalFormat.md).
 
 ```
 t = table(1..100 as id, (1..100 + 2018.01.01) as date, rand(100.0, 100) as price, rand(10000, 100) as qty);
@@ -82,7 +82,7 @@ t1.date.typestr();
 STRING VECTOR
 ```
 
-下表展示了 *decimalFormat* 函数中使用到的符号的意义。详情请参考 [ParsingandFormatofTemporalVariables](format_temp_obj.html).
+下表展示了 *decimalFormat* 函数中使用到的符号的意义。详情请参考 [ParsingandFormatofTemporalVariables](format_temp_obj.md).
 
 | 符号 | 含义 | 备注 |
 | --- | --- | --- |

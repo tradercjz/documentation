@@ -5,7 +5,7 @@
 `mcorrTopN(X, Y, S, window, top, [ascending=true],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 详情
 
@@ -80,5 +80,5 @@ pt = db.createPartitionedTable(t,"pt",`id).append!(t)
 select mcorrTopN(price, val, id, 10, 5, true) from pt where date>2021.05.01
 ```
 
-相关函数：[mcorr](mcorr.html)
+相关函数：[mcorr](mcorr.md)
 

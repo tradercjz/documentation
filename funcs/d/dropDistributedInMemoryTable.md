@@ -26,5 +26,5 @@ pt.append!(tmp);
 dropDistributedInMemoryTable(`dt)
 ```
 
-相关函数：[loadDistributedInMemoryTable](../l/loadDistributedInMemoryTable.html), [createDistributedInMemoryTable](../c/createDistributedInMemoryTable.html)
+相关函数：[loadDistributedInMemoryTable](../l/loadDistributedInMemoryTable.md), [createDistributedInMemoryTable](../c/createDistributedInMemoryTable.md)
 

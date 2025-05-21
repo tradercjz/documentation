@@ -23,7 +23,7 @@
 
 注意：计算时将忽略空值。
 
-窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+窗口计算规则请参考: [累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 例子
 
@@ -51,5 +51,5 @@ cummdd(x, false)
 // Output: [0,0,54,54,54,54,75,75,75]
 ```
 
-相关函数：[maxDrawdown](../m/maxdrawdown.html)
+相关函数：[maxDrawdown](../m/maxdrawdown.md)
 

@@ -13,9 +13,9 @@
 * 如果有一个市场的买方报价 (bid) 超过了该货币对的阈值，选取另一个买方报价 (bid) 做为最优价
 * 如果两个市场的买方报价 (bid) 都超过了该货币对的阈值，返回该货币对前一时刻的最优价
 
-DolphinDB 的流数据引擎是一种专门用于处理实时数据流的高效、灵活的计算模块。它可以对流数据进行各种类型的分析，如时间序列、横截面、异常检测、连接等，并将结果输出到内存表、流数据表或其他终端。流数据教程详见：[流数据](../stream/str_intro.html)
+DolphinDB 的流数据引擎是一种专门用于处理实时数据流的高效、灵活的计算模块。它可以对流数据进行各种类型的分析，如时间序列、横截面、异常检测、连接等，并将结果输出到内存表、流数据表或其他终端。流数据教程详见：[流数据](../stream/str_intro.md)
 
-本案例使用[等值连接引擎](../funcs/c/createEquiJoinEngine.html)和[响应式状态引擎](../funcs/c/createReactiveStateEngine.html)实现，流程图如下：
+本案例使用[等值连接引擎](../funcs/c/createEquiJoinEngine.md)和[响应式状态引擎](../funcs/c/createReactiveStateEngine.md)实现，流程图如下：
 
 ![1](images/best-price-selection/1.png)
 
@@ -29,7 +29,7 @@ DolphinDB 的流数据引擎是一种专门用于处理实时数据流的高效�
 
 ## 2. 模拟数据
 
-为了方便读者快速上手，本案例提供了模拟数据，结合 DolphinDB 提供的[数据回放](data_replay.html)功能，可仿真实时的外汇行情。没有真实行情数据的读者，可用此方法做全流程测试。模拟数据是 CFETS（中国外汇交易中心）和 HKFEMT（香港外汇市场）两个市场的一天的报价数据。本案例简化了数据结构，仅以买方报价 (bid) 举例说明，详细的数据表结构如下图所示：
+为了方便读者快速上手，本案例提供了模拟数据，结合 DolphinDB 提供的[数据回放](data_replay.md)功能，可仿真实时的外汇行情。没有真实行情数据的读者，可用此方法做全流程测试。模拟数据是 CFETS（中国外汇交易中心）和 HKFEMT（香港外汇市场）两个市场的一天的报价数据。本案例简化了数据结构，仅以买方报价 (bid) 举例说明，详细的数据表结构如下图所示：
 
 ![2](images/best-price-selection/2.png)
 
@@ -110,8 +110,8 @@ createStreamTableFunc()
 go
 ```
 
-* [go](../progr/statements/go.html) 语句的作用是对代码分段进行解析和执行
-* [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.html) 共享流数据表并持久化到磁盘。上述代码的主要作用是调用该函数创建三个共享的异步持久化流数据表。其中两个是 *HKFEMTStreamTable* 和 *CFETSTStreamTable*，它们分别用于接收和发布香港外汇市场和中国外汇交易中心的实时行情数据；另一个是 *bestPriceStreamTable*，它用于接收和发布引擎处理完毕的最优价结果。
+* [go](../progr/statements/go.md) 语句的作用是对代码分段进行解析和执行
+* [enableTableShareAndPersistence](../funcs/e/enableTableShareAndPersistence.md) 共享流数据表并持久化到磁盘。上述代码的主要作用是调用该函数创建三个共享的异步持久化流数据表。其中两个是 *HKFEMTStreamTable* 和 *CFETSTStreamTable*，它们分别用于接收和发布香港外汇市场和中国外汇交易中心的实时行情数据；另一个是 *bestPriceStreamTable*，它用于接收和发布引擎处理完毕的最优价结果。
 
 ### 3.2. 定义选取最优价及市场的函数
 
@@ -126,7 +126,7 @@ def bestPriceAndMarket(leftBid, rightBid, leftMarket, rightMarket, currencyPair,
 }
 ```
 
-* [iif(cond, trueResult, falseResult)](../funcs/i/iif.html)：如果满足条件 *condition*，则返回 *trueResult*，否则返回 *falseResult*。它等效于对每个元素分别运行 if...else 语句
+* [iif(cond, trueResult, falseResult)](../funcs/i/iif.md)：如果满足条件 *condition*，则返回 *trueResult*，否则返回 *falseResult*。它等效于对每个元素分别运行 if...else 语句
 * 为了方便后续数据填充，市场的数据类型转为整形，引擎左表市场返回 1，引擎右表市场返回 2
 
 ### 3.3. 注册流计算引擎和订阅流数据表
@@ -155,7 +155,7 @@ subscribeTable(tableName="CFETSTStreamTable", actionName="joinRight", offset=0, 
 
 * 选取最优价及市场的函数配置在等值连接引擎中
 * 等值连接引擎的输出参数配置为响应式状态引擎，表变量 *fillPrevSch* 表示响应式状态引擎输入的表结构，其字段顺序和类型要和等值连接引擎的输出完全一致
-* [ffill](../funcs/f/ffill.html)：此函数用在响应式状态引擎中，表示对参数列中的空值用相同货币对的非空前值做填充
+* [ffill](../funcs/f/ffill.md)：此函数用在响应式状态引擎中，表示对参数列中的空值用相同货币对的非空前值做填充
 * 自定义函数 `appendTime` 在数据写入等值连接引擎前增加了写入时间，方便后续做延时的统计，该时间精度为纳秒
 
 ### 3.4. Python API 实时订阅最优价结果
@@ -178,7 +178,7 @@ Event().wait()
 ```
 
 * 执行 Python 代码前，必须先在 DolphinDB server 端定义流数据表 *bestPriceStreamTable*
-* [s.enableStreaming()](https://docs.dolphindb.cn/zh/pydoc/BasicOperations/Subscription/Subscription.html) 函数表示启用流数据功能
+* [s.enableStreaming()](https://docs.dolphindb.cn/zh/pydoc/BasicOperations/Subscription/Subscription.md) 函数表示启用流数据功能
 * subscribe 方法
   + *host* 和 *port* 参数为 DolphinDB server 的 IP 地址和端口
   + *handler* 参数为回调函数，示例代码自定义了 `resultProcess` 回调函数，动作为打印实时接收到的数据
@@ -200,7 +200,7 @@ Excel 是常用的办公软件，DolphinDB 的 Excel 插件能够把实时计算
 
 ### 3.6. Grafana 实时监控最优价
 
-Grafana 是一个开源的数据可视化 Web 应用程序，擅长动态展示时序数据，支持多种数据源。DolphinDB 开发了 Grafana 数据源插件 (dolphindb-datasource)，让用户在 Grafana 面板 (dashboard) 上通过编写查询脚本、订阅流数据表的方式，与 DolphinDB 进行交互 (基于 WebSocket)，实现 DolphinDB 时序数据的可视化。详细教程参考：[Grafana 连接 DolphinDB 数据源](https://docs.dolphindb.cn/zh/api/grafana_2.html)
+Grafana 是一个开源的数据可视化 Web 应用程序，擅长动态展示时序数据，支持多种数据源。DolphinDB 开发了 Grafana 数据源插件 (dolphindb-datasource)，让用户在 Grafana 面板 (dashboard) 上通过编写查询脚本、订阅流数据表的方式，与 DolphinDB 进行交互 (基于 WebSocket)，实现 DolphinDB 时序数据的可视化。详细教程参考：[Grafana 连接 DolphinDB 数据源](https://docs.dolphindb.cn/zh/api/grafana_2.md)
 
 本案例展示货币对人民币对美元的最优价，Grafana 中的 Query 代码如下：
 
@@ -208,7 +208,7 @@ Grafana 是一个开源的数据可视化 Web 应用程序，擅长动态展示�
 select  gmtime(time) as ts, bestPrice from bestPriceStreamTable where currencyPair='USD/CNY' context by second(time) limit -1
 ```
 
-因为 Grafana 默认显示 UTC 时间，和 DolphinDB server 内的数据时间存在 8 个小时时差，所以 Grafana 中的 Query 需要使用 [gmtime](../funcs/g/gmtime.html) 函数进行时区的转换。
+因为 Grafana 默认显示 UTC 时间，和 DolphinDB server 内的数据时间存在 8 个小时时差，所以 Grafana 中的 Query 需要使用 [gmtime](../funcs/g/gmtime.md) 函数进行时区的转换。
 
 ### 3.7. 历史数据回放
 

@@ -54,7 +54,7 @@ lgbm::train(X,Y,[numIterations=100],[params])
 
 **numIterations** 可选参数，非负整值，表示执行一次回归训练所用的迭代次数，默认为 100。
 
-**params** 可选参数，一个字典，用于配置相关参数。可配置的选项具体参考[官方文档](https://lightgbm.readthedocs.io/en/latest/Parameters.html)。常用参数：
+**params** 可选参数，一个字典，用于配置相关参数。可配置的选项具体参考[官方文档](https://lightgbm.readthedocs.io/en/latest/Parameters.md)。常用参数：
 
 * objective：字符串标量，目标函数名称，默认为 'regression'。
 * boosting：字符串标量，目前仅支持 'gbdt'。

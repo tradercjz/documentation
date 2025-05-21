@@ -48,7 +48,7 @@ getRecentJobs(1)
 | 左连接：适用于右表不频繁更新的场景（通常是维度表），左表按连接列等值匹配右表 | createLookupJoinEngine | left join (lj) |
 
 **例.** 流式计算主买/主卖交易量（示例代码参考：[流式计算中证
-1000 指数主买/主卖交易量](CSI_1000.html)）
+1000 指数主买/主卖交易量](CSI_1000.md)）
 
 计算公式：主买/主卖交易量 = Σ(交易价格\*交易量\*权重因子)
 
@@ -245,11 +245,11 @@ t3 = select wsum(SellTradeAmount, weightDict[SecurityID]) as SellTradeAmount,
 
    可以将流表通过 `enableTablePersistence` 函数或者
    `enableTableShareAndPersistence`
-   函数进行持久化，系统会将一部分数据持久化存储到磁盘指定目录（通过配置参数 [persistenceDir](../db_distr_comp/cfg/function_configuration.html) 设置）。
+   函数进行持久化，系统会将一部分数据持久化存储到磁盘指定目录（通过配置参数 [persistenceDir](../db_distr_comp/cfg/function_configuration.md) 设置）。
 3. 如何配置重启后自动加载订阅流表?
 
-   将流数据表定义和流表订阅操作放在启动脚本 startup.dos （通过配置参数 [startup](../db_distr_comp/cfg/standalone.html)
-   设置）内，这样节点重启后可以自动加载订阅流表。详情参考教程 [启动脚本](Startup.html) 和 [节点启动时的流计算自动订阅](streaming_auto_sub.html)。
+   将流数据表定义和流表订阅操作放在启动脚本 startup.dos （通过配置参数 [startup](../db_distr_comp/cfg/standalone.md)
+   设置）内，这样节点重启后可以自动加载订阅流表。详情参考教程 [启动脚本](Startup.md) 和 [节点启动时的流计算自动订阅](streaming_auto_sub.md)。
 4. 流表如何进行删除？一直无法删除如何解决？
 
    流表需要通过函数 `dropStreamTable` 进行删除，而不是通过 `undef(`st,
@@ -279,29 +279,29 @@ t3 = select wsum(SellTradeAmount, weightDict[SecurityID]) as SellTradeAmount,
 
 ### 7.5 下一步阅读
 
-官方文档 [流数据](../stream/str_intro.html)
+官方文档 [流数据](../stream/str_intro.md)
 整理了一些流计算相关的文档和教程说明，此处仅列举部分：
 
-* 流数据架构：[流数据功能简介](../stream/str_funcs.html)
-  [流数据表](../stream/str_table.html)
-  [发布与订阅](../stream/sub_pub.html)
-* 流计算引擎：[内置流式计算引擎](../funcs/themes/streamingEngine.html)
-  [内置多数据源流式关联引擎](../stream/str_join_engine.html)
-* 流数据接入：[Python API 接入数据](../stream/str_api_python.html)
-  [行情数据插件：NSQ](../plugins/nsq/nsq.html)
-* 数据回放：[股票行情回放](stock_market_replay.html)
-* 流批一体：[流批一体](../stream/str_batch.html)
+* 流数据架构：[流数据功能简介](../stream/str_funcs.md)
+  [流数据表](../stream/str_table.md)
+  [发布与订阅](../stream/sub_pub.md)
+* 流计算引擎：[内置流式计算引擎](../funcs/themes/streamingEngine.md)
+  [内置多数据源流式关联引擎](../stream/str_join_engine.md)
+* 流数据接入：[Python API 接入数据](../stream/str_api_python.md)
+  [行情数据插件：NSQ](../plugins/nsq/nsq.md)
+* 数据回放：[股票行情回放](stock_market_replay.md)
+* 流批一体：[流批一体](../stream/str_batch.md)
   [快速搭建 Level-2
-  快照数据流批一体因子计算平台最佳实践](l2_snapshot_factor_calc.html)
-* 场景案例：[金融实时实际波动率预测](ml_volatility.html)
-  [实时计算日累计逐单资金流](streaming_capital_flow_daily.html)
-  [实时计算分钟资金流](streaming_capital_flow_order_by_order.html)
-  [实时选取外汇行情多价源最优价](best_price_selection.html)
+  快照数据流批一体因子计算平台最佳实践](l2_snapshot_factor_calc.md)
+* 场景案例：[金融实时实际波动率预测](ml_volatility.md)
+  [实时计算日累计逐单资金流](streaming_capital_flow_daily.md)
+  [实时计算分钟资金流](streaming_capital_flow_order_by_order.md)
+  [实时选取外汇行情多价源最优价](best_price_selection.md)
   金[融因子流式实现](str_comp_fin_quant.html#%E9%87%91%E8%9E%8D%E5%9B%A0%E5%AD%90%E6%B5%81%E5%BC%8F%E5%AE%9E%E7%8E%B0)
-* 可视化展示：[数据面板](dashboard_tutorial.html)
-  [Altair 连接 DolphinDB 数据源](../stream/str_altair.html)
+* 可视化展示：[数据面板](dashboard_tutorial.md)
+  [Altair 连接 DolphinDB 数据源](../stream/str_altair.md)
   [DolphinDB Grafana
-  DataSource Plugin](../tools/grafana.html)
+  DataSource Plugin](../tools/grafana.md)
 
 ## 8. 附录
 

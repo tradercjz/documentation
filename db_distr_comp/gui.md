@@ -57,7 +57,7 @@ Server 节点。![](../images/GUI/new_add_server.png)
 * **Host** DolphinDB Server 所在的服务器 IP 。
 * **Port** DolphinDB Server 待连接节点的端口号。
 * **Remote Directory** 远端目录，[数据同步](#gui_client__section_a2l_fg4_ryb)功能的目的路径。可以是绝对路径或相对路径，其中相对路径相对于 <HomeDir> 。<HomeDir>
-  可通过函数 [getHomeDir](../funcs/g/getHomeDir.html) 获取。
+  可通过函数 [getHomeDir](../funcs/g/getHomeDir.md) 获取。
 * **Username** 登录用户名。
 * **Password** 登录密码。
 

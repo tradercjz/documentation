@@ -10,7 +10,7 @@
 
 ## 详情
 
-对于向量或矩阵，`size` 返回元素的个数，而 [count](../c/count.html) 返回的是非 NULL 元素个数。
+对于向量或矩阵，`size` 返回元素的个数，而 [count](../c/count.md) 返回的是非 NULL 元素个数。
 
 对于内存表，`size` 返回行数。
 

@@ -19,7 +19,7 @@ SQLSETPOSIROW Size.: 8
 
 #### 安装 Redshift.ODBC 驱动
 
-Redshift 配置 ODBC 连接可参考[配置 ODBC 连接](https://docs.aws.amazon.com/zh_cn/redshift/latest/mgmt/configure-odbc-connection.html)
+Redshift 配置 ODBC 连接可参考[配置 ODBC 连接](https://docs.aws.amazon.com/zh_cn/redshift/latest/mgmt/configure-odbc-connection.md)
 
 1. 下载 ODBC 驱动到本地
 

@@ -102,9 +102,9 @@
    图 10. 权限添加预览界面
 
    ![](../images/access_man/2_17.png)
-9. 确认无误，点击**确认添加**按钮，调用函数 [grant](../../../funcs/g/grant.html) 和 [deny](../../../funcs/d/deny.html) 对用户正式赋予权限，赋予成功后，在界面上提示"权限赋予成功"
+9. 确认无误，点击**确认添加**按钮，调用函数 [grant](../../../funcs/g/grant.md) 和 [deny](../../../funcs/d/deny.md) 对用户正式赋予权限，赋予成功后，在界面上提示"权限赋予成功"
 
-如需撤销用户权限，管理员可以点击**撤销/批量撤销**后，对用户**已赋予/已禁止**的权限进行撤销，会调用函数 [revoke](../../../funcs/r/revoke.html) 撤销权限，撤销成功后，在界面上提示"撤销成功"。
+如需撤销用户权限，管理员可以点击**撤销/批量撤销**后，对用户**已赋予/已禁止**的权限进行撤销，会调用函数 [revoke](../../../funcs/r/revoke.md) 撤销权限，撤销成功后，在界面上提示"撤销成功"。
 
 图 11. 撤销/批量撤销权限
 
@@ -122,7 +122,7 @@
 
 ![](../images/access_man/2_19.png)
 
-由于 [getUserAccess](../../../funcs/g/getUserAccess.html) 函数将
+由于 [getUserAccess](../../../funcs/g/getUserAccess.md) 函数将
 Schema 相关权限直接合并到库级权限，因此，Schema 相关权限的列名也是以 DB\_ 开头的。
 
 此外，在设置了用户权限后，用户权限亦可在交互编程界面的库表浏览器中可见：
@@ -155,7 +155,7 @@ Schema 相关权限直接合并到库级权限，因此，Schema 相关权限的
    1. 输入**组名**；
    2. 在非组成员中选择要添加的**初始成员**；
    3. 点击中间的**箭头**，确认选择初始成员；
-   4. 点击确定后，会调用函数 [createGroup](../../../funcs/c/createGroup.html)
+   4. 点击确定后，会调用函数 [createGroup](../../../funcs/c/createGroup.md)
       进行组创建，创建成功后，在界面上提示"组创建成功"。
 
    图 15. 新建组表单
@@ -199,14 +199,14 @@ Schema 相关权限直接合并到库级权限，因此，Schema 相关权限的
    图 19. 组成员管理表单
 
    ![](../images/access_man/3_6.png)
-3. 依次确认该组**原组成员**，即将**移入用户**和即将**移出用户**，确认无误后，在预览弹窗点击确定，会调用脚本 [addGroupMember](../../../funcs/a/addGroupMember.html) 和 [deleteGroupMember](../../../funcs/d/deleteGroupMember.html)
+3. 依次确认该组**原组成员**，即将**移入用户**和即将**移出用户**，确认无误后，在预览弹窗点击确定，会调用脚本 [addGroupMember](../../../funcs/a/addGroupMember.md) 和 [deleteGroupMember](../../../funcs/d/deleteGroupMember.md)
    完成组内用户的修改。修改成功后，在界面上提示"组成员修改成功"。
 
    图 20. 组内成员修改预览
 
    ![](../images/access_man/3_7.png)
 
-有关用户权限的详细介绍，参考：[用户权限管理](../../../tutorials/ACL_and_Security.html)。
+有关用户权限的详细介绍，参考：[用户权限管理](../../../tutorials/ACL_and_Security.md)。
 
 **相关信息**
 

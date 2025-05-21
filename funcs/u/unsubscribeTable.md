@@ -14,10 +14,10 @@
 **actionName** 是表示句柄名称的字符串。它可以包含字母、数字和下划线。如果创建订阅时指定了 *actionName*，取消订阅时必须指定
 *actionName*。
 
-**removeOffset** 是一个布尔值，表示是否删除持久化保存的最新一条已经处理订阅数据的偏移量（在 [subscribeTable](../s/subscribeTable.html) 函数中通过指定
+**removeOffset** 是一个布尔值，表示是否删除持久化保存的最新一条已经处理订阅数据的偏移量（在 [subscribeTable](../s/subscribeTable.md) 函数中通过指定
 *persistOffset* 参数为 true 获得）。
 
-**raftGroup** 是在 [subscribeTable](../s/subscribeTable.html) 中设定的 raft 组的 ID，用于取消相应的订阅高端可用。不设置该参数，则订阅信息仍然保留在 raft
+**raftGroup** 是在 [subscribeTable](../s/subscribeTable.md) 中设定的 raft 组的 ID，用于取消相应的订阅高端可用。不设置该参数，则订阅信息仍然保留在 raft
 中，再次切换 leader 会重新订阅。
 
 注： `unsubscribeTable` 函数如果指定了

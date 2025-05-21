@@ -12,7 +12,7 @@
 
 ## 详情
 
-它使用指定参数调用一个函数并生成脚本。高阶函数 [call](../ho_funcs/call.html) 与
+它使用指定参数调用一个函数并生成脚本。高阶函数 [call](../ho_funcs/call.md) 与
 `makeCall` 的区别是，`makeCall` 不执行脚本。
 
 ## 例子

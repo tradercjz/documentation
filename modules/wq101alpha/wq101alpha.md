@@ -43,7 +43,7 @@
 
 把附件的 wq101alpha.dos 放在 [home]/modules 目录下，[home] 目录由系统配置参数 home 决定，可以通过 `getHomeDir()` 函数查看。
 
-有关模块使用的更多细节，请参见：[DolphinDB 教程：模块](../../tutorials/module_tutorial.html) 。
+有关模块使用的更多细节，请参见：[DolphinDB 教程：模块](../../tutorials/module_tutorial.md) 。
 
 ### 2.2. 数据准备
 
@@ -292,7 +292,7 @@ for i in range(1, 102):
 | 52 | 131 | 91,360 | 46,715 | 697.4 | 356.6 |
 | 83 | 209 | 1,107 | 464 | 5.3 | 2.2 |
 
-从结果上来看， numpy 的实现确实比 pandas dataframe 实现快一些，但是由于窗口函数 numpy 中是用 [`numpy.lib.stride_tricks.sliding_window_view`](https://numpy.org/doc/stable/reference/generated/numpy.lib.stride_tricks.sliding_window_view.html) 实现的，对于窗口计算没有优化，故性能并没有显著提升。
+从结果上来看， numpy 的实现确实比 pandas dataframe 实现快一些，但是由于窗口函数 numpy 中是用 [`numpy.lib.stride_tricks.sliding_window_view`](https://numpy.org/doc/stable/reference/generated/numpy.lib.stride_tricks.sliding_window_view.md) 实现的，对于窗口计算没有优化，故性能并没有显著提升。
 
 综合来看，DolphinDB 在实现 WorldQuant 101 alpha 因子上有非常大的优势，性能卓越。
 

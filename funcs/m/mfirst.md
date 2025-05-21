@@ -4,7 +4,7 @@
 
 `mfirst(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -66,5 +66,5 @@ mfirst(m, 1w)
 | 2020.09.16 | 5 | 10 |
 | 2020.09.26 | 2 | 2 |
 
-相关函数：[first](../f/first.html), [last](../l/last.html)
+相关函数：[first](../f/first.md), [last](../l/last.md)
 

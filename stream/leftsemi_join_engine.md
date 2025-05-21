@@ -19,7 +19,7 @@ leftSemi join 引擎的实际应用场景：一是对逐笔成交数据补充原
 createLeftSemiJoinEngine(name, leftTable, rightTable, outputTable, metrics, matchingColumn, [garbageSize=5000], [updateRightTable=false])
 ```
 
-其参数的详细含义可以参考：[createLeftSemiJoinEngine](../funcs/c/createLeftSemiJoinEngine.html)。
+其参数的详细含义可以参考：[createLeftSemiJoinEngine](../funcs/c/createLeftSemiJoinEngine.md)。
 
 ## 应用例子 1-对逐笔成交数据补充原始委托信息
 
@@ -109,7 +109,7 @@ subscribeTable(tableName="stockKline", actionName="appendStock", handler=getLeft
 * 数据流向：首先，股票数据 stockKline 注入连接引擎 leftJoinIndex1
   的左表，指数数据经过滤后注入该引擎的右表，这一步将股票与指数的分钟指标关联。之后，将上述连接引擎的输出直接注入响应式状态引擎（createReactiveStateEngine），利用响应式状态引擎内置的
   `mcorr` 和 `ratios`
-  函数计算股票与指数的相关性指标。多个引擎之间采用了引擎级联的方式处理。响应式状态引擎教程见 [金融高频因子的流批统一计算：DolphinDB响应式状态引擎介绍](reactive_state_engine.html) 。
+  函数计算股票与指数的相关性指标。多个引擎之间采用了引擎级联的方式处理。响应式状态引擎教程见 [金融高频因子的流批统一计算：DolphinDB响应式状态引擎介绍](reactive_state_engine.md) 。
 * 订阅指数数据 indexKline 时指定 *handler* 为自定义函数 `appendIndex`
   ，是指不断地收到 indexKline 数据后，首先过滤出指数数据中指数名为 idx1 的数据，然后再注入连接引擎的右表。
 

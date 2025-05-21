@@ -4,16 +4,16 @@
 
 * 本教程面向已有一定基础的 DophinDB CEP 引擎使用者，意在帮助读者进一步学习 DolphinDB CEP 引擎在量化交易场景下的灵活用法
 * 建议读者首先阅读和掌握以下教程，再阅读本文的内容
-  + [CEP 引擎入门：初级高频量价因子策略的实现](getting_started_with_cep_engine.html)
+  + [CEP 引擎入门：初级高频量价因子策略的实现](getting_started_with_cep_engine.md)
 
 **扩展材料**
 
 * 除了基础 DolphinDB 概念外，本教程还推荐以下扩展阅读以更好理解本案例的代码：
-  + [模拟撮合插件使用教程](matching_engine_simulator.html)
-  + [数据面板（Dashboard）](dashboard_tutorial.html)
-  + [数据回放（Replay）](../funcs/r/replay.html)
+  + [模拟撮合插件使用教程](matching_engine_simulator.md)
+  + [数据面板（Dashboard）](dashboard_tutorial.md)
+  + [数据回放（Replay）](../funcs/r/replay.md)
 
-在上一篇[复杂事件处理（Complex Events Processing, CEP）引擎的系列教程](getting_started_with_cep_engine.html)中，我们详细介绍了 CEP 引擎和它的一些关键概念，如复杂事件和事件监听器等。随后又通过两个初级的 CEP 引擎使用案例介绍了创建并运行一个最简单结构的 CEP 引擎所需的步骤和模块，以及在 CEP 引擎内部调用其他流计算引擎进行实时因子计算的方法。
+在上一篇[复杂事件处理（Complex Events Processing, CEP）引擎的系列教程](getting_started_with_cep_engine.md)中，我们详细介绍了 CEP 引擎和它的一些关键概念，如复杂事件和事件监听器等。随后又通过两个初级的 CEP 引擎使用案例介绍了创建并运行一个最简单结构的 CEP 引擎所需的步骤和模块，以及在 CEP 引擎内部调用其他流计算引擎进行实时因子计算的方法。
 
 本文将进一步介绍如何基于 CEP 引擎实现一个股票 CTA 策略，并使用真实市场数据进行回测。为了实现回测，CEP 引擎将联动模拟撮合引擎（Matching Engine Simulator）插件来模拟委托订单的发出与快照行情的撮合。同时将介绍技术指标和买卖信号的实时可视化。在文末，将更进一步介绍如何在 CEP 引擎中实现并行的参数寻优，以最大程度地接近真实的使用场景。文章将提供完整的测试代码和脱敏后的测试数据，供读者在 3.00.1.3 及以上版本的 server 学习，详情见文末**附录**。
 
@@ -66,7 +66,7 @@ CEP 引擎模块是策略中最重要，也是最复杂的部分。在本案例�
 
 ![](images/cta_strategy_implementation_and_backtesting/2-2.png)
 
-模拟撮合引擎以行情（快照数据或逐笔数据）和用户委托订单（买方或卖方）作为输入，根据订单撮合规则模拟撮合，将订单的成交结果（包含部分成交结果、拒绝订单和已撤订单）输出至交易明细输出表，未成交部分等待与后续行情撮合成交或者等待撤单。关于更多引擎运行机制的说明和撮合规则的解释见[官方文档](../plugins/matchingEngineSimulator/mes.html) 。
+模拟撮合引擎以行情（快照数据或逐笔数据）和用户委托订单（买方或卖方）作为输入，根据订单撮合规则模拟撮合，将订单的成交结果（包含部分成交结果、拒绝订单和已撤订单）输出至交易明细输出表，未成交部分等待与后续行情撮合成交或者等待撤单。关于更多引擎运行机制的说明和撮合规则的解释见[官方文档](../plugins/matchingEngineSimulator/mes.md) 。
 
 在本案例中，当策略启动以后才需要向模拟撮合引擎发送委托订单，因此创建模拟撮合引擎的函数将放在 CEP 引擎内部。
 
@@ -295,7 +295,7 @@ def initiatingStrategy(Initiating){
 
   + 在加载模拟撮合插件后，可以通过 `MatchingEngineSimulator::createMatchEngine` 函数创建模拟撮合引擎。
   + exchange 参数指定交易所代码，用于明确撮合规则。
-  + 构造了一个 config 字典，并在字典中配置撮合引擎的撮合设定，如订单时延、输入给撮合引擎的行情类别、撮合模式等。更详细的参数设置和含义见[模拟撮合引擎使用教程](matching_engine_simulator.html)。
+  + 构造了一个 config 字典，并在字典中配置撮合引擎的撮合设定，如订单时延、输入给撮合引擎的行情类别、撮合模式等。更详细的参数设置和含义见[模拟撮合引擎使用教程](matching_engine_simulator.md)。
   + 对于输入表 dummyQuotationTable 和 dummyUserOrderTable，模拟撮合引擎要求它们必须包含指定的字段名称。如果自定义的行情数据表的字段名称与引擎要求不一致，可以通过 quotationColMap 字典进行映射；同样地，如果自定义的用户委托订单数据表的字段名称与引擎要求不一致，可以通过 userOrderColMap 字典进行映射。
   + 对于输出表 tradeOutputTable，模拟撮合引擎对它的字段名称没有要求，但其输出的每个字段有特定的含义，所以字段的顺序不能改变。
 * 创建 4 个事件监听器，其中：
@@ -404,7 +404,7 @@ def createCalFactorEngines(instanceId){
 }
 ```
 
-* 为了方便用户使用 TA - Lib 中的技术指标，DolphinDB 提供了以 DolphinScript 实现的 TA-Lib 中包含的指标函数，并封装在 DolphinDB [ta 模块](../modules/ta/ta.html) 中。 `createReactiveStateEngine` 函数通过 *metrics* 参数指定计算指标，本案例用到了 ta 模块（已经在创建监视器前声明 `use ta`）来方便地表达指标逻辑，省去了用户编写复杂计算公式的步骤。
+* 为了方便用户使用 TA - Lib 中的技术指标，DolphinDB 提供了以 DolphinScript 实现的 TA-Lib 中包含的指标函数，并封装在 DolphinDB [ta 模块](../modules/ta/ta.md) 中。 `createReactiveStateEngine` 函数通过 *metrics* 参数指定计算指标，本案例用到了 ta 模块（已经在创建监视器前声明 `use ta`）来方便地表达指标逻辑，省去了用户编写复杂计算公式的步骤。
 * 以输入快照数据、计算 MACD 和 CCI 指标的响应式状态引擎为例，引擎计算的结果将交由 `handleMacdCciOutput` 函数处理。在该函数中将进行下单信号的判断，我们将在后文进行详细介绍。创建计算成交量指标的响应式状态引擎的流程类似，其计算结果交由 `handleVolOutput` 函数处理。注意，设置 *outputHandler* 参数后，引擎不再将每次的计算结果写到输出表 macdCciOutputTable，而是会不断地调用 *outputHandler* 参数指定的函数处理计算结果。
 
 在创建计算引擎的函数中，有一段关于引擎预热的代码：
@@ -711,7 +711,7 @@ fromReplayToCEP(stockPool_)
 
 DolphinDB Web 端提供了强大的数据可视化和分析工具——数据面板（Dashboard），旨在帮助用户更好地理解和利用数据。在本例中，响应式状态引擎计算完成后和产生买卖信号时都将对应的数据写入了共享流数据表，如此在 Dashboard 中便可以选取需要的数据进行可视化。
 
-更为详细的数据面板使用教程见[官方文档](dashboard_tutorial.html)，本案例的可视化结果如下（仅选取了一只股票进行展示）。在文末附录中将提供本案例中 Dashboard 的配置文件，导入配置文件即可复现本案例中的图表。
+更为详细的数据面板使用教程见[官方文档](dashboard_tutorial.md)，本案例的可视化结果如下（仅选取了一只股票进行展示）。在文末附录中将提供本案例中 Dashboard 的配置文件，导入配置文件即可复现本案例中的图表。
 
 ![](images/cta_strategy_implementation_and_backtesting/4-1.png)
 
@@ -729,7 +729,7 @@ DolphinDB Web 端提供了强大的数据可视化和分析工具——数据面
 
 ![](images/cta_strategy_implementation_and_backtesting/4-2.png)
 
-在实盘中，可以通过 C++、Java、Python 等客户端程序订阅 emitOutput 表，接收到下单事件后向交易柜台发送委托单。 C++ API 订阅事件流的方法见 [事件处理](https://docs.dolphindb.cn/zh/cppdoc/event_handling.html) 。
+在实盘中，可以通过 C++、Java、Python 等客户端程序订阅 emitOutput 表，接收到下单事件后向交易柜台发送委托单。 C++ API 订阅事件流的方法见 [事件处理](https://docs.dolphindb.cn/zh/cppdoc/event_handling.md) 。
 
 ### 4.3 模拟撮合结果
 

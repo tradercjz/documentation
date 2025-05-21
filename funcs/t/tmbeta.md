@@ -4,7 +4,7 @@
 
 `tmbeta(T, Y, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -59,5 +59,5 @@ select *, tmbeta(t, y, x, 1w) from m
 | 2021.01.07 | 2 | 9 | -0.1818 |
 | 2021.01.08 | 4 | 1 | -0.4444 |
 
-相关函数：[mbeta](../m/mbeta.html), [beta](../b/beta.html)
+相关函数：[mbeta](../m/mbeta.md), [beta](../b/beta.md)
 

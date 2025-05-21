@@ -43,5 +43,5 @@ stdp(m);
 [2.8284,4.2426]
 ```
 
-相关函数：[std](std.html), [cumstdp](../c/cumstdp.html)
+相关函数：[std](std.md), [cumstdp](../c/cumstdp.md)
 

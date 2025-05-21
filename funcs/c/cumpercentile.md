@@ -5,7 +5,7 @@
 `cumpercentile(X, percent,
 [interpolation='linear'])`
 
-部分通用参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 参数
 
@@ -89,5 +89,5 @@ cumpercentile(m,25);
 | 3 | 13 |
 | 3.25 | 13.25 |
 
-相关函数：[percentile](../p/percentile.html)
+相关函数：[percentile](../p/percentile.md)
 

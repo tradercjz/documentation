@@ -34,7 +34,7 @@ lookup join 引擎与 asof join, semi lookup join, snapshot join 引擎的比较
 | left semi join 引擎 | lookup join 引擎和 left semi join 引擎都由左表的新记录触发连接计算，当引擎根据连接列匹配上右表中的记录时，引擎将输出结果。  lookup join 引擎对于左表中未在右表中成功匹配的记录，根据参数设置或直接输出、或不输出结果；left semi join 引擎对于左表中未成功匹配的记录将进行缓存，等待与右表中更新的记录匹配后输出。  left semi join 引擎在缓存右表的记录时，对于相同连接列的数据总是只保留第一条或者最新一条，因此对于左表的每一条记录至多只会匹配一条右表记录并输出一条记录。在lookup join engine中，对于相同连接列的数据用户可选择保留全部记录，因此存在左表的每一条记录匹配到右表多条记录、输出多条记录的情况。 |
 | snapshot join 引擎 | lookup join 引擎只能由左表的新记录触发连接；而 snapshot join 引擎可以由左表或右表的新记录触发连接。 |
 
-更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.html)。
+更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.md)。
 
 ## 参数
 
@@ -61,10 +61,10 @@ lookup join 引擎与 asof join, semi lookup join, snapshot join 引擎的比较
    则指定一个INT类型的列，记录单次响应的数据条数。
 
 **metrics**
-*可选参数*, 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.html)。
+*可选参数*, 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [Metaprogramming](../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个表达式、系统内置或用户自定义函数、一个常量标量/向量，但不能是聚合函数。当指定为常量向量时，对应的输出列必须设置为数组向量类型，例子参见
-  [createReactiveStateEngine](createReactiveStateEngine.html) 中的例4。
+  [createReactiveStateEngine](createReactiveStateEngine.md) 中的例4。
 * *metrics* 内支持调用具有多个返回值的函数，且必须指定列名，例如 <func(price) as
   `col1`col2>。
 * 若在 *metrics* 指定了 *leftTable* 和 *rightTable*

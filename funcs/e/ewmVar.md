@@ -63,5 +63,5 @@ ewmVar(X=t1,com=0.5);
 | 09:30:00.001 | DELL | 541.5384 | 297.2807 |
 | 09:30:00.001 | DELL | 754.3801 | 161.1487 |
 
-相关函数：[ewmCorr](ewmCorr.html), [ewmCov](ewmCov.html), [ewmMean](ewmMean.html), [ewmStd](ewmStd.html)
+相关函数：[ewmCorr](ewmCorr.md), [ewmCov](ewmCov.md), [ewmMean](ewmMean.md), [ewmStd](ewmStd.md)
 

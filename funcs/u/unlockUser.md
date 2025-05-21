@@ -18,5 +18,5 @@
 unlockUser("user1")
 ```
 
-相关函数：[lockUser](../l/lockUser.html)
+相关函数：[lockUser](../l/lockUser.md)
 

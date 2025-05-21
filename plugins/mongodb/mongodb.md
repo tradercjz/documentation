@@ -10,7 +10,7 @@ DolphinDB Server: 2.00.10及更高版本。支持 Linux x86，Linux JIT，Window
 
 ### 安装步骤
 
-1. 在DolphinDB 客户端中使用 [listRemotePlugins](../../funcs/l/listRemotePlugins.html) 命令查看插件仓库中的插件信息。
+1. 在DolphinDB 客户端中使用 [listRemotePlugins](../../funcs/l/listRemotePlugins.md) 命令查看插件仓库中的插件信息。
 
    注意：仅展示当前操作系统和 server 版本支持的插件。若无预期插件，可[自行编译](https://gitee.com/dolphindb/DolphinDBPlugin)（请自行选择对应分支下的插件）或在 [DolphinDB 用户社区](https://ask.dolphindb.cn/)进行反馈。
 
@@ -18,7 +18,7 @@ DolphinDB Server: 2.00.10及更高版本。支持 Linux x86，Linux JIT，Window
    login("admin", "123456")
    listRemotePlugins()
    ```
-2. 使用 [installPlugin](../../funcs/i/installPlugin.html) 命令完成插件安装。
+2. 使用 [installPlugin](../../funcs/i/installPlugin.md) 命令完成插件安装。
 
    ```
    installPlugin("mongodb")
@@ -82,7 +82,7 @@ mongodb::load(conn, collcetionName, query, findOptions, [schema])
 
 **query** MongoDB 查询条件，JSON 字符串，例如：{ "aa" : { "$numberInt" : "13232" } }, { "datetime" : { "$gt" : {"$date":"2019-02-28T00:00:00.000Z" }} }。
 
-**findOptions** MongoDB 查询选项，JSON 字符串，例如：{"limit":123}对查询结果在MongoDB中进行预处理再返回。详见 [MongoDB 官方文档](https://mongodb.github.io/node-mongodb-native/Next/interfaces/FindOptions.html).
+**findOptions** MongoDB 查询选项，JSON 字符串，例如：{"limit":123}对查询结果在MongoDB中进行预处理再返回。详见 [MongoDB 官方文档](https://mongodb.github.io/node-mongodb-native/Next/interfaces/FindOptions.md).
 
 **schema** 包含列名及其数据类型的表。如果我们想要改变由系统自动决定的列的数据类型，需要在schema表中修改数据类型，并且把它作为load函数的一个参数。
 
@@ -120,7 +120,7 @@ mongodb::aggregate(conn, collectionName, pipeline, aggregateOptions, [schema])
 
 **pipeline** MongoDB 聚合管道，JSON 字符串，例如：{$group : {\_id : "$by\_user", num\_tutorial : {$sum : 1}}}。
 
-**aggregateOptions** MongoDB 查询选项，JSON 字符串，例如：`{"maxTimeMS": 10000}'`对查询结果在MongoDB中进行预处理再返回。详见 [MongoDB 官方文档](https://mongodb.github.io/node-mongodb-native/Next/interfaces/AggregateOptions.html).
+**aggregateOptions** MongoDB 查询选项，JSON 字符串，例如：`{"maxTimeMS": 10000}'`对查询结果在MongoDB中进行预处理再返回。详见 [MongoDB 官方文档](https://mongodb.github.io/node-mongodb-native/Next/interfaces/AggregateOptions.md).
 
 **schema** 包含列名及其数据类型的表。如果我们想要改变由系统自动决定的列的数据类型，需要在 schema 表中修改数据类型，并且把它作为 `aggregate` 函数的一个参数。
 

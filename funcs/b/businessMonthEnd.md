@@ -65,6 +65,6 @@ select avg(price),sum(qty) from t1 group by businessMonthEnd(date,2016.01.31,2);
 | 2016.12.30 | 50.54 | 3800 |
 | 2017.02.28 | 51.835 | 13300 |
 
-相关函数：[businessMonthBegin](businessMonthBegin.html),
-[monthBegin](../m/monthBegin.html), [monthEnd](../m/monthEnd.html), [semiMonthBegin](../s/semiMonthBegin.html), [semiMonthEnd](../s/semiMonthEnd.html)
+相关函数：[businessMonthBegin](businessMonthBegin.md),
+[monthBegin](../m/monthBegin.md), [monthEnd](../m/monthEnd.md), [semiMonthBegin](../s/semiMonthBegin.md), [semiMonthEnd](../s/semiMonthEnd.md)
 

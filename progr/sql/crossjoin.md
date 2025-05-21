@@ -74,7 +74,7 @@ select * from cj(a,b) where year>2010;
 | 2012 | C |
 | 2012 | AAPL |
 
-相反, [join](../operators/join.html)
+相反, [join](../operators/join.md)
 只是简单地合并两张表的列。
 
 ```

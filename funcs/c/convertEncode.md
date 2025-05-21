@@ -30,5 +30,5 @@ convertEncode(["hello","DolphinDB"],"gbk","utf-8");
 ["hello","DolphinDB"]
 ```
 
-相关函数：[fromUTF8](../f/fromUTF8.html), [toUTF8](../t/toUTF8.html)
+相关函数：[fromUTF8](../f/fromUTF8.md), [toUTF8](../t/toUTF8.md)
 

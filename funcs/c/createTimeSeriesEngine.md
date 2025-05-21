@@ -24,7 +24,7 @@ med, min, percentile, quantile, std, var, sum, sum2, sum3, sum4, wavg, wsum, cou
 firstNot, ifirstNot, lastNot, ilastNot, imax, imin, nunique, prod, sem, mode,
 searchK, beta, avg。
 
-更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.html)。
+更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.md)。
 
 **返回值：**一个表对象，通过向该表对象写入，将数据注入时间序列引擎进行计算。
 
@@ -84,7 +84,7 @@ searchK, beta, avg。
 * 若 *useSystemTime* 为 false，则 *windowSize* 和
   *step* 的单位与 *timeColumn* 的时间精度一致。
 
-**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../../progr/objs/meta_progr.html)。
+**metrics** 以元代码的格式表示计算指标，支持输入元组。有关元代码的更多信息可参考 [元编程](../../progr/objs/meta_progr.md)。
 
 * 计算指标可以是一个或多个系统内置或用户自定义的聚合函数（使用 defg 关键字定义），如
   <[sum(volume), avg(price)]>；可以对聚合结果使用表达式，如
@@ -129,7 +129,7 @@ searchK, beta, avg。
 时，必须指定该参数。 该参数用于指定订阅的流数据表中时间列的名称。
 
 注： 字符串向量必须是 date 和 time
-组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与 [concatDateTime(date, time)](concatDateTime.html)
+组成的向量，date 类型为 DATE，time 类型为 TIME, SECOND 或 NANOTIME。此时，输出表第一列的时间类型必须与 [concatDateTime(date, time)](concatDateTime.md)
 的类型一致。
 
 **useSystemTime** 可选参数，布尔值，表示是否使用数据注入引擎时的系统时间作为时间列进行计算。
@@ -232,7 +232,7 @@ follower 节点创建该引擎。每次保存的 snapshot 也会同步到 follow
 注：
 
 * 若需指定该参数，必须指定 *forceTriggerTime*，且不能指定 *fill*。
-* 可以通过调用 [getStreamEngineStat](../g/getStreamEngineStat.html) 函数查看 TimeSeriesEngine 引擎状态的
+* 可以通过调用 [getStreamEngineStat](../g/getStreamEngineStat.md) 函数查看 TimeSeriesEngine 引擎状态的
   numGroups 列，来对比响应式状态引擎清理前后分组数的变化。
 
 **closed** 字符串，用于确定滑动窗口边界的开闭情况。可选值为 'left' 或 'right'，默认值为
@@ -434,25 +434,25 @@ alignmentSize。当时间序列引擎使用分组计算时，所有分组的窗�
 
 注： 以下例子使用了相同的变量和表名便于比较。每个例子执行结束后，请使用以下命令清除环境中的临时数据：
 
-* [getStreamingStat](../g/getStreamingStat.html)：用于查看当前的流数据表订阅者。例如：
+* [getStreamingStat](../g/getStreamingStat.md)：用于查看当前的流数据表订阅者。例如：
 
   ```
   getStreamingStat().pubTables
   ```
-* [unsubscribeTable](../u/unsubscribeTable.html)：用于取消订阅流数据表。例如，在例子 1 代码运行后取消对
+* [unsubscribeTable](../u/unsubscribeTable.md)：用于取消订阅流数据表。例如，在例子 1 代码运行后取消对
   trades
   的订阅：
 
   ```
   unsubscribeTable(tableName="trades", actionName="engine1")
   ```
-* [dropStreamTable](../d/dropStreamTable.html)：用于删除流数据表。例如，删除例子 1 中的流数据表
+* [dropStreamTable](../d/dropStreamTable.md)：用于删除流数据表。例如，删除例子 1 中的流数据表
   trades：
 
   ```
   dropStreamTable(tableName="trades")
   ```
-* [dropStreamEngine](../d/dropStreamEngine.html)：用于流数据引擎。例如，删除例子 1 中的流数据引擎
+* [dropStreamEngine](../d/dropStreamEngine.md)：用于流数据引擎。例如，删除例子 1 中的流数据引擎
   engine1：
 
   ```

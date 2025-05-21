@@ -45,7 +45,7 @@
 *eachPre* 高阶函数等同于： F(X[0], pre), F(X[1], X[0]), ..., F(X[n],
 X[n-1])。
 
-内置函数 [ratios](../r/ratios.html) 和 [deltas](../d/deltas.html) 也是通过用 *eachPre* 高阶函数实现。定义如下：
+内置函数 [ratios](../r/ratios.md) 和 [deltas](../d/deltas.md) 也是通过用 *eachPre* 高阶函数实现。定义如下：
 
 * function deltas(a){return a[0] -:P a}
 * function ratios(a){return a[0] :P a}

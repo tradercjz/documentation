@@ -9,7 +9,7 @@
 * **func** 是一个函数名。
 * **args** 是函数 func 的参数。
 
-其他相关的 talib 系列函数的参数说明和窗口计算规则请参考: [TA-lib 系列](../themes/TAlib.html)
+其他相关的 talib 系列函数的参数说明和窗口计算规则请参考: [TA-lib 系列](../themes/TAlib.md)
 
 ## 详情
 

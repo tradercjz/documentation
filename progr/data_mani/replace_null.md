@@ -2,11 +2,11 @@
 
 DolphinDB 提供了 4 种填充空值的方法：
 
-1. [bfill](../../funcs/b/bfill.html) 和 [bfill!](../../funcs/b/bfill_.html) ：使用空值后的非空元素填充空值。
-2. [ffill](../../funcs/f/ffill.html) 和 [ffill!](../../funcs/f/ffill_.html) ：使用空值前的非空元素填充空值。
-3. [lfill](../../funcs/l/lfill.html) 和 [lfill!](../../funcs/l/lfill_.html) ：线性填充非空元素之间的空值。
-4. [nullFill](../../funcs/n/nullFill.html) 和
-   [nullFill!](../../funcs/n/nullFill_.html) ：用指定值填充空值。
+1. [bfill](../../funcs/b/bfill.md) 和 [bfill!](../../funcs/b/bfill_.md) ：使用空值后的非空元素填充空值。
+2. [ffill](../../funcs/f/ffill.md) 和 [ffill!](../../funcs/f/ffill_.md) ：使用空值前的非空元素填充空值。
+3. [lfill](../../funcs/l/lfill.md) 和 [lfill!](../../funcs/l/lfill_.md) ：线性填充非空元素之间的空值。
+4. [nullFill](../../funcs/n/nullFill.md) 和
+   [nullFill!](../../funcs/n/nullFill_.md) ：用指定值填充空值。
 
 对于 `bfill` 和 `ffill`，我们可以使用可选参数
 *limit* 来指定需要填充的空值。

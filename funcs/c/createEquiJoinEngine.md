@@ -14,7 +14,7 @@ outputTable, metrics, matchingColumn, timeColumn, [garbageSize=5000],
 创建流数据等值连接引擎。返回一个左、右两表 equi join 后的表对象。注入等值连接引擎的左、右两表将以
 *matchingColumn* + *timeColumn* 作为连接列，返回两表中连接字段相等的行。
 
-更多流数据引擎的应用场景说明可以参考 [内置多数据源流式关联引擎](../../stream/str_join_engine.html)。
+更多流数据引擎的应用场景说明可以参考 [内置多数据源流式关联引擎](../../stream/str_join_engine.md)。
 
 ## 计算规则
 
@@ -24,7 +24,7 @@ outputTable, metrics, matchingColumn, timeColumn, [garbageSize=5000],
 
 ## 参数
 
-equi join 引擎的部分参数和 asof join 引擎相同，请参照 [createAsofJoinEngine](createAsofJoinEngine.html) 中参数介绍。下面介绍不同的参数：
+equi join 引擎的部分参数和 asof join 引擎相同，请参照 [createAsofJoinEngine](createAsofJoinEngine.md) 中参数介绍。下面介绍不同的参数：
 
 **name** 字符串标量，表示 equi join 引擎的名称，作为其在一个数据节点/计算节点上的唯一标识。可包含字母，数字和下划线，但必须以字母开头。
 

@@ -63,5 +63,5 @@ select avg(price),sum(qty) from t1 group by fy5253Quarter(date,0,1,1,true,2016.0
 | 2016.05.02 | 85.136667 | 21300 |
 | 2016.10.31 | 51.835 | 13300 |
 
-相关函数：[fy5253](fy5253.html)
+相关函数：[fy5253](fy5253.md)
 

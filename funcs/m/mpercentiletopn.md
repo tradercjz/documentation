@@ -5,7 +5,7 @@
 `mpercentileTopN(X, S, percent, window, top, [interpolation], [ascending],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 参数
 

@@ -10,7 +10,7 @@
 
 ## 详情
 
-取消已经提交但是尚未完成的交互式任务。如果要取消批处理作业，请使用 [cancelJob](cancelJob.html)。
+取消已经提交但是尚未完成的交互式任务。如果要取消批处理作业，请使用 [cancelJob](cancelJob.md)。
 
 `cancelConsoleJob` 在当前正在执行的子任务完成后，才会取消任务。因此，
 `cancelConsoleJob` 并不是马上生效。如果 `cancelConsoleJob`
@@ -25,7 +25,7 @@ pt = loadTable("dfs://TAQ", `quotes)
 select count(*) from pt;
 ```
 
-在同一个节点的其他会话中，使用 [getConsoleJobs](../g/getConsoleJobs.html) 获取要取消的交互式任务的 ID，然后使用 `cancelConsoleJob`
+在同一个节点的其他会话中，使用 [getConsoleJobs](../g/getConsoleJobs.md) 获取要取消的交互式任务的 ID，然后使用 `cancelConsoleJob`
 来取消该任务。
 
 ```

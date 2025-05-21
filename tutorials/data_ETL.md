@@ -155,7 +155,7 @@ t0: 最内层处理逻辑的耗时
 
 在 DolphinDB 中，可以通过提高批处理数据量的大小、利用多线程并发、使用分布式处理等方式，来提高数据处理速度。
 
-* 合理的批数据量：DolphinDB 以分区为单位管理海量数据，通常数据处理以一个分区为单位，每个分区的大小为100MB-500MB（压缩前）左右比较合适。从 Python 和 MySQL 等技术栈迁移至 DolphinDB 时，需要充分理解分区在 DolphinDB 中的重要性，以便充分发挥 DolphinDB 的性能。推荐阅读[分区数据库设计和操作](database.html)。
+* 合理的批数据量：DolphinDB 以分区为单位管理海量数据，通常数据处理以一个分区为单位，每个分区的大小为100MB-500MB（压缩前）左右比较合适。从 Python 和 MySQL 等技术栈迁移至 DolphinDB 时，需要充分理解分区在 DolphinDB 中的重要性，以便充分发挥 DolphinDB 的性能。推荐阅读[分区数据库设计和操作](database.md)。
 * 多线程：现代操作系统及软件使用多线程技术来充分发挥多核服务器的硬件优势。DolphinDB 大量应用了多线程技术，就分布式 SQL 而言，会使用多个线程来并发处理分区数据。
 * 分布式：DolphinDB 可以使用多个服务器构建一个水平扩展的分布式集群，并且支持分布式事务。当执行一个分布式 SQL 时，通过 map-merge-reduce 的模型来执行分布式计算。其中 map 阶段会自动调度到集群各个节点，充分利用集群的硬件资源。
 
@@ -238,9 +238,9 @@ for(aDate in allDays){
 
 推荐阅读以下内容，进一步理解 DolphinDB ：
 
-* [分区数据库设计和操作](database.html)
-* [线程模型](threading_model.html)
-* [DolphinDB SQL执行计划教程](DolphinDB_Explain.html)
+* [分区数据库设计和操作](database.md)
+* [线程模型](threading_model.md)
+* [DolphinDB SQL执行计划教程](DolphinDB_Explain.md)
 
 ## 6. 附录
 

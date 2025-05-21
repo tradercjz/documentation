@@ -5,7 +5,7 @@
 `mvarTopN(X, S, window, top, [ascending=true],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 详情
 
@@ -54,5 +54,5 @@ mvarTopN(X, S, 3, 2)
 | 0.5 | 0.5 |
 | 2 | 2 |
 
-相关函数：[mvar](mvar.html)
+相关函数：[mvar](mvar.md)
 

@@ -577,7 +577,7 @@ select avg(factor2) from pt where ID=`60 and Date=2020.01.04
 
 ## 3 总结
 
-本文介绍了使用 DolphinDB 进行建库建表时，最容易忽略的 10 个细节。这些错误用法的产生，是因为用户对于 DolphinDB 分区机制和数据库引擎原理不了解导致的。阅读了上面的最容易忽略的 10 个细节，如果还想进一步了解 DolphinDB 原理层面细节，可以浏览以下网址：[TSDB 存储引擎详解 (dolphindb.cn)](https://docs.dolphindb.cn/zh/tutorials/tsdb_explained.html)、[数据库分区 (dolphindb.cn)](https://docs.dolphindb.cn/zh/tutorials/database.html)、[分布式表数据更新原理和性能 (dolphindb.cn)](https://docs.dolphindb.cn/zh/tutorials/dolphindb_update.html)。
+本文介绍了使用 DolphinDB 进行建库建表时，最容易忽略的 10 个细节。这些错误用法的产生，是因为用户对于 DolphinDB 分区机制和数据库引擎原理不了解导致的。阅读了上面的最容易忽略的 10 个细节，如果还想进一步了解 DolphinDB 原理层面细节，可以浏览以下网址：[TSDB 存储引擎详解 (dolphindb.cn)](https://docs.dolphindb.cn/zh/tutorials/tsdb_explained.md)、[数据库分区 (dolphindb.cn)](https://docs.dolphindb.cn/zh/tutorials/database.md)、[分布式表数据更新原理和性能 (dolphindb.cn)](https://docs.dolphindb.cn/zh/tutorials/dolphindb_update.md)。
 
 最后归纳建库建表的要点：建库建表需要结合业务，首先根据业务特点选择合适的引擎（比如宽表选择 TSDB 引擎），其次根据业务特点选择分区字段和类型，然后根据分区大小在 100MB - 1GB 的原则设计分区粒度，最后根据业务特点完善对应引擎独有的参数（比如 TSDB 引擎特有的排序列）。
 

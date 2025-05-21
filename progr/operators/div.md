@@ -11,10 +11,10 @@
 ## 详情
 
 把X的每一个元素除以Y后返回。当X和Y为float或double类型时，返回的结果是float或double类型。当X和Y均为整数时，div表示整数除法，与做除法后再用函数
-[floor](../../funcs/f/floor.html) 一样。例如，5/2结果为2。如果要对整数做真正的除法，则可以使用运算符 [ratio](../../funcs/r/ratio.html)
+[floor](../../funcs/f/floor.md) 一样。例如，5/2结果为2。如果要对整数做真正的除法，则可以使用运算符 [ratio](../../funcs/r/ratio.md)
 ""。
 
-整数除法通常与运算符 [mod](../../funcs/m/mod.html) 一起用于分组数据。div和mod的结果应满足关系：X=div(X,Y)\*Y+mod(X,Y)。
+整数除法通常与运算符 [mod](../../funcs/m/mod.md) 一起用于分组数据。div和mod的结果应满足关系：X=div(X,Y)\*Y+mod(X,Y)。
 
 ## 例子
 

@@ -13,13 +13,13 @@ DolphinDB Server: 2.00.10 及更高版本，支持 x86-64 Linux，ARM Linux。
 
 ### 安装步骤
 
-1. 在 DolphinDB 客户端中使用 [listRemotePlugins](../../funcs/l/listRemotePlugins.html) 命令查看插件仓库中的插件信息。
+1. 在 DolphinDB 客户端中使用 [listRemotePlugins](../../funcs/l/listRemotePlugins.md) 命令查看插件仓库中的插件信息。
 
    ```
    login("admin", "123456")
    listRemotePlugins()
    ```
-2. 使用 [installPlugin](../../funcs/i/installPlugin.html) 命令完成插件安装。
+2. 使用 [installPlugin](../../funcs/i/installPlugin.md) 命令完成插件安装。
 
    ```
    installPlugin("kafka")

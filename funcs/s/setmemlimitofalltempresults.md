@@ -26,5 +26,5 @@ BY），可能会产生临时表用于存储查询中产生的结果。该函数
 setMemLimitOfAllTempResults(3.0)
 ```
 
-相关函数：[getMemLimitOfAllTempResults](../g/getmemlimitofalltempresults.html)
+相关函数：[getMemLimitOfAllTempResults](../g/getmemlimitofalltempresults.md)
 

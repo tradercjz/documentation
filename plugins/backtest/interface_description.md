@@ -21,7 +21,7 @@ Backtest::createBacktester(name, config, eventCallbacks, [jit=false], [securityR
 **name** STRING 类型标量，表示回测引擎名称。
 
 **config** 一个字典，表示回测引擎的配置项。字典的 key 是 STRING 类型，代表配置项的名称，value
-是该配置项的具体配置，详情请参考[股票](stock.html)，[期权](option.html)，[期货](futures.html)。
+是该配置项的具体配置，详情请参考[股票](stock.md)，[期权](option.md)，[期货](futures.md)。
 
 **eventCallbacks** 一个字典，表示策略回调函数。字典的 key 是 STRING 类型，代表回调函数，value 为对应函数的定义。key
 的可选值为：
@@ -76,7 +76,7 @@ Backtest::createBacktestEngine(name, config, [securityReference], initialize, be
 
 **name** STRING 类型标量，表示回测引擎名称。
 
-**config** 一个字典，表示回测引擎的配置项。key 是 STRING 类型，代表配置项的名称，value 是该配置项的具体配置。详情请参考[股票](stock.html)，[期权](option.html)，[期货](futures.html)，[债券](interbank_bonds.html)，[数字货币](digital_currency.html)。
+**config** 一个字典，表示回测引擎的配置项。key 是 STRING 类型，代表配置项的名称，value 是该配置项的具体配置。详情请参考[股票](stock.md)，[期权](option.md)，[期货](futures.md)，[债券](interbank_bonds.md)，[数字货币](digital_currency.md)。
 
 **securityReference** 基础信息表，仅当资产为股票时是可选参数，其他资产均为必选参数。
 
@@ -149,7 +149,7 @@ Backtest::subscribeIndicator(engine, marketDataType, metrics)
 
 **metrics** 一个字典，key 是 STRING 类型，代表指标名；value 是以元代码的形式表示计算公式，代表如何计算指标。状态因子的编写请参考
 [DolphinDB
-响应式状态引擎介绍教程](../../stream/reactive_state_engine.html)。
+响应式状态引擎介绍教程](../../stream/reactive_state_engine.md)。
 
 **示例**
 

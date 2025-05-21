@@ -18,7 +18,7 @@
 * 若仅恢复某个分区，输入分区的相对路径或者"%/"+”分区名称”。举例：要恢复 "dfs://compoDB"
   下的分区 ”20170810/50\_100”，输入 "/compoDB/20170807/0\_50" 或者 "%/20170807/0\_50"。
   请注意：若使用 2.00.4 ~ 2.00.6 版本 server，对表级分区数据进行备份和恢复时，该参数必须指定路径到物理索引（可通过函数
-  [listTables](../l/listTables.html) 获取），例如分区
+  [listTables](../l/listTables.md) 获取），例如分区
   "/compoDB/20170807/0\_50" 下表的物理索引为8，则 *partition* 需指定为
   "/compoDB/20170807/0\_50/8"。
 * 若需要恢复所有分区，直接输入"%"。但需注意，采用此方法可能会导致当前数据表的数据丢失。举例说明：若当前表有10个分区，备份只包含2个分区，若使用%恢复数据，则可能导致表中其他8个分区的数据丢失。
@@ -47,7 +47,7 @@ true，则数据库将同步删除多余的表/分区；若设置为 false（默
 
 ## 注意事项
 
-* 恢复通过 SQL 元代码（即 [backup](../b/backup.html) 指定
+* 恢复通过 SQL 元代码（即 [backup](../b/backup.md) 指定
   *sqlObj* 参数）备份的文件时，不能指定 *snapshot*，否则会报错。
 * 指定 *outputTable* 时，恢复通过 SQL 元代码备份的文件，系统会在
   *outputTable* 中直接追加（append）备份数据；而恢复通过拷贝方式（即 `backup`
@@ -119,5 +119,5 @@ select count(*) from temp;
 | --- |
 | 1000000 |
 
-相关函数：[restoreDB](restoreDB.html), [restoreTable](restoreTable.html), [migrate](../m/migrate.html), [backup](../b/backup.html)
+相关函数：[restoreDB](restoreDB.md), [restoreTable](restoreTable.md), [migrate](../m/migrate.md), [backup](../b/backup.md)
 

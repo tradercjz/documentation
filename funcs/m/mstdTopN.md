@@ -5,7 +5,7 @@
 `mstdTopN(X, S, window, top, [ascending=true],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 详情
 
@@ -54,5 +54,5 @@ mstdTopN(X, S, 3, 2)
 | 0.7071 | 0.7071 |
 | 1.4142 | 0.7071 |
 
-相关函数：[mstd](mstd.html)
+相关函数：[mstd](mstd.md)
 

@@ -77,7 +77,7 @@ t;
 | 5 | 14 |
 
 当配置了 *nullAsMinValueForComparison*=true时，在比较运算中，NULL
-元素取相应数据类型的最小值。使用 [nullCompare](../ho_funcs/nullCompare.html) 可以保持
+元素取相应数据类型的最小值。使用 [nullCompare](../ho_funcs/nullCompare.md) 可以保持
 `iif` 条件语句里的 NULL 值。
 
 ```

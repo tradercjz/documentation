@@ -20,7 +20,7 @@
 * 当 *table* 为内存表时：
 
   + 使用向量替换 *table* 中指定列。替换后，指定列的数据类型与向量的数据类型一致。支持替换多列（请注意该操作目前不保证原子性，即在遇到一些系统错误时可能出现部分列替换失败的情况）。
-  + `replaceColumn!` 与 SQL 中的 [update](../../progr/sql/update.html)
+  + `replaceColumn!` 与 SQL 中的 [update](../../progr/sql/update.md)
     语句的区别在于，前者可以修改列的值或数据类型，而后者只能修改列的值。
 * 当 *table* 为 OLAP 分布式表时，`replaceColumn!`
   仅修改列的数据类型，并遵循以下规则：

@@ -37,7 +37,7 @@ DolphinDB 是一款国产的高性能分布式时序数据库产品。支持 SQL
 
 MySQL 插件是 DolphinDB 提供的用于导入 MySQL 数据的插件，同样也适用于 OceanBase 的 MySQL 模式。MySQL 插件配合 DolphinDB 脚本使用，与服务器在同一个进程空间内运行，能高效地完成 OceanBase 数据到 DolphinDB 的数据写入。
 
-MySQL 插件提供如下函数，函数的具体使用请参考 [DolphinDB MySQL Plugin](../plugins/mysql/mysql.html)
+MySQL 插件提供如下函数，函数的具体使用请参考 [DolphinDB MySQL Plugin](../plugins/mysql/mysql.md)
 
 1. mysql::connect(host, port, user, password, db)
 2. mysql::showTables(connection)
@@ -47,7 +47,7 @@ MySQL 插件提供如下函数，函数的具体使用请参考 [DolphinDB MySQL
 
 * ODBC 插件
 
-  ODBC (Open Database Connectivity) 插件是 DolphinDB 提供的通过 ODBC 接口访问支持 ODBC 协议开源产品。其使用方式与 MySQL 插件类似，本文不再赘述，感兴趣的读者可参考 [ODBC 插件使用指南](../plugins/odbc/odbc_faq.html)。
+  ODBC (Open Database Connectivity) 插件是 DolphinDB 提供的通过 ODBC 接口访问支持 ODBC 协议开源产品。其使用方式与 MySQL 插件类似，本文不再赘述，感兴趣的读者可参考 [ODBC 插件使用指南](../plugins/odbc/odbc_faq.md)。
 * DataX 驱动
 
   DataX 是可扩展的数据同步框架，将不同数据源的同步抽象为从源头数据源读取数据的 Reader 插件，以及向目标端写入数据的 Writer 插件，理论上 DataX 框架可以支持任意数据源类型的数据同步工作。
@@ -65,7 +65,7 @@ MySQL 插件提供如下函数，函数的具体使用请参考 [DolphinDB MySQL
 
 ### 在 DolphinDB 创建表
 
-针对上面的测试数据，我们需要在 DolphinDB 里创建对应的库表，用于存储迁移过来的数据。对于实际的数据，需要综合考虑被迁移数据的字段、类型、数据量，在 DolphinDB 是否需要分区，分区方案，使用 OLAP 还是 TSDB 引擎等情况，去设计建库建表方案。一些数据存储库表设计实践，可以参考 [DolphinDB 数据库分区教程](database.html)。
+针对上面的测试数据，我们需要在 DolphinDB 里创建对应的库表，用于存储迁移过来的数据。对于实际的数据，需要综合考虑被迁移数据的字段、类型、数据量，在 DolphinDB 是否需要分区，分区方案，使用 OLAP 还是 TSDB 引擎等情况，去设计建库建表方案。一些数据存储库表设计实践，可以参考 [DolphinDB 数据库分区教程](database.md)。
 
 本例建表文件 *createTable.dos* 内容如下:
 
@@ -109,7 +109,7 @@ createTick(dbName, tbName)
 
 #### 安装 MySQL 插件
 
-参考： [DolphinDB MySQL Plugin](../plugins/mysql/mysql.html)。
+参考： [DolphinDB MySQL Plugin](../plugins/mysql/mysql.md)。
 
 #### 同步数据
 
@@ -152,7 +152,7 @@ createTick(dbName, tbName)
 
 #### 部署 DataX-DolphinDBWriter 插件
 
-将 [DataX-DolphinDBWriter](datax_writer.html)中源码的 *./dist/dolphindbwriter* 目录下所有内容拷贝到 *DataX/plugin/writer* 目录下。
+将 [DataX-DolphinDBWriter](datax_writer.md)中源码的 *./dist/dolphindbwriter* 目录下所有内容拷贝到 *DataX/plugin/writer* 目录下。
 
 #### 执行 DataX 任务
 

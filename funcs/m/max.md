@@ -106,5 +106,5 @@ select max sym from t;
 | --- |
 | abb |
 
-相关函数：[mmax](mmax.html)
+相关函数：[mmax](mmax.md)
 

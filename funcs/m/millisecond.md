@@ -25,5 +25,5 @@ millisecond([2012.12.03 01:22:01.456120300, 2012.12.03 01:25:08.000234000]);
 [456,0]
 ```
 
-相关函数：[dayOfYear](../d/dayOfYear.html), [dayOfMonth](../d/dayOfMonth.html), [quarterOfYear](../q/quarterOfYear.html), [monthOfYear](monthOfYear.html), [weekOfYear](../w/weekOfYear.html), [hourOfDay](../h/hourOfDay.html), [minuteOfHour](minuteOfHour.html), [secondOfMinute](../s/secondOfMinute.html), [microsecond](microsecond.html), [nanosecond](../n/nanosecond.html)
+相关函数：[dayOfYear](../d/dayOfYear.md), [dayOfMonth](../d/dayOfMonth.md), [quarterOfYear](../q/quarterOfYear.md), [monthOfYear](monthOfYear.md), [weekOfYear](../w/weekOfYear.md), [hourOfDay](../h/hourOfDay.md), [minuteOfHour](minuteOfHour.md), [secondOfMinute](../s/secondOfMinute.md), [microsecond](microsecond.md), [nanosecond](../n/nanosecond.md)
 

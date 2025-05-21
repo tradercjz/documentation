@@ -26,7 +26,7 @@ true，则系统会执行数据迁移。
 | destNode | 目标节点的别名 |
 | destVolume | 目标磁盘卷的路径 |
 
-调用该函数后，可以在控制节点上执行 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.html) 查看任务执行的状态。
+调用该函数后，可以在控制节点上执行 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.md) 查看任务执行的状态。
 
 调用该函数后，系统会打印 INFO
 级别的日志，输出每个磁盘的原始使用率以及平衡后的使用率。日志内容的格式如下：

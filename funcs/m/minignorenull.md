@@ -51,5 +51,5 @@ n3 = matrix(-1 1 NULL, -3 0 10)
 reduce(minIgnoreNull, [n1,n2,n3])
 ```
 
-相关函数：[min](min.html), [maxIgnoreNull](maxignorenull.html)
+相关函数：[min](min.md), [maxIgnoreNull](maxignorenull.md)
 

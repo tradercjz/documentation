@@ -20,5 +20,5 @@
 
 通过该函数，可以将一个引擎的计算结果直接注入到连接引擎中，实现引擎间的级联。
 
-使用案例请参考 [getLeftStream](getLeftStream.html)。
+使用案例请参考 [getLeftStream](getLeftStream.md)。
 

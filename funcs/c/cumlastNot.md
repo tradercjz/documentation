@@ -4,7 +4,7 @@
 
 `cumlastNot(X, [k])`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 参数
 
@@ -54,5 +54,5 @@ cumlastNot(m);
 | 3 | 8 |
 | 4 | 9 |
 
-相关函数： [lastNot](../l/lastNot.html)
+相关函数： [lastNot](../l/lastNot.md)
 

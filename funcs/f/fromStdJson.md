@@ -53,5 +53,5 @@ fromStdJson(X);
 //       0->2012.06.13T13:30:10
 ```
 
-相关函数：[toStdJson](../t/toStdJson.html)
+相关函数：[toStdJson](../t/toStdJson.md)
 

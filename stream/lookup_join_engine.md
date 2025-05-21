@@ -19,7 +19,7 @@ outputTable, metrics, matchingColumn, [rightTimeColumn], [checkTimes],
 [outputElapsedMicroseconds=false], [keepDuplicates=false], [isInnerJoin], [snapshotDir],
 [snapshotIntervalInMsgCount])`
 
-其参数的详细含义可以参考：[createLookupJoinEngine](../funcs/c/createLookupJoinEngine.html)。
+其参数的详细含义可以参考：[createLookupJoinEngine](../funcs/c/createLookupJoinEngine.md)。
 
 ## 应用例子 1-实时行情与历史日频指标关联
 

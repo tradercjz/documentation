@@ -26,5 +26,5 @@ getGroupAccessByCluster(["group2"], "MoMSender")
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | group2 | user2 | none | allow | none | none | none | none | none | none | ... |
 
-相关函数：[getGroupAccess](getGroupAccess.html)
+相关函数：[getGroupAccess](getGroupAccess.md)
 

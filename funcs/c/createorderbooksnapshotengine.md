@@ -356,9 +356,9 @@ select top 10 * from outputTable where code="300593.SZ", timestamp between 2022.
 
 ![](../../images/orderBook2.png)
 
-相关函数：[genOutputColumnsForOBSnapshotEngine](../g/genoutputcolumnsforobsnapshotengine.html)
+相关函数：[genOutputColumnsForOBSnapshotEngine](../g/genoutputcolumnsforobsnapshotengine.md)
 
-相关教程：[基于逐笔数据合成高频 Orderbook：DolphinDB Orderbook 引擎](../../tutorials/orderBookSnapshotEngine.html)
+相关教程：[基于逐笔数据合成高频 Orderbook：DolphinDB Orderbook 引擎](../../tutorials/orderBookSnapshotEngine.md)
 
 ## 附录
 

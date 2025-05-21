@@ -43,7 +43,7 @@ select * from t where price between 1:3;
 
 下例说明数据对 a:b 中出现空值的处理方式。若配置 *nullAsMinValueForComparison*
 =true，则 NULL 值当同数据类型的而最小值处理， 若配置 *nullAsMinValueForComparison* =false，则 NULL
-值仍保留为 NULL。也可以使用 [nullCompare](../ho_funcs/nullCompare.html) 函数，无论
+值仍保留为 NULL。也可以使用 [nullCompare](../ho_funcs/nullCompare.md) 函数，无论
 *nullAsMinValueForComparison* 设置为何值都保留 NULL 值。
 
 ```

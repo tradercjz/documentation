@@ -1,6 +1,6 @@
 # mdd
 
-是 `[maxDrawdown](maxdrawdown.html)` 的别名。
+是 `[maxDrawdown](maxdrawdown.md)` 的别名。
 
 Copyright
 

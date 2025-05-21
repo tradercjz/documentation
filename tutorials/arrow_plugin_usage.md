@@ -45,16 +45,16 @@ a: [[1,2,3]]
 
 注意：
 
-* DolphinDB 数据类型的详细说明请参阅文档 [DolphinDB-数据类型](../progr/data_types.html)。
-* Arrow 数据类型的详细说明请参阅文档 [Data Types — Apache Arrow v15.0.2](https://arrow.apache.org/docs/cpp/api/datatype.html)。
+* DolphinDB 数据类型的详细说明请参阅文档 [DolphinDB-数据类型](../progr/data_types.md)。
+* Arrow 数据类型的详细说明请参阅文档 [Data Types — Apache Arrow v15.0.2](https://arrow.apache.org/docs/cpp/api/datatype.md)。
 * 关于 Arrow 插件的详细说明请参阅 [DolphinDB Arrow 插件使用说明](https://gitee.com/dolphindb/DolphinDBPlugin/tree/release200.11/Arrow)。
-* 目前仅有 DolphinDB Python API 支持使用 PROTOCOL\_ARROW 协议与 DolphinDB server 交互，详情见 [Python API 数据类型转换 PROTOCOL\_ARROW 章节](https://docs.dolphindb.cn/zh/pydoc/AdvancedOperations/DataTypeCasting/PROTOCOL_ARROW.html)。
+* 目前仅有 DolphinDB Python API 支持使用 PROTOCOL\_ARROW 协议与 DolphinDB server 交互，详情见 [Python API 数据类型转换 PROTOCOL\_ARROW 章节](https://docs.dolphindb.cn/zh/pydoc/AdvancedOperations/DataTypeCasting/PROTOCOL_ARROW.md)。
 
 ## 2 基本使用
 
 ### 2.1 安装插件
 
-节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](../db_distr_comp/clients.html)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 Arrow 插件文件。插件文件包括插件描述文件和插件的二进制文件。
+节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](../db_distr_comp/clients.md)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 Arrow 插件文件。插件文件包括插件描述文件和插件的二进制文件。
 
 ```
 login("admin", "123456");
@@ -107,11 +107,11 @@ The module [arrow] is already in use.
 
 #### 3.1.1 DolphinDB 环境
 
-本例需要使用 2.00.12 及以上版本的 DolphinDB server 和对应的 DolphinDB Arrow 插件。使用前可以分别参考 [DolphinDB 部署教程](../deploy/deploy_intro.html)和章节 2 中的内容进行安装和加载。
+本例需要使用 2.00.12 及以上版本的 DolphinDB server 和对应的 DolphinDB Arrow 插件。使用前可以分别参考 [DolphinDB 部署教程](../deploy/deploy_intro.md)和章节 2 中的内容进行安装和加载。
 
 #### 3.1.2 Python 环境
 
-本例需要使用 1.30.21.1 及以上版本的 [DolphinDB Python API](https://pypi.org/project/dolphindb/)。详细安装说明请参见[文档](https://docs.dolphindb.cn/zh/pydoc/QuickStart/Install.html)。为保证本例代码的正常运行，请安装如下库：
+本例需要使用 1.30.21.1 及以上版本的 [DolphinDB Python API](https://pypi.org/project/dolphindb/)。详细安装说明请参见[文档](https://docs.dolphindb.cn/zh/pydoc/QuickStart/Install.md)。为保证本例代码的正常运行，请安装如下库：
 
 * [NumPy](https://pypi.org/project/numpy/)：测试代码需要，建议安装最新版本。
 * [pandas](https://pypi.org/project/pandas/)：测试代码和全流程使用 Arrow 格式需要，请安装 2.0 及以上版本。
@@ -158,7 +158,7 @@ class _SparkBase(object):
 
 #### 3.2.2 建立数据库连接，准备数据
 
-本例中使用包含一列 STRING 和 三列 DOUBLE ，有 10000000 行随机数据的共享内存表（约 300 MB）进行计算演示。数据准备脚本如下，其中 `HOST/PORT/USER/PASSWD` 可参考 [Python API 使用教程](https://docs.dolphindb.cn/zh/pydoc/py.html)配置为数据库连接信息。
+本例中使用包含一列 STRING 和 三列 DOUBLE ，有 10000000 行随机数据的共享内存表（约 300 MB）进行计算演示。数据准备脚本如下，其中 `HOST/PORT/USER/PASSWD` 可参考 [Python API 使用教程](https://docs.dolphindb.cn/zh/pydoc/py.md)配置为数据库连接信息。
 
 ![示例数据](images/arrow_plugin_usage/3_1.png)
 

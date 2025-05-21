@@ -12,7 +12,7 @@
 
 查询指定集群当前的状态。只能由管理员在 MoM（Master of Master，管理集群）上执行该函数。
 
-**返回值：**一个表，除 clusterName 和 computeGroup 字段外，其它字段与 [getClusterPerf](getClusterPerf.html) 函数的结果一致：
+**返回值：**一个表，除 clusterName 和 computeGroup 字段外，其它字段与 [getClusterPerf](getClusterPerf.md) 函数的结果一致：
 
 * clusterName：集群名称。
 * computeGroup：计算组名称。若集群中无计算组，则该字段为空。

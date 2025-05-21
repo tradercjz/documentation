@@ -25,5 +25,5 @@ isMonthEnd([2012.05.30,2012.05.31]);
 [false,true]
 ```
 
-相关函数：[isMonthStart](isMonthStart.html)
+相关函数：[isMonthStart](isMonthStart.md)
 

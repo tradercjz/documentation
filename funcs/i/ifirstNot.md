@@ -59,5 +59,5 @@ ifirstNot(m);
 [0,1]
 ```
 
-相关函数：[ilastNot](ilastNot.html), [firstNot](../f/firstNot.html), [lastNot](../l/lastNot.html)
+相关函数：[ilastNot](ilastNot.md), [firstNot](../f/firstNot.md), [lastNot](../l/lastNot.md)
 

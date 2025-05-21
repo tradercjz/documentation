@@ -21,7 +21,7 @@
 | col | 整型，表示要加载的列的下标。该列的值必须是升序。 |
 
 注： 若 type 为时间类型，则源数据的时间类型格式需要和 DolphinDB 时间类型数据格式一致。若原始数据的时间戳和
-DolphinDB 时间类型不兼容，建议导入时先指定为字符串类型，再通过 [temporalParse](../t/temporalParse.html) 函数进行转换。
+DolphinDB 时间类型不兼容，建议导入时先指定为字符串类型，再通过 [temporalParse](../t/temporalParse.md) 函数进行转换。
 
 **skipRows** 0 到 1024 之间的整数，表示从文件头开始忽略的行数。它是一个可选参数。默认值为 0。
 
@@ -46,7 +46,7 @@ DolphinDB 时间类型不兼容，建议导入时先指定为字符串类型，�
 ## 详情
 
 将数据文件加载到 DolphinDB 的内存表中。`loadText`
-使用单个线程加载数据，如果需要使用多个线程并行加载数据，请使用 [ploadText](../p/ploadText.html)
+使用单个线程加载数据，如果需要使用多个线程并行加载数据，请使用 [ploadText](../p/ploadText.md)
 函数。
 
 * 解析列名：
@@ -64,11 +64,11 @@ DolphinDB 时间类型不兼容，建议导入时先指定为字符串类型，�
 
   + 当 DolphinDB
     加载数据文件时，会进行随机抽样，并基于样本决定每列的数据类型。这个方法不一定每次都能准确决定各列的数据类型。因此我们建议，在加载数据前，使用
-    [extractTextSchema](../e/extractTextSchema.html) 函数查看 DolphinDB 识别每列的数据类型。
+    [extractTextSchema](../e/extractTextSchema.md) 函数查看 DolphinDB 识别每列的数据类型。
   + 当加载的数据文件中包含了表达时间、日期的数据时，满足分隔符要求的这部分数据（日期数据分隔符包含"-"、"/"和"."，时间数据分隔符为":"）会解析为相应的类型。例如，"12:34:56"解析为SECOND类型；"23.04.10"解析为DATE类型。对于不包含分隔符的数据，形如"yyMMdd"的数据同时满足0<=yy<=99，0<=MM<=12，1<=dd<=31，会被优先解析成DATE；形如"yyyyMMdd"的数据同时满足1900<=yyyy<=2100，0<=MM<=12，1<=dd<=31会被优先解析成DATE。
   + 如果 DolphinDB 识别的数据类型不符合预期，可以在 schema 的 type 列中指定数据类型。对于日期列或时间列，如果
     DolphinDB 识别的数据类型不符合预期，不仅需要在 schema 的 type 列指定时间类型，还需要在 format
-    列中指定数据文件中日期或时间的格式（用字符串表示），如 "MM/dd/yyyy"。如何表示日期和时间格式请参考 [ParsingandFormatofTemporalVariables](../../progr/data_mani/format_temp_obj.html)。
+    列中指定数据文件中日期或时间的格式（用字符串表示），如 "MM/dd/yyyy"。如何表示日期和时间格式请参考 [ParsingandFormatofTemporalVariables](../../progr/data_mani/format_temp_obj.md)。
 
 如果只需加载数据文件中的部分列，需要在 schema 的 col 列中指定要加载的列的下标。
 
@@ -151,7 +151,7 @@ schema(tt).colDefs;
 
 ## 例 2. 指定某列的数据类型来加载数据文件
 
-例如，我们想要把 permno 列的数据类型转换成 SYMBOL，可以用 [extractTextSchema](../e/extractTextSchema.html)
+例如，我们想要把 permno 列的数据类型转换成 SYMBOL，可以用 [extractTextSchema](../e/extractTextSchema.md)
 函数获取输入文件的结构，在导入数据前修改该列的数据类型，并指定 `loadText` 函数的 *schema* 参数。
 
 ```
@@ -248,7 +248,7 @@ t=table(time,sym,qty,price)
 saveText(t,"/home/DolphinDB/Data/t2.csv");
 ```
 
-加载数据前，使用 [extractTextSchema](../e/extractTextSchema.html) 函数获取该数据文件的结构：
+加载数据前，使用 [extractTextSchema](../e/extractTextSchema.md) 函数获取该数据文件的结构：
 
 ```
 extractTextSchema("/home/DolphinDB/Data/t2.csv");

@@ -4,7 +4,7 @@
 
 `tmwsum(T, X, Y, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -71,5 +71,5 @@ select *, tmwsum(t, y, x, 1w) from m
 | 2021.01.13 | 9 | 0.9 | 28 |
 | 2021.01.14 | 10 | 1 | 37.1 |
 
-相关函数：[wsum](../w/wsum.html), [mwsum](../m/mwsum.html)
+相关函数：[wsum](../w/wsum.md), [mwsum](../m/mwsum.md)
 

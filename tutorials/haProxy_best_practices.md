@@ -51,7 +51,7 @@ DolphinDB 作为一款可用于搭建高可用数据集群的时序数据引擎�
 
 ## HAProxy 安装、部署、应用流程
 
-**注意**：在流程开始前建议预先构建具有多数据节点 DolphinDB 高可用集群。具体安装方法可以参考 [DolphinDB 高可用集群部署教程](ha_cluster_deployment.html)。也可以参考[基于 Docker-Compose 的 DolphinDB 多容器集群部署](docker-compose_high_cluster.html)。
+**注意**：在流程开始前建议预先构建具有多数据节点 DolphinDB 高可用集群。具体安装方法可以参考 [DolphinDB 高可用集群部署教程](ha_cluster_deployment.md)。也可以参考[基于 Docker-Compose 的 DolphinDB 多容器集群部署](docker-compose_high_cluster.md)。
 
 ### 安装
 
@@ -257,7 +257,7 @@ HAProxy 分别在主备机器上部署好以后，按照以下步骤在主备机
    ```
 2. 下载并安装 Keepalived
 
-   从 [Keepalived 官网](https://www.keepalived.org/download.html)下载 2.3.0 版本的安装包并进行编译安装：
+   从 [Keepalived 官网](https://www.keepalived.org/download.md)下载 2.3.0 版本的安装包并进行编译安装：
 
    ```
    tar zxf keepalived-2.3.0.tar.gz

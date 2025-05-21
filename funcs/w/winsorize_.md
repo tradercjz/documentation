@@ -1,6 +1,6 @@
 # winsorize!
 
-是 [winsorize](winsorize.html) 的别名。
+是 [winsorize](winsorize.md) 的别名。
 
 Copyright
 

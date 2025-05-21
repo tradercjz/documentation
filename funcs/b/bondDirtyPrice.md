@@ -53,5 +53,5 @@ bondDirtyPrice(settlement=2023.01.01,maturity=2030.12.31,coupon=0.05,yield=0.06,
 
 返回：93.73475540066079
 
-相关函数：[bondAccrInt](bondaccrint.html)、[bondConvexity](bondconvexity.html)、[bondCalculator](bondCalculator.html)、[bondDuration](bondDuration.html)、[bondYield](bondyield.html)
+相关函数：[bondAccrInt](bondaccrint.md)、[bondConvexity](bondconvexity.md)、[bondCalculator](bondCalculator.md)、[bondDuration](bondDuration.md)、[bondYield](bondyield.md)
 

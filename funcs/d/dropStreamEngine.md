@@ -4,7 +4,7 @@
 
 `dropStreamEngine(name)`
 
-别名： [dropAggregator](dropAggregator.html)
+别名： [dropAggregator](dropAggregator.md)
 
 ## 详情
 
@@ -12,7 +12,7 @@
 
 ## 参数
 
-**name**：字符串，表示一个流数据引擎的名称。需指定为已创建的引擎名称，否则会抛出异常。通过 [getStreamEngineStat](../g/getStreamEngineStat.html) 可查看已创建的引擎名称。
+**name**：字符串，表示一个流数据引擎的名称。需指定为已创建的引擎名称，否则会抛出异常。通过 [getStreamEngineStat](../g/getStreamEngineStat.md) 可查看已创建的引擎名称。
 
 ## 例子
 

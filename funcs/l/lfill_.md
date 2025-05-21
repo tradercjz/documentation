@@ -42,5 +42,5 @@ t;
 | 5 | 2.4 |
 | 6 | 2.6 |
 
-相关函数：[bfill](../b/bfill.html), [bfill!](../b/bfill_.html), [lfill](lfill.html)
+相关函数：[bfill](../b/bfill.md), [bfill!](../b/bfill_.md), [lfill](lfill.md)
 

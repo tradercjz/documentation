@@ -53,5 +53,5 @@ select *, topRange(price) from trades
 | A | 2022.01.08 | 40 | 6 |
 | A | 2022.01.09 | 40.03 | 7 |
 
-相关函数：[lowRange](../l/lowRange.html)
+相关函数：[lowRange](../l/lowRange.md)
 

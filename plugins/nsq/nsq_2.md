@@ -111,7 +111,7 @@ OnRspSecuTransactionSubscribe: nRequestID[0], ErrorID[0], ErrorMsg[subscribe all
 
 请注意，若需要将已经订阅的同一个(dataType, market) 的行情数据输出到另一个 outputTable，需要通过 `unscribeTable` 命令取消订阅，否则会抛出异常。
 
-outputTable（流表）是一种特殊的内存表，用于存储及发布流数据。更多流表的使用方法可参考文档：[DolphinDB-流数据介绍](https://docs.dolphindb.cn/zh/stream/str_funcs.html)。
+outputTable（流表）是一种特殊的内存表，用于存储及发布流数据。更多流表的使用方法可参考文档：[DolphinDB-流数据介绍](https://docs.dolphindb.cn/zh/stream/str_funcs.md)。
 
 **参数**
 
@@ -124,7 +124,7 @@ outputTable（流表）是一种特殊的内存表，用于存储及发布流数
 
 **market** 一个字符串，表示上海证券交易所或深圳证券交易所。上海证券交易所用 `sh` 表示，深圳证券交易所用 `sz` 表示。
 
-**outputTable** 表示一个共享流表的表对象。订阅前需要创建一个流表，且该流表的 schema 需要和获取的行情数据结构一致。注意，建议设置为一个持久化后的流表对象（参见 [enableTableShareAndPersistence](https://docs.dolphindb.cn/zh/funcs/e/enableTableShareAndPersistence.html) 或 [enableTablePersistence](https://docs.dolphindb.cn/zh/funcs/e/enableTablePersistence.html)）。否则，可能会发生 OOM。
+**outputTable** 表示一个共享流表的表对象。订阅前需要创建一个流表，且该流表的 schema 需要和获取的行情数据结构一致。注意，建议设置为一个持久化后的流表对象（参见 [enableTableShareAndPersistence](https://docs.dolphindb.cn/zh/funcs/e/enableTableShareAndPersistence.md) 或 [enableTablePersistence](https://docs.dolphindb.cn/zh/funcs/e/enableTablePersistence.md)）。否则，可能会发生 OOM。
 
 ### unsubscribe
 

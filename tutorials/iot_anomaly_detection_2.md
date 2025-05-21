@@ -13,7 +13,7 @@ DolphinDB 提供了流数据表（stream table）和流计算引擎用于实时�
 
 ## 2. 设计思路
 
-分布式时序数据库 DolphinDB 的流计算框架目前已支持[时序聚合引擎](../stream/time_series_engine.html)、[横截面聚合引擎](../stream/cross_sectional_engine.html)、[异常检测引擎](Anomaly_Detection_Engine.html)和自定义流计算引擎：
+分布式时序数据库 DolphinDB 的流计算框架目前已支持[时序聚合引擎](../stream/time_series_engine.md)、[横截面聚合引擎](../stream/cross_sectional_engine.md)、[异常检测引擎](Anomaly_Detection_Engine.md)和自定义流计算引擎：
 
 * 时序聚合引擎（Time-Series Aggregator）：能对设备状态进行纵向聚合计算（按时间序列聚合），或者将多个设备状态横向聚合后再按时间聚合。时序聚合支持滑动窗口的流式计算。DolphinDB 对内置的窗口聚合函数均进行了性能优化，单核 CPU 每秒可完成近百万状态的时序聚合。
 * 横截面聚合引擎（Cross Sectional Aggregator）：是快照引擎的扩展，能对设备状态进行横向聚合计算，比如计算一批设备的温度均值。
@@ -41,7 +41,7 @@ share streamTable(1000:0, `time`deviceID`anomalyType`anomalyString, [DATETIME,IN
 
 ### 3.2. 创建异常检测引擎，实现传感器温度异常报警的功能
 
-异常检测引擎中，设置异常指标为`sum(temperature > 40) > 2 && sum(temperature > 30) > 3` ，分组列（*keyColumn*）为传感器编号 deviceID，数据窗口 *windowSize* 为 180 秒，计算的时间间隔 *step* 为 30 秒。这些参数如何设置可参考[异常检测引擎](Anomaly_Detection_Engine.html)。代码如下：
+异常检测引擎中，设置异常指标为`sum(temperature > 40) > 2 && sum(temperature > 30) > 3` ，分组列（*keyColumn*）为传感器编号 deviceID，数据窗口 *windowSize* 为 180 秒，计算的时间间隔 *step* 为 30 秒。这些参数如何设置可参考[异常检测引擎](Anomaly_Detection_Engine.md)。代码如下：
 
 ```
 engine = createAnomalyDetectionEngine(name="engine1", metrics=<[sum(temperature > 40) > 2 && sum(temperature > 30) > 3  ]>, dummyTable=sensor, outputTable=warningTable, timeColumn=`ts, keyColumn=`deviceID, windowSize = 180, step = 30)

@@ -6,13 +6,13 @@
 
 ### 1.1. 安装部署单节点服务
 
-入门用户可先部署一个单节点模式 DolphinDB 以快速体验。单节点模式拥有与集群模式相同的功能，区别在于单节点模式不支持扩展节点和高可用，而集群模式可以方便地扩展到多个服务器节点以及支持高可用。安装的第一步是在官网下载[DolphinDB 社区试用版](https://www.dolphindb.cn/downloads.html)。
+入门用户可先部署一个单节点模式 DolphinDB 以快速体验。单节点模式拥有与集群模式相同的功能，区别在于单节点模式不支持扩展节点和高可用，而集群模式可以方便地扩展到多个服务器节点以及支持高可用。安装的第一步是在官网下载[DolphinDB 社区试用版](https://www.dolphindb.cn/downloads.md)。
 
 * 选择 Windows 版本还是 Linux 版本？Linux 服务器比 Windows 服务器更稳定，建议生产环境选用 Linux 版本。若您现有环境是 Windows，亦可选择 Windows 版本进行体验。
 * 选择稳定版还是最新版？目前一般 1-2 周会发布一个最新版。新版本不仅包含 bug 修复，还可能包含新功能、改进、性能优化等其他内容的更新，可能会带来新的 bug。若用于生产环境，出于对稳定性的要求，请选择稳定版。稳定版只修复 bug，不增加新功能。若进行体验与测试，可选择最新版。
-* 若选择了最新版，选择[JIT（即时编译）](jit.html)版本还是非 JIT 版本？DolphinDB 的即时编译功能显著提高了 for 循环，while 循环和 if-else 等语句的运行速度，特别适合于无法使用向量化运算但又对运行速度有极高要求的场景。但另一方面，DolphinDB 的 JIT 版本使用一个动态库，安装包要增加 10 多兆字节，这对原本仅 20 来兆的安装包相当可观。所以请综合考虑是否需要即时编译功能以及是否对安装包大小敏感，以决定是否下载 JIT 版本。
+* 若选择了最新版，选择[JIT（即时编译）](jit.md)版本还是非 JIT 版本？DolphinDB 的即时编译功能显著提高了 for 循环，while 循环和 if-else 等语句的运行速度，特别适合于无法使用向量化运算但又对运行速度有极高要求的场景。但另一方面，DolphinDB 的 JIT 版本使用一个动态库，安装包要增加 10 多兆字节，这对原本仅 20 来兆的安装包相当可观。所以请综合考虑是否需要即时编译功能以及是否对安装包大小敏感，以决定是否下载 JIT 版本。
 
-下载后，请参照[单节点部署教程](standalone_server.html)部署 DolphinDB。以 Linux 系统为例，步骤如下：
+下载后，请参照[单节点部署教程](standalone_server.md)部署 DolphinDB。以 Linux 系统为例，步骤如下：
 
 ```
  wget  https://www.dolphindb.com/downloads/DolphinDB_Linux64_V1.30.7.zip
@@ -45,7 +45,7 @@ localSite=localhost:8900:local8900
 
 #### 1.2.1. GUI 连接
 
-DolphinDB 提供了多种方式与数据库交互，如 GUI、VSCode 插件、Web Notebook、Jupyter Notebook、命令行等。对入门用户，建议使用 DolphinDB GUI 编写 DolphinDB 脚本。请到 DolphinDB 官网下载[DolphinDB GUI](https://www.dolphindb.cn/downloads.html)。安装前，需要确保已经安装 Java 8 及以上 64bit 版本。DolphinDB GUI 无需安装，开箱即用。在 Windows 环境下，双击 gui.bat 即可。在 Linu 和 Mac 环境下，在 Terminal 中输入：
+DolphinDB 提供了多种方式与数据库交互，如 GUI、VSCode 插件、Web Notebook、Jupyter Notebook、命令行等。对入门用户，建议使用 DolphinDB GUI 编写 DolphinDB 脚本。请到 DolphinDB 官网下载[DolphinDB GUI](https://www.dolphindb.cn/downloads.md)。安装前，需要确保已经安装 Java 8 及以上 64bit 版本。DolphinDB GUI 无需安装，开箱即用。在 Windows 环境下，双击 gui.bat 即可。在 Linu 和 Mac 环境下，在 Terminal 中输入：
 
 ```
 cd /your/gui/folder
@@ -69,13 +69,13 @@ Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
 ```
 
-如果版本信息的最后一行如下所示，那么 DolphinDB GUI 将无法正常启动，需要到[Oracle 官网](https://www.oracle.com/technetwork/java/javase/downloads/index.html)重新下载安装。
+如果版本信息的最后一行如下所示，那么 DolphinDB GUI 将无法正常启动，需要到[Oracle 官网](https://www.oracle.com/technetwork/java/javase/downloads/index.md)重新下载安装。
 
 ```
 Java HotSpot(TM) Client VM
 ```
 
-GUI 启动后，首先根据提示，选择一个文件夹作为工作区。然后请参照[GUI 帮助手册](https://www.dolphindb.cn/cn/gui/index.html)的说明，连接 DolphinDB 服务器，新建项目和脚本文件，再运行脚本。执行脚本时若出现错误提示：Failed to connect to selected server，请检查：
+GUI 启动后，首先根据提示，选择一个文件夹作为工作区。然后请参照[GUI 帮助手册](https://www.dolphindb.cn/cn/gui/index.md)的说明，连接 DolphinDB 服务器，新建项目和脚本文件，再运行脚本。执行脚本时若出现错误提示：Failed to connect to selected server，请检查：
 
 * DolphinDB 端口是否被防火墙屏蔽。若端口没有开放，需要在防火墙打开该端口。
 * DolphinDB server 的 license 是否过期。
@@ -97,7 +97,7 @@ DolphinDB GUI 默认精度是 4 位，如果需要更高或低的精度，请在
   start javaw -classpath dolphindb.jar;dolphingui.jar;jfreechart-1.0.1.jar;jcommon-1.0.0.jar;jxl-2.6.12.jar;rsyntaxarea.jar;autocomplete.jar -Dlook=cross -Xmx4096m com.xxdb.gui.XXDBMain
   ```
 
-  关于 DolphinDB GUI 的更多细节，请参阅[DolphinDB GUI 客户端](../db_distr_comp/gui.html)。
+  关于 DolphinDB GUI 的更多细节，请参阅[DolphinDB GUI 客户端](../db_distr_comp/gui.md)。
 
 #### 1.2.2. Web 连接
 
@@ -105,7 +105,7 @@ Web 客户端是 DolphinDB 安装包自带的、基于网页的图形化交互�
 
 * DolphinDB 端口是否被防火墙屏蔽。若端口没有开放，需要在防火墙打开该端口。
 * DolphinDB server 的 license 是否过期。
-* http 是否写成了 https。若需要使用 https 协议访问 web，请按照[权限管理和安全](ACL_and_Security.html)第 3 节"使用 HTTPS 实现安全通信"进行配置。
+* http 是否写成了 https。若需要使用 https 协议访问 web，请按照[权限管理和安全](ACL_and_Security.md)第 3 节"使用 HTTPS 实现安全通信"进行配置。
 
 DolphinDB 不会强制用户登录服务器，但是有些功能例如浏览/创建数据库或分区表需要登录才能访问。如果需要将权限设置为用户登录后才能执行脚本，单节点模式下可在配置文件 dolphindb.cfg 中添加配置项：
 
@@ -115,7 +115,7 @@ webLoginRequired=true;
 
 若用户成功登录，会在屏幕上方显示登录用户名。如果 10 分钟内无命令执行，会自动退出登录。
 
-有关如何使用 Web 客户端的更多信息，请参阅 [DolphinDB Web 客户端](../db_distr_comp/db_man/web/intro.html)。
+有关如何使用 Web 客户端的更多信息，请参阅 [DolphinDB Web 客户端](../db_distr_comp/db_man/web/intro.md)。
 
 ### 1.3. 使用脚本建库建表
 
@@ -125,7 +125,7 @@ DolphinDB 的每个分布式数据库采用一种分区机制，一个数据库�
 
 在 DolphinDB 中，数据库使用`database`函数创建，分区表和维度表分别使用`createPartitionedTable`和`createTable`函数创建。
 
-DolphinDB 不提供行级的索引，而是将分区作为数据库的物理索引。一个分区字段相当于数据表的一个物理索引。如果查询时用到了该分区字段做数据过滤，SQL 引擎就能快速定位需要的数据块，而无需对整表进行扫描。为提高查询和计算性能，每个分区的数据量不宜过大、也不宜过小，一般建议每个分区压缩前的数据量控制在 100MB 左右（第 2 章会详细介绍，亦可参阅[分区数据库教程](database.html)）。
+DolphinDB 不提供行级的索引，而是将分区作为数据库的物理索引。一个分区字段相当于数据表的一个物理索引。如果查询时用到了该分区字段做数据过滤，SQL 引擎就能快速定位需要的数据块，而无需对整表进行扫描。为提高查询和计算性能，每个分区的数据量不宜过大、也不宜过小，一般建议每个分区压缩前的数据量控制在 100MB 左右（第 2 章会详细介绍，亦可参阅[分区数据库教程](database.md)）。
 
 下例中假设有 1000 台设备，每台设备有 50 个指标，每个指标的数据类型都是 float，每秒采集一次数据。假设常用的查询基于时间段和设备进行，因此按时间和设备标识这 2 个维度进行分区。每台设备每天产生的数据约 16MB，因此数据库可按 2 个维度分区，第一个维度按天（datetime 列）值分区，第二个维度按设备编号（machineId 列）范围分区，10 个设备一个区，每个分区数据量约 160MB。建库建表代码如下：
 
@@ -209,7 +209,7 @@ schema=table(
 login(`admin, `123456)
 ```
 
-登录后使用函数`changePwd`修改密码。更多权限管理细节，请参阅[权限管理和安全](ACL_and_Security.html)。
+登录后使用函数`changePwd`修改密码。更多权限管理细节，请参阅[权限管理和安全](ACL_and_Security.md)。
 
 * 库表创建后，可使用函数`getAllDBs()`显示当前所有数据库，使用函数`schema`显示某个表或某个数据库的结构信息。例如查询上述`dfs://iot`数据库的设备分区信息可用如下代码：
 
@@ -256,7 +256,7 @@ machines.append!(t)
 select count(*) from machines group by machineId
 ```
 
-若查询到的记录数是 0，请检查一下写入数据的分区字段值是否超出了分区范围。比如这个数据库日期分区是 2020.10.01 到 2020.12.30，若数据的时间是在 2020.10.01 之前或 2020.12.30 之后，就会写入失败。为了解决这个问题，请参照用户手册中[增加分区](../db_distr_comp/db_oper/add_partitions.html)这小节的说明，在配置文件中增加配置项 newValuePartitionPolicy=add 并重启 DolphinDB 节点。
+若查询到的记录数是 0，请检查一下写入数据的分区字段值是否超出了分区范围。比如这个数据库日期分区是 2020.10.01 到 2020.12.30，若数据的时间是在 2020.10.01 之前或 2020.12.30 之后，就会写入失败。为了解决这个问题，请参照用户手册中[增加分区](../db_distr_comp/db_oper/add_partitions.md)这小节的说明，在配置文件中增加配置项 newValuePartitionPolicy=add 并重启 DolphinDB 节点。
 
 例 2. 查询设备 1 在 2020.10.05 这一天的历史记录：
 
@@ -360,7 +360,7 @@ DolphinDB 提供了标准协议的 SQL 查询接口，与第三方分析可视�
 
 安装 Grafana 请参考[Grafana 官网教程](http://docs.grafana.org/installation/)。安装后，若本机浏览器中可以打开 http://localhost:3000/ ，说明 Grafana 安装成功，否则请检查 3000 这个端口是否被防火墙屏蔽或被其他应用占用。
 
-DolphinDB 为了支持使用 Grafana 来实时展示时序数据，提供了 Grafana 的 dolphindb-datasource 插件，并且实现了对 Grafana 的 HTTP 数据接口，可以通过类 SQL 的查询脚本将 DolphinDB 的数据表以直观的方式展示在 Grafana 的 Dashboard 上。插件的下载与安装请参阅[插件教程](../tools/grafana.html)。
+DolphinDB 为了支持使用 Grafana 来实时展示时序数据，提供了 Grafana 的 dolphindb-datasource 插件，并且实现了对 Grafana 的 HTTP 数据接口，可以通过类 SQL 的查询脚本将 DolphinDB 的数据表以直观的方式展示在 Grafana 的 Dashboard 上。插件的下载与安装请参阅[插件教程](../tools/grafana.md)。
 
 #### 1.5.2. 显示数据
 
@@ -480,7 +480,7 @@ DolphinDB 对分布式数据库表的读写支持事务，保证多行写入数�
 
 单值模型适合的常用查询基于测点编号与时间段，可按测点编号和时间这 2 个维度进行分区。时间维度一般情况下可按天进行值（VALUE）分区，但也可根据数据量和典型查询场景采用其它分区方案。若某些场景下，查询时间跨度不是很长，而单位时间内的数据量又较大，也可以按小时进行分区。若数据量比较小，又常按一个月或几个月进行查询和计算，也可以按月分区。
 
-物联网设备监控场景的各指标的采集频率一般固定，比较容易计算单位时间的数据量大小，因此指标维度的分区通常采用范围（RANGE）或值（VALUE）方法。DolphinDB 中组合分区的多个列在逻辑上是并列的，不存在从属关系或优先级关系。如果时间维度有 n 个分区，指标维度有 m 个分区，最多可能有 n \* m 个分区。为提高查询和计算性能，每个分区的数据量不宜过大、也不宜过小。一般建议每个分区压缩前的数据量控制在 100MB 左右（详情请参阅[分区数据库教程](database.html)）。
+物联网设备监控场景的各指标的采集频率一般固定，比较容易计算单位时间的数据量大小，因此指标维度的分区通常采用范围（RANGE）或值（VALUE）方法。DolphinDB 中组合分区的多个列在逻辑上是并列的，不存在从属关系或优先级关系。如果时间维度有 n 个分区，指标维度有 m 个分区，最多可能有 n \* m 个分区。为提高查询和计算性能，每个分区的数据量不宜过大、也不宜过小。一般建议每个分区压缩前的数据量控制在 100MB 左右（详情请参阅[分区数据库教程](database.md)）。
 
 本案例中，每 100 个测点（即两个机组）每天的数据约 100MB（12 字节/条\*86400 条\*100 测点）。所以第一个分区维度采用值分区，每天为一个分区；第二个分区维度采用范围（RANGE）分区，每 100 个测点（即两台机组）为一个分区。参考代码如下：
 
@@ -568,7 +568,7 @@ createDatabase("dfs://mvmDemo","machines", ps1, ps2, 50)
 | 360,000 | 38 | 20,463,157 |
 
 * 每次写入数据涉及的分区数量不宜过多。DolphinDB 存储时，每个分区每个列存为一个文件。若每次写入 3 列数据，涉及 3,600 个分区，那么每次需要写入 3,600\*3=10,800 个文件，会严重影响写入性能。例如在上述测试环境中，还是每批写入 360,000 条，并写入一样多的记录总数，但每批涉及分区 3,600 个，耗时 7,922 秒，是每次写入单个分区耗时的 200 余倍。
-* 对小批量写入，启用 Redo Log 和写入数据缓存 (Cache Engine) 功能，能把多次少量的写入缓存起来，一次批量写入，能大大提高写入吞吐量。以上述 100 个测点共写入 777,600,000 条记录为例，在同样的测试环境，但设置了 dataSync=1（表示将 Redo log、数据和元数据强制刷盘）和 chunkCacheEngineMemSize=1（缓存为 1GB）。测试结果显示，每批写入 100 条记录，仅耗时 81 秒，吞吐量提高约 100 倍。有关 Redo Log 和 Cache Engine 的更多信息，请参阅[Cache Engine 与数据库日志](redoLog_cacheEngine.html)
+* 对小批量写入，启用 Redo Log 和写入数据缓存 (Cache Engine) 功能，能把多次少量的写入缓存起来，一次批量写入，能大大提高写入吞吐量。以上述 100 个测点共写入 777,600,000 条记录为例，在同样的测试环境，但设置了 dataSync=1（表示将 Redo log、数据和元数据强制刷盘）和 chunkCacheEngineMemSize=1（缓存为 1GB）。测试结果显示，每批写入 100 条记录，仅耗时 81 秒，吞吐量提高约 100 倍。有关 Redo Log 和 Cache Engine 的更多信息，请参阅[Cache Engine 与数据库日志](redoLog_cacheEngine.md)
 * 使用多个客户端多线程并行写入，但注意多个 writer 不能同时向同一个分区写入。
 
 下面用[单值模型脚本](script/singleValueModeWrite.txt)在一台台式机上测试，台式机 CPU 为 6 核 12 线程的 Intel I7，内存 32GB，128GB SSD 和 2TB 7200RPM HDD。DolphinDB 采用单节点部署，限制使用 16G 内存，启动 Redo Log 和写入缓存。元数据和 Redo Log 写入 SSD，数据写入 HDD。1000 台设备，50 个指标，写入 5 天历史数据，如下表所示，5 个线程是单线程写入性能快约 1.5 倍，10 线程时受硬件资源限制，与 5 线程相比提升不明显。
@@ -973,7 +973,7 @@ select top 50:100 * from sensors where datetime between 2020.09.01T00:00:00 : 20
 
 但这种方法每获取一页都要重新查询一次，效率较低。
 
-有关 API 查询数据更详细的信息，请参阅 [Python API](https://docs.dolphindb.cn/zh/pydoc/py.html) 与 [JAVA API](https://docs.dolphindb.cn/zh/javadoc/newjava.html) 等教程。
+有关 API 查询数据更详细的信息，请参阅 [Python API](https://docs.dolphindb.cn/zh/pydoc/py.md) 与 [JAVA API](https://docs.dolphindb.cn/zh/javadoc/newjava.md) 等教程。
 
 ## 4. 生产数据写入
 
@@ -1094,7 +1094,7 @@ try {
 }
 ```
 
-C++ API 读写 Vector、Table 等数据类型有多种方法，不同场景不同的读写方法有较大的性能差异，详情请参阅[C++ API 数据读写指南](cpp_data_io.html)。
+C++ API 读写 Vector、Table 等数据类型有多种方法，不同场景不同的读写方法有较大的性能差异，详情请参阅[C++ API 数据读写指南](cpp_data_io.md)。
 
 ### 4.5. 提升写入性能
 
@@ -1137,7 +1137,7 @@ DolphinDB 压缩算法支持压缩效果和解压缩时间综合性能较高的 
 
 ## 5. 实时数据和流计算
 
-DolphinDB 提供了流数据表 (stream table) 和流计算引擎用于实时数据处理。内置流计算框架目前已支持[时序聚合引擎](../stream/time_series_engine.html)、[横截面聚合引擎](../stream/cross_sectional_engine.html)、[异常检测引擎](Anomaly_Detection_Engine.html)和自定义流计算引擎。
+DolphinDB 提供了流数据表 (stream table) 和流计算引擎用于实时数据处理。内置流计算框架目前已支持[时序聚合引擎](../stream/time_series_engine.md)、[横截面聚合引擎](../stream/cross_sectional_engine.md)、[异常检测引擎](Anomaly_Detection_Engine.md)和自定义流计算引擎。
 
 * 时序聚合引擎 (Time-series Aggregator)：能对设备状态进行纵向聚合计算（按时间序列聚合），或者将多个设备状态横向聚合后再按时间聚合。时序聚合支持滑动窗口的流式计算。DolphinDB 对内置的窗口聚合函数均进行了性能优化，单核 CPU 每秒可完成近百万状态的时序聚合。
 * 横截面聚合引擎 (Cross-sectional Aggregator)：是快照引擎的扩展，对设备状态进行横向聚合计算，比如计算一批设备的最新温度均值。
@@ -1228,7 +1228,7 @@ speedAggregator = createTimeSeriesAggregator(name="speedAggregator", windowSize=
 subscribeTable(tableName="iot_stream", actionName="speed_calc", offset=0,handler= append!{speedAggregator}, msgAsTable=true)
 ```
 
-时序聚合引擎的更多信息请参阅[流数据时序聚合引擎](../stream/time_series_engine.html)。
+时序聚合引擎的更多信息请参阅[流数据时序聚合引擎](../stream/time_series_engine.md)。
 
 #### 5.3.2. 横截面聚合引擎：计算当前所有风机的平均转速与最大最小转速差。
 
@@ -1239,7 +1239,7 @@ speedCrossAggregator=createCrossSectionalAggregator(name="speedCrossAggregator",
 subscribeTable(tableName="iot_stream",actionName="speedCrossAggregator",offset=0,handler=append!{speedCrossAggregator}, msgAsTable=true)
 ```
 
-横截面聚合引擎的更多信息请参阅[流数据横截面聚合引擎](../stream/cross_sectional_engine.html)。
+横截面聚合引擎的更多信息请参阅[流数据横截面聚合引擎](../stream/cross_sectional_engine.md)。
 
 ### 5.4. 异常检测引擎：实时转速超出 10，或低于 0.1，以及转速差超出 0.2 时，输出异常信号。
 
@@ -1251,7 +1251,7 @@ model = table(1:0,`id`datetime`value,[INT,DATETIME,FLOAT])
 engine = createAnomalyDetectionEngine(name="engine1", metrics=<[value > 10, value < 0.1, abs(deltas(value))>0.2]>, dummyTable=model, outputTable=outputTable3,timeColumn=`datetime,windowSize=6, step=3)
 ```
 
-异常检测引擎的更多信息，请参阅 [流数据异常检测引擎](Anomaly_Detection_Engine.html) 和[流计算引擎实现传感器数据异常检测](iot_anomaly_detection.html)。
+异常检测引擎的更多信息，请参阅 [流数据异常检测引擎](Anomaly_Detection_Engine.md) 和[流计算引擎实现传感器数据异常检测](iot_anomaly_detection.md)。
 
 ### 5.5. 自定义计算引擎
 
@@ -1292,7 +1292,7 @@ DolphinDB 支持高可用，多个元数据节点和多个数据副本之间保�
 
 ### 6.1. 数据高可用测试
 
-要使用数据高可用功能，至少需要 2 台物理服务器部署 DolphinDB 集群，每台部署 2 个数据节点。集群部署请参考[多服务器集群部署教程](multi_machine_cluster_deployment.html)。其中副本的个数在 controller.cfg 中配置。例如，把副本数设置为 2：
+要使用数据高可用功能，至少需要 2 台物理服务器部署 DolphinDB 集群，每台部署 2 个数据节点。集群部署请参考[多服务器集群部署教程](multi_machine_cluster_deployment.md)。其中副本的个数在 controller.cfg 中配置。例如，把副本数设置为 2：
 
 ```
 dfsReplicationFactor=2
@@ -1321,7 +1321,7 @@ boolean success = conn.connect(host="115.239.209.228", port=21142, userid="admin
 
 #### 6.2.1. 环境部署
 
-要使用元数据高可用功能，至少需要三台物理服务器，每台部署一个控制节点（controller），一个代理节点（agent）和"cpp\_data\_io.md" node）。具体部署请参阅[高可用集群部署教程](ha_cluster_deployment.html)，配置两个副本，其他主要配置如下：
+要使用元数据高可用功能，至少需要三台物理服务器，每台部署一个控制节点（controller），一个代理节点（agent）和"cpp\_data\_io.md" node）。具体部署请参阅[高可用集群部署教程](ha_cluster_deployment.md)，配置两个副本，其他主要配置如下：
 
 agent.cfg 文件中配置
 

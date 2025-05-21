@@ -78,5 +78,5 @@ re[1]
 [0.500000043984074,0.499999955746447]
 ```
 
-相关函数：[linprog](../l/linprog.html), [quadprog](../q/quadprog.html)
+相关函数：[linprog](../l/linprog.md), [quadprog](../q/quadprog.md)
 

@@ -18,7 +18,7 @@
 
 **注意**：
 
-* 最新支持的数据源列表以 [amdQuote 插件手册](../plugins/amdquote/amdquote.html) 为准。
+* 最新支持的数据源列表以 [amdQuote 插件手册](../plugins/amdquote/amdquote.md) 为准。
 * DolphinDB 仅提供对接 AMA 的 AMD 插件，数据源和接入服务需咨询数据服务商或证券公司。
 
 AMD 插件目前支持的 server 版本：
@@ -26,7 +26,7 @@ AMD 插件目前支持的 server 版本：
 * 稳定版 1.30.X
 * 最新版 2.00.X
 
-本教程基于 [amdQuote插件](../plugins/amdquote/amdquote.html) 开发，故须要使用 **DolphinDB 2.00.10 版本 server**。若为其它版本 server，请切换至相应插件分支下载插件包。本教程部署形态为 Linux 单节点，若集群使用，可参考配置到任一数据节点。
+本教程基于 [amdQuote插件](../plugins/amdquote/amdquote.md) 开发，故须要使用 **DolphinDB 2.00.10 版本 server**。若为其它版本 server，请切换至相应插件分支下载插件包。本教程部署形态为 Linux 单节点，若集群使用，可参考配置到任一数据节点。
 
 ## 安装和加载 AMD 插件
 
@@ -87,7 +87,7 @@ loadPlugin("/DolphinDB/server/plugins/amdquote/PluginAmdQuote.txt")
 | 上海市场股票逐笔委托 深圳市场股票逐笔委托 | order | dfs://amd order |
 | 上海市场股票逐笔成交 深圳市场股票逐笔成交 | execution | dfs://amd execution |
 
-另外可以通过订阅逐笔数据到[跨进程共享内存表](../funcs/c/createIPCInMemoryTable.html)（IPC表），然后通过 [C++ API](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.html) 订阅 IPC 表，从而实现低延时接收行情数据到 C++ 程序进行处理。
+另外可以通过订阅逐笔数据到[跨进程共享内存表](../funcs/c/createIPCInMemoryTable.md)（IPC表），然后通过 [C++ API](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.md) 订阅 IPC 表，从而实现低延时接收行情数据到 C++ 程序进行处理。
 
 整个数据流转的过程如下图所示：
 
@@ -220,13 +220,13 @@ def handleSnapshotSubs(mutable msg, reorderedColNames) {
 }
 ```
 
-注意到该函数为二元函数，而 *transform* 参数要求为一元函数，可以通过[部分应用](../progr/partial_app.html)来固定一个参数值使其变为一元函数，详见 [AMD 订阅](#amd-%E8%AE%A2%E9%98%85)一节。
+注意到该函数为二元函数，而 *transform* 参数要求为一元函数，可以通过[部分应用](../progr/partial_app.md)来固定一个参数值使其变为一元函数，详见 [AMD 订阅](#amd-%E8%AE%A2%E9%98%85)一节。
 
 **注意**：传入的一元函数中不能存在对 DFS 表的操作，例如：读取或写入 DFS 表，获取 DFS 表的 schema 等。故上述脚本的分布式表的字段顺序 reorderedColNames 需要通过参数传入，而不能直接在 transform 处理方法中读取分布式表的字段顺序。
 
 ### 入库订阅
 
-通过 [subscribeTable](../funcs/s/subscribeTable.html) 方法订阅建立的行情数据流数据表入库，参考脚本如下：
+通过 [subscribeTable](../funcs/s/subscribeTable.md) 方法订阅建立的行情数据流数据表入库，参考脚本如下：
 
 ```
 // 入库订阅，以 snapshot 为例
@@ -274,7 +274,7 @@ amdQuote::getStatus(handle)
 
 ### 可转债和 ETF 基金快照订阅
 
-除了股票的快照行情数据，还希望订阅可转债和 ETF 基金的快照行情数据到 snapshot 流数据表里。但是可转债和 ETF 的代码表每天变化，故需要每天更新订阅的代码表。AMD 插件提供了 `amdQuote::getCodeList()` 方法获取所有证券的代码表，以及 `amdQuote::getETFCodeList()` 方法专门获取 ETF 的代码表，故可以通过配置每日[定时作业](scheduledJob.html)获取新的代码表来重新订阅。对于可转债的代码表，由于其代码有规律可循，可以通过 where 条件对所有证券的代码表进行过滤得到。参考脚本如下：
+除了股票的快照行情数据，还希望订阅可转债和 ETF 基金的快照行情数据到 snapshot 流数据表里。但是可转债和 ETF 的代码表每天变化，故需要每天更新订阅的代码表。AMD 插件提供了 `amdQuote::getCodeList()` 方法获取所有证券的代码表，以及 `amdQuote::getETFCodeList()` 方法专门获取 ETF 的代码表，故可以通过配置每日[定时作业](scheduledJob.md)获取新的代码表来重新订阅。对于可转债的代码表，由于其代码有规律可循，可以通过 where 条件对所有证券的代码表进行过滤得到。参考脚本如下：
 
 `amdQuote::getCodeList()` 的结果包含 `amdQuote::getETFCodeList()` 的结果。
 
@@ -452,9 +452,9 @@ startup=/DolphinDB/server/startup.dos
 
 ## 附录
 
-* [DolphinDB AMD 插件官方手册](../plugins/amdquote/amdquote.html)
-* [节点启动时的流计算自动订阅教程](streaming_auto_sub.html)
-* [DolphinDB 定时作业教程](scheduledJob.html)
+* [DolphinDB AMD 插件官方手册](../plugins/amdquote/amdquote.md)
+* [节点启动时的流计算自动订阅教程](streaming_auto_sub.md)
+* [DolphinDB 定时作业教程](scheduledJob.md)
 * [startup.dos](script/best_implementation_for_AMD_Plugin/startup.dos)
 * [main.cpp](script/best_implementation_for_AMD_Plugin/main.cpp)
 

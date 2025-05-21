@@ -4,7 +4,7 @@
 
 `gema(X, window, alpha)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考: [TA-lib 系列](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考: [TA-lib 系列](../themes/TAlib.md)
 
 ## 参数
 
@@ -12,9 +12,9 @@ TA-lib 系列函数参数说明和窗口计算规则请参考: [TA-lib 系列](.
 
 ## 详情
 
-在给定长度（以元素个数衡量）的滑动窗口内，计算 *X* 的指数移动平均（Exponential Moving Average），该函数是 [ema](../e/ema.html) 的扩展。
+在给定长度（以元素个数衡量）的滑动窗口内，计算 *X* 的指数移动平均（Exponential Moving Average），该函数是 [ema](../e/ema.md) 的扩展。
 
-与 [ema](../e/ema.html) 相比，该函数引入了计算系数
+与 [ema](../e/ema.md) 相比，该函数引入了计算系数
 *alpha*，其计算公式为：
 
 ![gema](../../images/gema.png)
@@ -44,5 +44,5 @@ gema(x,3,0.1);
 | 12.2345 | 16.05 |
 | 12.131 | 15.445 |
 
-相关函数：[ema](../e/ema.html), [wilder](../w/wilder.html), [tema](../t/tema.html)
+相关函数：[ema](../e/ema.md), [wilder](../w/wilder.md), [tema](../t/tema.md)
 

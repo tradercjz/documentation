@@ -76,5 +76,5 @@ pinverse(x)
 | 0.4133 | -0.2533 |
 | -0.0667 | 0.2667 |
 
-相关函数：[inverse](../i/inverse.html)
+相关函数：[inverse](../i/inverse.md)
 

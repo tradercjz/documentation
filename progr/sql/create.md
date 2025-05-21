@@ -14,7 +14,7 @@ create database directory partitioned by partitionType(partitionScheme),[partiti
 ```
 
 在 create database 语句中，'partitionType' 的个数表示分区的层级，最少1个，最多3个。当指定多个
-'partitionType' 时，表示组合分区。其它参数详情请参考函数 [database](../../funcs/d/database.html)。
+'partitionType' 时，表示组合分区。其它参数详情请参考函数 [database](../../funcs/d/database.md)。
 
 自 3.00.0 版本起，支持创建 catalog 中的数据库。使用 *catalog.schema* 代替上述语句中的
 *directory*。
@@ -132,7 +132,7 @@ dim 为 4 的倍数。
 如果已为某一列设置了向量索引，在查询语句中，若同时满足以下条件：不包含 join 语句，where 子句中不包含 sort key， 包含 order by
 子句且其中只包含对该列应用 rowEuclidean 函数并按升序排序，包含 limit 子句，则会应用向量索引提升查询性能。
 
-create table 语句内的参数和详情说明请参考相关函数 [createPartitionedTable](../../funcs/c/createPartitionedTable.html) / [createDimensionTable](../../funcs/c/createdimensiontable.html)。
+create table 语句内的参数和详情说明请参考相关函数 [createPartitionedTable](../../funcs/c/createPartitionedTable.md) / [createDimensionTable](../../funcs/c/createdimensiontable.md)。
 
 ## 创建catalog 中的数据表
 
@@ -189,7 +189,7 @@ schema
 
 ## 创建点位管理表
 
-点位管理表的相关概念请参阅[物联网点位管理引擎](../../db_distr_comp/db/iotdb.html)。在使用 create
+点位管理表的相关概念请参阅[物联网点位管理引擎](../../db_distr_comp/db/iotdb.md)。在使用 create
 语句创建点位管理表时，通过创建一个 IOTANY 类型的列或开启最新值缓存功能（*latestKeyCache*）以建立点位管理表。使用前须保证库表已指定
 IOTDB 引擎。
 

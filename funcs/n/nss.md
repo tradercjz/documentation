@@ -105,5 +105,5 @@ predict->nssPredict
 */
 ```
 
-相关函数：[nsspredict](nsspredict.html)
+相关函数：[nsspredict](nsspredict.md)
 

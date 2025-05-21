@@ -25,11 +25,11 @@ metrics, dummyTable, outputTable, [timeColumn], [useSystemTime=false],
 
 若指定了 *keyColumn* 进行分组，则上述计算将在各分组内独立进行。
 
-更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.html)。
+更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.md)。
 
 ## 参数
 
-该引擎是基于时间序列引擎进行的扩展，继承了 [createTimeSeriesEngine](createTimeSeriesEngine.html) 所有的参数，请参照 `createTimeSeriesEngine`
+该引擎是基于时间序列引擎进行的扩展，继承了 [createTimeSeriesEngine](createTimeSeriesEngine.md) 所有的参数，请参照 `createTimeSeriesEngine`
 中参数介绍。这里仅介绍与时间序列引擎不同的参数：
 
 **sessionBegin** 为可选参数，可以是与时间列的数据类型对应的 SECOND、TIME 或 NANOTIME

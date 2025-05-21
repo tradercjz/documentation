@@ -2,7 +2,7 @@
 
 在DolphinDB中，有三种搜索字符串的方式：
 
-1. 使用 [like](../../funcs/l/like.html) 函数和 [ilike](../../funcs/i/ilike.html) 函数。*like* 函数和 *ilike*
+1. 使用 [like](../../funcs/l/like.md) 函数和 [ilike](../../funcs/i/ilike.md) 函数。*like* 函数和 *ilike*
    函数的区别在于是否区分大小写。
 
    ```
@@ -15,7 +15,7 @@
    // output
    [0,0,0,1,0,0]
    ```
-2. [strpos](../../funcs/s/strpos.html) 函数能够检查字符串中是否包含子字符串，如果是，则返回子字符串在原字符串中的起始位置。
+2. [strpos](../../funcs/s/strpos.md) 函数能够检查字符串中是否包含子字符串，如果是，则返回子字符串在原字符串中的起始位置。
 
    ```
    strpos("abcdefg","cd");
@@ -30,7 +30,7 @@
    // output
    -1
    ```
-3. [regexFind](../../funcs/r/regexFind.html) 函数能够检查字符串中是否包含正则表达式表示的子字符串，如果是，则返回子字符串在原字符串中的起始位置。它与
+3. [regexFind](../../funcs/r/regexFind.md) 函数能够检查字符串中是否包含正则表达式表示的子字符串，如果是，则返回子字符串在原字符串中的起始位置。它与
    *strpos* 函数的区别是，*regexFind*
    函数可以使用正则表达式，并且能够指定开始搜索的位置。如果我们不需要指定开始搜索的位置，应该使用 *strpos* 函数，因为
    *strpos* 函数的效率比 *regexFind* 函数高。

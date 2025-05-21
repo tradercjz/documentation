@@ -31,7 +31,7 @@
   + 若第二个参数为 *cutPositions*，cut 函数先根据 *cutPositions* 将 *X*
     分段，然后返回每个子矩阵（子表）组成的元组。
 
-关于该函数的逆操作，参见 [flatten](../f/flatten.html) 函数。
+关于该函数的逆操作，参见 [flatten](../f/flatten.md) 函数。
 
 ## 例子
 

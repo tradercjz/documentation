@@ -16,7 +16,7 @@ VectorDB 的实现主要考虑以下三个方面：向量数据存储、向量�
 ### 向量数据存储
 
 在 DolphinDB 中，向量数据以数组向量的形式存储。DolphinDB 的 TSDB 引擎本身就支持数组向量的存储，因此 VectorDB
-无需自行实现向量数据的存储，只需要基于 TSDB 引擎进行构建即可。关于 TSDB 数据存储原理介绍，请参考 [TSDB 存储引擎](tsdb.html)。
+无需自行实现向量数据的存储，只需要基于 TSDB 引擎进行构建即可。关于 TSDB 数据存储原理介绍，请参考 [TSDB 存储引擎](tsdb.md)。
 
 ### **向量索引构建**
 
@@ -89,7 +89,7 @@ Index）是一种针对向量数据构建的高效数据结构。它帮助在时
 
 ## 创建 VectorDB 中的数据表
 
-在 DolphinDB 中，创建分布式分区表有两种方式：一种是使用 [createPartitionedTable](../../funcs/c/createPartitionedTable.html) 函数，另一种是使用 [create](../../progr/sql/create.html) 语句。这两个函数中的
+在 DolphinDB 中，创建分布式分区表有两种方式：一种是使用 [createPartitionedTable](../../funcs/c/createPartitionedTable.md) 函数，另一种是使用 [create](../../progr/sql/create.md) 语句。这两个函数中的
 *indexes* 参数用于指定需要建立向量索引的列、向量索引的类型以及向量数据的维度。在创建数据表时，必须指定该参数，才能创建
 VectorDB 中分布式分区表。
 

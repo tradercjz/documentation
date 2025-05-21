@@ -53,5 +53,5 @@ getSlaveReplicationStatus();
 | 3 | 3 | 3 | 2 | APPEND | 2022.11.08T10:50:37.425057012 | db://test\_dropPartition\_value | pt | localhost | 8002 | 2022.11.08T10:50:37.638746819 | NODE1 | FINISHED |  |
 | 4 | 4 | 4 | 3 | DROP\_PARTITION | 2022.11.08T10:50:37.425057037 |  | pt | localhost | 8002 | 2022.11.08T10:50:37.869783336 | NODE2 | FINISHED |  |
 
-相关函数：[getMasterReplicationStatus](getMasterReplicationStatus.html), [getSlaveReplicationQueueStatus](getslavereplicationqueuestatus.html)
+相关函数：[getMasterReplicationStatus](getMasterReplicationStatus.md), [getSlaveReplicationQueueStatus](getslavereplicationqueuestatus.md)
 

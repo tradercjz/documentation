@@ -31,5 +31,5 @@ getCacheEngineMemSize()
 (0,0,0,429496729)
 ```
 
-相关函数： [setCacheEngineMemSize](../s/setCacheEngineMemSize.html)
+相关函数： [setCacheEngineMemSize](../s/setCacheEngineMemSize.md)
 

@@ -67,5 +67,5 @@ unsubscribeTable(server=NODE2,tableName=`trades,actionName=`sub_trades);
 // 这里unsubscribeTable函数的第一个参数可以是 NODE1, NODE2, NODE3 中的任意一个。
 ```
 
-相关函数：[dropStreamTable](../d/dropStreamTable.html), [getStreamingLeader](../g/getStreamingLeader.html), [getStreamingRaftGroups](../g/getStreamingRaftGroups.html)
+相关函数：[dropStreamTable](../d/dropStreamTable.md), [getStreamingLeader](../g/getStreamingLeader.md), [getStreamingRaftGroups](../g/getStreamingRaftGroups.md)
 

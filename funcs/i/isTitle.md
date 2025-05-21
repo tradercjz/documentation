@@ -32,5 +32,5 @@ isTitle("1And1");
 true
 ```
 
-相关函数：[isLower](isLower.html), [isUpper](isUpper.html)
+相关函数：[isLower](isLower.md), [isUpper](isUpper.md)
 

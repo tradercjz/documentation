@@ -11,7 +11,7 @@
 
 ## 详情
 
-用指定的参数调用一个函数。常常用在 [each](each.html)/[peach](peach.html) 或 [loop](loop.html)/[ploop](ploop.html) 中，用来调用一批函数。
+用指定的参数调用一个函数。常常用在 [each](each.md)/[peach](peach.md) 或 [loop](loop.md)/[ploop](ploop.md) 中，用来调用一批函数。
 
 ## 例子
 

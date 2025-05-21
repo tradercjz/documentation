@@ -20,7 +20,7 @@ pwj(leftTable, rightTable, window, aggs, matchingCols, [rightMatchingCols])
 
   注： *rightTable* 不能是分布式表。
 * **window** 是表示与左表记录有关的窗口边界的整型数据对或 DURATION 数据对，其中左右边界都包含在内。
-* **aggs** 表示聚合函数的元代码，详情请参考 [元编程](../objs/meta_progr.html)，支持输入元组。聚合函数中的参数必须是右表中的数值类型列。支持输出右表字段的不定长 array vector。
+* **aggs** 表示聚合函数的元代码，详情请参考 [元编程](../objs/meta_progr.md)，支持输入元组。聚合函数中的参数必须是右表中的数值类型列。支持输出右表字段的不定长 array vector。
 * **matchingCols** 是表示连接列的字符串标量或向量。
 * **rightMatchingCols** 是表示右表连接列的字符串标量或向量。当 *leftTable* 和
   *rightTable* 至少有一个连接列不同时，必须指定
@@ -50,7 +50,7 @@ t，在右表中找到与其他连接列对应的记录行以及与最后一个�
 如果 *window* = 0:0 ，右表的计算窗口将由左表两条数据的时间戳决定。假设左表某一条记录时间戳为
 t，上一条记录的时间戳为 t0，则右表根据 *matchingCols* 其他列匹配后的计算窗口为 [t0, t)。
 
-以下聚合函数经过优化，使得它们在 window join 中的计算速度更快: [avg](../../funcs/a/avg.html), [beta](../../funcs/b/beta.html), [count](../../funcs/c/count.html), [corr](../../funcs/c/corr.html), [covar](../../funcs/c/covar.html), [first](../../funcs/f/first.html), [last](../../funcs/l/last.html), [max](../../funcs/m/max.html), [med](../../funcs/m/med.html), [min](../../funcs/m/min.html), [percentile](../../funcs/p/percentile.html), [std](../../funcs/s/std.html), [sum](../../funcs/s/sum.html), [sum2](../../funcs/s/sum2.html), [var](../../funcs/v/var.html), [wavg](../../funcs/w/wavg.html), [kurtosis](../../funcs/k/kurtosis.html), [prod](../../funcs/p/prod.html), [skew](../../funcs/s/skew.html), [stdp](../../funcs/s/stdp.html),[varp](../../funcs/v/varp.html), [atImin](../../funcs/a/atImin.html), [atImax](../../funcs/a/atImax.html)
+以下聚合函数经过优化，使得它们在 window join 中的计算速度更快: [avg](../../funcs/a/avg.md), [beta](../../funcs/b/beta.md), [count](../../funcs/c/count.md), [corr](../../funcs/c/corr.md), [covar](../../funcs/c/covar.md), [first](../../funcs/f/first.md), [last](../../funcs/l/last.md), [max](../../funcs/m/max.md), [med](../../funcs/m/med.md), [min](../../funcs/m/min.md), [percentile](../../funcs/p/percentile.md), [std](../../funcs/s/std.md), [sum](../../funcs/s/sum.md), [sum2](../../funcs/s/sum2.md), [var](../../funcs/v/var.md), [wavg](../../funcs/w/wavg.md), [kurtosis](../../funcs/k/kurtosis.md), [prod](../../funcs/p/prod.md), [skew](../../funcs/s/skew.md), [stdp](../../funcs/s/stdp.md),[varp](../../funcs/v/varp.md), [atImin](../../funcs/a/atImin.md), [atImax](../../funcs/a/atImax.md)
 
 注： 在 window join 中，当 *aggs* 中使用 atImax 和 atImin
 进行计算时，如果计算窗口内中有多个相同的最值，默认取最大索引值对应的记录。

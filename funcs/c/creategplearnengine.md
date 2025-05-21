@@ -78,7 +78,7 @@
 
 ## 例子
 
-参考：[Shark GPLearn 快速上手](../../tutorials/gplearn.html)
+参考：[Shark GPLearn 快速上手](../../tutorials/gplearn.md)
 
 **相关信息**
 

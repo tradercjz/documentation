@@ -4,7 +4,7 @@
 
 `mlast(X, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -66,5 +66,5 @@ mlast(m, 1w)
 | 2020.09.16 | 0 |  |
 | 2020.09.26 | 2 | 2 |
 
-相关函数：[last](../l/last.html), [first](../f/first.html)
+相关函数：[last](../l/last.md), [first](../f/first.md)
 

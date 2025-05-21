@@ -63,7 +63,7 @@ TopN 系列函数基本上可以归纳为以下几种类型：mfuncTopN、tmfunc
 以 `mfuncTopN(X, S, window, top, [ascending=true], [tiesMethod])` 为例，其计算过程为：
 
 1. 将 *X* 根据 *S* 进行稳定排序（排序方式由 *ascending* 指定，默认 true 为升序）
-2. 取排序结果的前 top 个元素进行计算。如果有多个具有相同值的元素无法全部进入前 top，可通过 *tiesMethod* 参数设置对这些值的选取规则。简单的说，*tiesMethod* 为 latest 时，优先选取最新的数据，为 oldest 时，优先选取最老的数据，为 all 时，选取全部数据。具体的用法规则可参考 TopN 的用户手册 [TopN](../funcs/themes/TopN.html)。
+2. 取排序结果的前 top 个元素进行计算。如果有多个具有相同值的元素无法全部进入前 top，可通过 *tiesMethod* 参数设置对这些值的选取规则。简单的说，*tiesMethod* 为 latest 时，优先选取最新的数据，为 oldest 时，优先选取最老的数据，为 all 时，选取全部数据。具体的用法规则可参考 TopN 的用户手册 [TopN](../funcs/themes/TopN.md)。
 
 目前支持 TopN 的计算函数共有 36 个：
 
@@ -111,7 +111,7 @@ t = table(tradingTime, windCode, open, high, low, close, volume)
 
 ### 2.1. mTopN 应用场景
 
-mTopN 可以按记录数滑动，窗口长度计算既可以按记录数，也可以按时间长度。具体滑动的规则可以参考窗口计算综述教程： [window\_cal.md](window_cal.html)
+mTopN 可以按记录数滑动，窗口长度计算既可以按记录数，也可以按时间长度。具体滑动的规则可以参考窗口计算综述教程： [window\_cal.md](window_cal.md)
 
 对于模拟数据中的分钟表 *t*，要得到每支股票每 5 条记录内交易量最大的 3 条记录的平均价格，可以用 `mavgTopN` 函数搭配 `context by` 解决：
 

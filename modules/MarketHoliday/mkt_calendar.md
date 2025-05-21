@@ -1,6 +1,6 @@
 # 交易日历
 
-交易日历是数据分析经常用到的工具，可以帮助快速获取对应交易所的交易日及进行相应的日期计算。DolphinDB 自 2.00.9/1.30.21 版本开始，提供交易日历功能，并内置世界五十多个交易所的交易日历。用户既可以直接使用内置的交易日历，也可以自定义交易日历，基于场景进行个性化定制。我们会定期更新交易日历，详情可查看 [交易日历更新说明](release.html)。
+交易日历是数据分析经常用到的工具，可以帮助快速获取对应交易所的交易日及进行相应的日期计算。DolphinDB 自 2.00.9/1.30.21 版本开始，提供交易日历功能，并内置世界五十多个交易所的交易日历。用户既可以直接使用内置的交易日历，也可以自定义交易日历，基于场景进行个性化定制。我们会定期更新交易日历，详情可查看 [交易日历更新说明](release.md)。
 
 本教程将会从交易日历的查询和应用、如何自定义交易日历、以及交易日历的来源等三个方面介绍如何使用 DolphinDB 的交易日历。
 
@@ -14,7 +14,7 @@ DolphinDB 内置的交易日历可以支持多个场景的应用：
 
 ### 1.1 查询交易日历-getMarketCalendar
 
-可使用函数 [`getMarketCalendar(marketName, [startDate], [endDate])`](https://docs.dolphindb.cn/zh/funcs/g/getMarketCalendar.html) 获取对应交易所在 startDate 和 endDate 确定的时间范围内的的交易日历。以纽交所（XNYS）为例，获取2022年1月1日至2022年1月10日间的交易日历的脚本如下：
+可使用函数 [`getMarketCalendar(marketName, [startDate], [endDate])`](https://docs.dolphindb.cn/zh/funcs/g/getMarketCalendar.md) 获取对应交易所在 startDate 和 endDate 确定的时间范围内的的交易日历。以纽交所（XNYS）为例，获取2022年1月1日至2022年1月10日间的交易日历的脚本如下：
 
 ```
 getMarketCalendar("XNYS",2022.01.01, 2022.01.10)
@@ -25,7 +25,7 @@ getMarketCalendar("XNYS",2022.01.01, 2022.01.10)
 
 ### 1.2 基于交易日历的日期偏移计算 - temporalAdd
 
-如需对交易日历做时间偏移，可以使用 [`temporalAdd(date, duration, exchangeId)`](https://docs.dolphindb.cn/zh/funcs/t/temporalAdd.html) 函数，获取给定时间的偏移的交易日。以纽交所（XNYS）为例，获取2023年1月1日至2023年1月6日增加2个交易日的日期的脚本如下：
+如需对交易日历做时间偏移，可以使用 [`temporalAdd(date, duration, exchangeId)`](https://docs.dolphindb.cn/zh/funcs/t/temporalAdd.md) 函数，获取给定时间的偏移的交易日。以纽交所（XNYS）为例，获取2023年1月1日至2023年1月6日增加2个交易日的日期的脚本如下：
 
 ```
 dates=[2023.01.01, 2023.01.02, 2023.01.03, 2023.01.04, 2023.01.05, 2023.01.06]
@@ -47,7 +47,7 @@ temporalAdd(dates, 2XNYS)
 
 ### 1.3 基于交易日历取最近的交易日 - transFreq
 
-[`getMarketCalendar`](https://docs.dolphindb.cn/zh/funcs/g/getMarketCalendar.html) 函数可以获取相应时间范围内的交易日。但是如若某天不是交易日，又想获得该日期前最近的一个交易日，可以使用 [`transFreq(X,rule)`](https://docs.dolphindb.cn/zh/funcs/t/transFreq.html?hl=transfreq)函数。指定 `rule` 参数为对应交易所编码，可获取对应日期的最近的交易日。以纽交所 (XNYS) 为例，获取2023年1月1日至1月6日最近的交易日历的脚本如下：
+[`getMarketCalendar`](https://docs.dolphindb.cn/zh/funcs/g/getMarketCalendar.md) 函数可以获取相应时间范围内的交易日。但是如若某天不是交易日，又想获得该日期前最近的一个交易日，可以使用 [`transFreq(X,rule)`](https://docs.dolphindb.cn/zh/funcs/t/transFreq.html?hl=transfreq)函数。指定 `rule` 参数为对应交易所编码，可获取对应日期的最近的交易日。以纽交所 (XNYS) 为例，获取2023年1月1日至1月6日最近的交易日历的脚本如下：
 
 ```
 dates=[2023.01.01, 2023.01.02, 2023.01.03, 2023.01.04, 2023.01.05, 2023.01.06]
@@ -342,7 +342,7 @@ getTradingCalendarType("AAAA")
 
 ### 2.2 替换交易日历
 
-假设需要更新已建好的 “XDDB” 交易所的交易日历，可以使用函数 [updateMarketHoliday(marketName, holiday)](https://docs.dolphindb.cn/zh/funcs/u/updateMarketHoliday.html) 重新设置该文件的节假日信息，进而更新该交易所的交易日历。
+假设需要更新已建好的 “XDDB” 交易所的交易日历，可以使用函数 [updateMarketHoliday(marketName, holiday)](https://docs.dolphindb.cn/zh/funcs/u/updateMarketHoliday.md) 重新设置该文件的节假日信息，进而更新该交易所的交易日历。
 
 **注意**：该函数设置的节假日信息将覆盖旧的交易日历文件，不可单独对该文件更新或新增节假日信息。
 
@@ -487,5 +487,5 @@ getMarketCalendar("XDDB",2023.03.01, 2023.03.10)
 
 ## 附录
 
-* [交易日历更新说明](release.html)
+* [交易日历更新说明](release.md)
 

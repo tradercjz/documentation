@@ -545,7 +545,7 @@ sudo tar -xvf ./debezium-connector-oracle-2.5.1.Final-plugin.tar.gz
 sudo rm ./debezium-connector-oracle-2.5.1.Final-plugin.tar.gz
 ```
 
-连接 Oracle 数据库还需 Oracle 的 JDBC 包，可以到 Oracle 官网 [JDBC Drivers Archive](https://www.oracle.com/database/technologies/appdev/jdbc-drivers-archive.html) 下载对应 Oracle 版本的 JDBC 包，目前 Oracle 官网已下架 Oracle 11g 版本的ojdbc包，可以在此下载`ojdbc8.jar`
+连接 Oracle 数据库还需 Oracle 的 JDBC 包，可以到 Oracle 官网 [JDBC Drivers Archive](https://www.oracle.com/database/technologies/appdev/jdbc-drivers-archive.md) 下载对应 Oracle 版本的 JDBC 包，目前 Oracle 官网已下架 Oracle 11g 版本的ojdbc包，可以在此下载`ojdbc8.jar`
 
 在当前的`debezium-connector-oracle`目录下再放入 ojdbc 包 `ojdbc8.jar`
 
@@ -767,7 +767,7 @@ vim /KFDATA/datasyn-config/source-oracle.json
 
 更多详细参数说明可以参看（Debezium 2.5），不同Debezium版本的参数配置不同，若使用其他版本的Debezium，需找到对应文档做修改。
 
-[Debezium Connector for Oracle :: Debezium Documentation](https://debezium.io/documentation/reference/2.5/connectors/oracle.html)
+[Debezium Connector for Oracle :: Debezium Documentation](https://debezium.io/documentation/reference/2.5/connectors/oracle.md)
 
 **第三步： 启动 Oracle 的数据同步任务**
 

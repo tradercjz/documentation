@@ -16,7 +16,7 @@
 
 备份数据库到指定路径。
 
-该函数是 [backup](backup.html) 函数的特例，其等价于调用
+该函数是 [backup](backup.md) 函数的特例，其等价于调用
 `backup(backupDir, dbPath, force=false, parallel=true,
 snapshot=true)`。 调用该函数可以简化代码，方便用户一次性备份整个数据库。
 
@@ -44,5 +44,5 @@ pt2 = db.createPartitionedTable(t, `pt2, `date`x).append!(t)
 backupDB(backupDir, dbName)
 ```
 
-相关函数：[backup](backup.html), [backupTable](backupTable.html), [restore](../r/restore.html), [restoreDB](../r/restoreDB.html), [restoreTable](../r/restoreTable.html), [migrate](../m/migrate.html)
+相关函数：[backup](backup.md), [backupTable](backupTable.md), [restore](../r/restore.md), [restoreDB](../r/restoreDB.md), [restoreTable](../r/restoreTable.md), [migrate](../m/migrate.md)
 

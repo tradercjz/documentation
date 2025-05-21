@@ -1,6 +1,6 @@
 # Python 订阅
 
-以下介绍通过 Python API 订阅流处理结果的交互方式。完整 Python API 可以参考：[Python API](https://docs.dolphindb.cn/zh/pydoc/py.html)。
+以下介绍通过 Python API 订阅流处理结果的交互方式。完整 Python API 可以参考：[Python API](https://docs.dolphindb.cn/zh/pydoc/py.md)。
 
 下面为以逐笔成交数据为例介绍订阅流数据结果订阅及写入数据库的流程。
 
@@ -24,7 +24,7 @@
    ```
 3. Python 订阅端创建表 *tglobal* 的本地订阅，host 和 port 需设置为是发布端节点的 IP 地址和端口号；
    *handler* 设置为自定义的回调函数，用于处理每次流入的数据，*batchSize* 和 *throttle*
-   应根据需求合理设置，具体参数含义见：[流数据订阅](../api/python/BasicOperations/Subscription/Subscription.html) 。
+   应根据需求合理设置，具体参数含义见：[流数据订阅](../api/python/BasicOperations/Subscription/Subscription.md) 。
 
    ```
    listTrade = []

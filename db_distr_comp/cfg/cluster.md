@@ -16,7 +16,7 @@ DolphinDB 集群包括 4
 
 ## 普通集群
 
-有关普通集群部署的方法，参考教程： [单机集群部署教程](../../tutorials/single_machine_cluster_deploy.html) , [多机集群部署教程](../../tutorials/multi_machine_cluster_deployment.html)
+有关普通集群部署的方法，参考教程： [单机集群部署教程](../../tutorials/single_machine_cluster_deploy.md) , [多机集群部署教程](../../tutorials/multi_machine_cluster_deployment.md)
 
 注： 多服务器环境下，控制节点所在服务器必须包含controller.cfg, cluster.cfg,
 cluster.nodes 3种配置文件。代理节点必须包含 agent.cfg 文件。
@@ -76,8 +76,8 @@ DolphinDB 提供了默认的 clusterDemo 文件夹存储对应的集群文件、
 
 这些脚本仅对默认配置生效，用户可参考这些启动脚本中的命令，根据场景进行调整。
 
-注： 集群环境下，关机脚本将关闭整个集群，参考 [shutdown](../../sys_man/shutdown.html)。对单个节点的重启操作，建议在 Web
-集群管理器进行操作，具体操作可参考 [基于 web 的集群管理](../../tutorials/single_machine_cluster_deploy.html) 。
+注： 集群环境下，关机脚本将关闭整个集群，参考 [shutdown](../../sys_man/shutdown.md)。对单个节点的重启操作，建议在 Web
+集群管理器进行操作，具体操作可参考 [基于 web 的集群管理](../../tutorials/single_machine_cluster_deploy.md) 。
 
 ## 高可用集群
 

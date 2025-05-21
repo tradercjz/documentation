@@ -81,5 +81,5 @@ model.predict(testData)
 */
 ```
 
-相关函数：[gaussianKdePredict](gaussiankdepredict.html)
+相关函数：[gaussianKdePredict](gaussiankdepredict.md)
 

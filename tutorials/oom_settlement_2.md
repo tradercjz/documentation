@@ -92,7 +92,7 @@ OS 内存压力是指在同一操作系统中，一个或多个应用程序共�
 | **StreamingPubQueue** | 流数据发布队列里未处理的消息数。 | *maxPubQueueDepthPerSite* 参数有关 | 无需释放 |
 | **StreamingSubQueue** | 流数据订阅队列里未处理的消息数。 | 流数据队列内存大小，和引擎数量以及订阅数据有关 | 管理订阅以及引擎 |
 
-定位数据内存占用过大的具体对象，然后使用上表对应函数中的第四列函数进行释放，另外假设为 session 内变量占用内存过高，可以联系团队 DBA 使用函数 [closeSessions](https://docs.dolphindb.cn/zh/funcs/c/closeSessions.html) 关闭相应 session，操作步骤如下：
+定位数据内存占用过大的具体对象，然后使用上表对应函数中的第四列函数进行释放，另外假设为 session 内变量占用内存过高，可以联系团队 DBA 使用函数 [closeSessions](https://docs.dolphindb.cn/zh/funcs/c/closeSessions.md) 关闭相应 session，操作步骤如下：
 
 ```
 closeSessions(getSessionMemoryStat().sessionId[11]);
@@ -100,7 +100,7 @@ closeSessions(getSessionMemoryStat().sessionId[11]);
 
 * 通过函数 `getRecentJobs()` 和 `getConsoleJobs()` 查看是否还有超过预期运行时长的后台或交互任务。
 
-通过 [cancelJob](https://docs.dolphindb.cn/zh/funcs/c/cancelJob.html) 以及 [cancelConsoleJob](https://docs.dolphindb.cn/zh/funcs/c/cancelConsoleJob.html) 关闭对应 job。
+通过 [cancelJob](https://docs.dolphindb.cn/zh/funcs/c/cancelJob.md) 以及 [cancelConsoleJob](https://docs.dolphindb.cn/zh/funcs/c/cancelConsoleJob.md) 关闭对应 job。
 
 ### 3.6. 外部组件排查方案
 
@@ -161,7 +161,7 @@ select top 1000 * from xx
   //Output 8
   ```
 
-  如上所示为查询内存上限配置，结果为 8，则当前配置文件限制最大单次查询结果占用的内存上限为 8 GB，如果需要增大单次查询的上限，通过函数 [setMemLimitOfQueryResult](https://docs.dolphindb.cn/zh/funcs/s/setMemLimitOfQueryResult.html) 进行修改。
+  如上所示为查询内存上限配置，结果为 8，则当前配置文件限制最大单次查询结果占用的内存上限为 8 GB，如果需要增大单次查询的上限，通过函数 [setMemLimitOfQueryResult](https://docs.dolphindb.cn/zh/funcs/s/setMemLimitOfQueryResult.md) 进行修改。
 * 收集 Linux 操作系统对 DolphinDB 限制内存信息，操作步骤如下：
 
   ```

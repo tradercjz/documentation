@@ -23,15 +23,15 @@ DolphinDB 主要提供两种监控流计算状态的方法：Web 面板和函数
 2. **点击页面上方不同的标签**（流计算发布订阅状态、流计算引擎状态、流数据表状态）：通过页面顶部的标签可以切换并查看所需内容，切换时会自动获取该页面对应的最新状态。
 3. **点击带三角形图表的字段**（如队列深度、最近处理失败的错误信息）：通过点击字段名可以进行降序或升序排序。可以将队列深度最大的订阅线程排在列表的最前面，或者将有错误信息的订阅线程排在列表的最前面。
 4. **点击方框勾选订阅线程后点击批量取消订阅**：通过此操作可以取消多个订阅，对选中的订阅后台执行了 `unsubscribeTable` 函数以释放订阅。同理，在流计算引擎状态标签页可以批量删除引擎，后台将执行 `dropStreamEngine` 函数来释放引擎。在流数据表状态标签页可以批量删除流数据表，后台将执行 `dropStreamTable` 函数删除流数据表。
-5. **鼠标悬浮在表名或者字段名上方：** 通过悬浮在表名上方可以查看各个表对应的系统状态函数，如订阅线程状态表对应 `getStreamingStat().subWorkers`。通过悬浮在字段名上方可以查看该指标对应的英文名，通过查看状态函数的用户手册可以了解各个字段详细说明，如线程 ID 对应 workerId，在 [getStreamingStat](../funcs/g/getStreamingStat.html) 函数的用户手册中可以找到其具体解释为：线程 ID。若此列为空，代表该订阅尚未收到数据。
+5. **鼠标悬浮在表名或者字段名上方：** 通过悬浮在表名上方可以查看各个表对应的系统状态函数，如订阅线程状态表对应 `getStreamingStat().subWorkers`。通过悬浮在字段名上方可以查看该指标对应的英文名，通过查看状态函数的用户手册可以了解各个字段详细说明，如线程 ID 对应 workerId，在 [getStreamingStat](../funcs/g/getStreamingStat.md) 函数的用户手册中可以找到其具体解释为：线程 ID。若此列为空，代表该订阅尚未收到数据。
 
-流计算监控页面的更多介绍见 [流计算监控](../db_distr_comp/db_man/web/stream_monitor.html) 。
+流计算监控页面的更多介绍见 [流计算监控](../db_distr_comp/db_man/web/stream_monitor.md) 。
 
 ### 1.2 函数查询
 
 除了通过 Web 界面监控流计算状态的方法，其他终端的客户也可以通过函数直接查询流计算状态。
 
-**流计算监控函数 [getStreamingStat](../funcs/g/getStreamingStat.html)**
+**流计算监控函数 [getStreamingStat](../funcs/g/getStreamingStat.md)**
 
 `getStreamingStat`函数返回一个字典，包含以下几个不同的表：
 
@@ -42,16 +42,16 @@ DolphinDB 主要提供两种监控流计算状态的方法：Web 面板和函数
 * 表 subWorkers 监控订阅节点的工作线程的状态，工作线程状态信息会按照 topic 来展示。
 * 表 udpPubTables 用于监控流数据表进行 UDP 组播发布的状态。
 
-以上各表包含的列字段见 [getStreamingStat](../funcs/g/getStreamingStat.html)。Web 页面上仅展示了最常用的两个表 subWorkers 和 pubTables 的信息。注意，执行`getStreamingStat`函数返回的也是瞬时数据，因此通常需要多次执行以观察流计算状态的变化趋势。
+以上各表包含的列字段见 [getStreamingStat](../funcs/g/getStreamingStat.md)。Web 页面上仅展示了最常用的两个表 subWorkers 和 pubTables 的信息。注意，执行`getStreamingStat`函数返回的也是瞬时数据，因此通常需要多次执行以观察流计算状态的变化趋势。
 
-**流计算引擎监控函数 [getStreamEngineStat](../funcs/g/getStreamEngineStat.html)**
+**流计算引擎监控函数 [getStreamEngineStat](../funcs/g/getStreamEngineStat.md)**
 
 该函数可以查看系统中定义的全部流计算引擎、各个引擎的内存占用等状态，每一类引擎对应一张表。调用该函数会返回一个 key 为引擎类型名称、value 为表的字典。详细说明见 `getStreamEngineStat`，调用该函数返回结果如下。
 
 ![](images/str_monitor_2.png)
 在上图例子中，系统中有两个流计算引擎，分别为 ReactiveStreamEngine 和 CrossSectionEngine 类型的引擎。表格中记录了它们的引擎名称、已处理的数据行数、占用的内存等状态信息。
 
-**流数据表状态函数 [getStreamTables](../funcs/g/getstreamtables.html)**
+**流数据表状态函数 [getStreamTables](../funcs/g/getstreamtables.md)**
 
 `getStreamTables`函数查询非持久化共享流数据表和持久化共享流数据表的状态，调用该函数返回结果如下。
 
@@ -78,7 +78,7 @@ Web 监控面板中可以查看流计算发布订阅的队列深度情况，在�
 * 进行历史数据回放时 replay 函数速度设置过快导致数据流量过大
 * ……
 
-建议使用各种优化手段提高消息处理的效率，以保证队列深度不会出现持续的增长。解决方法可以考虑并行计算、微批处理、增量计算等，详细的性能调优方见[流计算时延统计与性能优化](../tutorials/streaming_timer.html) 。
+建议使用各种优化手段提高消息处理的效率，以保证队列深度不会出现持续的增长。解决方法可以考虑并行计算、微批处理、增量计算等，详细的性能调优方见[流计算时延统计与性能优化](../tutorials/streaming_timer.md) 。
 
 ### 2.2 流计算发布订阅——线程ID
 

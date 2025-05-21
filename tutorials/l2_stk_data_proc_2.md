@@ -133,7 +133,7 @@ DolphinDB 的 TSDB 引擎提供了排序键设置，可以为每个数据分区�
 | 逐笔委托 | 11G+ | 交易日值分区+标的哈希20分区 | "dfs://level\_2"，"entrust" | market，SecurityID，TradeTime |
 | 逐笔成交 | 6G+ | 交易日值分区+标的哈希20分区 | "dfs://level\_2"，"trade" | market，SecurityID，TradeTime |
 
-库表创建之后，数据的导入教程可以参考 DolphinDB 的数据导入相关教程，如[金融 PoC 用户历史数据导入指导手册之股票 level2 逐笔篇](LoadDataForPoc.html)。
+库表创建之后，数据的导入教程可以参考 DolphinDB 的数据导入相关教程，如[金融 PoC 用户历史数据导入指导手册之股票 level2 逐笔篇](LoadDataForPoc.md)。
 
 ## 3. 基于历史数据的批量因子计算
 
@@ -437,7 +437,7 @@ from lsj(trade,entrust,`SecurityID`ApplSeqNum) group by SecurityID,bar(DateTime,
 
 #### 4.1. 快照实时行情数据的高频因子流批一体实现
 
-DolphinDB 的响应式状态引擎（Reactive State Engine），接收一个在历史数据上经过验证的 DolphinDB 因子代码，应用于实时行情数据，输出实时因子值，实现了高频因子流批一体的解决方案。具体教程请参考[DolphinDB 响应式状态引擎介绍](reactive_state_engine.html)
+DolphinDB 的响应式状态引擎（Reactive State Engine），接收一个在历史数据上经过验证的 DolphinDB 因子代码，应用于实时行情数据，输出实时因子值，实现了高频因子流批一体的解决方案。具体教程请参考[DolphinDB 响应式状态引擎介绍](reactive_state_engine.md)
 
 如上“快照数据的因子计算”节中基于快照历史行情数据计算的时间加权订单斜率、成交价加权净委买比例、十档委买增额和十档买卖委托均价线性回归斜率因子表达式，将这些因子直接代入响应式状态引擎，以实现对流数据的实时因子计算。
 

@@ -21,5 +21,5 @@ listAllMarkets()
 // ["XTSE","XCSE","XLIM","ADDA","XSTO","XIST","AIXK","SSE","XMIL","XFRA","INE","XMEX","XBUD","XICE","XDUB","SHFE","CMES","XOSL","DCE","CCFX","CFFEX","XIDX","BVMF","XBOG","XKAR","XSAU","XBUE","XTKS","XBSE","XMOS"...]
 ```
 
-**相关函数：**[addMarketHoliday](../a/addMarketHoliday.html)、[deleteMarketHoliday](../d/deleteMarketHoliday.html)
+**相关函数：**[addMarketHoliday](../a/addMarketHoliday.md)、[deleteMarketHoliday](../d/deleteMarketHoliday.md)
 

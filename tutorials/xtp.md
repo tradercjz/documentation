@@ -124,7 +124,7 @@ try { dropStreamTable(tableName="bondMarketDataStream") } catch(ex) { print(ex) 
 * 通过 XTP::getSchema 方法获取表结构
 * 创建分区表
 
-根据数据频率与常用场景，将 *actualMarketData，entrust，trade，state，orderBook* 数据放在同一库内，并分别建表。另有 *indexMarketData，optionMarketData，bondMarketData* 的快照数据，单独建库建表。分区规则参考：[《基于 DolphinDB 存储金融数据的分区方案最佳实践》](https://docs.dolphindb.cn/zh/tutorials/best_practices_for_partitioned_storage.html)。
+根据数据频率与常用场景，将 *actualMarketData，entrust，trade，state，orderBook* 数据放在同一库内，并分别建表。另有 *indexMarketData，optionMarketData，bondMarketData* 的快照数据，单独建库建表。分区规则参考：[《基于 DolphinDB 存储金融数据的分区方案最佳实践》](https://docs.dolphindb.cn/zh/tutorials/best_practices_for_partitioned_storage.md)。
 
 ```
 login("admin", "123456")
@@ -238,7 +238,7 @@ else {
 * 定义入库函数
 * 建立订阅消费关系
 
-**注意**：采用持久化流表来进行处理，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）配置参数 *persistenceDir* ，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.html)。
+**注意**：采用持久化流表来进行处理，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）配置参数 *persistenceDir* ，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.md)。
 
 ```
 // 现货快照 + 逐笔成交 + 逐笔委托 + 逐笔状态 + 订单簿
@@ -390,7 +390,7 @@ XTP::getStatus(xtpConn)
 
 ## 5. 附录
 
-* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](https://docs.dolphindb.cn/zh/tutorials/Startup.html)。
-* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](https://docs.dolphindb.cn/zh/tutorials/streaming_auto_sub_2.html)。
+* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](https://docs.dolphindb.cn/zh/tutorials/Startup.md)。
+* 关于节点启动时自动订阅处理业务的部署可以参考官网文档教程：[节点启动时的流计算自动订阅教程](https://docs.dolphindb.cn/zh/tutorials/streaming_auto_sub_2.md)。
 * *startup.dos* 启动脚本（账户信息需要根据用户实际情况进行修改）：[点此下载](script/xtp/startup.dos)。
 

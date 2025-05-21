@@ -23,8 +23,8 @@ colTypes, globalPartitionType, globalPartitionScheme, globalPartitionColumn,
 
 * 仅支持在集群模式下创建分布式共享内存表。
 * 全局分区的数量必须不小于2，且不能超过数据节点和计算节点总数。
-* 其它节点访问分布式共享内存表前，需要执行 [loadDistributedInMemoryTable](../l/loadDistributedInMemoryTable.html) 函数加载表。
-* 通过命令 [dropDistributedInMemoryTable](../d/dropDistributedInMemoryTable.html) 删除分布式共享内存表。
+* 其它节点访问分布式共享内存表前，需要执行 [loadDistributedInMemoryTable](../l/loadDistributedInMemoryTable.md) 函数加载表。
+* 通过命令 [dropDistributedInMemoryTable](../d/dropDistributedInMemoryTable.md) 删除分布式共享内存表。
 * 分布式共享内存表的操作暂不支持事务。
 
 ## 参数

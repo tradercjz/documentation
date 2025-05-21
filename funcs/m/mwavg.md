@@ -4,7 +4,7 @@
 
 `mwavg(X, Y, window, [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -73,5 +73,5 @@ mwavg(price1,volume1, 1w)
 | 2020.06.12 | 2.5214 |
 | 2020.06.13 | 2.5467 |
 
-相关函数：[wavg](../w/wavg.html), [mavg](mavg.html)
+相关函数：[wavg](../w/wavg.md), [mavg](mavg.md)
 

@@ -53,5 +53,5 @@ genShortGenomeSeq("ACTT",8)
 [,,,]
 ```
 
-相关函数：[encodeShortGenomeSeq](../e/encodeShortGenomeSeq.html), [decodeShortGenomeSeq](../d/decodeShortGenomeSeq.html)
+相关函数：[encodeShortGenomeSeq](../e/encodeShortGenomeSeq.md), [decodeShortGenomeSeq](../d/decodeShortGenomeSeq.md)
 

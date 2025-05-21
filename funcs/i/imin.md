@@ -47,5 +47,5 @@ imin(m);
 [0,3]
 ```
 
-相关函数：[iminLast](iminlast.html)
+相关函数：[iminLast](iminlast.md)
 

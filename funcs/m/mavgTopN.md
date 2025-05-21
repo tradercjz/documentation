@@ -5,7 +5,7 @@
 `mavgTopN(X, S, window, top, [ascending=true],
 [tiesMethod='oldest'])`
 
-参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.html)
+参数说明和窗口计算规则请参考：[mTopN](../themes/TopN.md)
 
 ## 详情
 
@@ -112,5 +112,5 @@ select code, date, mavgTopN(close, volume, 5, 3, false) from t context by code
 | IBM | 2020.01.18 | 103.3333 |
 | IBM | 2020.01.20 | 103.6667 |
 
-相关函数：[mavg](mavg.html)
+相关函数：[mavg](mavg.md)
 

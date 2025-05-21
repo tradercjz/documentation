@@ -2,7 +2,7 @@
 
 一个量化策略在生产（交易）环境中运行时，实时数据的处理通常是由事件驱动的。为确保研发和生产使用同一套代码，通常在研发阶段需将历史数据，严格按照事件发生的时间顺序进行回放，以此模拟交易环境。在 DolphinDB 中，用户通过 `replay` 函数可以实现对静态数据的回放，即将历史数据按照时间顺序以“实时数据”的方式注入流数据表中。对相同时间戳的数据还可以指定额外排序列，使数据回放顺序更接近实时交易场景。
 
-在[历史数据回放](data_replay.html)、[股票行情回放](stock_market_replay.html)两篇教程中已经介绍了 DolphinDB 的回放功能，本教程更加侧重于回放功能的工程化实践。本教程将介绍如何基于 DolphinDB 分布式数据库、回放功能以及 DolphinDB API 搭建一个行情数据回放服务，该服务支持多个用户同时通过 C++ 、 Python 等客户端提交数据回放请求。
+在[历史数据回放](data_replay.md)、[股票行情回放](stock_market_replay.md)两篇教程中已经介绍了 DolphinDB 的回放功能，本教程更加侧重于回放功能的工程化实践。本教程将介绍如何基于 DolphinDB 分布式数据库、回放功能以及 DolphinDB API 搭建一个行情数据回放服务，该服务支持多个用户同时通过 C++ 、 Python 等客户端提交数据回放请求。
 
 ## 1. 基于 DolphinDB 的行情回放服务
 
@@ -266,7 +266,7 @@ def createEnd(tabName, sortColumn)
 
 函数功能：
 
-自定义函数 createEnd 是在回放结束时给用户提供一条回放结束信号，利用了 replay 回放模式中的 N 对 1 异构回放构造回放信号，会往参数 tabName 指定的异构流数据表中写入一条消息类型列为 end 的记录。为方便后期异构消费解析以及复用，此处为结束信号独立建一个数据库并创建分区表，表内必须有时间列，其他字段可选。并向该表写入一条模拟数据，其数据内容没有任何强制要求。DolphinDB 建库建表相关知识可参考[数据分区](../db_distr_comp/db/db_partitioning.html) 。inputEnd、dateEnd、timeEnd 字典的 key 按需设置为字符串 end，将对应 replay 函数指定的输出表中的第二个字典，即消息类型。
+自定义函数 createEnd 是在回放结束时给用户提供一条回放结束信号，利用了 replay 回放模式中的 N 对 1 异构回放构造回放信号，会往参数 tabName 指定的异构流数据表中写入一条消息类型列为 end 的记录。为方便后期异构消费解析以及复用，此处为结束信号独立建一个数据库并创建分区表，表内必须有时间列，其他字段可选。并向该表写入一条模拟数据，其数据内容没有任何强制要求。DolphinDB 建库建表相关知识可参考[数据分区](../db_distr_comp/db/db_partitioning.md) 。inputEnd、dateEnd、timeEnd 字典的 key 按需设置为字符串 end，将对应 replay 函数指定的输出表中的第二个字典，即消息类型。
 
 参数 sortColumn 用于指定额外的排序列，如果用户回放的数据源为仅仅包含快照（snapshot），则调用内置的 replay 函数时不加入 sortColumn 参数，结果流数据表中的结束信号记录如下。
 
@@ -408,7 +408,7 @@ std::cout << "Successed to subscribe " + tableNameUuid << endl;
 thread->join();
 ```
 
-listenport 是单线程客户端的订阅端口号，tableNameUuid 是用户回放的流数据表名称，通过 threadedClient.subscribe 可以订阅回放的流数据表，详情用法参考 [C++ API](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.html)。thread 指向循环调用 myHandler 的线程的指针，线程在 topic 被取消订阅后会退出。
+listenport 是单线程客户端的订阅端口号，tableNameUuid 是用户回放的流数据表名称，通过 threadedClient.subscribe 可以订阅回放的流数据表，详情用法参考 [C++ API](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.md)。thread 指向循环调用 myHandler 的线程的指针，线程在 topic 被取消订阅后会退出。
 
 #### 5.1.3. 消费函数构造
 
@@ -621,7 +621,7 @@ enableChunkGranularityConfig=true
 
 **注意**： 路径配置参数需要开发人员根据实际环境配置。
 
-有关单服务器集群部署教程，请参考：[单服务器集群部署](single_machine_cluster_deploy.html)。
+有关单服务器集群部署教程，请参考：[单服务器集群部署](single_machine_cluster_deploy.md)。
 
 ### 8.2. DolphinDB client 开发环境
 
@@ -640,7 +640,7 @@ enableChunkGranularityConfig=true
 ### 8.4. DolphinDB Python API 安装
 
 * Python API 版本：1.30.21.1
-* Python API 教程：[Python API 教程](https://docs.dolphindb.cn/zh/pydoc/py.html)
+* Python API 教程：[Python API 教程](https://docs.dolphindb.cn/zh/pydoc/py.md)
 
 ## 9. 路线图 (Roadmap)
 

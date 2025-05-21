@@ -1,6 +1,6 @@
 # flip
 
-жҳҜ [transpose](../t/transpose.html) зҡ„еҲ«еҗҚгҖӮ
+жҳҜ [transpose](../t/transpose.md) зҡ„еҲ«еҗҚгҖӮ
 
 Copyright
 

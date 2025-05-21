@@ -21,7 +21,7 @@
   提供的初始管理员账号（admin）及密码（123456）。在生产环境中，务必使用具备中等以上安全强度的用户或管理员密码。
 * 加载前请确保有对应插件的使用权限。收费插件需要另行购买。
 
-来自 DolphinDB 插件市场的插件在使用 [installPlugin](../i/installPlugin.html)
+来自 DolphinDB 插件市场的插件在使用 [installPlugin](../i/installPlugin.md)
 命令安装后，会在<server路径>/plugins/<插件名称>路径下生成一个命名方式为
 "Plugin" + "插件名称"的 txt 格式的插件描述文件和相关的二进制文件（Windows 版本下为 .dll，Linux 版本下为 .so）。例如，安装在
 Windows 版本 DolphinDB server 2.00.10 的 odbc 插件描述文件存储于：

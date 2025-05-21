@@ -29,7 +29,7 @@ DolphinScheduler 可在单机、单服务器集群、多服务器集群、K8S �
 
 **元数据持久化配置**
 
-单机服务使用 [H2 数据库](https://www.h2database.com/html/main.html) 来存储元数据，而 H2 数据库是一种内存级别的数据库，因此当 DolphinScheduler 程序重启时，会导致之前定义的工作流等内容全部丢失，需要重新定义，造成效率低下和不必要的麻烦。因此，将元数据持久化是非常有必要的，DolphinScheduler 支持 **MySQL** 和 **PostgreSQL** 作为元数据的存储数据库，本文以配置 MySQL 为例，主要有以下流程：
+单机服务使用 [H2 数据库](https://www.h2database.com/html/main.md) 来存储元数据，而 H2 数据库是一种内存级别的数据库，因此当 DolphinScheduler 程序重启时，会导致之前定义的工作流等内容全部丢失，需要重新定义，造成效率低下和不必要的麻烦。因此，将元数据持久化是非常有必要的，DolphinScheduler 支持 **MySQL** 和 **PostgreSQL** 作为元数据的存储数据库，本文以配置 MySQL 为例，主要有以下流程：
 
 * 解压 DolphinScheduler 程序包
 
@@ -294,7 +294,7 @@ createTable(${dbName}, ${tbName});
 
 ### 2.3. 数据导入、指标计算与校验任务
 
-**注意**：以下各部分内容均将相关函数定义在模块中，以方便进行工程化管理，关于 DolphinDB 模块的创建、加载、调用方法，请参照：[DolphinDB 模块复用教程](module_tutorial.html)
+**注意**：以下各部分内容均将相关函数定义在模块中，以方便进行工程化管理，关于 DolphinDB 模块的创建、加载、调用方法，请参照：[DolphinDB 模块复用教程](module_tutorial.md)
 
 #### 2.3.1. 数据清洗、处理、入表
 
@@ -302,7 +302,7 @@ createTable(${dbName}, ${tbName});
 
 * **创建数据库表**
 
-  逐笔委托、快照、逐笔成交数据都保存在同一个库中，本文采用了组合分区作为分区方案，第一层按天分区，第二层对股票代码分 25 个哈希分区。如何确定数据分区请参照：[DolphinDB 数据库分区教程](database.html)
+  逐笔委托、快照、逐笔成交数据都保存在同一个库中，本文采用了组合分区作为分区方案，第一层按天分区，第二层对股票代码分 25 个哈希分区。如何确定数据分区请参照：[DolphinDB 数据库分区教程](database.md)
 
   ```
   module createStockTable
@@ -771,7 +771,7 @@ createTable(${dbName}, ${tbName});
 
 ## 3. DolphinScheduler 与 Airflow 对比
 
-Airflow 也是一款具有不错性能的调度软件，关于它与 DolphinDB 相结合的教程可参照：[DolphinDB 与 Airflow 最佳实践](ddb_airflow.html)。以下是 DolphinScheduler 与 Airflow 在一些方面的对比：：
+Airflow 也是一款具有不错性能的调度软件，关于它与 DolphinDB 相结合的教程可参照：[DolphinDB 与 Airflow 最佳实践](ddb_airflow.md)。以下是 DolphinScheduler 与 Airflow 在一些方面的对比：：
 
 | **功能** | **Airflow** | **DolphinScheduler** |
 | --- | --- | --- |

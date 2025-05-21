@@ -7,11 +7,11 @@
 **面向读者**
 
 * 已经掌握 DolphinDB 基础编程语法和流数据基础功能的用户：
-  + [编程语言](https://docs.dolphindb.cn/zh/progr/progr_intro.html)
-  + [流数据表](https://docs.dolphindb.cn/zh/stream/str_table.html)
-  + [发布与订阅](https://docs.dolphindb.cn/zh/stream/sub_pub.html)
-  + [订单簿引擎](https://docs.dolphindb.cn/zh/tutorials/orderBookSnapshotEngine.html)
-  + [INSIGHT 行情插件](https://docs.dolphindb.cn/zh/tutorials/insight_plugin.html)
+  + [编程语言](https://docs.dolphindb.cn/zh/progr/progr_intro.md)
+  + [流数据表](https://docs.dolphindb.cn/zh/stream/str_table.md)
+  + [发布与订阅](https://docs.dolphindb.cn/zh/stream/sub_pub.md)
+  + [订单簿引擎](https://docs.dolphindb.cn/zh/tutorials/orderBookSnapshotEngine.md)
+  + [INSIGHT 行情插件](https://docs.dolphindb.cn/zh/tutorials/insight_plugin.md)
 * 本教程提供了完整的测试代码，初学者也可以跟随教程内容复现业务场景
 
 [INSIGHT](https://findata-insight.htsc.com:9151/help/) 是华泰证券依托大数据存储、实时分析等领域的技术积累，整合接入国内多家交易所高频行情数据，为投资者提供集行情接入、推送、回测、计算及分析等功能于一体的行情数据服务解决方案。基于 INSIGHT 官方提供的行情数据服务 C++ SDK（TCP 版本），DolphinDB 开发了能够获取市场行情数据的 INSIGHT 插件，帮助用户方便地通过 DolphinDB 脚本语言将实时行情数据接入 DolphinDB，以便进行后续的计算或存储。
@@ -28,7 +28,7 @@
 
 ### 1.1 安装插件
 
-节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.html)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 INSIGHT 插件文件，插件文件包括插件描述文件及插件的二进制文件。
+节点启动后，连接节点并在 GUI（或 VS Code、Web UI）等 [DolphinDB 客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.md)中执行 `installPlugin` 函数，则可以下载到与当前 server 版本适配的 INSIGHT 插件文件，插件文件包括插件描述文件及插件的二进制文件。
 
 ```
 login("admin", "123456")
@@ -45,7 +45,7 @@ installPlugin("insight")
 
 ### 1.2 加载插件
 
-在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.html)中执行 `loadPlugin` 函数加载插件。以下示例中使用了插件名称作为入参，也可以使用 2.1 中返回的绝对路径 */path\_to\_dolphindb\_server/server/plugins/insight/PluginInsight.txt*。
+在脚本中调用插件相关的接口前，需要先加载插件。在 GUI（或 VS Code、Web UI）等[客户端](https://docs.dolphindb.cn/zh/db_distr_comp/clients.md)中执行 `loadPlugin` 函数加载插件。以下示例中使用了插件名称作为入参，也可以使用 2.1 中返回的绝对路径 */path\_to\_dolphindb\_server/server/plugins/insight/PluginInsight.txt*。
 
 ```
 loadPlugin("insight")
@@ -187,12 +187,12 @@ for(channelno_ in 2021..2024){
 }
 ```
 
-* 为了`enableTableShareAndPersistence` 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数 *persistenceDir*，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.html)。
+* 为了`enableTableShareAndPersistence` 函数能够正常执行，需要节点启动之前在配置文件中（单节点：*dolphindb.cfg*，集群：*cluster.cfg*）指定配置参数 *persistenceDir*，配置参考[功能配置](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.md)。
 * 代码第二行的 *cacheSize* 变量控制了在建表时预分配内存的大小以及流数据表在内存中最大的大小，单位是行，设置较大的 *cacheSize* 可以降低出现峰值时延的频率。具体大小可以根据实际的可使用的内存大小决定。具体优化原理可参考[DolphinDB 流计算时延统计与性能优化](https://gitee.com/dolphindb/Tutorials_CN/blob/master/streaming_timer.md#211-%E5%88%9B%E5%BB%BA%E8%A1%A8%E6%97%B6%E9%A2%84%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98)。
 
 ### 2.3 创建订单簿引擎
 
-为每一个通道的逐笔数据创建一个订单簿引擎。注意，不要对一个引擎输入多个通道的数据，这可能会影响输出结果的正确性。订单簿引擎的具体工作原理和使用方式见 [基于逐笔数据合成高频订单簿：DolphinDB 订单簿引擎](https://docs.dolphindb.cn/zh/tutorials/orderBookSnapshotEngine.html)。
+为每一个通道的逐笔数据创建一个订单簿引擎。注意，不要对一个引擎输入多个通道的数据，这可能会影响输出结果的正确性。订单簿引擎的具体工作原理和使用方式见 [基于逐笔数据合成高频订单簿：DolphinDB 订单簿引擎](https://docs.dolphindb.cn/zh/tutorials/orderBookSnapshotEngine.md)。
 
 ```
 // 建立 14 个订单簿引擎
@@ -349,7 +349,7 @@ subscribeTable(tableName="orderTransactionTable2023", actionName="orderbookDemo2
 subscribeTable(tableName="orderTransactionTable2024", actionName="orderbookDemo2024", handler=getStreamEngine("orderbookEngine2024"), msgAsTable=true, batchSize=1, throttle=0.001, reconnect=true, hash=9)
 ```
 
-* 通过调整 [subscribeTable](https://docs.dolphindb.cn/zh/funcs/s/subscribeTable.html) 函数中的 *batchSize* 和 *throttle* 参数可以控制写入分布式数据库的频率。
+* 通过调整 [subscribeTable](https://docs.dolphindb.cn/zh/funcs/s/subscribeTable.md) 函数中的 *batchSize* 和 *throttle* 参数可以控制写入分布式数据库的频率。
   + *batchSize* = 1 , *throttle* = 0.001 表示会立即处理注入流数据表中的数据。
   + *hash* 表示处理流数据的后台线程，为了更好地分配 CPU 资源，可以在订阅时，把不同的订阅消费任务分配到不同的线程上。
 
@@ -547,7 +547,7 @@ DolphinDB 系统的启动流程如下图所示：
 
 ## 附录
 
-* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](https://docs.dolphindb.cn/zh/tutorials/Startup.html)。
+* 详细启动脚本配置可以参考官网文档教程：[启动脚本教程](https://docs.dolphindb.cn/zh/tutorials/Startup.md)。
 * 实时订单簿合成脚本（账户信息需要根据用户实际情况进行修改）
 
 ```

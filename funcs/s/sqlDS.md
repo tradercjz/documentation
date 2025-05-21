@@ -6,7 +6,7 @@
 
 ## 参数
 
-**sqlObj** 是 SQL 元代码。元代码的详情请参考 [Metaprogramming](../../progr/objs/meta_progr.html)。
+**sqlObj** 是 SQL 元代码。元代码的详情请参考 [Metaprogramming](../../progr/objs/meta_progr.md)。
 
 **forcePartition** 是一个布尔值。默认值为 false。如果
 *forcePartition*=false，系统会检查该查询能够拆分为多个子查询。如果不能拆分为多个子查询，系统不会在分区上拆分查询，并且会抛出异常。如果

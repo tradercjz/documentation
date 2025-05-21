@@ -95,5 +95,5 @@ mapr harmonicMean(x){reciprocalAvg(x), count(x) -> harmonicMeanReduce; copy, cop
 select harmonicMean(value) as gval from stock cgroup by date order by date
 ```
 
-更多例子和说明请参考教程：[自定义聚合函数](../../tutorials/udaf.html)
+更多例子和说明请参考教程：[自定义聚合函数](../../tutorials/udaf.md)
 

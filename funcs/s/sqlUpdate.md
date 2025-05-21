@@ -40,7 +40,7 @@ update
 
 ## 详情
 
-动态生成 SQL update 语句的元代码。若需执行生成的元代码，请配合使用 [eval](../e/eval.html) 函数。
+动态生成 SQL update 语句的元代码。若需执行生成的元代码，请配合使用 [eval](../e/eval.md) 函数。
 
 ## 例子
 

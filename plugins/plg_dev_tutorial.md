@@ -1,6 +1,6 @@
 # 插件开发教程
 
-DolphinDB 支持动态加载外部插件，以扩展系统功能。插件用 C++ 编写，需要编译成 ".so" 或 ".dll" 共享库文件。插件使用的流程请参考：[插件介绍与使用](plg_howtos.html)。本文着重介绍如何开发插件，并详细介绍以下几个具体场景的插件开发流程：
+DolphinDB 支持动态加载外部插件，以扩展系统功能。插件用 C++ 编写，需要编译成 ".so" 或 ".dll" 共享库文件。插件使用的流程请参考：[插件介绍与使用](plg_howtos.md)。本文着重介绍如何开发插件，并详细介绍以下几个具体场景的插件开发流程：
 
 ## 1. 如何开发插件
 
@@ -348,7 +348,7 @@ double result = segments[index>> segmentSizeInBit][index & segmentMask];
 
 ## 4. 如何开发支持新的分布式算法的插件函数
 
-在 DolphinDB database 中，MapReduce 是执行分布式算法的通用计算框架。DolphinDB 提供了 `mr`函数和 `imr` 函数，使用户能通过脚本实现分布式算法。在编写分布式算法的插件时，使用的同样是这两个函数。对通用计算的详细介绍，可以参考[通用计算教程](../tutorials/general_computing.html)。本章主要介绍如何用 C++ 语言编写自定义的 `map`, `reduce` 等函数，并调用 `mr` 和 `imr` 这两个函数，最终实现分布式计算。
+在 DolphinDB database 中，MapReduce 是执行分布式算法的通用计算框架。DolphinDB 提供了 `mr`函数和 `imr` 函数，使用户能通过脚本实现分布式算法。在编写分布式算法的插件时，使用的同样是这两个函数。对通用计算的详细介绍，可以参考[通用计算教程](../tutorials/general_computing.md)。本章主要介绍如何用 C++ 语言编写自定义的 `map`, `reduce` 等函数，并调用 `mr` 和 `imr` 这两个函数，最终实现分布式计算。
 
 ### 4.1. 分布式算法范例
 
@@ -829,7 +829,7 @@ DolphinDB 插件代码存储于 github/gitee 的 dolphindb/DolphinDBPlugin，其
    loadPlugin("/<YOUR_SERVER_PATH>/plugins/odbc/PluginODBC.txt");
    ```
 
-   **注意**：格式文件介绍详见插件[插件格式](plg_dev_adv.html), 其中文件第一行规定了 lib 文件名以及路径。缺省不写路径，即需要插件库与格式文件在同一个目录。
+   **注意**：格式文件介绍详见插件[插件格式](plg_dev_adv.md), 其中文件第一行规定了 lib 文件名以及路径。缺省不写路径，即需要插件库与格式文件在同一个目录。
 2. DolphinDB Server 1.20.0 及以上版本，可以通过 *preloadModules* 参数来自动加载。使用这个方法时需要保证预先加载的插件存在，否则 server 启动时会有异常。多个插件用逗号分离。例如：
 
 ```

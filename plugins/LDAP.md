@@ -61,7 +61,7 @@ LDAP::search(host, dn, password, searchBase, filter, [attrs], [option], [searchS
 * 传入 `*` 会输出所有 user attribute 用户属性。
 * 如果输入的是一个 `@{objectClass 名称}`，则会以该类包含的参数字段来过滤输出的参数字段。
 
-具体可以参考 [The ldapsearch Command-Line Tool](https://docs.ldap.com/ldap-sdk/docs/tool-usages/ldapsearch.html) 中 *attrs* 相关描述。
+具体可以参考 [The ldapsearch Command-Line Tool](https://docs.ldap.com/ldap-sdk/docs/tool-usages/ldapsearch.md) 中 *attrs* 相关描述。
 
 **option** 字典类型，用于设置 LDAP 连接的配置项。key 的类型为 STRING，支持以下配置：
 
@@ -148,7 +148,7 @@ addFunctionView(ldap_login)
 
 ### 3. 关闭集群，修改所有控制节点的 *controller.cfg* 配置 *thirdPartyAuthenticator* 值为函数视图 ldap\_login
 
-*thirdPartyAuthenticator* 配置项参考：[功能配置—登录](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.html)。
+*thirdPartyAuthenticator* 配置项参考：[功能配置—登录](https://docs.dolphindb.cn/zh/db_distr_comp/cfg/function_configuration.md)。
 
 ```
 preloadModules=plugins::LDAP

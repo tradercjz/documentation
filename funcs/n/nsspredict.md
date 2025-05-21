@@ -35,5 +35,5 @@ nssPredict(model, maturity)
 //output: [0.009904201306,0.003891991292041]
 ```
 
-相关函数：[nss](nss.html)
+相关函数：[nss](nss.md)
 

@@ -29,5 +29,5 @@ toUTF8(["hello","world"],"euc-cn");
 ["hello","world"]
 ```
 
-相关函数：[convertEncode](../c/convertEncode.html), [fromUTF8](../f/fromUTF8.html)
+相关函数：[convertEncode](../c/convertEncode.md), [fromUTF8](../f/fromUTF8.md)
 

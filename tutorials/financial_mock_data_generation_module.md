@@ -8,7 +8,7 @@
 
 本教程的模块代码文件（ MockData.dos ）可在附录中获取，将 MockData.dos 文件移至节点的 [home]/modules 目录下即完成环境配置。其中 [home] 目录由系统配置参数 *home* 决定，可以通过 `getHomeDir()` 函数查看。
 
-更多 DolphinDB 模块的说明，请参阅：[DolphinDB 教程：模块](tu_modules.html)。
+更多 DolphinDB 模块的说明，请参阅：[DolphinDB 教程：模块](tu_modules.md)。
 
 ## **2. 使用说明**
 
@@ -32,7 +32,7 @@ t = MockData::stockSnapshot(tradeDate=2020.01.06, securityNumber=10)
 
 ## 3. 模拟数据生成函数说明
 
-本模块仅生成交易日的数据，当输入日期为非交易日时，会返回空数据表。交易日通过 DolphinDB 内置交易日历获取。由于存在多个交易所的交易日历，本文使用上交所的交易日历作为金融 Mock 数据生成模块的交易日。更多 DolphinDB 内置交易日历的说明，请参阅：[交易日历](../modules/MarketHoliday/mkt_calendar.html)。
+本模块仅生成交易日的数据，当输入日期为非交易日时，会返回空数据表。交易日通过 DolphinDB 内置交易日历获取。由于存在多个交易所的交易日历，本文使用上交所的交易日历作为金融 Mock 数据生成模块的交易日。更多 DolphinDB 内置交易日历的说明，请参阅：[交易日历](../modules/MarketHoliday/mkt_calendar.md)。
 
 模拟数据生成函数参考真实市场的交易量。对于每只标的，生成的一天数据量都相同，且生成的数据在一天中的交易时间段内均匀分布。生成的相关数值指标由随机数和固定值组成，不具备实际意义。具体数据量和说明如下表所示：
 
@@ -469,7 +469,7 @@ futuresFactorData = futuresFactor(startDate=2021.12.15,endDate=2021.12.31,securi
 
 ## 4. 库表生成函数说明
 
-由于不同类型的金融数据具有不同的表结构，自行创建这些库表会非常繁琐。在该模块中，我们将提供针对不同数据类型的库表创建函数，以便用户更轻松地创建所需的库表。本模块的建库建表代码参考自[存储金融数据的分区方案最佳实践](best_practices_for_partitioned_storage.html)。
+由于不同类型的金融数据具有不同的表结构，自行创建这些库表会非常繁琐。在该模块中，我们将提供针对不同数据类型的库表创建函数，以便用户更轻松地创建所需的库表。本模块的建库建表代码参考自[存储金融数据的分区方案最佳实践](best_practices_for_partitioned_storage.md)。
 
 ### 4.1 股票数据
 
@@ -902,7 +902,7 @@ t.append!(minuteKLineData)
 **解决方法：**
 
 * 方法一：减小一次写入的数据量。
-* 方法二：增大 CacheEngine 的大小。可以调用 [setOLAPCacheEngineSize](../funcs/s/setOLAPCacheEngineSize.html) 在线增大 OLAP Cache Engine 的容量，需要注意同时修改配置项 *OLAPCacheEngineSize*，否则重启后在线修改的容量会失效。
+* 方法二：增大 CacheEngine 的大小。可以调用 [setOLAPCacheEngineSize](../funcs/s/setOLAPCacheEngineSize.md) 在线增大 OLAP Cache Engine 的容量，需要注意同时修改配置项 *OLAPCacheEngineSize*，否则重启后在线修改的容量会失效。
 
 ### 6.2 查询数据库时报错：The query is too large
 
@@ -934,7 +934,7 @@ snapshotData = stockSnapshot(tradeDate=2020.01.05, securityNumber=10)
 select * from snapshotData
 ```
 
-2020.01.05 为非交易日。本模块仅生成交易日的数据，当输入日期为非交易日时，会返回空数据表。交易日通过[交易日历](../modules/MarketHoliday/mkt_calendar.html)进行获取，且默认使用上交所交易日历。
+2020.01.05 为非交易日。本模块仅生成交易日的数据，当输入日期为非交易日时，会返回空数据表。交易日通过[交易日历](../modules/MarketHoliday/mkt_calendar.md)进行获取，且默认使用上交所交易日历。
 
 **解决方法：**
 

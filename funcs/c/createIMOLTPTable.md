@@ -7,7 +7,7 @@
 
 ## 参数
 
-**dbHandle** 函数 [database](../d/database.html) 返回的 IMOLTP
+**dbHandle** 函数 [database](../d/database.md) 返回的 IMOLTP
 数据库句柄。
 
 **table** 一个表，系统将根据该表的结构在数据库中创建一个空的 IMOLTP 表。

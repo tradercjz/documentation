@@ -22,7 +22,7 @@ on table1.column_name=table2.column_name and [filter]
 
 ## 详情
 
-返回与连接列匹配的行。该函数返回结果与 [equijoin](equijoin.html)
+返回与连接列匹配的行。该函数返回结果与 [equijoin](equijoin.md)
 相同。
 
 **注意**：

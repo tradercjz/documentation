@@ -4,7 +4,7 @@
 
 `cumcovar(X,Y)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -20,5 +20,5 @@ cumcovar(x, y);
 [,-9,-5.166667,-1,-4.5]
 ```
 
-相关函数：[covar](covar.html)
+相关函数：[covar](covar.md)
 

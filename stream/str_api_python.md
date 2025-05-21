@@ -11,7 +11,7 @@
 
 下面将介绍两种场景下推荐函数的使用方法和基准性能。
 
-如果本文档中遇到 DolphinDB Python API 使用相关问题，参考：[Python API](https://docs.dolphindb.cn/zh/pydoc/py.html)。
+如果本文档中遇到 DolphinDB Python API 使用相关问题，参考：[Python API](https://docs.dolphindb.cn/zh/pydoc/py.md)。
 
 ## tableInsert 同步写入接口
 

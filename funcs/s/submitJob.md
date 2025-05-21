@@ -17,8 +17,8 @@
 ## 详情
 
 把批处理作业提交到本地节点并且返回作业的 ID。如果要把批处理作业提交到远程节点，需要结合使用
-`rpc` 或 [remoteRun](../r/remoteRun.html)
-函数。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.html)。
+`rpc` 或 [remoteRun](../r/remoteRun.md)
+函数。详情请参考 [BatchJobManagement](../../sys_man/BatchJobManagement.md)。
 
 ## 例子
 

@@ -26,5 +26,5 @@ base64Decode(base64Encode(`hello`world))
 ["hello","world"]
 ```
 
-相关函数：[base64Encode](base64Encode.html)
+相关函数：[base64Encode](base64Encode.md)
 

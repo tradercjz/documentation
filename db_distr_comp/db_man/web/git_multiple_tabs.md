@@ -56,7 +56,7 @@ DolphinDB Web 集群管理器自 v3.00.2.5 起支持 Git 集成，可直接连�
 **GitLab Access Token**
 
 1. 获取 GitLab Personal Access Token ([Personal access tokens |
-   GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))![](../images/git_multiple_tabs/3-1.png)
+   GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.md))![](../images/git_multiple_tabs/3-1.png)
 2. 在 DolphinDB Web 界面填写 Access Token、GitLab 根 URL
    (例如，`https://gitlab.example.com`) 和 API 根路径 (通常为
    `/api/v4`，可选项)。![](../images/git_multiple_tabs/3-2.png)

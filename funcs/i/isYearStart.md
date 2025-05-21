@@ -25,5 +25,5 @@ isYearStart([2012.01.01,2012.02.01]);
 [true,false]
 ```
 
-相关函数：[isYearEnd](isYearEnd.html)
+相关函数：[isYearEnd](isYearEnd.md)
 

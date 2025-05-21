@@ -16,7 +16,7 @@ tableName)`
 "/20190101/GOOG"。
 
 请注意：若使用 2.00.4 到 2.00.6 版本
-server，对表级分区数据进行备份和恢复时，该参数必须指定路径到物理索引（可通过函数 [listTables](../l/listTables.html) 获取），例如分区 "/compoDB/20170807/0\_50"
+server，对表级分区数据进行备份和恢复时，该参数必须指定路径到物理索引（可通过函数 [listTables](../l/listTables.md) 获取），例如分区 "/compoDB/20170807/0\_50"
 下表的物理索引为8，则 partition 需指定为 "/compoDB/20170807/0\_50/8"。
 
 **tableName** 是字符串，表示数据库中表的名称。

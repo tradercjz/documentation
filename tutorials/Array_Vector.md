@@ -29,7 +29,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
 
 * **Fast Array Vector (数组向量)**
 
-  1. 通过 [array](../funcs/a/array.html) 或 [bigarray](../funcs/b/bigarray.html) 函数定义空的数组向量，并通过 `append!` 添加数据
+  1. 通过 [array](../funcs/a/array.md) 或 [bigarray](../funcs/b/bigarray.md) 函数定义空的数组向量，并通过 `append!` 添加数据
 
      ```
      x = array(INT[], 0).append!([1 2 3, 4 5, 6 7 8, 9 10])
@@ -37,7 +37,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
      [[1,2,3],[4,5],[6,7,8],[9,10]]
      */
      ```
-  2. 通过 [fixedLengthArrayVector](../funcs/f/fixedLengthArrayVector.html) 将多个向量/元组/矩阵或表拼接成数组向量。
+  2. 通过 [fixedLengthArrayVector](../funcs/f/fixedLengthArrayVector.md) 将多个向量/元组/矩阵或表拼接成数组向量。
 
      ```
      vec = 1 2 3
@@ -49,7 +49,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
      [[1,4,7,10,13,16,19,22],[2,5,8,11,14,17,20,23],[3,6,9,12,15,18,21,24]]
      */
      ```
-  3. 通过 [arrayVector](../funcs/a/arrayVector.html) 将单个向量拆分成数组向量。
+  3. 通过 [arrayVector](../funcs/a/arrayVector.md) 将单个向量拆分成数组向量。
 
      ```
      x = arrayVector(3 5 8 10, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -59,7 +59,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
      ```
 * **Columnar Tuple (列式元组)**
 
-  通过 [setColumnarTuple!](../funcs/s/setColumnarTuple_.html) 函数将一个普通元组转换成列式元组。
+  通过 [setColumnarTuple!](../funcs/s/setColumnarTuple_.md) 函数将一个普通元组转换成列式元组。
 
   ```
   x = [[1,2,3],[4,5],[6,7,8],[9,10]].setColumnarTuple!()
@@ -101,7 +101,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
    newCol3 ANY        25
    */
    ```
-2. 通过 [fixedLengthArrayVector](../funcs/f/fixedLengthArrayVector.html) 将表中多列拼成一列。
+2. 通过 [fixedLengthArrayVector](../funcs/f/fixedLengthArrayVector.md) 将表中多列拼成一列。
 
    ```
    t = table(1 2 3 4 as id, 1 3 5 6 as v1, 4 7 9 3 as v2)
@@ -159,9 +159,9 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
    4        a4    a4
    */
    ```
-4. 设置 [loadText](../funcs/l/loadText.html) 的 *schema* 和 *arrayDelimiter*，从文本文件中读取含 Fast Array Vector 列的表。
+4. 设置 [loadText](../funcs/l/loadText.md) 的 *schema* 和 *arrayDelimiter*，从文本文件中读取含 Fast Array Vector 列的表。
 
-   用 [saveText](../funcs/s/saveText.html) 存储数据时，Fast Array Vector 的列会自动存储为如下格式：Array Vector 内部用 arrayDelimiter 隔开。
+   用 [saveText](../funcs/s/saveText.md) 存储数据时，Fast Array Vector 的列会自动存储为如下格式：Array Vector 内部用 arrayDelimiter 隔开。
 
    ```
    x = array(INT[], 0).append!([1 3 5, 2 7 9])
@@ -193,7 +193,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
 
 #### 2.2.1. 访问 Array Vector 中的元素
 
-用户可以通过函数（[row](../funcs/r/row.html)、[at](../funcs/a/at.html)）的方式访问 Array Vector 的行列；也可以通过下标（“x[index]”）的方式访问 Array Vector 的元素。
+用户可以通过函数（[row](../funcs/r/row.md)、[at](../funcs/a/at.md)）的方式访问 Array Vector 的行列；也可以通过下标（“x[index]”）的方式访问 Array Vector 的元素。
 
 当使用下标的方式（“x[index]”）访问 Array Vector 时满足以下规则：
 
@@ -203,7 +203,7 @@ Array Vector 和矩阵（Matrix）都可以组织二维的结构化数据，但�
 
 ##### 2.2.1.1. 访问 Array Vector 变量中的行
 
-* 通过 [row](../funcs/r/row.html) 函数读取 Array Vector 中的一行。【只能访问一行，返回一个向量】
+* 通过 [row](../funcs/r/row.md) 函数读取 Array Vector 中的一行。【只能访问一行，返回一个向量】
 
   ```
   x = array(INT[], 0).append!([1 2 3, 4 5, 6 7 8, 9 10])
@@ -537,7 +537,7 @@ Array Vector 目前支持末尾增加行的操作，暂时不支持修改和删�
   ([1,2,3],[4,5,6],7,[8,9])
   */
   ```
-* 通过 [`tableInsert`](../funcs/t/tableInsert.html) 、 `append!` 等方法向含有 Array Vector 列的表中插入数据
+* 通过 [`tableInsert`](../funcs/t/tableInsert.md) 、 `append!` 等方法向含有 Array Vector 列的表中插入数据
 
   ```
   x = array(INT[], 0).append!([1 2 3, 4 5, 6 7 8, 9 10])
@@ -562,7 +562,7 @@ Array Vector 目前支持末尾增加行的操作，暂时不支持修改和删�
 
 #### 2.2.3. 转化 Array Vector 为向量、矩阵
 
-1. 通过 [flatten](../funcs/f/flatten.html) 函数可以将 Array Vector 展开成一维向量。
+1. 通过 [flatten](../funcs/f/flatten.md) 函数可以将 Array Vector 展开成一维向量。
 
    ```
    x = array(INT[], 0).append!([1 2 3, 4 5 6])
@@ -577,7 +577,7 @@ Array Vector 目前支持末尾增加行的操作，暂时不支持修改和删�
    [1,2,3,4,5,6]
    */
    ```
-2. 通过 [matrix](../funcs/m/matrix.html) 函数可以将等长的 Array Vector 转化为矩阵。
+2. 通过 [matrix](../funcs/m/matrix.md) 函数可以将等长的 Array Vector 转化为矩阵。
 
    ```
    x = array(INT[], 0).append!([1 2 3, 4 5 6])
@@ -724,7 +724,7 @@ Fast Array Vector 和 Columnar Tuple 之间不能直接计算。
 
 #### 2.3.4. 按行计算
 
-1. Array Vector 支持 [行计算系列（row 系列）](../funcs/themes/rowFunctions.html)。
+1. Array Vector 支持 [行计算系列（row 系列）](../funcs/themes/rowFunctions.md)。
 
    为了满足用户逐行计算的需求，DolphinDB 设计了 row 系列函数。
 
@@ -816,11 +816,11 @@ Fast Array Vector 和 Columnar Tuple 之间不能直接计算。
 
      针对金融场景的存在的特殊的数据对齐规则，DolphinDB 开发了 `rowAlign` 和 `rowAt` 函数。
 
-     [rowAlign(left, right, how)](../funcs/r/rowAlign.html)：实现 left 和 right 的数据对齐。输入参数 *left*、*right* 是数组向量，表示需要对齐的数据；*how* 是字符串，表述对齐的方式；最终返回一个长度为 2 的元组，分别表示对齐后数据在原数据中的索引。
+     [rowAlign(left, right, how)](../funcs/r/rowAlign.md)：实现 left 和 right 的数据对齐。输入参数 *left*、*right* 是数组向量，表示需要对齐的数据；*how* 是字符串，表述对齐的方式；最终返回一个长度为 2 的元组，分别表示对齐后数据在原数据中的索引。
 
      ![](images/Array_Vector/Array_Vector_1.png)
 
-     [rowAt(X, Y)](../funcs/r/rowAt.html)：实现按行从 X 中取出 Y 索引的元素。输入参数 X 是矩阵或数组向量；当 Y 是和 X 行数相等的向量时，返回一个与 Y 长度相同的向量；当 Y 是和 X 行数相等的数组向量时，返回一个与 Y 维度相同的数组向量。
+     [rowAt(X, Y)](../funcs/r/rowAt.md)：实现按行从 X 中取出 Y 索引的元素。输入参数 X 是矩阵或数组向量；当 Y 是和 X 行数相等的向量时，返回一个与 Y 长度相同的向量；当 Y 是和 X 行数相等的数组向量时，返回一个与 Y 维度相同的数组向量。
 
      下面以 *how*="bid" 为例，说明具体的 `rowAlign` 对齐结果。
 
@@ -865,7 +865,7 @@ Fast Array Vector 和 Columnar Tuple 之间不能直接计算。
      rightResult:[[,,,,],[9,,8.98,8.97,8.96,8.949999999999999]]
      */
      ```
-2. Fast Array Vector 支持调用高阶函数 [byRow](../funcs/ho_funcs/byRow.html)，对数组向量的每行元素进行计算。
+2. Fast Array Vector 支持调用高阶函数 [byRow](../funcs/ho_funcs/byRow.md)，对数组向量的每行元素进行计算。
 
    * 窗口函数示例：求每行的累计和
 
@@ -923,7 +923,7 @@ Fast Array Vector 和 Columnar Tuple 之间不能直接计算。
      4  [9,10]  1  [,0.111111111111111]
      */
      ```
-3. Array Vector 支持调用高阶函数 [each](../funcs/ho_funcs/each.html) 和 [loop](../funcs/ho_funcs/loop.html)，对 Array Vector 的每行元素进行计算。
+3. Array Vector 支持调用高阶函数 [each](../funcs/ho_funcs/each.md) 和 [loop](../funcs/ho_funcs/loop.md)，对 Array Vector 的每行元素进行计算。
 
    和 `byRow` 函数使用方式类似，都是将自定义函数作用在 Array Vector 的每一行上。
 
@@ -1000,7 +1000,7 @@ for(int i = 0; i < rowNum; ++i) {
 
 **Step3**：连接 DolphinDB，上传数据。
 
-（示例中，是通过 upload 方法把表数据 table 上传到 DolphinDB 的内存表 myTable。C++ API 的更多操作可以查看教程：[C++ API 使用教程](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.html)）
+（示例中，是通过 upload 方法把表数据 table 上传到 DolphinDB 的内存表 myTable。C++ API 的更多操作可以查看教程：[C++ API 使用教程](https://docs.dolphindb.cn/zh/cppdoc/cpp_api.md)）
 
 ```
 // 连接 DolphinDB 节点
@@ -1066,7 +1066,7 @@ BasicTable tb = new BasicTable(colNames, cols);
 
 **Step3**：往预先创建的维度表中插入数据。
 
-（示例中，是通过 `tableInsert` 方法把表数据 tb 上传到 DolphinDB 的维度表 loadTable ('dfs://testDB','test')。Java API 的更多操作可以查看教程：[Java API 使用教程](https://docs.dolphindb.cn/zh/javadoc/newjava.html)。
+（示例中，是通过 `tableInsert` 方法把表数据 tb 上传到 DolphinDB 的维度表 loadTable ('dfs://testDB','test')。Java API 的更多操作可以查看教程：[Java API 使用教程](https://docs.dolphindb.cn/zh/javadoc/newjava.md)。
 
 ```
 List<Entity> tbArg = new ArrayList<>(1);
@@ -1099,7 +1099,7 @@ df = pd.DataFrame({
 
 **Step2**：连接 DolphinDB，上传数据。
 
-（示例中，是通过 `table` 方法把数据框 df 上传到 DolphinDB 的内存表 myTable。Python API 的更多操作可以查看教程：[Python API 使用教程](https://docs.dolphindb.cn/zh/pydoc/py.html)）
+（示例中，是通过 `table` 方法把数据框 df 上传到 DolphinDB 的内存表 myTable。Python API 的更多操作可以查看教程：[Python API 使用教程](https://docs.dolphindb.cn/zh/pydoc/py.md)）
 
 ```
 // 连接 DolphinDB 节点
@@ -1359,7 +1359,7 @@ def calculateAmtDiff(bid, ask, bidvol, askvol){
 
 #### 3.3.2. 十档净委买增额
 
-根据[处理 Level 2 行情数据实例](l2_stk_data_proc.html) ，实现的指标公式如下：
+根据[处理 Level 2 行情数据实例](l2_stk_data_proc.md) ，实现的指标公式如下：
 
 ![](images/Array_Vector/Array_Vector_15.png)
 

@@ -7,7 +7,7 @@ cacheLimit, [retentionMinutes=1440])`
 
 ## 详情
 
-创建一个高可用流数据表。参考 [haStreamTable](../h/haStreamTable.html)。
+创建一个高可用流数据表。参考 [haStreamTable](../h/haStreamTable.md)。
 
 **返回值**：一个 DStream 对象。
 

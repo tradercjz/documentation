@@ -22,5 +22,5 @@
 自 2.00.16/3.00.3 起，当 Cache Engine 内存占用达到
 *TSDBCacheEngineSize*设定值时，系统将阻塞写入线程。此前版本中，内存占用允许升至设定值的两倍后才会触发阻塞。详情请见[配置项 *TSDBCacheEngineSize* 说明](../../db_distr_comp/cfg/function_configuration.html#topic_jgf_glk_gcc)。
 
-相关函数： [getTSDBCacheEngineSize](../g/getTSDBCacheEngineSize.html)
+相关函数： [getTSDBCacheEngineSize](../g/getTSDBCacheEngineSize.md)
 

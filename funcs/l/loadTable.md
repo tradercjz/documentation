@@ -75,5 +75,5 @@ tmp = loadTable("dfs://compoDB", `pt)
 select * from tmp where date=2017.08.07
 ```
 
-对于内存的分区表，我们可以执行一些函数，如 [update!](../u/update_.html), [drop!](../d/dropColumns_.html), [rename!](../r/rename_.html), [sortBy!](../s/sortBy_.html)。
+对于内存的分区表，我们可以执行一些函数，如 [update!](../u/update_.md), [drop!](../d/dropColumns_.md), [rename!](../r/rename_.md), [sortBy!](../s/sortBy_.md)。
 

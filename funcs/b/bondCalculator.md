@@ -169,5 +169,5 @@ pvbp->0.002416111528969
 */
 ```
 
-相关函数：[bondAccrInt](bondaccrint.html)、[bondConvexity](bondconvexity.html)、[bondDirtyPrice](bondDirtyPrice.html)、[bondDuration](bondDuration.html)、[bondYield](bondyield.html)
+相关函数：[bondAccrInt](bondaccrint.md)、[bondConvexity](bondconvexity.md)、[bondDirtyPrice](bondDirtyPrice.md)、[bondDuration](bondDuration.md)、[bondYield](bondyield.md)
 

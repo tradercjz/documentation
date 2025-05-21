@@ -2,8 +2,8 @@
 
 ## 保存数据
 
-* 可以使用 [saveTable](../../funcs/s/saveTable.html) 函数将一个表对象以二进制形式保存到一个文件中；
-* 亦可使用 [saveText](../../funcs/s/saveText.html) 函数将其保存到一个文本文件中。
+* 可以使用 [saveTable](../../funcs/s/saveTable.md) 函数将一个表对象以二进制形式保存到一个文件中；
+* 亦可使用 [saveText](../../funcs/s/saveText.md) 函数将其保存到一个文本文件中。
 
 和saveTable函数相比，saveText的速度较慢并且需要更多的磁盘空间。但是如果用户需要快速查看数据的话，saveText函数更加方便，
 因此建议保存小数据集的时候使用该函数。
@@ -32,8 +32,8 @@ Time elapsed: 3231.914 ms
 
 ## 加载数据
 
-* 可以使用 [loadTable](../../funcs/l/loadTable.html) 函数来导入之前保存的表
-* 或者使用 [loadText](../../funcs/l/loadText.html) 函数来导入一个文本文件
+* 可以使用 [loadTable](../../funcs/l/loadTable.md) 函数来导入之前保存的表
+* 或者使用 [loadText](../../funcs/l/loadText.md) 函数来导入一个文本文件
 
 loadText要比loadTable更花时间。
 

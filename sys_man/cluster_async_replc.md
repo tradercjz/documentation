@@ -39,22 +39,22 @@
 
 （1）启用集群间的异步复制，在配置文件指定相关配置参数。
 
-（2）配置完成后，启动服务器。在主集群数据节点调用 [setDatabaseForClusterReplication("dfs://xxx", true)](../funcs/s/setDatabaseForClusterReplication.html)
+（2）配置完成后，启动服务器。在主集群数据节点调用 [setDatabaseForClusterReplication("dfs://xxx", true)](../funcs/s/setDatabaseForClusterReplication.md)
 ，开启某个数据库集群间的异步复制（一次调用只启动一个数据库的异步复制）。
 
 （3）主集群开启异步复制后，从集群自动到主集群拉取异步复制任务，然后逐一执行。
 
 （4）若从集群某个数据库的异步复制任务多次失败导致整个异步复制中断，用户可以尝试以下方案解决：
 
-* 在从集群控制节点调用 [startClusterReplication](../funcs/s/startClusterReplication.html) 函数尝试重启异步复制。
-* 在从集群控制节点调用 [getSlaveReplicationStatus](../funcs/g/getSlaveReplicationStatus.html)
-  函数，查看从集群异步复制任务的失败原因，解决后再调用 [startClusterReplication](../funcs/s/startClusterReplication.html) 函数重启。
-* 若无法解决失败任务，可以在从集群控制节点调用 [skipClusterReplicationTask](../funcs/s/skipClusterReplicationTask.html) 函数跳过该任务，再调用 [startClusterReplication](../funcs/s/startClusterReplication.html) 函数重启。
+* 在从集群控制节点调用 [startClusterReplication](../funcs/s/startClusterReplication.md) 函数尝试重启异步复制。
+* 在从集群控制节点调用 [getSlaveReplicationStatus](../funcs/g/getSlaveReplicationStatus.md)
+  函数，查看从集群异步复制任务的失败原因，解决后再调用 [startClusterReplication](../funcs/s/startClusterReplication.md) 函数重启。
+* 若无法解决失败任务，可以在从集群控制节点调用 [skipClusterReplicationTask](../funcs/s/skipClusterReplicationTask.md) 函数跳过该任务，再调用 [startClusterReplication](../funcs/s/startClusterReplication.md) 函数重启。
 
-（5）若需要停止所有数据库的异步复制，可以在主集群和从集群的控制节点分别调用 [stopClusterReplication](../funcs/s/stopClusterReplication.html)
+（5）若需要停止所有数据库的异步复制，可以在主集群和从集群的控制节点分别调用 [stopClusterReplication](../funcs/s/stopClusterReplication.md)
 函数。调用后，正在执行的任务会继续进行，但主集群不再将异步复制任务放进发送队列，从集群不再从主集群拉取异步复制任务。
 
-（6）若要停止某个数据库的异步复制，可以调用 [setDatabaseForClusterReplication("dfs://xxx", false)](../funcs/s/setDatabaseForClusterReplication.html)
+（6）若要停止某个数据库的异步复制，可以调用 [setDatabaseForClusterReplication("dfs://xxx", false)](../funcs/s/setDatabaseForClusterReplication.md)
 。调用后，正在执行的任务会继续进行，但该数据库不再产生异步复制任务。
 
 ## 异步复制机制

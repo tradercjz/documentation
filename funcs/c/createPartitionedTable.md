@@ -38,7 +38,7 @@ partitionColumns, [compressMethods], [sortColumns|primaryKey],
 TSDB 时才有效。
 
 **dbHandle**
-[database](../d/database.html)
+[database](../d/database.md)
 函数返回的数据库句柄。它可以是本地磁盘数据库，也可以是分布式数据库。*dbHandle* 为空字符串或没有指定时，表示内存数据库的句柄。
 
 **table** 一个表或包含多个表的元组。系统将会根据该表的结构创建新的分区表。
@@ -240,7 +240,7 @@ select min(value) from Trades;
 0
 ```
 
-在分布式数据库中，初次创建表后，可以跳过 [loadTable](../l/loadTable.html) 把表载入内存的步骤，因为分布式文件系统会动态刷新表的内容。系统重启后，需要再次执行
+在分布式数据库中，初次创建表后，可以跳过 [loadTable](../l/loadTable.md) 把表载入内存的步骤，因为分布式文件系统会动态刷新表的内容。系统重启后，需要再次执行
 `loadTable` 函数加载表。
 
 例1.2 创建一张 TSDB 引擎下的分区表。

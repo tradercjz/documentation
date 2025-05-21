@@ -86,5 +86,5 @@ z.values();
 [4.3,4.5,7.8]
 ```
 
-相关函数：[array](../a/array.html), [matrix](../m/matrix.html)， [dictUpdate!](dictUpdate_.html), [syncDict](../s/syncDict.html)
+相关函数：[array](../a/array.md), [matrix](../m/matrix.md)， [dictUpdate!](dictUpdate_.md), [syncDict](../s/syncDict.md)
 

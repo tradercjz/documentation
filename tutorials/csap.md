@@ -54,7 +54,7 @@ CSAP 因子模块中的所有函数命名规则基于因子的定义， 如 `bra
 模块同一目录下。
 
 有关模块使用的更多细节，请参见：[DolphinDB
-教程：模块](module_tutorial.html)。
+教程：模块](module_tutorial.md)。
 
 ### 2.2 数据准备
 

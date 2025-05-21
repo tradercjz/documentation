@@ -4,7 +4,7 @@
 
 `mkurtosis(X, window, [biased=true], [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -100,5 +100,5 @@ m.mkurtosis(4, false)-3
 | 2.504252 | 2.366838 |
 | 3.675552 | 3.941262 |
 
-相关函数：[kurtosis](../k/kurtosis.html)
+相关函数：[kurtosis](../k/kurtosis.md)
 

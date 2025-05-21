@@ -5,7 +5,7 @@
 `cumrank(X, [ascending=true], [ignoreNA=true],
 [tiesMethod='min'], [percent=false)`
 
-部分通用参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+部分通用参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 参数
 
@@ -72,5 +72,5 @@ cumrank(m);
 | 2 | 0 |
 | 3 | 1 |
 
-相关函数：[rank](../r/rank.html)
+相关函数：[rank](../r/rank.md)
 

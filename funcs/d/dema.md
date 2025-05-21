@@ -4,7 +4,7 @@
 
 `dema(X, window)`
 
-TA-lib 系列函数参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.html)
+TA-lib 系列函数参数说明和窗口计算规则请参考：[TA-lib 系列](../themes/TAlib.md)
 
 ## 详情
 
@@ -39,5 +39,5 @@ dema(x,3);
 | 11.6896 | 14.6806 |
 | 11.2667 | 10.9444 |
 
-相关函数：[ema](../e/ema.html), [tema](../t/tema.html)
+相关函数：[ema](../e/ema.md), [tema](../t/tema.md)
 

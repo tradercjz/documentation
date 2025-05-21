@@ -33,5 +33,5 @@ lshift(2, 10);
 1024 : 10240
 ```
 
-相关函数： [rshift](rshift.html)
+相关函数： [rshift](rshift.md)
 

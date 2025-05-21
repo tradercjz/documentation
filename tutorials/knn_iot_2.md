@@ -383,7 +383,7 @@ submitJob(`predictAndwarning,`predictAndwarning,predictAndwarning,devices_number
 
 Grafana 是由 Grafana Labs 公司开源的一个系统监测 ( System Monitoring ) 工具。
 
-DolphinDB 开发了 Grafana 数据源插件，用户在 Grafana 面板上通过编写查询脚本、订阅流数据表的方式，与 DolphinDB 进行交互，实现 DolphinDB 时序数据的可视化。具体操作可参考：[Grafana 数据源](../tools/grafana.html) 。
+DolphinDB 开发了 Grafana 数据源插件，用户在 Grafana 面板上通过编写查询脚本、订阅流数据表的方式，与 DolphinDB 进行交互，实现 DolphinDB 时序数据的可视化。具体操作可参考：[Grafana 数据源](../tools/grafana.md) 。
 
 Grafana 中的 Query 代码：
 

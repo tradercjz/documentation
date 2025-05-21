@@ -282,7 +282,7 @@ DolphinDB 1.00.0版本之后，安装目录/server/plugins/hdf5已经包含HDF5�
 loadPlugin("plugins/hdf5/PluginHdf5.txt")
 ```
 
-若用户使用的是老版本，默认不包含此插件，可先从[HDF5插件](../plugins/hdf5/hdf5.html)对应版本分支bin目录下载，再将插件部署到节点的plugins目录下。
+若用户使用的是老版本，默认不包含此插件，可先从[HDF5插件](../plugins/hdf5/hdf5.md)对应版本分支bin目录下载，再将插件部署到节点的plugins目录下。
 
 调用插件方法时需要在方法前面提供namespace，比如调用loadHDF5可以使用`hdf5::loadHDF5`。另一种写法是：
 
@@ -340,7 +340,7 @@ ODBC插件提供了以下四个方法用于操作第三方数据源数据：
 * odbc::execute - 在第三方数据库内执行给定的SQL语句，不返回结果。
 * odbc::append - 把DolphinDB中表的数据写入第三方数据库的表中。
 
-在使用ODBC插件之前，需要安装ODBC驱动程序，请参考[ODBC插件使用教程](../plugins/odbc/odbc.html)。
+在使用ODBC插件之前，需要安装ODBC驱动程序，请参考[ODBC插件使用教程](../plugins/odbc/odbc.md)。
 
 下面的例子使用ODBC插件连接以下SQL Server：
 
@@ -399,7 +399,7 @@ tb.append!(data);
 确定分区字段要考虑日常的查询语句执行频率。以where, group by或context by中常用字段作为分区字段，可以极大的提升数据检索和分析的效率。使用股票数据的查询经常与交易日期和股票代码有关，所以我们建议采用
 tradingDay和symbol这两列进行组合(COMPO)分区。
 
-分区大小应尽量均匀，同时分区粒度不宜过大或过小。我们建议一个分区未压缩前的原始数据大小控制在100M~1G之间。有关为何分区大小应均匀，以及分区最佳粒度的考虑因素，请参考[DolphinDB分区数据库教程](database.html)第四节。
+分区大小应尽量均匀，同时分区粒度不宜过大或过小。我们建议一个分区未压缩前的原始数据大小控制在100M~1G之间。有关为何分区大小应均匀，以及分区最佳粒度的考虑因素，请参考[DolphinDB分区数据库教程](database.md)第四节。
 
 综合考虑，我们可以在复合(COMPO)分区中，根据交易日期进行范围分区（每年一个范围），并按照股票代码进行范围分区（共100个代码范围），共产生 10 \* 100 = 1000 个分区，最终每个分区的大小约100M左右。
 

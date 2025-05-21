@@ -5,7 +5,7 @@
 `mpercentile(X, percent, window, [interpolation='linear'],
 [minPeriods])`
 
-窗口计算规则请参考：[mFunctions](../themes/mFunctions.html)
+窗口计算规则请参考：[mFunctions](../themes/mFunctions.md)
 
 ## 参数
 
@@ -120,5 +120,5 @@ mpercentile(m, percent=50, window=1w, interpolation="linear", minPeriods=1);
 | 2020.09.14 | 4 | 3.5 |
 | 2020.09.15 | 4 | 4 |
 
-相关函数：[percentile](../p/percentile.html)
+相关函数：[percentile](../p/percentile.md)
 

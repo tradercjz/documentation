@@ -51,9 +51,9 @@ ImportTLData 模块的实现过程及最佳实践。
 * 使用 scp 命令：`scp -r ImportTLData
   <user>@<服务器ip>:/DolphinDB/server/modules/`。
 * 使用 vscode 的 DolphinDB 插件，参考：[VS
-  Code 插件](../db_distr_comp/vscode.html)。
+  Code 插件](../db_distr_comp/vscode.md)。
 * 使用 DolphinDB 的 GUI 客户端，参考：[GUI
-  客户端](../db_distr_comp/gui.html)。
+  客户端](../db_distr_comp/gui.md)。
 
 ## 2. 数据导入操作
 
@@ -152,7 +152,7 @@ infoTb = loadEntrustStock(startDate, endDate, loadType)
 **后台任务**
 
 通过 `submitJob` 提交后台任务导入 2023.02.01 - 2023.02.01 股票委托数据。
-`submitJob` 函数的用法可参考：[submitJob](../funcs/s/submitJob.html)。
+`submitJob` 函数的用法可参考：[submitJob](../funcs/s/submitJob.md)。
 
 ```
 jobId = "loadEntrust20230201_20230201"
@@ -165,7 +165,7 @@ submitJob(jobId,jobDesc,loadEntrustStock{2023.02.01,2023.02.01,"batch"})
 
 通过 `scheduleJob` 提交定时任务导入每日增量股票委托数据。假设从 2025.01.01 -
 2025.12.31，每周一到周五的 17:00 定时执行股票委托数据导入任务。 `scheduleJob` 函数的用法可参考：
-[scheduleJob](../funcs/s/scheduleJob.html)。
+[scheduleJob](../funcs/s/scheduleJob.md)。
 
 ```
 jobId = "loadEntrustDaily"
@@ -424,7 +424,7 @@ scheduleJob(jobId,jobDesc,loadEntrustStock{NULL,NULL,"daily"},scheduleTime,begin
 
 DolphinDB
 按分区存储数据。当一个写入任务涉及多个分区时，系统会首先锁定这些分区。如果在该任务完成之前，其他写入任务也涉及这些分区，由于锁定状态，这些任务会因分区冲突而报错
-[S00002](../error_codes/S00002.html)，从而导致任务失败。
+[S00002](../error_codes/S00002.md)，从而导致任务失败。
 
 尽管数据导入任务已根据不同时间段划分，但仍可能出现因同时写入同一分区而导致冲突的情况。接下来，我们将介绍每个库的分区类型，并探讨如何设计并发任务以避免分区冲突。
 

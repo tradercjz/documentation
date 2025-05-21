@@ -1,6 +1,6 @@
 # moveChunksAcrossVolume
 
-注： 此函数将于近期版本中废弃，推荐使用函数 [moveReplicas](moveReplicas.html) 实现相关功能。
+注： 此函数将于近期版本中废弃，推荐使用函数 [moveReplicas](moveReplicas.md) 实现相关功能。
 
 ## 语法
 
@@ -20,7 +20,7 @@
 **isDelSrc** 布尔值，默认为 true。表示拷贝后是否删除源 chunks。
 
 注： *srcPath*、 *destPath* 和 *chunkIds* 可以通过
-[getChunksMeta](../g/getChunksMeta.html) 获取。
+[getChunksMeta](../g/getChunksMeta.md) 获取。
 
 ## 详情
 

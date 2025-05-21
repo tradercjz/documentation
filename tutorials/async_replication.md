@@ -29,9 +29,9 @@ DolphinDB 提供的异步复制功能通过异步方式，将主集群复制到�
 
 ![](images/Asynchronous_Replication/2_1.png)
 
-集群间的异步复制支持一个主集群，多个从集群。用户在使用异步复制功能时需要至少部署两个集群，集群类型可为单服务器集群、多服务器集群以及高可用集群。关于如何部署集群请参考[单服务器集群部署](single_machine_cluster_deploy.html)、[多服务器集群部署](multi_machine_cluster_deployment.html)、[高可用集群部署](ha_cluster_deployment.html)。
+集群间的异步复制支持一个主集群，多个从集群。用户在使用异步复制功能时需要至少部署两个集群，集群类型可为单服务器集群、多服务器集群以及高可用集群。关于如何部署集群请参考[单服务器集群部署](single_machine_cluster_deploy.md)、[多服务器集群部署](multi_machine_cluster_deployment.md)、[高可用集群部署](ha_cluster_deployment.md)。
 
-本教程假定主集群配置文件位于 */dolphindb/server/cluster1/config* 目录下，从集群配置文件位于 */dolphindb/server/cluster2/config* 目录下。与异步复制相关的配置项请参考[集群间的异步复制配置项](../db_distr_comp/cfg/function_configuration.html)。
+本教程假定主集群配置文件位于 */dolphindb/server/cluster1/config* 目录下，从集群配置文件位于 */dolphindb/server/cluster2/config* 目录下。与异步复制相关的配置项请参考[集群间的异步复制配置项](../db_distr_comp/cfg/function_configuration.md)。
 
 注： 在配置主集群时，请确保将配置文件中所有出现的 localhost 或 127.0.0.1 替换为主集群服务器的实际局域网 IP 地址。
 
@@ -109,7 +109,7 @@ DolphinDB 提供的异步复制功能通过异步方式，将主集群复制到�
   clusterReplicationExecutionPassword=123456
   ```
 
-  在配置中指定了用于执行集群间异步复制的用户名和密码。**必须确保该用户有事务操作的相关权限**，即对于主集群上执行的操作，该用户在从集群上同样有执行的权限，否则异步复制任务会失败。关于 DolphinDB 权限的具体介绍请参考：[用户权限管理](ACL_and_Security.html)。
+  在配置中指定了用于执行集群间异步复制的用户名和密码。**必须确保该用户有事务操作的相关权限**，即对于主集群上执行的操作，该用户在从集群上同样有执行的权限，否则异步复制任务会失败。关于 DolphinDB 权限的具体介绍请参考：[用户权限管理](ACL_and_Security.md)。
 
   在完成以上配置之后，请同步修改从集群中其它服务器的配置。
 
@@ -149,7 +149,7 @@ setDatabaseForClusterReplication(db, true)
 schema(db).clusterReplicationEnabled
 ```
 
-若执行结果返回 true，则说明异步复制功能已启用。也可以通过 [getDatabaseClusterReplicationStatus](../funcs/g/getDatabaseClusterReplicationStatus.html) 查看所有数据库的异步复制开启状态，但请注意，使用该函数的前提是数据库中存在数据。
+若执行结果返回 true，则说明异步复制功能已启用。也可以通过 [getDatabaseClusterReplicationStatus](../funcs/g/getDatabaseClusterReplicationStatus.md) 查看所有数据库的异步复制开启状态，但请注意，使用该函数的前提是数据库中存在数据。
 
 ```
 getDatabaseClusterReplicationStatus()
@@ -231,9 +231,9 @@ rpc(getControllerAlias(), getMasterReplicationStatus)
 
 ![](images/Asynchronous_Replication/3_3.png)
 
-主集群生成了三个异步复制任务，分别对应创建数据库、创建表和插入数据。关于上图中各参数的介绍请参考[函数介绍](../funcs/g/getMasterReplicationStatus.html)。
+主集群生成了三个异步复制任务，分别对应创建数据库、创建表和插入数据。关于上图中各参数的介绍请参考[函数介绍](../funcs/g/getMasterReplicationStatus.md)。
 
-与之相对应，在 dataNodeSlave 上使用 [getSlaveReplicationStatus](../funcs/g/getSlaveReplicationStatus.html)可以查询从集群任务执行队列的状态：
+与之相对应，在 dataNodeSlave 上使用 [getSlaveReplicationStatus](../funcs/g/getSlaveReplicationStatus.md)可以查询从集群任务执行队列的状态：
 
 ```
 rpc(getControllerAlias(), getSlaveReplicationStatus)
@@ -245,7 +245,7 @@ rpc(getControllerAlias(), getSlaveReplicationStatus)
 
 从集群拉取了主集群上生成的三个任务并完成执行。
 
-在 dataNodeMaster 上使用 [getRecentSlaveReplicationInfo](../funcs/g/getRecentSlaveReplicationInfo.html) 可以查看跨集群异步复制进程中，连接到主集群的各从集群最近一次的任务状态。
+在 dataNodeMaster 上使用 [getRecentSlaveReplicationInfo](../funcs/g/getRecentSlaveReplicationInfo.md) 可以查看跨集群异步复制进程中，连接到主集群的各从集群最近一次的任务状态。
 
 ```
 rpc(getControllerAlias(), getRecentSlaveReplicationInfo)
@@ -271,11 +271,11 @@ rpc(getControllerAlias(), getRecentSlaveReplicationInfo)
 rpc(getControllerAlias(), stopClusterReplication)
 ```
 
-若在主集群上执行 [stopClusterReplication](../funcs/s/stopClusterReplication.html)，集群异步复制状态转为 "DISABLED"，在此之后创建的任务将不会放到发送队列中；若在从集群上执行，从集群停止从主集群读取新任务，但正在执行中的任务不会停止。
+若在主集群上执行 [stopClusterReplication](../funcs/s/stopClusterReplication.md)，集群异步复制状态转为 "DISABLED"，在此之后创建的任务将不会放到发送队列中；若在从集群上执行，从集群停止从主集群读取新任务，但正在执行中的任务不会停止。
 
-若希望重新开启异步复制，可通过 [startClusterReplication](../funcs/s/startClusterReplication.html) 重新启动，集群状态将转为 "ENABLED"。该函数同样只能在控制节点上调用。
+若希望重新开启异步复制，可通过 [startClusterReplication](../funcs/s/startClusterReplication.md) 重新启动，集群状态将转为 "ENABLED"。该函数同样只能在控制节点上调用。
 
-当完成异步复制任务之后希望关闭数据库的异步复制功能时，可使用 [setDatabaseForClusterReplication](../funcs/s/setDatabaseForClusterReplication.html) 来关闭。
+当完成异步复制任务之后希望关闭数据库的异步复制功能时，可使用 [setDatabaseForClusterReplication](../funcs/s/setDatabaseForClusterReplication.md) 来关闭。
 
 ```
 setDatabaseForClusterReplication(db, false)
@@ -310,7 +310,7 @@ rpc(getControllerAlias(), skipClusterReplicationTask, 938)
 rpc(getControllerAlias(), startClusterReplication)
 ```
 
-首先通过 [skipClusterReplicationTask](../funcs/s/skipClusterReplicationTask.html) 跳过了失败的任务，接着调用 `startClusterReplication` 重启了异步复制。跳过的任务将被标记为完成状态。
+首先通过 [skipClusterReplicationTask](../funcs/s/skipClusterReplicationTask.md) 跳过了失败的任务，接着调用 `startClusterReplication` 重启了异步复制。跳过的任务将被标记为完成状态。
 
 ## 5. 附录
 

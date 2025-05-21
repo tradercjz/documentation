@@ -1,6 +1,6 @@
 # purgeCacheEngine
 
-是 [flushOLAPCache](../f/flushOLAPCache.html) 的别名。
+是 [flushOLAPCache](../f/flushOLAPCache.md) 的别名。
 
 Copyright
 

@@ -11,24 +11,24 @@ BatchJobDir>/batchJob.log 添加三条信息。
 ## 相关函数
 
 * [submitJob(jobId,
-  jobDesc, jobDef, args...)](../funcs/s/submitJob.html)
+  jobDesc, jobDef, args...)](../funcs/s/submitJob.md)
 * [submitJobEx(jobId, jobDesc, priority, parallelism, jobDef,
-  args...)](../funcs/s/submitJobEx.html)
+  args...)](../funcs/s/submitJobEx.md)
 
 以上两个函数将批处理作业提交到本地节点，并且返回作业的 ID。其中，*jobDesc*
 为可选参数，如果没有指定，函数名就是作业的描述。
 
 如需将批处理作业提交到远程节点，可以使用以下函数：
 
-* [rpc](../funcs/r/rpc.html)
-* [remoteRun](../funcs/r/remoteRun.html)
-* [remoteRunWithCompression](../funcs/r/remoteRunWithCompression.html)
+* [rpc](../funcs/r/rpc.md)
+* [remoteRun](../funcs/r/remoteRun.md)
+* [remoteRunWithCompression](../funcs/r/remoteRunWithCompression.md)
 
-* [getJobStatus(jobId)](../funcs/g/getJobStatus.html)：取得批处理作业的状态。
-* [getRecentJobs([top])](../funcs/g/getRecentJobs.html)：取得本地节点上最近 N 个作业的状态。
-* [getJobMessage(jobId)](../funcs/g/getJobMessage.html)：取得批处理作业返回的中间消息。
-* [getJobReturn(jobId)](../funcs/g/getJobReturn.html)：取得批处理作业返回的对象。
-* [cancelJob(jobId)](../funcs/c/cancelJob.html)：取消已经提交但尚未完成的批处理作业。
+* [getJobStatus(jobId)](../funcs/g/getJobStatus.md)：取得批处理作业的状态。
+* [getRecentJobs([top])](../funcs/g/getRecentJobs.md)：取得本地节点上最近 N 个作业的状态。
+* [getJobMessage(jobId)](../funcs/g/getJobMessage.md)：取得批处理作业返回的中间消息。
+* [getJobReturn(jobId)](../funcs/g/getJobReturn.md)：取得批处理作业返回的对象。
+* [cancelJob(jobId)](../funcs/c/cancelJob.md)：取消已经提交但尚未完成的批处理作业。
 
 ## 例子
 

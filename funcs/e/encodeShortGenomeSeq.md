@@ -70,5 +70,5 @@ encodeShortGenomeSeq("GCCCGATNNNNN")
 00l
 ```
 
-相关函数：[decodeShortGenomeSeq](../d/decodeShortGenomeSeq.html), [genShortGenomeSeq](../g/genShortGenomeSeq.html)
+相关函数：[decodeShortGenomeSeq](../d/decodeShortGenomeSeq.md), [genShortGenomeSeq](../g/genShortGenomeSeq.md)
 

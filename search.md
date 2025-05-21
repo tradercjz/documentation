@@ -2,7 +2,7 @@
 
 [![  DolphinDB 文档中心  ](logo.png)](https://dolphindb.cn/)
 
-[DolphinDB 文档中心](index.html)
+[DolphinDB 文档中心](index.md)
 
 搜索
 

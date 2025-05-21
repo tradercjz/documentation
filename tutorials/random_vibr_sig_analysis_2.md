@@ -217,7 +217,7 @@ DolphinDB 使用 C++ 开发，兼容性好，支持 Winodws、Linux、麒麟鲲�
 架构说明如下：
 
 * 振动信号模拟：DolphinDB 支持 API、JDBC、ODBC、消息中间件的方式写入数据。本案例将通过脚本模拟采集过程，通过后台 job 任务持续不断的生成模拟数据。
-* 实时写入：流数据表是一种 DolphinDB 设计的专门用来应对实时流数据存储与计算的内存表。具备吞吐量大，低延迟的优点，支持持久化，支持高可用。参考：[流数据高可用的教程](haStreaming.html) 。
+* 实时写入：流数据表是一种 DolphinDB 设计的专门用来应对实时流数据存储与计算的内存表。具备吞吐量大，低延迟的优点，支持持久化，支持高可用。参考：[流数据高可用的教程](haStreaming.md) 。
 * 流数据发布 - 订阅 - 消费：DolphinDB 流数据模块采用发布 - 订阅 - 消费的模式。流数据首先注入流数据表中，通过流数据表来发布数据，数据节点或者第三方的应用可以通过 DolphinDB 脚本或 API 来订阅及消费流数据。
 * 时间序列聚合引擎/异常检测引擎：：在实时数据流计算场景下，计算要求高效和即时，DolphinDB 精心研发了适合流计算场景的引擎，系统内部采用了增量计算，优化了实时计算的性能。对于时间序列聚合引擎，使用者只需通过简单的参数配置即可实现复杂的增量计算、窗口计算、聚合分析等功能。对于异常检测引擎，使用者也只需通过简单的参数配置即可实现复杂的规则设计、窗口检测。
 * 实时功率谱密度 psd 展示：在数据采集、实时计算的同时，用户调用 DolphinDB 的 Grafana 插件连接 Grafana，在 web 端展示实时数据以及实时计算结果。
@@ -398,7 +398,7 @@ tsAggr1 = createTimeSeriesAggregator(name="tsAggr1",  windowSize=2*60*1000, ste
 tsAggr2 = createAnomalyDetectionEngine(name="tsAggr2", metrics=<[rmsAcc > 0.055, rmsVel >0.32, rmsDis > 34.5]>, dummyTable=srms, outputTable=warn, timeColumn=`datetime, keyColumn=`source, windowSize=2*60*1000, step=2*60*1000)
 ```
 
-更多时序序列数据聚合引擎和异常检测引擎相关内容请参考：[DolphinDB 教程：流数据时序引擎](../stream/time_series_engine.html)。
+更多时序序列数据聚合引擎和异常检测引擎相关内容请参考：[DolphinDB 教程：流数据时序引擎](../stream/time_series_engine.md)。
 
 #### 4.4.3. 数据的订阅
 
@@ -448,7 +448,7 @@ subscribeTable(tableName="warn", actionName="act_saveDfs2", offset=-1, handler=s
 
 Grafana 是一个开源的数据可视化 Web 应用程序，擅长动态展示时序数据，支持多种数据源。用户通过配置连接的数据源，以及编写查询脚本，可在浏览器里显示数据图表。
 
-DolphinDB 开发了 Grafana 数据源插件 (dolphindb-datasource)，让用户在 Grafana 面板 (dashboard) 上通过编写查询脚本、订阅流数据表的方式，与 DolphinDB 进行交互，实现 DolphinDB 时序数据的可视化。更多关于 Grafana 插件的内容可参考 [Grafna 数据源插件教程](../tools/grafana.html) 。
+DolphinDB 开发了 Grafana 数据源插件 (dolphindb-datasource)，让用户在 Grafana 面板 (dashboard) 上通过编写查询脚本、订阅流数据表的方式，与 DolphinDB 进行交互，实现 DolphinDB 时序数据的可视化。更多关于 Grafana 插件的内容可参考 [Grafna 数据源插件教程](../tools/grafana.md) 。
 
 接下来展示在 Grafana 面板上使用查询语句对流数据表 psd 和流数据表 srms 进行聚合查询。
 

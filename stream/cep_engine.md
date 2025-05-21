@@ -14,7 +14,7 @@
 **name** 字符串标量，表示 CEP 引擎的名称。可包含字母，数字和下划线，但必须以字母开头。
 
 **monitors** 元代码或元代码元组，可包含一个或多个 Monitor 类的构造函数调用。如果指定了多个 Monitor 类的构造函数调用，在创建
-subEngine 时，将按照指定的顺序构造这些对象。Monitor 的创建方法参见 [简单的 Monitor 实例](cep_monitor_defining.html)。
+subEngine 时，将按照指定的顺序构造这些对象。Monitor 的创建方法参见 [简单的 Monitor 实例](cep_monitor_defining.md)。
 
 **dummyTable** 一个表对象，和订阅的流数据表的 schema 一致。
 

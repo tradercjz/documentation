@@ -7,7 +7,7 @@
 
 ## 详情
 
-转换给定数据的时间频率。与 [resample](../r/resample.html)
+转换给定数据的时间频率。与 [resample](../r/resample.md)
 函数不同，该函数不可使用聚合函数对数据进行处理。
 
 ## 参数

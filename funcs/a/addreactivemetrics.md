@@ -55,5 +55,5 @@ select * from outputTable where securityID1="A5"
 | A5 | CC.HH0033 | FFICE0034 | 2023.09.01T00:00:11.000 | 2023.09.01T00:00:09.000 | facto1 | 100 |
 | A5 | CC.HH0033 | FFICE0034 | 2023.09.01T00:00:11.000 | 2023.09.01T00:00:09.000 | facto2 | 59 |
 
-相关函数：[createNarrowReactiveStateEngine](../c/createnarrowreactivestateengine.html)，[getReactiveMetrics](../g/getreactivemetrics.html)
+相关函数：[createNarrowReactiveStateEngine](../c/createnarrowreactivestateengine.md)，[getReactiveMetrics](../g/getreactivemetrics.md)
 

@@ -12,7 +12,7 @@
 
 **func** 在流表所在节点上执行的函数。该函数必须至少包含一个参数，系统会将流引擎对象自动作为第一个参数传入。
 
-**args…** 传递给 *func* 的其他参数，使用方式类似于远程过程调用函数 [rpc](../r/rpc.html) 的 *args…* 参数。
+**args…** 传递给 *func* 的其他参数，使用方式类似于远程过程调用函数 [rpc](../r/rpc.md) 的 *args…* 参数。
 
 ## 详情
 
@@ -48,5 +48,5 @@ useOrcaStreamEngine("test.orca_engine.rse", getStreamEngineStateTable)
 */
 ```
 
-**相关函数：**[getOrcaStreamEngineMeta](../g/getOrcaStreamEngineMeta.html)
+**相关函数：**[getOrcaStreamEngineMeta](../g/getOrcaStreamEngineMeta.md)
 

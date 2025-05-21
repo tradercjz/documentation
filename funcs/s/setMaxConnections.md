@@ -12,7 +12,7 @@
 
 在线修改当前节点的最大连接数。该命令只能由管理员执行。
 
-可以在控制节点调用函数 [getClusterPerf](../g/getClusterPerf.html) 返回的 maxConnections 字段查看是否成功修改。
+可以在控制节点调用函数 [getClusterPerf](../g/getClusterPerf.md) 返回的 maxConnections 字段查看是否成功修改。
 
 注：
 

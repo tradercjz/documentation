@@ -4,7 +4,7 @@
 
 `rowOr(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -33,5 +33,5 @@ select *  from t where rowOr(price1>30, price2>100);
 | IBM | 30.02 | 51.29 |
 | C | 174.97 | 26.23 |
 
-相关函数：[or](../o/or.html)
+相关函数：[or](../o/or.md)
 

@@ -6,7 +6,7 @@
 
 ## 详情
 
-和 [remoteRun](remoteRun.html) 功能和用法基本一致，唯一不同的是
+和 [remoteRun](remoteRun.md) 功能和用法基本一致，唯一不同的是
 `remoteRunWithCompression` 在传输时对脚本中大于 1024 行的表数据进行了压缩。
 
 ## 参数

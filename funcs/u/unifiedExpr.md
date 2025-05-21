@@ -13,7 +13,7 @@
 ## 详情
 
 使用 *optrs* 中的二元运算符，将 *objs* 中元素连接，生成一个多元运算表达式的元代码。使用
-[eval](../e/eval.html) 函数可以执行 `unifiedExpr`
+[eval](../e/eval.md) 函数可以执行 `unifiedExpr`
 函数生成的元代码。
 
 ## 例子
@@ -34,5 +34,5 @@ sql(select=(sqlCol(`price1),sqlCol(`price2),sqlCol(`price3),a), from=t).eval()
 | 2 | 5 | 6 | 13 |
 | 3 | 6 | 7 | 16 |
 
-相关函数： [binaryExpr](../b/binaryExpr.html)
+相关函数： [binaryExpr](../b/binaryExpr.md)
 

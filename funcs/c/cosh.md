@@ -20,7 +20,7 @@ cosh 0 1 2;
 [1,1.543081,3.762196]
 ```
 
-зӣёе…іеҮҪж•°пјҡ[asin](../a/asin.html), [acos](../a/acos.html), [atan](../a/atan.html), [sin](../s/sin.html), [cos](cos.html), [tan](../t/tan.html), [asinh](../a/asinh.html), [acosh](../a/acosh.html), [atanh](../a/atanh.html), [sinh](../s/sinh.html), [tanh](../t/tanh.html)
+зӣёе…іеҮҪж•°пјҡ[asin](../a/asin.md), [acos](../a/acos.md), [atan](../a/atan.md), [sin](../s/sin.md), [cos](cos.md), [tan](../t/tan.md), [asinh](../a/asinh.md), [acosh](../a/acosh.md), [atanh](../a/atanh.md), [sinh](../s/sinh.md), [tanh](../t/tanh.md)
 
 еңЁжң¬йЎөдёҠ
 

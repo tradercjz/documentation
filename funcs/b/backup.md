@@ -48,7 +48,7 @@ true，则备份文件中存在已经被删除的分区或表，会同步进行�
 
 注：
 
-* 若 [database](../d/database.html)
+* 若 [database](../d/database.md)
   创建数据库时，指定 *chunkGranularity* = 'DATABASE'，则只能通过 SQL 语句备份数据。
 * 若 *backupDir*
   目录已存在备份文件，则再次向该目录备份数据时，需保证备份方式（*dbPath* 或
@@ -180,5 +180,5 @@ restore(backupDir="/home/DolphinDB/backup",dbPath="dfs://compoDB",tableName=`pt,
     "dfs://compoDB/20170810/0_50/9m9","dfs://compoDB/20170810/50_100/9m9","dfs://compoDB/20170811/50_100/9m9"]
 ```
 
-相关函数：[backupDB](backupDB.html), [backupTable](backupTable.html), [restore](../r/restore.html), [migrate](../m/migrate.html)
+相关函数：[backupDB](backupDB.md), [backupTable](backupTable.md), [restore](../r/restore.md), [migrate](../m/migrate.md)
 

@@ -1,6 +1,6 @@
 # datetimeParse
 
-是 [temporalParse](../t/temporalParse.html) 的别名。
+是 [temporalParse](../t/temporalParse.md) 的别名。
 
 Copyright
 

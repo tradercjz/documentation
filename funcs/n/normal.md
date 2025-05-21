@@ -1,6 +1,6 @@
 # normal
 
-是 [norm](norm.html) 的别名。
+是 [norm](norm.md) 的别名。
 
 Copyright
 

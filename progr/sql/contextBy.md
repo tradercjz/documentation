@@ -10,10 +10,10 @@ DolphinDB 支持时间序列数据处理。context by 子句使组内处理时�
 
 context by 与 group by 类似，都对数据进行分组。但是，用 group by 时，每一组返回一个标量值，而用 context by
 时，每一组返回一个和组内元素数量相同的向量。group by 只能配合聚合函数使用，而 context by
-既可以配合聚合函数使用，也可以与移动窗口函数或累积函数等其它函数结合使用。context by 常用于基于组更新的场景，请参考 [update](update.html) 语句的例子。context by 还可以和 having 子句一起使用，详情参考 [having](having.html)。
+既可以配合聚合函数使用，也可以与移动窗口函数或累积函数等其它函数结合使用。context by 常用于基于组更新的场景，请参考 [update](update.md) 语句的例子。context by 还可以和 having 子句一起使用，详情参考 [having](having.md)。
 
-context by 通常与 [cumsum](../../funcs/c/cumsum.html),
-[mavg](../../funcs/m/mavg.html) 等时间序列函数一起使用，每个分组中记录的顺序对结果有直接影响。可在
+context by 通常与 [cumsum](../../funcs/c/cumsum.md),
+[mavg](../../funcs/m/mavg.md) 等时间序列函数一起使用，每个分组中记录的顺序对结果有直接影响。可在
 context by 语句后使用 csort 关键字排序。使用 context by 分组后，csort 在 select
 从句的表达式执行之前，对每个组内的数据进行排序。可对多个列（包括计算列）使用 csort 关键字，在组内进行升序（asc）或降序（desc）排序，若 csort
 后不指定排序关键字，则默认是升序。csort 关键字还可以和 top 关键字一起使用，用于获取每个分组中的最新记录。
@@ -68,7 +68,7 @@ select sym, price, qty, wavg(price,qty) as wvap, sum(qty) as totalqty from t1 co
 | MS | 29.52 | 2100 | 29.726389 | 7200 |
 | MS | 30.02 | 3200 | 29.726389 | 7200 |
 
-计算每家公司的股票收益，我们不能使用 group by，但是可以使用 context by 和 [ratio](../operators/ratio.html) 函数。在使用 context by
+计算每家公司的股票收益，我们不能使用 group by，但是可以使用 context by 和 [ratio](../operators/ratio.md) 函数。在使用 context by
 之前，需要确保记录在每一组内已按时间排好序。
 
 ```
@@ -87,7 +87,7 @@ select sym, timestamp, price, eachPre(\,price)-1.0 as ret from t1 context by sym
 | MS | 09:36:51 | 29.52 | 0.002037 |
 | MS | 09:36:59 | 30.02 | 0.016938 |
 
-可以使用 [contextby](../../funcs/ho_funcs/contextby.html)
+可以使用 [contextby](../../funcs/ho_funcs/contextby.md)
 高阶函数来达到同样的效果，但是结果是一个向量而不是表。
 
 ```
@@ -96,7 +96,7 @@ contextby(eachPre{ratio}, t1.price, t1.sym);
 [,,1.002037,1.016938,,1.001486,1.023387,0.991332,1.019277]
 ```
 
-这里用了一个部分应用 `eachPre{ratio}`。详情参考 [PartialApplication](../partial_app.html)。
+这里用了一个部分应用 `eachPre{ratio}`。详情参考 [PartialApplication](../partial_app.md)。
 
 对每个股票，计算每分钟累计交易量：
 
@@ -277,7 +277,7 @@ Time elapsed: 2.991 ms
 3. context by 与 csort 只能指定单列。
 4. context by 指定的列也需要一起输出（通过 select 语句指定该列）。
 
-可以通过添加 [hint\_explain](hint_explain.html)
+可以通过添加 [hint\_explain](hint_explain.md)
 关键字查询执行计划来判断是否进行了优化。
 
 Copyright

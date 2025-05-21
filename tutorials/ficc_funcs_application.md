@@ -52,12 +52,12 @@ structure），再对债券的未来现金流逐项进行折现计算，得到�
 
 **线性插值法**
 
-线性插值通过已知的两个数据点，从而可以根据两个已知点，算出该区间直线上任意 x 点所对应的 y 值。详情参见手册：[linearInterpolateFit](../funcs/l/linearinterpolatefit.html)。
+线性插值通过已知的两个数据点，从而可以根据两个已知点，算出该区间直线上任意 x 点所对应的 y 值。详情参见手册：[linearInterpolateFit](../funcs/l/linearinterpolatefit.md)。
 
 **三次样条插值法**
 
 在给定的数据点区间内，假设曲线三次多项式，且需要满足边界点等于给定数值。因此在每个区间内，需要求解 4 个待定系数。假设共有 n 个区间，那么需要确定 4n
-个参数，来确定整条曲线分段的插值函数。此种插值方法称为三次样条插值。详情参见手册：[cubicSpline](../funcs/c/cubicspline.html)。
+个参数，来确定整条曲线分段的插值函数。此种插值方法称为三次样条插值。详情参见手册：[cubicSpline](../funcs/c/cubicspline.md)。
 
 **克罗格插值法**
 
@@ -65,7 +65,7 @@ Krogh
 插值法为一种多项式插值方法，通过构建一个多项式，使其不仅通过所有给定的数据点，还要满足这些点的导数条件，这样的插值称为**埃尔米特（Hermite）插值**。
 该多项式通过所有给定的 (xi, yi) 数据点，xi
 为给点的期限时间，yi 为对应的利率值。此外，通过指定每个 xi 的导数数量，通过重复值
-xi 并将导数指定为连续的 yi 值来实现插值。详情参见手册：[kroghInterpolate](../funcs/k/kroghinterpolate.html)。
+xi 并将导数指定为连续的 yi 值来实现插值。详情参见手册：[kroghInterpolate](../funcs/k/kroghinterpolate.md)。
 
 ### 1.5 曲线拟合方法介绍
 
@@ -73,14 +73,14 @@ xi 并将导数指定为连续的 yi 值来实现插值。详情参见手册：[
 
 分段线性拟合（piecewise linear fit）是一种通过线性回归，来描述 (xi, yi)
 之间关系的拟合方法。
-此方法假设，两个已知点之间的期限和收益率之间服从线性关系。分段线性回归方法则是将已知数据点按照所选择的分段数量（segments），逐段进行线性回归，并利用最小二乘法（OLS），通过最小化平方误差之和，确定给定数量的线段断点的最优位置。详情参见手册：[piecewiseLinFit](../funcs/p/piecewiselinfit.html)。
+此方法假设，两个已知点之间的期限和收益率之间服从线性关系。分段线性回归方法则是将已知数据点按照所选择的分段数量（segments），逐段进行线性回归，并利用最小二乘法（OLS），通过最小化平方误差之和，确定给定数量的线段断点的最优位置。详情参见手册：[piecewiseLinFit](../funcs/p/piecewiselinfit.md)。
 
 **多项式拟合**
 
 根据给定的数据点集 (xi, yi) ，通过一个多项式函数，使拟合曲线尽可能接近已知的数据点。
 
 通过建立一个 n 阶多项式，其中 n 决定了拟合的精度和计算复杂度。 一般来说，阶数 n 越高，拟合精度越高。 在选择阶数 n
-的时候，同时需要考虑阶数过高可能导致的过拟合现象。详情参见手册：[polyFit](../funcs/p/polyfit.html)。
+的时候，同时需要考虑阶数过高可能导致的过拟合现象。详情参见手册：[polyFit](../funcs/p/polyfit.md)。
 
 **nss 拟合**
 
@@ -89,7 +89,7 @@ Nelson-Siegel 拟合函数，是根据 Nelson-Siegel (1987) 所建立的一种�
 分别代表了曲线的长期水平（level）, 曲线的斜率（slope）和曲线的曲度（curvature)。此外参数 λ 为衰减速率因子。
 
 Nelson-Siegel-Svensson （nss模型）通过增加一个额外的参数 β3
-，来对应曲线的额外曲度项，从而提高对于长期利率预测的拟合精度，同时引入另外一个控制衰减速率的因子 λ1 。详情参见手册：[nss](../funcs/n/nss.html)。
+，来对应曲线的额外曲度项，从而提高对于长期利率预测的拟合精度，同时引入另外一个控制衰减速率的因子 λ1 。详情参见手册：[nss](../funcs/n/nss.md)。
 
 ## 2. 估值定价函数
 
@@ -120,12 +120,12 @@ DolphinDB 针对 FICC 业务场景的特点，开发了一系列估值定价函�
 **债券应计利息**
 
 债券的定价日期（settlement
-date）是指距离上一次付息日所经过的时间，此期间累积的债券票息收益归债券持有人所有。尽管债券交易中的报价通常以净价形式呈现，但在交易达成后的结算中使用的是债券全价。详情参见手册：[bondAccrInt](../funcs/b/bondaccrint.html)。
+date）是指距离上一次付息日所经过的时间，此期间累积的债券票息收益归债券持有人所有。尽管债券交易中的报价通常以净价形式呈现，但在交易达成后的结算中使用的是债券全价。详情参见手册：[bondAccrInt](../funcs/b/bondaccrint.md)。
 
 **债券全价计算**
 
 债券是一种由发行人（政府、公司或金融机构）向投资者借款的一种资产类型。 发行人在发行时约定未来按照某个时间频率偿还本金及支付利息。
-因为绝大部分债券在发行时就已经确定了未来现金流的时间，因此可以通过按照对应的到期收益率进行折现的方式，计算出债券的当前价格。详情参见手册：[bondDirtyPrice](../funcs/b/bondDirtyPrice.html)。
+因为绝大部分债券在发行时就已经确定了未来现金流的时间，因此可以通过按照对应的到期收益率进行折现的方式，计算出债券的当前价格。详情参见手册：[bondDirtyPrice](../funcs/b/bondDirtyPrice.md)。
 
 **债券收益率计算**
 
@@ -139,7 +139,7 @@ extrapolation）。
 债券收益率的计算是根据债券的净价和未来现金流，反算债券净价计算公式中的到期收益率。
 由于债券净价计算公式为关于到期收益率的高阶非线性函数，因此需要用到规划求解器（solver），通过数量方法（numerical
 method），进行求解。目前债券收益率函数支持多种常见的规划求解器，包括牛顿法（Newton）, brent， Nelder-Mead，BFGS
-等。详情参见手册：[bondYield](../funcs/b/bondyield.html)。
+等。详情参见手册：[bondYield](../funcs/b/bondyield.md)。
 
 #### 2.3.2 利率互换定价函数
 
@@ -148,7 +148,7 @@ method），进行求解。目前债券收益率函数支持多种常见的规�
 
 按照定义，利率互换的固定端支付方为利率互换合约的买方，浮动端支付方为利率互换合约的卖方。利率互换的合约价值等于固定端现值和浮动端现值和的轧差。自营机构可以根据目前的持仓结构，通过使用利率互换，匹配资产和负债两端的现金流。
 
-此外，利率互换合约的固定端利率水平，一定程度上反映了市场对未来利率走势的预期，为利率类产品的投资提供决策工具。详情参见手册：[irs](../funcs/i/irs.html)。
+此外，利率互换合约的固定端利率水平，一定程度上反映了市场对未来利率走势的预期，为利率类产品的投资提供决策工具。详情参见手册：[irs](../funcs/i/irs.md)。
 
 #### 2.3.3 香草期权定价函数
 
@@ -159,7 +159,7 @@ Options）。欧式期权持有者只可以在合约到期日（expiration
 date），才能选择是否行权；美式期权持有者可以在合约到期日之前选择是否行权，如果提前行权，该合约提前结束。
 
 在 FICC
-业务场景中，期权可以提供风险对冲，套利交易，策略增强等功能，也可以用于设计更为复杂的结构性产品。期权的准确定价对以上业务的开展提供有力的决策工具。详情参见手册：[vanillaOption](../funcs/v/vanillaoption.html)。
+业务场景中，期权可以提供风险对冲，套利交易，策略增强等功能，也可以用于设计更为复杂的结构性产品。期权的准确定价对以上业务的开展提供有力的决策工具。详情参见手册：[vanillaOption](../funcs/v/vanillaoption.md)。
 
 #### 2.3.4 信用违约互换估值函数
 
@@ -172,7 +172,7 @@ CDS 是管理信用风险的主要工具之一。在 FICC 业务场景下，可�
 合约的市场价格，反算实体的信用利差，进而推导出违约概率。企业在选择进行发债时，也可以通过嵌入 CDS
 合约的方式，来降低债券的信用风险，从而提高信用评级。抑或是通过当前 CDS 市场价格，参照估值定价模型所给出的理论价值，进行套利交易。
 
-详情参见手册：[cds](../funcs/c/cds.html)。
+详情参见手册：[cds](../funcs/c/cds.md)。
 
 #### 2.3.5 信用风险缓释凭证定价函数
 
@@ -181,7 +181,7 @@ Credit Risk Mitigation Warrant （CRMW） 信用风险缓释凭证为一种管�
 凭证持有方也需要向卖方支付信用保护费用，以换取底层资产发生违约时候的赔偿保护。
 
 CRMW 凭证和 CDS 的区别在于，CRMW 凭证主要保护的是特定资产的信用事件，而 CDS 主要保护的是实体信用事件；此外，CRMW
-凭证多为标准化合约，流动性高，可以在二级市场上交易，而 CDS 多为场外合约，主要通过对手方直接达成交易。详情参见手册：[crmwCBond](../funcs/c/crmwcbond.html)。
+凭证多为标准化合约，流动性高，可以在二级市场上交易，而 CDS 多为场外合约，主要通过对手方直接达成交易。详情参见手册：[crmwCBond](../funcs/c/crmwcbond.md)。
 
 #### 2.3.6 国债期货转换因子函数
 
@@ -190,7 +190,7 @@ seller）可以选择市面上流通的符合要求的国债进行交割。
 
 由于每个交易日市面上流通的国债的剩余期限、票面利率、付息频率、计息基准不同，因此需要一套转换机制，将不同品种的国债按照一定规则转换成对等的名义标准券，才可以进行交割。
 
-国债转换因子的计算方法，不同交易所有不同规则。目前的函数是根据[中金所推荐方法](http://www.cffex.com.cn/5tf/)对转换因子进行计算。详情参见手册：[treasuryConversionFactor](../funcs/t/treasuryconversionfactor.html)。
+国债转换因子的计算方法，不同交易所有不同规则。目前的函数是根据[中金所推荐方法](http://www.cffex.com.cn/5tf/)对转换因子进行计算。详情参见手册：[treasuryConversionFactor](../funcs/t/treasuryconversionfactor.md)。
 
 ## 3. 风险计量函数
 
@@ -204,7 +204,7 @@ VaR。
 
 **债券久期**
 
-债券的久期（duration） 是衡量债券价格对于利率变动的风险指标。债券的久期越大，市场利率每变动1个基点时，债券的价格变动幅度越大。详情参见手册：[bondDuration](../funcs/b/bondDuration.html)。
+债券的久期（duration） 是衡量债券价格对于利率变动的风险指标。债券的久期越大，市场利率每变动1个基点时，债券的价格变动幅度越大。详情参见手册：[bondDuration](../funcs/b/bondDuration.md)。
 
 债券久期作为风险指标，在 FICC 业务中有多种重要用途：
 
@@ -215,7 +215,7 @@ VaR。
 
 **债券凸性**
 
-债券凸性实际上是债券价格对于利率变动的二阶导数。详情参见手册：[bondConvexity](../funcs/b/bondconvexity.html)。
+债券凸性实际上是债券价格对于利率变动的二阶导数。详情参见手册：[bondConvexity](../funcs/b/bondconvexity.md)。
 
 在实际应用中，使用久期和凸性两个债券价格敏感性指标，来计算债券价格变动更为准确。这是因为单独使用久期进行计算，则假设为债券价格变化与利率之间为线性关系，而实际上，债券价格变动与利率之间为非线性关系。加上二次敏感性，即凸性，可以更准确的反映大幅度利率变动对于债券价格的影响。
 
@@ -232,7 +232,7 @@ VaR。
 * **Vega** 为期权价格对于底层资产价格波定性 σ 的一阶导数，反映的是期权价格对于资产波动性的敏感性。
 * **Rho** 为期权价格对于无风险利率 r 的一阶导数，反映的是期权价格对于无风险利率的敏感性。
 
-详情参见手册：[vanillaOption](../funcs/v/vanillaoption.html)。
+详情参见手册：[vanillaOption](../funcs/v/vanillaoption.md)。
 
 ### 3.3 在险价值
 
@@ -270,7 +270,7 @@ P，得到 VaR 值。
 以股票为例，假设股票价格服从几何布朗运动（Geometric Brownian
 Motion），通过随机生成大量价格路径，计算每条路径的收益或损失。根据所有的收益损失、已经选取的置信水平对应的分位数，确定 VaR 值。
 
-以上所介绍的 VaR 值得计算方法各有其优势，使用者应该根据实际需求和数据特性，权衡各种方法的利弊，选取适合的方法。详情参见手册：[valueAtRisk](../funcs/v/var_0.html)。
+以上所介绍的 VaR 值得计算方法各有其优势，使用者应该根据实际需求和数据特性，权衡各种方法的利弊，选取适合的方法。详情参见手册：[valueAtRisk](../funcs/v/var_0.md)。
 
 ### **3.4 期望损失**
 
@@ -281,7 +281,7 @@ Motion），通过随机生成大量价格路径，计算每条路径的收益�
 的损失阈值，所遭受的全部损失的期望值为多少。因此 `condValueAtRisk` 的本质为一个期望值。
 
 `condValueAtRisk`
-函数的计算方法为对损益部分求取平均值，支持正态参数法、对数正态参数法、历史模拟法、蒙特卡洛模拟法等。详情参见手册：[condValueAtRisk](../funcs/c/cvar.html)
+函数的计算方法为对损益部分求取平均值，支持正态参数法、对数正态参数法、历史模拟法、蒙特卡洛模拟法等。详情参见手册：[condValueAtRisk](../funcs/c/cvar.md)
 
 ## 4. 具体场景案例
 
@@ -319,12 +319,12 @@ XBondDepthData = XBondDepth(tradeDate=tradeDate, securityNumber=secCount)
 XBondTradeData = XBondTrade(tradeDate=tradeDate, securityNumber=secCount)
 ```
 
-MockData生成模块脚本链接：[金融 Mock 数据生成模块](financial_mock_data_generation_module.html)。
+MockData生成模块脚本链接：[金融 Mock 数据生成模块](financial_mock_data_generation_module.md)。
 
 ### 4.2 计算订单簿指标
 
 通过X-Bond Depth 表和 X-Bond Trade 表， 可以计算订单不平衡（Order Imbalance）、深度不平衡（Depth
-Imbalance）、 宽度不平衡（Height Imbalance）、 和买卖压力（Press）等订单簿指标。指标计算方法参考： [深度不平衡、买卖压力指标、波动率计算](sql_performance_optimization_wap_di_rv.html)。
+Imbalance）、 宽度不平衡（Height Imbalance）、 和买卖压力（Press）等订单簿指标。指标计算方法参考： [深度不平衡、买卖压力指标、波动率计算](sql_performance_optimization_wap_di_rv.md)。
 
 由于篇幅限制，本教程仅展示指标计算的核心代码部分，完整代码请参考附件。
 
@@ -362,7 +362,7 @@ def getPress(bidPrice1, bidQty1, askPrice1, askQty1){
 }
 ```
 
-可以通过配置 [Dashboard](dashboard_tutorial.html) ， 展现指标计算结果。
+可以通过配置 [Dashboard](dashboard_tutorial.md) ， 展现指标计算结果。
 
 ![](images/ficc_funcs_application/4-1.png)
 
@@ -381,7 +381,7 @@ Krogh 插值、 分段回归、 多项式拟合、 NS/NSS 模型等。可以根�
 
 ![](images/ficc_funcs_application/4-2.png)
 
-目前仅支持拟合债券收益率曲线，后续将逐步支持其它类型的收益率曲线和衍生品曲线，如期权波动率曲线，远期利率，信用利差曲线等。曲线拟合引擎详情参见手册：[createYieldCurveEngine](../funcs/c/createyieldcurveengine.html)
+目前仅支持拟合债券收益率曲线，后续将逐步支持其它类型的收益率曲线和衍生品曲线，如期权波动率曲线，远期利率，信用利差曲线等。曲线拟合引擎详情参见手册：[createYieldCurveEngine](../funcs/c/createyieldcurveengine.md)
 
 ```
 // 定义曲线拟合引擎脚本
@@ -446,7 +446,7 @@ def createCurveEngine(){
 
 ![](images/ficc_funcs_application/4-3.png)
 
-获得各类曲线之后，就可以对债券进行估值。和曲线插值拟合类似，可以调用估值定价引擎，批量对债券进行估值定价。估值定价引擎详情参见手册：[createPricingEngine](../funcs/c/createpricingengine.html)。
+获得各类曲线之后，就可以对债券进行估值。和曲线插值拟合类似，可以调用估值定价引擎，批量对债券进行估值定价。估值定价引擎详情参见手册：[createPricingEngine](../funcs/c/createpricingengine.md)。
 
 ```
 def createPriceEngine(securityReference){

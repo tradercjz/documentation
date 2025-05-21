@@ -9,7 +9,7 @@ colNames, colTypes, [asyncWrite=true], [compress=true], [cacheSize],
 
 ## 详情
 
-创建一个最新值键值流数据表，并将它持久化到磁盘上。参考 [latestKeyedStreamTable](../l/latestkeyedstreamtable.html) 和 [enableTableShareAndPersistence](../e/enableTableShareAndPersistence.html)。
+创建一个最新值键值流数据表，并将它持久化到磁盘上。参考 [latestKeyedStreamTable](../l/latestkeyedstreamtable.md) 和 [enableTableShareAndPersistence](../e/enableTableShareAndPersistence.md)。
 
 **返回值**：一个 DStream 对象。
 

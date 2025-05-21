@@ -125,7 +125,7 @@ share keyedTable(`PosiDirection`InstrumentID,10:0,colNames,colTypes) as `GreekTa
 CTP 行情数据接入：
 
 [DolphinDB CTP
-行情插件最佳实践指南](../plugins/ctp_best_practice.html)。
+行情插件最佳实践指南](../plugins/ctp_best_practice.md)。
 
 CTP 交易数据接入：
 
@@ -831,12 +831,12 @@ subscribeTable(tableName="InvestorPositionTable", actionName="calGreeks", offset
 | **Theta** | DOUBLE | Theta |
 
 利用 DolphinDB 的 Dashboard 或者通过 Grafana 对结果表进行可视化展示。例如，通过 DolphinDB 自带的 Dashboard
-进行的展示，在配置持仓明细表为数据源后，设置每秒自动刷新面板，用户即可实时、直观地看到观测到持仓明细表的变化。Dashboard 的相关教程如下：[数据面板](dashboard_tutorial.html)。
+进行的展示，在配置持仓明细表为数据源后，设置每秒自动刷新面板，用户即可实时、直观地看到观测到持仓明细表的变化。Dashboard 的相关教程如下：[数据面板](dashboard_tutorial.md)。
 
 ## 5. 历史数据处理
 
 针对于历史成交信息，可以通过 DolphinDB
-的数据回放功能，将历史的成交信息回放来合成开平仓信息，然后订阅持仓明细表，就可以合成最新的持仓明细了。回放功能的相关教程如下：[replay](../funcs/r/replay.html)。
+的数据回放功能，将历史的成交信息回放来合成开平仓信息，然后订阅持仓明细表，就可以合成最新的持仓明细了。回放功能的相关教程如下：[replay](../funcs/r/replay.md)。
 
 ## 6. 总结
 

@@ -32,5 +32,5 @@ for(s in 0:200){
 clearTablePersistence(st);
 ```
 
-相关函数：[enableTablePersistence](../e/enableTablePersistence.html), [disableTablePersistence](../d/disableTablePersistence.html)
+相关函数：[enableTablePersistence](../e/enableTablePersistence.md), [disableTablePersistence](../d/disableTablePersistence.md)
 

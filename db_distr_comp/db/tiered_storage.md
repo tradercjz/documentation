@@ -15,7 +15,7 @@ DolphinDB 支持通过函数设置数据保留策略和分级存储策略，通�
 
 数据保留策略以数据库的分区为单位，即数据库下所有表都遵循相同的数据保留策略，且要求分区方案必须包含 DATE 类型或 DATEHOUR 类型。
 
-DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 函数设置数据的保留时间。系统会根据当前的机器时间，保留时间戳在最近保留时间范围内的数据，并删除超过保留期限
+DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.md) 函数设置数据的保留时间。系统会根据当前的机器时间，保留时间戳在最近保留时间范围内的数据，并删除超过保留期限
 10 天之内的数据。
 
 注： 数据保留策略比较的是系统的机器时间与数据分区字段的时间，而非数据写入的时间。
@@ -24,7 +24,7 @@ DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 函
 
 DolphinDB 的分级存储策略以数据库的分区为单位，即数据库下所有表都遵循相同的分级存储策略。
 
-DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 函数设置热数据的保留时间。系统会根据当前的机器时间，保留规定的保留时间范围内的热数据。超过该保留时间 10
+DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.md) 函数设置热数据的保留时间。系统会根据当前的机器时间，保留规定的保留时间范围内的热数据。超过该保留时间 10
 天内的热数据，系统会将其作为冷数据转移存储。
 
 注： 分级存储策略比较的是系统的机器时间与数据分区字段的时间，而非数据写入的时间。
@@ -33,7 +33,7 @@ DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 函
 
 分级存储以分区为单位，将每个节点的分区副本迁移到低速磁盘或者 S3 对象存储中。数据迁移内部的大致流程：
 
-1. 用户使用 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 函数设置 *hoursToColdVolume* 来配置热数据的保留时间。
+1. 用户使用 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.md) 函数设置 *hoursToColdVolume* 来配置热数据的保留时间。
 2. DolphinDB 后台线程根据时间分区检查需要被迁移的数据，创建数据迁移任务。
 3. 执行迁移任务，拷贝对应的数据文件到本地路径，或使用 AWS S3 插件多线程上传数据到 S3 路径。在迁移时，分区会暂时不可用。
 4. 修改已迁移分区的元数据，更新分区路径，修改分区权限为 `READ_ONLY`，即可以使用
@@ -42,7 +42,7 @@ DolphinDB 通过 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html) 函
 
 ### 自动数据迁移触发机制
 
-使用 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.html)
+使用 [setRetentionPolicy](../../funcs/s/setRetentionPolicy.md)
 函数设置好 *hoursToColdVolume* 后，DolphinDB 会使用后台工作线程，每隔1小时以分区为单位检查部分数据库在
 `[当前时间 - hoursToColdVolume - 10天，当前时间 -
 hoursToColdVolume)`范围内是否存在需要被迁移的数据，如果存在，则触发数据迁移，生成对应的数据迁移任务。由于每次只检查并触发部分数据库的数据迁移，可以有效减少迁移的压力，提高可用性。
@@ -72,7 +72,7 @@ hoursToColdVolume)`范围内是否存在需要被迁移的数据，如果存在�
 配置合理的自动转存策略，再通过 `moveHotDataToColdVolume`
 进行批量迁移，最后由系统自动迁移冷数据。
 
-可以通过 [getRecoveryTaskStatus](../../funcs/g/getRecoveryTaskStatus.html) 函数来查看数据迁移任务的执行状态：
+可以通过 [getRecoveryTaskStatus](../../funcs/g/getRecoveryTaskStatus.md) 函数来查看数据迁移任务的执行状态：
 
 ```
 rpc(getControllerAlias(), getRecoveryTaskStatus)
@@ -116,7 +116,7 @@ s3SecretAccessKey={your_access_screet_key}
 s3Region={your_s3_region}
 ```
 
-关于配置项的更多细节请参考[功能配置](../cfg/function_configuration.html)。
+关于配置项的更多细节请参考[功能配置](../cfg/function_configuration.md)。
 
 ## 使用示例
 

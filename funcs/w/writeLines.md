@@ -9,7 +9,7 @@
 
 **length** 是往句柄中写入的行数。
 
-其他参数同 [writeLine](writeLine.html) 函数。
+其他参数同 [writeLine](writeLine.md) 函数。
 
 ## 详情
 

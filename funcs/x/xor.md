@@ -35,5 +35,5 @@ true xor false
 1
 ```
 
-相关函数：[or](../o/or.html), [not](../n/not.html)
+相关函数：[or](../o/or.md), [not](../n/not.md)
 

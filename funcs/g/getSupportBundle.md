@@ -6,7 +6,7 @@
 
 ## 参数
 
-**dir** 可选参数，用于指定存储路径。若不指定该参数，单节点环境下默认存储至 <HomeDir>（可通过 [getHomeDir](getHomeDir.html) 查看
+**dir** 可选参数，用于指定存储路径。若不指定该参数，单节点环境下默认存储至 <HomeDir>（可通过 [getHomeDir](getHomeDir.md) 查看
 <HomeDir>）；集群环境下默认存储至 <HomeDir> 同级目录。
 
 ## 详情

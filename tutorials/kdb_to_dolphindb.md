@@ -121,7 +121,7 @@ Orders2 = kdb::loadFile(DATA_DIR + "/2022.06.17/Orders/", DATA_DIR + "/sym")
 * kdb+ 中的 long 类型与 DolphinDB 的 LONG 数据类型的后缀标识不同。一个值为42的长型整数若表示为 `42j`，则无法被 DolphinDB 识别。
 * kdb+ 中的 month 类型后缀标识为 m，而 DolphinDB 使用 m 作为 MINUTE 类型的后缀，使用 M 作为 MONTH 类型的后缀。故 2006.07m 在 DolphinDB 中会报错。
 * DolphinDB 使用4个字节存放 DATETIME 类型，而 kdb+ 使用8个字节存放 datetime 类型。
-* DolphinDB 的 SYMBOL 类型是特殊的字符串类型，相当于枚举类型。通过 SYMBOL，将字符串存储为一个整数，因此可更高效地进行数据排序。具体使用请参照[数据类型](../progr/data_types.html)。
+* DolphinDB 的 SYMBOL 类型是特殊的字符串类型，相当于枚举类型。通过 SYMBOL，将字符串存储为一个整数，因此可更高效地进行数据排序。具体使用请参照[数据类型](../progr/data_types.md)。
 
 #### 关于 NULL 和 INF
 
@@ -129,7 +129,7 @@ DolphinDB 不提供表示各个类型正负无穷值的字面量。对于整型�
 
 通过函数 `isVoid` 判断是否为 VOID 类型的 NULL，通过函数 `isNull` 和 `isValid` 可以检查所有 NULL 值，包括 VOID 和有类型的 NULL。对于不关心 NULL 类型的用户，建议使用 `isNull` 或 `isValid` 进行条件判断。
 
-对于 NULL 值的初始化、运算，以及在普通向量函数、聚合函数和高阶函数中的使用方法，参考[NULL 值的操作](../progr/data_mani/null_oper.html)。
+对于 NULL 值的初始化、运算，以及在普通向量函数、聚合函数和高阶函数中的使用方法，参考[NULL 值的操作](../progr/data_mani/null_oper.md)。
 
 #### 其他数据类型
 
@@ -146,7 +146,7 @@ DolphinDB 不提供表示各个类型正负无穷值的字面量。对于整型�
 * DolphinDB 的 ANY DICTIONARY 表示 JSON 数据类型。
 * DolphinDB 字典的键必须是标量，值可以是任何数据形式与数据类型。支持字典嵌套。kdb+ 的字典在输出或进行遍历时，键值对会保留输入时的顺序，但 DolphinDB 的字典是否保留键值顺序由创建时用户传入的 ordered 参数决定。字典默认不保留键值输入顺序，按照 key 在 bucket 内的顺序输出键值对。若创建字典时用户指定 ordered = true，则键值对的顺序与输入顺序保持一致。
 * kdb+ 的矩阵由嵌套的 list 表示，遵循行优先。DolphinDB 的矩阵提供数据类型 matrix 存放矩阵，遵循列优先。kdb+ 矩阵输入到 DolphinDB 时需要转换方向。
-* DolphinDB 支持包括标量、向量、数据对、矩阵、集合、字典和表在内的多种数据形式，并针对不同的使用场景做了具体优化。请参考[数据形式](../progr/data_forms.html)。
+* DolphinDB 支持包括标量、向量、数据对、矩阵、集合、字典和表在内的多种数据形式，并针对不同的使用场景做了具体优化。请参考[数据形式](../progr/data_forms.md)。
 
 #### 数据类型检查函数
 
@@ -545,5 +545,5 @@ timer x, y = y, x;        // Time elapsed: 1240.119 ms
 timer {&t=x;&x=y;&y=t;}      // Time elapsed: 0.004 ms
 ```
 
-* DolphinDB 允许用户通过取消变量或函数定义来手动释放内存。使用 `undef` 或 `<variable>=NULL`，详情请参考[undef](../funcs/u/undef.html)。
+* DolphinDB 允许用户通过取消变量或函数定义来手动释放内存。使用 `undef` 或 `<variable>=NULL`，详情请参考[undef](../funcs/u/undef.md)。
 

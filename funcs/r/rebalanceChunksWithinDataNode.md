@@ -29,7 +29,7 @@ false，则不进行数据平衡。它只能在集群环境下由管理员在控
 | srcVolume | 源磁盘卷 |
 | destVolume | 目标磁盘卷 |
 
-调用该函数进行数据平衡后，可以在控制节点上执行 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.html) 查看任务执行的状态。
+调用该函数进行数据平衡后，可以在控制节点上执行 [getRecoveryTaskStatus](../g/getRecoveryTaskStatus.md) 查看任务执行的状态。
 
 注： 自 2.00.12 版本起，rebalanceChunksWithinDataNode 支持单节点模式。
 

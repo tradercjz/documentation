@@ -55,5 +55,5 @@ bondConvexity(settlement=2023.01.01, maturity=2030.12.31, coupon=0.05, yield=0.0
 50.78238914091385
 ```
 
-相关函数：[bondAccrInt](bondaccrint.html)、[bondCalculator](bondCalculator.html)、[bondDirtyPrice](bondDirtyPrice.html)、[bondDuration](bondDuration.html)、[bondYield](bondyield.html)
+相关函数：[bondAccrInt](bondaccrint.md)、[bondCalculator](bondCalculator.md)、[bondDirtyPrice](bondDirtyPrice.md)、[bondDuration](bondDuration.md)、[bondYield](bondyield.md)
 

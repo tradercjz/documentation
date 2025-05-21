@@ -4,11 +4,11 @@ DolphinDB中的时间序列对象不包括时区信息，它是由用户来决�
 
 DolphinDB能够自动识别本地时区。我们可以使用以下函数实现时间转换：
 
-(1) [localtime](../../funcs/l/localtime.html) 能够把零时区时间（格林尼治时间）转换成本地时间。
+(1) [localtime](../../funcs/l/localtime.md) 能够把零时区时间（格林尼治时间）转换成本地时间。
 
-(2) [gmtime](../../funcs/g/gmtime.html) 能够把本地时间转换成零时区时间（格林尼治时间）。
+(2) [gmtime](../../funcs/g/gmtime.md) 能够把本地时间转换成零时区时间（格林尼治时间）。
 
-(3) [convertTZ](../../funcs/c/convertTZ.html) 能够转换任意两个时区的时间。
+(3) [convertTZ](../../funcs/c/convertTZ.md) 能够转换任意两个时区的时间。
 
 如果原时区或目标时区实行夏令时，时区转换函数会自动处理夏令时。
 

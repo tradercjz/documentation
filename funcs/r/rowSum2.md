@@ -4,7 +4,7 @@
 
 `rowSum2(args...)`
 
-row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.html)
+row 系列函数通用参数说明和计算规则请参考：[rowFunctions](../themes/rowFunctions.md)
 
 ## 详情
 
@@ -41,5 +41,5 @@ select sym,rowSum2(price1,price2) as price2Sum from t;
 | IBM | 81.31 |
 | C | 201.2 |
 
-相关函数：[sum2](../s/sum2.html)
+相关函数：[sum2](../s/sum2.md)
 

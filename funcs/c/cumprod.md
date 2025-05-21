@@ -20,5 +20,5 @@ cumprod(m);
 | 2 | 20 |
 | 6 | 120 |
 
-相关函数：[prod](../p/prod.html)
+相关函数：[prod](../p/prod.md)
 

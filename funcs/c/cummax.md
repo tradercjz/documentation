@@ -4,7 +4,7 @@
 
 `cummax(X)`
 
-参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.html)
+参数说明和窗口计算规则请参考：[累计窗口系列（cum 系列）](../themes/cumFunctions.md)
 
 ## 详情
 
@@ -42,5 +42,5 @@ cummax(m);
 | 8 | 9 |
 | 8 | 10 |
 
-相关函数：[cummin](cummin.html), [max](../m/max.html)
+相关函数：[cummin](cummin.md), [max](../m/max.md)
 

@@ -8,7 +8,7 @@ keyColumn2, [keyPurgeFilter1], [keyPurgeFilter2],
 
 ## 详情
 
-创建流计算 Dual Ownership 响应式状态引擎。参考：[createDualOwnershipReactiveStateEngine](../c/createDualOwnershipReactiveStateEngine.html)。
+创建流计算 Dual Ownership 响应式状态引擎。参考：[createDualOwnershipReactiveStateEngine](../c/createDualOwnershipReactiveStateEngine.md)。
 
 **返回值**：一个 DStream 对象。
 

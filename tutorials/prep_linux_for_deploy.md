@@ -45,7 +45,7 @@ Swap 即交换分区，在物理内存不够用时，操作系统会从物理内
 
 ### 单节点、单机集群、多机集群的选择
 
-本节介绍不同部署方式之间的比较重要的差异，不同部署方式的功能和应用场景的完整列表见[《DolphinDB 安装使用指南》](dolphindb_user_guide.html)。
+本节介绍不同部署方式之间的比较重要的差异，不同部署方式的功能和应用场景的完整列表见[《DolphinDB 安装使用指南》](dolphindb_user_guide.md)。
 
 * 相同单机资源，部署单节点和单机集群的差异
 
@@ -142,14 +142,14 @@ sites=175.178.100.3:8960:agent1:agent,175.178.100.3:8990:controller1:controller,
 
 DolphinDB为各种部署方式提供了详细的教程，在决定部署方式和配置后，根据教程部署即可，本文涉及的部署方式教程链接如下：
 
-* [单节点部署](standalone_server.html)
-* [单节点部署（嵌入式ARM版本）](ARM_standalone_deploy.html)
-* [单服务器集群部署](single_machine_cluster_deploy.html)
-* [多服务器集群部署](multi_machine_cluster_deployment.html)
-* [高可用集群部署教程](ha_cluster_deployment.html)
-* [如何扩展集群节点和存储](scale_out_cluster.html)
-* [基于 Docker单机部署方案](docker_single_deployment.html)
-* [基于Docker-Compose的DolphinDB多容器集群部署](docker-compose_high_cluster.html)
+* [单节点部署](standalone_server.md)
+* [单节点部署（嵌入式ARM版本）](ARM_standalone_deploy.md)
+* [单服务器集群部署](single_machine_cluster_deploy.md)
+* [多服务器集群部署](multi_machine_cluster_deployment.md)
+* [高可用集群部署教程](ha_cluster_deployment.md)
+* [如何扩展集群节点和存储](scale_out_cluster.md)
+* [基于 Docker单机部署方案](docker_single_deployment.md)
+* [基于Docker-Compose的DolphinDB多容器集群部署](docker-compose_high_cluster.md)
 
 **注意**：在 windows 系统下部署时，部署路径不能包含中文。
 
@@ -179,7 +179,7 @@ $ ./startAgent.sh
 
 #### 启动数据节点
 
-进入任意一个控制节点的 Web 集群管理界面，如 [http://175.178.100.3:8990](http://175.178.100.3:8990)，会自动跳转到 leader 节点的集群管理界面。在节点列表选中所有数据节点，点击启动按钮启动即可。Web 集群管理界面具体介绍见 [DolphinDB Web 集群管理界面](../db_distr_comp/db_man/web/intro.html)。
+进入任意一个控制节点的 Web 集群管理界面，如 [http://175.178.100.3:8990](http://175.178.100.3:8990)，会自动跳转到 leader 节点的集群管理界面。在节点列表选中所有数据节点，点击启动按钮启动即可。Web 集群管理界面具体介绍见 [DolphinDB Web 集群管理界面](../db_distr_comp/db_man/web/intro.md)。
 
 ## 附件
 

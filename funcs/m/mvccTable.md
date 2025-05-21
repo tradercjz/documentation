@@ -45,7 +45,7 @@ true，允许包含空值。
 创建一个多版本并发控制的表（MVCC
 表）。我们可以对该表进行并发读写。多版本并发控制的表适用于频繁读写但很少更新和删除记录的场景。
 
-如果指定了 *path* 和 *tableName* 参数，会把表持久化到硬盘上。通过 [loadMvccTable](../l/loadMvccTable.html) 函数，可以把磁盘上的表加载到内存中。
+如果指定了 *path* 和 *tableName* 参数，会把表持久化到硬盘上。通过 [loadMvccTable](../l/loadMvccTable.md) 函数，可以把磁盘上的表加载到内存中。
 
 注：
 

@@ -4,7 +4,7 @@
 
 `tmavg(T, X, window)`
 
-参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.html)
+参数说明和窗口计算规则请参考：[tmFunctions](../themes/tmFunctions.md)
 
 ## 详情
 
@@ -57,5 +57,5 @@ select *, tmavg(t, x, 1w) from m
 | 2021.01.07 | 2 | 1.6 |
 | 2021.01.08 | 4 | 2 |
 
-相关函数：[mavg](../m/mavg.html), [avg](../a/avg.html)
+相关函数：[mavg](../m/mavg.md), [avg](../a/avg.md)
 

@@ -15,9 +15,9 @@ outputTable, timeColumn, [keyColumn], [windowSize], [step], [garbageSize],
 `talibNull`, `linearTimeTrend`,
 `iterate`；亦不支持在序列相关函数内部嵌套聚合函数，如：`tmsum(sum())`。
 
-为了便于观察和对比计算结果，系统会对第一个数据窗口的起始时间进行调整。调整规则与 [createTimeSeriesEngine](createTimeSeriesEngine.html) 相同。
+为了便于观察和对比计算结果，系统会对第一个数据窗口的起始时间进行调整。调整规则与 [createTimeSeriesEngine](createTimeSeriesEngine.md) 相同。
 
-更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.html)。
+更多流数据引擎的应用场景说明可以参考 [流计算引擎](../themes/streamingEngine.md)。
 
 ## 计算规则
 
@@ -54,7 +54,7 @@ outputTable, timeColumn, [keyColumn], [windowSize], [step], [garbageSize],
 **name** 字符串标量，表示异常检测引擎的名称，作为其在一个数据节点/计算节点上的唯一标识。可包含字母，数字和下划线，但必须以字母开头。
 
 **metrics** 以元代码或元组的格式表示异常指标，每个异常指标必须是布尔表达式，如<[sum(qty) >
-5, avg(qty) > qty, qty < 4]>。有关元代码的更多信息可参考 [元编程](../../progr/objs/meta_progr.html)。
+5, avg(qty) > qty, qty < 4]>。有关元代码的更多信息可参考 [元编程](../../progr/objs/meta_progr.md)。
 
 注： *metrics* 中使用的列名大小写不敏感，不需要与输入表的列名大小写保持一致。
 

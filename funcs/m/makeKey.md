@@ -30,5 +30,5 @@ a2_2->200
 a1_1->100
 ```
 
-相关函数：[makeSortedKey](makeSortedKey.html)
+相关函数：[makeSortedKey](makeSortedKey.md)
 
